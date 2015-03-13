@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * Das Spielfeld, auf dem die Spielfiguren stehen
+ *
+ */
 public class Spielbrett {
 	
 	Spielfeld [] spielBrett;
