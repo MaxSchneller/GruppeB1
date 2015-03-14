@@ -26,10 +26,14 @@ public class Spieler {
 		
 		this.wuerfel = new Würfel();
 		this.name = name;
+		this.spielfiguren = new Spielfigur[4];
 		
+		// Vorläufige Implementierung
+		// wird vielleicht problematisch bei Serialisierung
 		for (int i = 0; i < 4; ++i) {
 			
-			// TODO: Spielfiguren erstellen
+			this.spielfiguren[i] = new Spielfigur(farbe);
+			
 		}
 	}
 	

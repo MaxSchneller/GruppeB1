@@ -9,14 +9,22 @@ public class Spielfigur {
 	private Spielfeld spielfeld;
 	
 	/**
+	 * Erstellt eine neu Spielfigur mit der angegeben Farbe
+	 * @param farbe Farbe der Spielfigur
+	 */
+	public Spielfigur(FarbEnum farbe) {
+		
+		this.farbe = farbe;
+	}
+	
+	/**
 	 * Erstellt eine nue Spielfigur
 	 * @param farbe Die Frabe dieser Spielfigur
 	 * @param aktuellePosition Die Position auf dem Spielbrett (darf nicht null sein)
 	 */
-	public Spielfigur(FarbEnum farbe, Spielfeld aktuellePosition){
+	public Spielfigur(FarbEnum farbe, Spielfeld aktuellePosition) {
 		
-		this.farbe = farbe;
-		
+		this(farbe);
 		this.spielfeld = spielfeld;
 	}
 	
