@@ -8,6 +8,8 @@ public class Test {
 		
 		System.out.println("Klappt relativ gut oder??? Martin und Christop? Klapps bei euch auch?");
 		System.out.println("So ich bin auch hier :-*");
+		
+		System.out.println("Hallo ich auch");
 	}
 	
 }
