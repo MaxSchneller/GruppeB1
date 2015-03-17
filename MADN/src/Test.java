@@ -5,6 +5,7 @@ public class Test {
 		System.out.println("Hallo");
 		
 		System.out.println("Auch hallo");
+		System.out.println("Ich auch =)");
 
 	}
 
