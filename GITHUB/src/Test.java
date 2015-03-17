@@ -12,6 +12,7 @@ public class Test {
 		System.out.println("Hallo ich auch");
 		
 		System.out.println("Such git, very branch .. wow");
+		System.out.println("Konflikt voraus!");
 	}
 	
 }
