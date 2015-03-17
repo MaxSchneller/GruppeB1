@@ -14,6 +14,7 @@ public class Test {
 		System.out.println("Such git, very branch .. wow");
 		
 		System.out.println("Mergggge");
+		System.out.println("Konflikt voraus!");
 	}
 	
 }
