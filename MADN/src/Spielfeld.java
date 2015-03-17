@@ -3,11 +3,16 @@ import java.util.*;
 public class Spielfeld {
 	
 	private int ID;
+	private String IDstart;
 	private Spielfigur figur;
 	private int counter = 0;
 	
 	public Spielfeld(int ID){
 		this.ID = ID;
+	}
+	
+	public Spielfeld(String IDstart){
+		this.IDstart = IDstart;
 	}
 	
 //	public void setID(int ID){

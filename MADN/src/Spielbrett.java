@@ -4,10 +4,13 @@ import java.util.ArrayList;
 public class Spielbrett {
 
 	private static ArrayList <Spielfeld> regulaer = new ArrayList <Spielfeld>(); 
-	Spielfeld feld;
+	private static ArrayList <Spielfeld> start = new ArrayList <Spielfeld>();
+	private static ArrayList <Spielfeld> ziel = new ArrayList <Spielfeld>();
 	
-	public Spielbrett(ArrayList<Spielfeld> regulaer){
+	public Spielbrett(ArrayList<Spielfeld> regulaer, ArrayList <Spielfeld> start,ArrayList <Spielfeld> ziel){
 		setSpielfeldRegulaer(regulaer);
+		setSpielfeldStart(start);
+		setSpielfeldZiel(ziel);
 	}
 
 	public void setSpielfeldRegulaer(ArrayList<Spielfeld> regulaer){
@@ -16,20 +19,19 @@ public class Spielbrett {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Spielbrett brett1 = new Spielbrett(regulaer);
-		System.out.println(regulaer.toString());
+	public void setSpielfeldStart(ArrayList <Spielfeld> start){
+		for(int i = 0; i < 4; i++){
+			start.add(new Spielfeld("S" + i));
+		}
 	}
 	
-//	Spielfeld [] spielBrett;
-//	Spielfeld [][] start;
-//	Spielfeld [][] ziel;
-//	
-//	public Spielbrett(){
-//		spielBrett = new Spielfeld [40];
-//		start = new Spielfeld [4][4];
-//		ziel = new Spielfeld [4][4];
+	public void setSpielfeldZiel(ArrayList <Spielfeld> ziel){
+		
+	}
+	
+//	public static void main(String[] args) {
+//		Spielbrett brett1 = new Spielbrett(regulaer);
+//		System.out.println(regulaer.toString());
 //	}
-//	
-//	
+		
 }
