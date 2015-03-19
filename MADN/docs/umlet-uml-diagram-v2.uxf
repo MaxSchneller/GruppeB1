@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>490</y>
+      <w>300</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Spieler
+--
+-spiel
+-figuren
+-würfel
+-KI
++name {ReadOnly}
++farbe {ReadOnly}
+--
++Spieler(spiel, name, farbe, kiTyp)
++kiBerechnen(gegner, gewuerfelteZahl):KIZug
++getFigurDurchID(figurID)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>250</y>
+      <w>180</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Würfel
+--
+-spieler
+--
++Wuerfel(spieler)
++werfen():int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>550</x>
+      <y>600</y>
+      <w>190</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Spielfigur
+--
++farbe {ReadOnly}
++ID {ReadOnly}
++spielfeld
+-spieler
+--
++Spielfigur(spieler)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>380</y>
+      <w>140</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;70.0;120.0;70.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>530</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=4</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>50</y>
+      <w>320</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>/KI/
+--
+#spieler
+--
+/+zugBerechnen(gegner, gewuerfelteZahl)/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>120</y>
+      <w>300</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0-1</panel_attributes>
+    <additional_attributes>280.0;370.0;280.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>880</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Spielfeld
+--
++ID {ReadOnly}
++figurAufFeld
+-spielBrett
+--
++Spielfeld(spielBrett)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>720</y>
+      <w>310</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+m1=1
+m2=0-1</panel_attributes>
+    <additional_attributes>290.0;210.0;10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1180</x>
+      <y>880</y>
+      <w>390</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Spielbrett
+--
+-felder
+-startfelder
+-endfelder
+-spiel
+--
++Spielbrett(spiel)
++zug(figur:Spielfigur, zielFeldID):ZugErgebnis
++debugSetPos(figur:Spielfigur, zielFeldID)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1060</x>
+      <y>920</y>
+      <w>140</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=72</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1140</x>
+      <y>60</y>
+      <w>320</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+iBediener
+--
+--
++spielerHinzufügen(name, farbe, kiTyp)
++spielerEntfernen(farbe)
++sWuerfeln():int
++ziehen(figurID, zielFeldID):ZugErgebnis
++debugWuerfeln(gewuenschteZahl):int
++debugFigurSetzen(figurID, zielFeldID)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1190</x>
+      <y>500</y>
+      <w>280</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Spiel
+--
+-spieler
+-spielerAmZug
+-brett
+--
+Spiel(spielerName, spielerFarbe, kiTyp)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>590</y>
+      <w>30</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>540</y>
+      <w>140</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1-4</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>240</y>
+      <w>30</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1510</x>
+      <y>610</y>
+      <w>100</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+FarbEnum
+--
++rot
++grün
++blau
++gelb
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>700</y>
+      <w>800</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>780.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>910</x>
+      <y>660</y>
+      <w>620</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>600.0;30.0;10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>20</y>
+      <w>100</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+KITyp
+--
++keineKI
++aggresiv
++passiv
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>230</y>
+      <w>300</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>KI_Aggressiv
+--
+--
++KI_Aggressiv(spieler)
++zugBerechnen(gegner, geuerfelteZahl)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>230</y>
+      <w>280</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>KI_Defensiv
+--
+--
++KI_Defensiv(spieler)
++zugBerechnen(gegner, geuerfelteZahl)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>120</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>120</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>30</y>
+      <w>130</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>KIZug
+--
++figurID
++zielFeldID
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1540</x>
+      <y>270</y>
+      <w>520</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>ZugErgebnis
+--
++gueltig {ReadOnly}
++zugBeendet {ReadOnly}
++geaenderteFiguren:Spielfigur[] {ReadOnly}
++spielGwennonen {ReadOnly}
++gewinnerName {ReadOnly}
++gewinnerFarbe {ReadOnly}
++nachricht {ReadOnly}
+--
++ZugErgebnis(gueltig, zugBeendet, neueFigurPositionen,
+				spielGewonnen, gewinnerName, gewinnerFarbe,
+				nachricht)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1550</x>
+      <y>130</y>
+      <w>250</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>FigurPositon
+--
++figurID {ReadOnly}
++feldID {ReadOnly}
+--
++FigurPosition(figurID, feldID)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1660</x>
+      <y>520</y>
+      <w>580</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+Änderungen:
+====================
+ZugErgebnis
+--------------------
+-bool zur Abfrage ob Spiel gewonnen
+-Name und Farbe des Gewinners
+-Figurposition und ID durch ein Array ersetzt, da es beim
+Schlagen eines Gegners zu zwei Positionsänderungen kommen kann
+-Nachricht string, um dem Interfacenutzer Dinge mitzuteilen (nur Vorschlag von mir ^^)
+
+Spielbrett
+-----------------------
+-zug() nimmt eine Spielfigur anstatt die ID, so geht's leichter
+-debugSetPos() gleiche Änderung wie in zug()
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
