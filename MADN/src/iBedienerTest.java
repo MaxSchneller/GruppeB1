@@ -17,13 +17,13 @@ public class iBedienerTest {
 	
 	@Test
 	public void test() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
 	public void testGleicheFarbe() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
@@ -31,26 +31,26 @@ public class iBedienerTest {
 		// Hier wird eine doppelte Spielerfarbe sowieso gefunden,
 		// es bringt also nichts noch eine extra Zählervariable für Spiel
 		// zu erstellen
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
-		s.spielerHinzufügen("Heinz", FarbEnum.gelb);
-		s.spielerHinzufügen("Heinz", FarbEnum.rot);
-		s.spielerHinzufügen("Heinz", FarbEnum.blau);
-		s.spielerHinzufügen("Heinz", FarbEnum.gelb);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gelb);
+		s.spielerHinzufuegen("Heinz", FarbEnum.rot);
+		s.spielerHinzufuegen("Heinz", FarbEnum.blau);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gelb);
 	}
 	
 	@Test
 	public void testSpielerEntfernen() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufügen("Karl", FarbEnum.gelb);
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
+		s.spielerHinzufuegen("Karl", FarbEnum.gelb);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
 		
-		s.spielerEntfernen(FarbEnum.grün);
+		s.spielerEntfernen(FarbEnum.gruen);
 		
 	}
 	
 	@Test(expected=SpielerNichtGefundenException.class)
 	public void testSpielerEntfernenNichtGefunden() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufügen("Karl", FarbEnum.gelb);
-		s.spielerHinzufügen("Heinz", FarbEnum.grün);
+		s.spielerHinzufuegen("Karl", FarbEnum.gelb);
+		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
 		
 		s.spielerEntfernen(FarbEnum.blau);
 	}

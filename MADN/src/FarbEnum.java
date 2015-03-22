@@ -1,4 +1,7 @@
-
+/**
+ * Farbenum, der Farben Rot, Blau, Gruen, Gelb 
+ * @author Gruppe B1
+ */
 public enum FarbEnum {
-	rot, blau, grün, gelb;
+	rot, blau, gruen, gelb;
 }

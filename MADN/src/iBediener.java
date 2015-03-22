@@ -7,11 +7,11 @@ public interface iBediener {
 	 * @param farbe Die Farbe des Spielers (muss einzigartig im Spiel sein)
 	 * @throws SpielerFarbeVorhandenException Die Farbe ist bereits vergeben
 	 */
-	public void spielerHinzufügen(String name, FarbEnum farbe) throws SpielerFarbeVorhandenException;
+	public void spielerHinzufuegen(String name, FarbEnum farbe) throws SpielerFarbeVorhandenException;
 
 	/**
 	 * Entfernt den Spieler mit der angegebenen Farbe aus dem Spiel
-	 * @param farbeDesSpielers Die Farbe des Spielers, der entfern werden soll
+	 * @param farbeDesSpielers Die Farbe des Spielers, der entfernt werden soll
 	 * @throws SpielerNichtGefundenException  Der Spieler wurde nicht gefunden
 	 */
 	public void spielerEntfernen(FarbEnum farbeDesSpielers) throws SpielerNichtGefundenException ;

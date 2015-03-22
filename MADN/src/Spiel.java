@@ -1,19 +1,28 @@
 import java.util.ArrayList;
 
-
+/**
+ * Die Klasse Spiel
+ * @author Gruppe B1
+ */
 public class Spiel implements iBediener {
 
 
 	private ArrayList<Spieler> spieler;
 	private Spieler spielerAmZug;
 	
+	/**
+	 * Konstruktor des Spiels
+	 */
 	public Spiel() {
 		this.spieler = new ArrayList<Spieler>();
 	}
 
 	
+	/**
+	 * Überschreiben der Methode spielerHinzufügen, welche einen Spieler hinzufügt, der einen Namen, Farbe und einen Würfel besitzt
+	 */
 	@Override
-	public void spielerHinzufügen(String name, FarbEnum farbe) throws SpielerFarbeVorhandenException {
+	public void spielerHinzufuegen(String name, FarbEnum farbe) throws SpielerFarbeVorhandenException {
 		
 		for (Spieler spieler : this.spieler) {
 		
@@ -25,6 +34,9 @@ public class Spiel implements iBediener {
 	}
 
 
+	/**
+	 * Überschreiben der Methode spielerEntfernen, welche einen Spieler enfernt.
+	 */
 	@Override
 	public void spielerEntfernen(FarbEnum farbeDesSpielers) throws SpielerNichtGefundenException {
 		
