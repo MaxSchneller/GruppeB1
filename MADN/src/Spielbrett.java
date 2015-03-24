@@ -77,7 +77,6 @@ public class Spielbrett {
 	/**
 	 * Spielfeld aus der Liste löschen
 	 * @param feld Das Objekt das gelöscht werden soll
-	 * @return true/false
 	 */
 	
 	public void delete(Spielfeld feld){ 
