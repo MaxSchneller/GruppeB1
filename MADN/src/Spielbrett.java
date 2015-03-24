@@ -165,7 +165,31 @@ public class Spielbrett {
 		}
 	}
 	
-    /**
+    public Spielfeld getFeld() {
+		return feld;
+	}
+
+	public void setFeld(Spielfeld feld) {
+		this.feld = feld;
+	}
+
+	public static Spielfeld[][] getStartfelder() {
+		return startfelder;
+	}
+
+	public static void setStartfelder(Spielfeld[][] startfelder) {
+		Spielbrett.startfelder = startfelder;
+	}
+
+	public static Spielfeld[][] getEndfelder() {
+		return endfelder;
+	}
+
+	public static void setEndfelder(Spielfeld[][] endfelder) {
+		Spielbrett.endfelder = endfelder;
+	}
+
+	/**
      * Zum testen
      * @param args
      */
