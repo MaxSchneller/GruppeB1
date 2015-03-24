@@ -7,11 +7,10 @@
  */
 public class Spielbrett {
 	
-	Spielfeld feld;
-	ListElement startElem;
+	private static Spielfeld[] regulaereFelder = new Spielfeld[40];
 	
-	static Spielfeld [][] startfelder = new Spielfeld [4][4];
-	static Spielfeld [][] endfelder = new Spielfeld [4][4];
+	private static Spielfeld [][] startfelder = new Spielfeld [4][4];
+	private static Spielfeld [][] endfelder = new Spielfeld [4][4];
 
 	/**
 	 * Konstruktor des Spielbretts 
@@ -20,112 +19,10 @@ public class Spielbrett {
 		setStartfelderID();
 		setEndfelderID();
 		
-		feld = new Spielfeld("1",this);
-		startElem = new ListElement(feld);
-		
-		for (int i = 2; i <= 40; i++) {
-			Spielfeld feld = new Spielfeld(String.format("%d", i), this);
-			addLast(feld);
+		for (int i = 1; i <= 40; i++) {
+			regulaereFelder[i-1] = new Spielfeld(String.format("%d", i), this);
 		}
 	}
-
-	/**
-	 * Fügt Objekt an der nächsten freien Stelle dem Spielbrett hinzu
-	 * @param feld Das einzufügende Spielfeld
-	 */
-	public void addLast(Spielfeld feld){
-		ListElement newElem = new ListElement(feld);
-		ListElement lastElem = getLastElem();
-		lastElem.setNextElem(newElem);
-	}
-	
-	/**
-	 * Fügt ein Feld an einer gewünschten Stelle ein
-	 * @param prevFeld
-	 * @param feld
-	 */
-
-	public void insertAfter(Spielfeld prevFeld, Spielfeld feld){
-		ListElement newElem, nextElem, pointerElem;
-		pointerElem = startElem.getNextElem();
-		while(pointerElem != null && !pointerElem.getSpielfeld().equals(prevFeld)){ 
-            pointerElem = pointerElem.getNextElem(); 
-        } 
-        newElem = new ListElement(feld); 
-        nextElem = pointerElem.getNextElem(); 
-        pointerElem.setNextElem(newElem); 
-        newElem.setNextElem(nextElem);
-	}
-	
-	/**
-	 * Läuft durch die Liste und sucht das übergebene Spielfeld
-	 * @param feld
-	 * @return true/ false Je nachdem ob das Feld gefunden wurde oder nicht
-	 */
-	
-	public String find(Spielfeld feld){ 
-        ListElement le = startElem; 
-        while (le != null){ 
-            if(le.getSpielfeld().equals(feld)) 
-            return feld.getID(); 
-            le = le.nextElem; 
-        } 
-        return "Liegt nicht auf Brett"; 
-    } 
-
-	
-	/**
-	 * Spielfeld aus der Liste löschen
-	 * @param feld Das Objekt das gelöscht werden soll
-	 */
-	
-	public void delete(Spielfeld feld){ 
-        ListElement le = startElem; 
-        while (le.getNextElem() != null && !le.getSpielfeld().equals(feld)){ 
-	           if(le.getNextElem().getSpielfeld().equals(feld)){ 
-	               if(le.getNextElem().getNextElem()!=null) 
-	                   le.setNextElem(le.getNextElem().getNextElem()); 
-	               else{ 
-	                   le.setNextElem(null); 
-	                   break; 
-	               } 
-	           } 
-	           le = le.getNextElem(); 
-        } 
-     } 
-	
-	/**
-	 * Erstes Listenelement
-	 * @return gibt erstes Listenelement zurueck
-	 */
-	public ListElement getFirstElem() { 
-		return startElem; 
-	} 
-	
-	/**
-	 * Läuft von vorne durch die Liste und gibt das letzte Element aus
-	 * @return
-	 */
-	
-    public ListElement getLastElem() { 
-        ListElement le = startElem; 
-        while(le.getNextElem() != null){ 
-            le = le.getNextElem(); 
-        } 
-	    return le; 
-	} 
-	
-    /**
-     * Läuft durch die Liste und gibt diese aus
-     */
-    
-    public void writeList() { 
-        ListElement le = startElem; 
-        while(le != null){ 
-            System.out.print(le.getSpielfeld() + " "); 
-            le = le.getNextElem(); 
-        } 
-    }
     
     /**
      * setzt Spielfelder in das Array und weißt ID zu
@@ -221,16 +118,59 @@ public class Spielbrett {
 		Spielbrett.endfelder = endfelder;
 	}
 	
-	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur){
-		Spielfigur 
+	public Object zug(int gewuerfelteZahl, Spielfigur figur){
+		return null; 
 	}
 	
+	/**
+	 * Setzt die gewünschte Figur auf das gewünschte Feld, falls das Zielfeld leer ist.
+	 * Führt keine weiteren Regelprüfungen durch.
+	 * @param figur Die Figur, die versetzt werden soll
+	 * @param zielFeldID Die ID des Feldes auf das die Figur gesetzt werden soll
+	 * @return True falls erfolgreich, sonst false
+	 */
 	public boolean debugSetPos(Spielfigur figur, String zielFeldID){
+		Spielfeld zielFeld = this.findeFeld(zielFeldID);
 		
+		if (zielFeld != null && figur != null){
+			
+			if (zielFeld.getSpielfigur() == null) {
+				figur.getSpielfeld().setSpielfigur(null);
+				zielFeld.setSpielfigur(figur);
+				figur.setSpielfeld(zielFeld);
+				
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
+	/**
+	 * Findet das gesuchte Feld in den Spielfeldarrays
+	 * @param ID ID des gesuchten Feldes
+	 * @return Das gefundene Feld oder null falls es nicht gefunden wurde
+	 */
 	private Spielfeld findeFeld(String ID){
+		for (int i = 0; i < regulaereFelder.length; i++) {
+			if (regulaereFelder[i].getID().equals(ID))
+				return regulaereFelder[i];
+		}
 		
+		for (int i = 0; i < startfelder.length; i++) {
+			for (int j = 0; j < startfelder[i].length; j++) {
+				if (startfelder[i][j].getID().equals(ID))
+					return startfelder[i][j];
+			}
+		}
+		for (int i = 0; i < endfelder.length; i++) {
+			for (int j = 0; j < endfelder[i].length; j++) {
+				if (endfelder[i][j].getID().equals(ID))
+					return endfelder[i][j];
+			}
+		}
+		
+		return null;
 	}
 
 	/**
@@ -239,9 +179,14 @@ public class Spielbrett {
      */
 	
     public static void main(String[] args) {
-		Spielbrett brett = new Spielbrett();
-		brett.writeList();
-		System.out.println();
+    	
+    	Spielbrett s = new Spielbrett();
+    	
+    	for (int i = 0; i < regulaereFelder.length; i++) {
+			System.out.print(regulaereFelder[i].toString() + " ");
+		}
+    	
+    	System.out.println();
 		for (int i = 0; i < 4; i++) {
     		for (int j = 0; j < 4; j++) {
     			System.out.print(startfelder[i][j] + " | ");
