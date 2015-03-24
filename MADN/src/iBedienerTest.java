@@ -17,13 +17,13 @@ public class iBedienerTest {
 	
 	@Test
 	public void test() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
 	public void testGleicheFarbe() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
@@ -31,28 +31,28 @@ public class iBedienerTest {
 		// Hier wird eine doppelte Spielerfarbe sowieso gefunden,
 		// es bringt also nichts noch eine extra Zählervariable für Spiel
 		// zu erstellen
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
-		s.spielerHinzufuegen("Heinz", FarbEnum.gelb);
-		s.spielerHinzufuegen("Heinz", FarbEnum.rot);
-		s.spielerHinzufuegen("Heinz", FarbEnum.blau);
-		s.spielerHinzufuegen("Heinz", FarbEnum.gelb);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GELB);
+		s.spielerHinzufuegen("Heinz", FarbEnum.ROT);
+		s.spielerHinzufuegen("Heinz", FarbEnum.BLAU);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GELB);
 	}
 	
 	@Test
 	public void testSpielerEntfernen() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufuegen("Karl", FarbEnum.gelb);
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Karl", FarbEnum.GELB);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
 		
-		s.spielerEntfernen(FarbEnum.gruen);
+		s.spielerEntfernen(FarbEnum.GRUEN);
 		
 	}
 	
 	@Test(expected=SpielerNichtGefundenException.class)
 	public void testSpielerEntfernenNichtGefunden() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufuegen("Karl", FarbEnum.gelb);
-		s.spielerHinzufuegen("Heinz", FarbEnum.gruen);
+		s.spielerHinzufuegen("Karl", FarbEnum.GELB);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
 		
-		s.spielerEntfernen(FarbEnum.blau);
+		s.spielerEntfernen(FarbEnum.BLAU);
 	}
 
 }

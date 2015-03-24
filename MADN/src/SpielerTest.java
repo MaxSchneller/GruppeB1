@@ -12,7 +12,7 @@ public class SpielerTest {
 	
 	@Before
 	public void spielerErstellen() {
-		s = new Spieler("Max", FarbEnum.gelb, w);
+		s = new Spieler("Max", FarbEnum.GELB, w);
 		w = new Wuerfel();
 	
 	}

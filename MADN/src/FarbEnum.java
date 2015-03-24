@@ -3,5 +3,5 @@
  * @author Gruppe B1
  */
 public enum FarbEnum {
-	rot, blau, gruen, gelb;
+	ROT, BLAU, GRUEN, GELB;
 }

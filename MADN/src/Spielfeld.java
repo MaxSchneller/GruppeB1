@@ -11,6 +11,10 @@ public class Spielfeld {
 		
 	}
 	
+	public String getID(){
+		return ID;
+	}
+	
 	public String toString(){
 		return ID;
 	}

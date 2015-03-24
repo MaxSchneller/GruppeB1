@@ -58,14 +58,14 @@ public class Spielbrett {
 	 * @return true/ false Je nachdem ob das Feld gefunden wurde oder nicht
 	 */
 	
-	public boolean find(Spielfeld feld){ 
+	public String find(Spielfeld feld){ 
         ListElement le = startElem; 
         while (le != null){ 
             if(le.getSpielfeld().equals(feld)) 
-            return true; 
+            return feld.getID(); 
             le = le.nextElem; 
         } 
-        return false; 
+        return "Liegt nicht auf Brett"; 
     } 
 
 	
@@ -124,16 +124,16 @@ public class Spielbrett {
      */
     
     public void setStartfelderID(){
-    	String farbe = null; 
+    	FarbEnum farbe = null; 
     	for (int i = 0; i < 4; i++) {
     		switch(i+1){
-    		case 1: farbe = "rot";
+    		case 1: farbe = FarbEnum.ROT;
     				break;
-    		case 2: farbe = "blau";
+    		case 2: farbe = FarbEnum.BLAU;
     				break;
-    		case 3: farbe = "grün";
+    		case 3: farbe = FarbEnum.GRUEN;
     				break;
-    		case 4: farbe = "gelb";
+    		case 4: farbe = FarbEnum.GELB;
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
@@ -147,16 +147,16 @@ public class Spielbrett {
      */
     
 	private void setEndfelderID() {
-		String farbe = null; 
+		FarbEnum farbe = null; 
     	for (int i = 0; i < 4; i++) {
     		switch(i+1){
-    		case 1: farbe = "rot";
+    		case 1: farbe = FarbEnum.ROT;
     				break;
-    		case 2: farbe = "blau";
+    		case 2: farbe = FarbEnum.BLAU;
     				break;
-    		case 3: farbe = "grün";
+    		case 3: farbe = FarbEnum.GRUEN;
     				break;
-    		case 4: farbe = "gelb";
+    		case 4: farbe = FarbEnum.GELB;
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
