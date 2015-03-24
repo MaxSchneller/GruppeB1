@@ -220,6 +220,18 @@ public class Spielbrett {
 	public static void setEndfelder(Spielfeld[][] endfelder) {
 		Spielbrett.endfelder = endfelder;
 	}
+	
+	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur){
+		Spielfigur 
+	}
+	
+	public boolean debugSetPos(Spielfigur figur, String zielFeldID){
+		
+	}
+	
+	private Spielfeld findeFeld(String ID){
+		
+	}
 
 	/**
      * Zum testen
