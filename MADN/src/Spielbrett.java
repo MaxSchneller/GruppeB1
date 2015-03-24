@@ -7,19 +7,24 @@
  */
 public class Spielbrett {
 	
-	Spielfeld feld = new Spielfeld("1");
-	ListElement startElem = new ListElement (feld);
+	Spielfeld feld;
+	ListElement startElem;
 	
 	static Spielfeld [][] startfelder = new Spielfeld [4][4];
 	static Spielfeld [][] endfelder = new Spielfeld [4][4];
 
-	
+	/**
+	 * Konstruktor des Spielbretts 
+	 */
 	public Spielbrett(){
 		setStartfelderID();
 		setEndfelderID();
 		
+		feld = new Spielfeld("1",this);
+		startElem = new ListElement(feld);
+		
 		for (int i = 2; i <= 40; i++) {
-			Spielfeld feld = new Spielfeld(String.format("%d", i));
+			Spielfeld feld = new Spielfeld(String.format("%d", i), this);
 			addLast(feld);
 		}
 	}
@@ -90,6 +95,10 @@ public class Spielbrett {
         } 
      } 
 	
+	/**
+	 * Erstes Listenelement
+	 * @return gibt erstes Listenelement zurueck
+	 */
 	public ListElement getFirstElem() { 
 		return startElem; 
 	} 
@@ -137,13 +146,13 @@ public class Spielbrett {
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
-    			startfelder[i][j] = new Spielfeld("S" + (j+1) + " " + farbe);
+    			startfelder[i][j] = new Spielfeld("S" + (j+1) + " " + farbe, this);
 			}
 		}
     }
     
     /**
-     * setzt Spielfelder in das Array und weißt ID zu
+     * setzt Spielfelder in das Array und weisst ID zu
      */
     
 	private void setEndfelderID() {
@@ -160,31 +169,55 @@ public class Spielbrett {
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
-    			endfelder[i][j] = new Spielfeld("E" + (j+1) + " " + farbe);
+    			endfelder[i][j] = new Spielfeld("E" + (j+1) + " " + farbe, this);
 			}
 		}
 	}
 	
+	/**
+	 * Getter-Methode fuer Spielfeld
+	 * @return feld
+	 */
     public Spielfeld getFeld() {
 		return feld;
 	}
 
+    /**
+     * Setter-Methode fuer Feld
+     * @param feld ist Spielfeld
+     */
 	public void setFeld(Spielfeld feld) {
 		this.feld = feld;
 	}
 
+	/**
+	 * Getter-Methode fuer Spartfelder
+	 * @return startfeld
+	 */
 	public static Spielfeld[][] getStartfelder() {
 		return startfelder;
 	}
 
+	/**
+	 * Setter-Methode fuer Startfelder
+	 * @param startfelder Das Startfeld
+	 */
 	public static void setStartfelder(Spielfeld[][] startfelder) {
 		Spielbrett.startfelder = startfelder;
 	}
 
+	/**
+	 * Getter-Methode fuer Endfeld
+	 * @return endfeld
+	 */
 	public static Spielfeld[][] getEndfelder() {
 		return endfelder;
 	}
 
+	/**
+	 * Setter-Methode fuer Endfeld
+	 * @param endfelder Das Endfeld
+	 */
 	public static void setEndfelder(Spielfeld[][] endfelder) {
 		Spielbrett.endfelder = endfelder;
 	}
