@@ -11,7 +11,7 @@ public class testSpieler {
 	public void test() {
 		assertNotNull(s.getName());
 		assertTrue(s.getFarbe() instanceof FarbEnum);
-		assertTrue(figurAufFeld() instanceof s);
+//		assertTrue(figurAufFeld() instanceof s);
 	}
 	
 

@@ -7,19 +7,24 @@
  */
 public class Spielbrett {
 	
-	Spielfeld feld = new Spielfeld("1");
-	ListElement startElem = new ListElement (feld);
+	Spielfeld feld;
+	ListElement startElem;
 	
 	static Spielfeld [][] startfelder = new Spielfeld [4][4];
 	static Spielfeld [][] endfelder = new Spielfeld [4][4];
 
-	
+	/**
+	 * Konstruktor des Spielbretts 
+	 */
 	public Spielbrett(){
 		setStartfelderID();
 		setEndfelderID();
 		
+		feld = new Spielfeld("1",this);
+		startElem = new ListElement(feld);
+		
 		for (int i = 2; i <= 40; i++) {
-			Spielfeld feld = new Spielfeld(String.format("%d", i));
+			Spielfeld feld = new Spielfeld(String.format("%d", i), this);
 			addLast(feld);
 		}
 	}
@@ -58,21 +63,20 @@ public class Spielbrett {
 	 * @return true/ false Je nachdem ob das Feld gefunden wurde oder nicht
 	 */
 	
-	public boolean find(Spielfeld feld){ 
+	public String find(Spielfeld feld){ 
         ListElement le = startElem; 
         while (le != null){ 
             if(le.getSpielfeld().equals(feld)) 
-            return true; 
+            return feld.getID(); 
             le = le.nextElem; 
         } 
-        return false; 
+        return "Liegt nicht auf Brett"; 
     } 
 
 	
 	/**
 	 * Spielfeld aus der Liste löschen
 	 * @param feld Das Objekt das gelöscht werden soll
-	 * @return true/false
 	 */
 	
 	public void delete(Spielfeld feld){ 
@@ -90,6 +94,10 @@ public class Spielbrett {
         } 
      } 
 	
+	/**
+	 * Erstes Listenelement
+	 * @return gibt erstes Listenelement zurueck
+	 */
 	public ListElement getFirstElem() { 
 		return startElem; 
 	} 
@@ -124,67 +132,91 @@ public class Spielbrett {
      */
     
     public void setStartfelderID(){
-    	String farbe = null; 
+    	FarbEnum farbe = null; 
     	for (int i = 0; i < 4; i++) {
     		switch(i+1){
-    		case 1: farbe = "rot";
+    		case 1: farbe = FarbEnum.ROT;
     				break;
-    		case 2: farbe = "blau";
+    		case 2: farbe = FarbEnum.BLAU;
     				break;
-    		case 3: farbe = "grün";
+    		case 3: farbe = FarbEnum.GRUEN;
     				break;
-    		case 4: farbe = "gelb";
+    		case 4: farbe = FarbEnum.GELB;
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
-    			startfelder[i][j] = new Spielfeld("S" + (j+1) + " " + farbe);
+    			startfelder[i][j] = new Spielfeld("S" + (j+1) + " " + farbe, this);
 			}
 		}
     }
     
     /**
-     * setzt Spielfelder in das Array und weißt ID zu
+     * setzt Spielfelder in das Array und weisst ID zu
      */
     
 	private void setEndfelderID() {
-		String farbe = null; 
+		FarbEnum farbe = null; 
     	for (int i = 0; i < 4; i++) {
     		switch(i+1){
-    		case 1: farbe = "rot";
+    		case 1: farbe = FarbEnum.ROT;
     				break;
-    		case 2: farbe = "blau";
+    		case 2: farbe = FarbEnum.BLAU;
     				break;
-    		case 3: farbe = "grün";
+    		case 3: farbe = FarbEnum.GRUEN;
     				break;
-    		case 4: farbe = "gelb";
+    		case 4: farbe = FarbEnum.GELB;
     				break;
     		}
     		for (int j = 0; j < 4; j++) {
-    			endfelder[i][j] = new Spielfeld("E" + (j+1) + " " + farbe);
+    			endfelder[i][j] = new Spielfeld("E" + (j+1) + " " + farbe, this);
 			}
 		}
 	}
 	
+	/**
+	 * Getter-Methode fuer Spielfeld
+	 * @return feld
+	 */
     public Spielfeld getFeld() {
 		return feld;
 	}
 
+    /**
+     * Setter-Methode fuer Feld
+     * @param feld ist Spielfeld
+     */
 	public void setFeld(Spielfeld feld) {
 		this.feld = feld;
 	}
 
+	/**
+	 * Getter-Methode fuer Spartfelder
+	 * @return startfeld
+	 */
 	public static Spielfeld[][] getStartfelder() {
 		return startfelder;
 	}
 
+	/**
+	 * Setter-Methode fuer Startfelder
+	 * @param startfelder Das Startfeld
+	 */
 	public static void setStartfelder(Spielfeld[][] startfelder) {
 		Spielbrett.startfelder = startfelder;
 	}
 
+	/**
+	 * Getter-Methode fuer Endfeld
+	 * @return endfeld
+	 */
 	public static Spielfeld[][] getEndfelder() {
 		return endfelder;
 	}
 
+	/**
+	 * Setter-Methode fuer Endfeld
+	 * @param endfelder Das Endfeld
+	 */
 	public static void setEndfelder(Spielfeld[][] endfelder) {
 		Spielbrett.endfelder = endfelder;
 	}
