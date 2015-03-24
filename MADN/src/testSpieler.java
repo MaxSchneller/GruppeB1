@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class testSpieler {
 	
-	protected Spieler s=new Spieler("John", FarbEnum.blau, null);
+	protected Spieler s=new Spieler("John", FarbEnum.BLAU, null);
 	
 	@Test
 	public void test() {
