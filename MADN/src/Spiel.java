@@ -9,6 +9,7 @@ public class Spiel implements iBediener {
 
 	private ArrayList<Spieler> spieler;
 	private Spieler spielerAmZug;
+
 	
 	/**
 	 * Konstruktor des Spiels
@@ -31,6 +32,7 @@ public class Spiel implements iBediener {
 		}
 		
 		spieler.add(new Spieler(name, farbe, null));
+		System.out.println("Spieler "+ name + " ist dem Spiel beigetreten! Der Spieler hat die Farbe: " + farbe);
 	}
 
 
