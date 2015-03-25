@@ -8,7 +8,7 @@ public class Spiel implements iBediener {
 	// Attribute
 
 	/** Alle Spieler, die zur Zeit teilnehmen */
-	private ArrayList<Spieler> spieler;
+	private ArrayList<Spieler> teilnehmendeSpieler;
 	/** Der Spieler, der gerade am Zug ist */
 	private Spieler spielerAmZug;
 	/** Die zuletzt geürfelte Zahl */
@@ -19,21 +19,34 @@ public class Spiel implements iBediener {
 	private Spielbrett spielbrett;
 
 	// Getter und Setter
-	private ArrayList<Spieler> getSpieler() {
-		return spieler;
+
+	/**
+	 * Gibt das Spielbrett dieses Spiels zurück
+	 * 
+	 * @return
+	 */
+	public Spielbrett getSpielbrett() {
+		return spielbrett;
 	}
 
+	/**
+	 * Setzt die ArrayList der Spieler (nicht die Spieler selbst, darf nicht
+	 * null sein)
+	 * 
+	 * @param spieler
+	 */
 	private void setSpieler(ArrayList<Spieler> spieler) {
 		if (spieler == null) {
 			throw new NullPointerException("spieler");
 		}
-		this.spieler = spieler;
+		this.teilnehmendeSpieler = spieler;
 	}
 
-	private Spieler getSpielerAmZug() {
-		return spielerAmZug;
-	}
-
+	/**
+	 * Setzt den Spieler der jetzt am Zug ist (darf nicht null sein)
+	 * 
+	 * @param spielerAmZug
+	 */
 	private void setSpielerAmZug(Spieler spielerAmZug) {
 		if (spielerAmZug == null) {
 			throw new NullPointerException("spielerAmZug");
@@ -41,10 +54,12 @@ public class Spiel implements iBediener {
 		this.spielerAmZug = spielerAmZug;
 	}
 
-	private int getZuleztGewuerfelt() {
-		return zuleztGewuerfelt;
-	}
-
+	/**
+	 * Setzt die Zahl die zuletzt gewürfelt wurde (muss zwischen eins und sechs
+	 * sein)
+	 * 
+	 * @param zuleztGewuerfelt
+	 */
 	private void setZuleztGewuerfelt(int zuleztGewuerfelt) {
 
 		if (zuleztGewuerfelt < 1 || zuleztGewuerfelt > 6) {
@@ -54,22 +69,27 @@ public class Spiel implements iBediener {
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
 	}
 
-	private int getSpielerAmZugIndex() {
-		return spielerAmZugIndex;
-	}
-
+	/**
+	 * Setzt den Index, welcher in der ArrayList der Spieler auf denjenigen
+	 * Spieler verweist, der jetzt am Zug ist (ist der Index nicht im erlaubten
+	 * Bereich, so wird er auf 0 gesetzt)
+	 * 
+	 * @param spielerAmZugIndex
+	 */
 	private void setSpielerAmZugIndex(int spielerAmZugIndex) {
-		if (spielerAmZugIndex < 0 || spielerAmZugIndex >= getSpieler().size()) {
+		if (spielerAmZugIndex < 0
+				|| spielerAmZugIndex >= this.teilnehmendeSpieler.size()) {
 			this.spielerAmZugIndex = 0;
 		} else {
 			this.spielerAmZugIndex = spielerAmZugIndex;
 		}
 	}
 
-	private Spielbrett getSpielbrett() {
-		return spielbrett;
-	}
-
+	/**
+	 * Setzt das Spielbrett, auf dem das Spiel abläuft (darf nicht null sein)
+	 * 
+	 * @param spielbrett
+	 */
 	private void setSpielbrett(Spielbrett spielbrett) {
 		if (spielbrett == null) {
 			throw new NullPointerException("spielbrett");
@@ -95,7 +115,7 @@ public class Spiel implements iBediener {
 
 		this.setSpielerAmZug(ersterSpieler);
 		this.setSpielerAmZugIndex(0);
-		this.getSpieler().add(ersterSpieler);
+		this.teilnehmendeSpieler.add(ersterSpieler);
 	}
 
 	// iBediener overrides
@@ -108,13 +128,16 @@ public class Spiel implements iBediener {
 	public void spielerHinzufuegen(String name, FarbEnum farbe)
 			throws SpielerFarbeVorhandenException {
 
-		for (Spieler spieler : this.getSpieler()) {
+		if (name == null || farbe == null || name.isEmpty())
+			throw new IllegalArgumentException();
+
+		for (Spieler spieler : this.teilnehmendeSpieler) {
 
 			if (spieler.getFarbe() == farbe)
 				throw new SpielerFarbeVorhandenException(farbe);
 		}
 
-		this.getSpieler().add(new Spieler(name, farbe, new Wuerfel()));
+		this.teilnehmendeSpieler.add(new Spieler(name, farbe, new Wuerfel()));
 	}
 
 	/**
@@ -123,10 +146,13 @@ public class Spiel implements iBediener {
 	@Override
 	public void spielerEntfernen(FarbEnum farbeDesSpielers)
 			throws SpielerNichtGefundenException {
+		
+		if (farbeDesSpielers == null) 
+			throw new NullPointerException("farbeDesSpielers");
 
 		int indexZuEntfernen = -1;
-		for (int i = 0; i < this.spieler.size(); i++) {
-			if (this.getSpieler().get(i).getFarbe() == farbeDesSpielers) {
+		for (int i = 0; i < this.teilnehmendeSpieler.size(); i++) {
+			if (this.teilnehmendeSpieler.get(i).getFarbe() == farbeDesSpielers) {
 				indexZuEntfernen = i;
 				break;
 			}
@@ -135,7 +161,7 @@ public class Spiel implements iBediener {
 		if (indexZuEntfernen == -1)
 			throw new SpielerNichtGefundenException(farbeDesSpielers);
 		else
-			this.getSpieler().remove(indexZuEntfernen);
+			this.teilnehmendeSpieler.remove(indexZuEntfernen);
 	}
 
 	/**
@@ -145,9 +171,9 @@ public class Spiel implements iBediener {
 	@Override
 	public int sWuerfeln() {
 
-		if (getSpielerAmZug() != null) {
-			this.setZuleztGewuerfelt(getSpielerAmZug().wuerfeln());
-			return this.getZuleztGewuerfelt();
+		if (this.spielerAmZug != null) {
+			this.setZuleztGewuerfelt(this.spielerAmZug.wuerfeln());
+			return this.zuleztGewuerfelt;
 		} else
 			throw new NullPointerException("this.spielerAmZug");
 
@@ -165,8 +191,8 @@ public class Spiel implements iBediener {
 					"figurID oder zielFeldID sind null!");
 		}
 
-		ZugErgebnis ergebnis = this.getSpielbrett().zug(this.getZuleztGewuerfelt(),
-				this.getSpielerAmZug().getFigurDurchID(figurID), zielFeldID);
+		ZugErgebnis ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
+				this.spielerAmZug.getFigurDurchID(figurID), zielFeldID);
 
 		// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 		// nächste Spieler dran
@@ -174,12 +200,13 @@ public class Spiel implements iBediener {
 
 			// Der Index muss immer neu geprüft werden, da Spieler hinzugekommen
 			// sein könnten
-			this.setSpielerAmZugIndex(this.getSpielerAmZugIndex() + 1);
+			this.setSpielerAmZugIndex(this.spielerAmZugIndex + 1);
 
-			if (this.getSpielerAmZugIndex() >= this.getSpieler().size())
+			if (this.spielerAmZugIndex >= this.teilnehmendeSpieler.size())
 				this.setSpielerAmZugIndex(0);
 
-			this.spielerAmZug = this.spieler.get(this.spielerAmZugIndex);
+			this.setSpielerAmZug(this.teilnehmendeSpieler
+					.get(this.spielerAmZugIndex));
 
 		}
 
@@ -203,7 +230,7 @@ public class Spiel implements iBediener {
 	public void debugSetzeFigur(FarbEnum spielerFarbe, String figurID,
 			String zielFeldID) throws SpielerNichtGefundenException {
 
-		Spieler spieler = FindeSpieler(spielerFarbe);
+		Spieler spieler = findeSpieler(spielerFarbe);
 
 		if (spieler != null) {
 			Spielfigur figur = spieler.getFigurDurchID(figurID);
@@ -225,10 +252,10 @@ public class Spiel implements iBediener {
 	 * @throws SpielerNichtGefundenException
 	 *             Es gibt keinen Spieler mit der gesuchten Farbe
 	 */
-	private Spieler FindeSpieler(FarbEnum spielerFarbe)
+	private Spieler findeSpieler(FarbEnum spielerFarbe)
 			throws SpielerNichtGefundenException {
 
-		for (Spieler spieler : this.spieler) {
+		for (Spieler spieler : this.teilnehmendeSpieler) {
 			if (spieler.getFarbe() == spielerFarbe)
 				return spieler;
 		}
