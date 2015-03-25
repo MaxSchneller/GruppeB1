@@ -11,13 +11,27 @@ public class Spieler {
 	 * Der Konstruktor der Klasse Spieler
 	 * @param name Der Name der Spielers
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
-	 * @param w Der eigene Wuerfel des Spielers
+	 * @param kiTyp Welche Art von KI diesen Spieler steuern soll (oder keine)
 	 */
-	public Spieler(String name, FarbEnum farbe, Wuerfel w){
-		setName(name);
+	public Spieler(String name, FarbEnum farbe, KITyp kiTyp){
+		this.setName(name);
 		this.setFarbe(farbe);
-		getWuerfel();
 		
+		this.w = new Wuerfel();
+		
+		for (int i = 0; i < 4; ++i) {
+			this.figuren[i] = new Spielfigur(this.getFarbe(),
+					this.getSpiel().getSpielbrett().findeDurchID("S" + (i+1) + " " + getFarbe()));
+		}
+	}
+	
+	/**
+	 * Der Konstruktor der Klasse Spieler. Erstellt einen Spieler ohne KI
+	 * @param name Der Name der Spielers
+	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
+	 */
+	public Spieler(String name, FarbEnum farbe){
+		this(name, farbe, KITyp.KEINE_KI);
 	}
 	
 	/**

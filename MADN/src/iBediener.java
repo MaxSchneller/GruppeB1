@@ -1,4 +1,6 @@
-
+/**
+ * Über diese Schnittstelle wird das Spiel bedient
+ */
 public interface iBediener {
 
 	/**
@@ -15,5 +17,35 @@ public interface iBediener {
 	 * @throws SpielerNichtGefundenException  Der Spieler wurde nicht gefunden
 	 */
 	public void spielerEntfernen(FarbEnum farbeDesSpielers) throws SpielerNichtGefundenException ;
+
+	/**
+	 * Lässt den Spieler, der gerade an der Reihe ist würfeln
+	 * @return Die gewürfelte Zahl
+	 */
+	public int sWuerfeln();
+
+	/**
+	 * Lässt den Spieler, der am Zug ist, die gewünschte Figur auf das gewünschte Feld ziehen, falls dies möglich ist
+	 * @param figurID Die ID der Figur, welche versetzt werden soll
+	 * @param zielFeldID Die ID des Feldes auf das die Figur gesetzt werden soll
+	 * @return Das Ergebnis dieses Zuges
+	 */
+	public ZugErgebnis ziehen(String figurID, String zielFeldID);
+	
+	/**
+	 * Verhält sich wie ein gezinkter Würfel (setzt Spiel.zuletztGewuerfelt)
+	 * @param gewuenschteZahl Die Zahl die gewuerfelt werden soll
+	 * @return Die gewuerfelte Zahl
+	 */
+	public int debugWuerfeln(int gewuenschteZahl);
+
+	/**
+	 * Setzt die gewünschte Figur ohne Regelprüfung auf das gewünschte Feld
+	 * @param spielerFarbe Farbe des Spielers dessen Figur versetzt werden soll
+	 * @param figurID Die ID der Figur, welche versetzt werden soll
+	 * @param zielFeldID Die ID des Zielfeldes
+	 * @throws SpielerNichtGefundenException Es gibt keinen Spieler mit der farbe "spielerFarbe"
+	 */
+	public void debugSetzeFigur(FarbEnum spielerFarbe, String figurID, String zielFeldID) throws SpielerNichtGefundenException;
 
 }

@@ -11,7 +11,7 @@ public class iBedienerTest {
 	
 	@Before
 	public void vorher() {
-		s = new Spiel();
+		s = new Spiel("Heinz", FarbEnum.BLAU, KITyp.KEINE_KI);
 	}
 	
 	
@@ -53,6 +53,46 @@ public class iBedienerTest {
 		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN);
 		
 		s.spielerEntfernen(FarbEnum.BLAU);
+	}
+	
+	@Test
+	public void testWuerfeln(){
+		int zahl = s.sWuerfeln();
+		
+		if (!(zahl > 0 && zahl < 7))
+			fail();
+	}
+	
+	@Test
+	public void testZiehen() {
+		
+		int zahl = s.sWuerfeln();		
+		ZugErgebnis e = s.ziehen("F1", s.sGetStartFeldID());
+		
+		if (zahl != 6)
+			assertFalse(e.gueltig);
+	}
+	
+	@Test
+	public void testZiehenSechser() {
+		s.debugWuerfeln(6);
+		ZugErgebnis e = s.ziehen("F1", "11");
+		
+		assertTrue(e.getGueltig());
+		assertFalse(e.getZugBeendet());
+	}
+	
+	@Test
+	public void testZiehenUngueltigerZug() {
+		
+		// Spieler 1 ist im Test immer blau...
+		s.debugSetzeFigur(FarbEnum.BLAU, "F1", "12");
+		
+		s.debugWuerfeln(4);
+		
+		ZugErgebnis e = s.ziehen("F1", "17");
+		
+		assertFalse(e.getGueltig());
 	}
 
 }
