@@ -109,9 +109,9 @@ public class Spiel implements iBediener {
 	 * @param kiTyp
 	 *            KITyp des ersten Spielers
 	 */
-	public Spiel(String spielerName, FarbEnum spielerFarbe, KITyp kiTyp) {
+	public Spiel(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
 		this.setSpieler(new ArrayList<Spieler>());
-		Spieler ersterSpieler = new Spieler(spielerName, spielerFarbe, kiTyp);
+		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe, kiTyp);
 
 		this.setSpielerAmZug(ersterSpieler);
 		this.setSpielerAmZugIndex(0);
@@ -125,7 +125,7 @@ public class Spiel implements iBediener {
 	 * hinzufügt, der einen Namen, Farbe und einen Würfel besitzt
 	 */
 	@Override
-	public void spielerHinzufuegen(String name, FarbEnum farbe)
+	public void spielerHinzufuegen(String name, FarbEnum farbe, KiTypEnum kiTyp)
 			throws SpielerFarbeVorhandenException {
 
 		if (name == null || farbe == null || name.isEmpty())
@@ -137,7 +137,7 @@ public class Spiel implements iBediener {
 				throw new SpielerFarbeVorhandenException(farbe);
 		}
 
-		this.teilnehmendeSpieler.add(new Spieler(name, farbe, new Wuerfel()));
+		this.teilnehmendeSpieler.add(new Spieler(this, name, farbe, kiTyp));
 	}
 
 	/**
@@ -184,19 +184,15 @@ public class Spiel implements iBediener {
 	 * auszuführen, sofern er mit den Spielregeln vereinbar ist
 	 */
 	@Override
-	public ZugErgebnis ziehen(String figurID, String zielFeldID) {
+	public ZugErgebnis ziehen(int figurID) {
 
-		if (figurID == null || zielFeldID == null) {
-			return new ZugErgebnis(false, false, null, false, null, null,
-					"figurID oder zielFeldID sind null!");
-		}
 
 		ZugErgebnis ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
-				this.spielerAmZug.getFigurDurchID(figurID), zielFeldID);
+				this.spielerAmZug.getFigurDurchID(figurID));
 
 		// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 		// nächste Spieler dran
-		if (ergebnis.getGueltig() && ergebnis.getZugBeendet()) {
+		if (ergebnis.isGueltig() && ergebnis.isZugBeendet()) {
 
 			// Der Index muss immer neu geprüft werden, da Spieler hinzugekommen
 			// sein könnten
@@ -227,7 +223,7 @@ public class Spiel implements iBediener {
 	 * auf das gewünschte Feld setzt ohne dabei die Spielregeln zu beachten
 	 */
 	@Override
-	public void debugSetzeFigur(FarbEnum spielerFarbe, String figurID,
+	public void debugSetzeFigur(FarbEnum spielerFarbe, int figurID,
 			String zielFeldID) throws SpielerNichtGefundenException {
 
 		Spieler spieler = findeSpieler(spielerFarbe);

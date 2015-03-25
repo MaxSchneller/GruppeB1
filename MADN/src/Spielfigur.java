@@ -9,6 +9,7 @@ public class Spielfigur {
 	private Position position;
 	private Spielfeld feld;
 	
+	
 	/**
 	 * Der Konstruktor der Klasse Spielfigur
 	 * @param farbe Jede Spielfigur besitzt eine Farbe
@@ -35,9 +36,16 @@ public class Spielfigur {
          return farbe;
 	}
 	
-	private void setSpielfeld(Spielfeld feld){
+	public void setSpielfeld(Spielfeld feld){
 		if(feld != null){
 			this.feld = feld;
 		}
 	}
+
+	public Spielfeld getSpielfeld() {
+		
+		return feld;
+	}
+	
+
 }

@@ -6,6 +6,8 @@ public class Spieler {
 	private String name;
 	private FarbEnum farbe;
 	private Wuerfel w;
+	private Spiel spiel;
+	private Spielfigur[] figuren=new Spielfigur[4];
 	
 	/**
 	 * Der Konstruktor der Klasse Spieler
@@ -13,16 +15,29 @@ public class Spieler {
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
 	 * @param kiTyp Welche Art von KI diesen Spieler steuern soll (oder keine)
 	 */
-	public Spieler(String name, FarbEnum farbe, KITyp kiTyp){
+	public Spieler(Spiel spiel, String name, FarbEnum farbe, KiTypEnum kiTyp){
 		this.setName(name);
 		this.setFarbe(farbe);
+		this.setSpiel(spiel);
 		
 		this.w = new Wuerfel();
 		
 		for (int i = 0; i < 4; ++i) {
 			this.figuren[i] = new Spielfigur(this.getFarbe(),
-					this.getSpiel().getSpielbrett().findeDurchID("S" + (i+1) + " " + getFarbe()));
+					this.spiel.getSpielbrett().findeFeldDurchID("S" + (i+1) + " " + getFarbe()));
 		}
+	}
+	
+	private void setSpiel(Spiel spiel) {
+		if(spiel==null){
+			throw new RuntimeException("Spiel existiert nicht");
+		}
+		this.spiel=spiel;
+		
+	}
+
+	public int wuerfeln(){
+		return this.w.werfen();	
 	}
 	
 	/**
@@ -30,8 +45,8 @@ public class Spieler {
 	 * @param name Der Name der Spielers
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
 	 */
-	public Spieler(String name, FarbEnum farbe){
-		this(name, farbe, KITyp.KEINE_KI);
+	public Spieler(Spiel spiel, String name, FarbEnum farbe){
+		this(spiel, name, farbe, KiTypEnum.KEINE_KI);
 	}
 	
 	/**
@@ -72,6 +87,15 @@ public class Spieler {
 	 */
 	public void setFarbe(FarbEnum farbe) {
 		this.farbe = farbe;
+	}
+
+	public Spielfigur getFigurDurchID(int figurID) {
+		if(figurID<=3 && figurID>=0){
+			return figuren[figurID];
+			}else{
+				throw new RuntimeException("ID ungueltig!");
+			}
+
 	}
 
 }

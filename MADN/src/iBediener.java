@@ -9,7 +9,7 @@ public interface iBediener {
 	 * @param farbe Die Farbe des Spielers (muss einzigartig im Spiel sein)
 	 * @throws SpielerFarbeVorhandenException Die Farbe ist bereits vergeben
 	 */
-	public void spielerHinzufuegen(String name, FarbEnum farbe) throws SpielerFarbeVorhandenException;
+	public void spielerHinzufuegen(String name, FarbEnum farbe, KiTypEnum kiTyp) throws SpielerFarbeVorhandenException;
 
 	/**
 	 * Entfernt den Spieler mit der angegebenen Farbe aus dem Spiel
@@ -30,7 +30,7 @@ public interface iBediener {
 	 * @param zielFeldID Die ID des Feldes auf das die Figur gesetzt werden soll
 	 * @return Das Ergebnis dieses Zuges
 	 */
-	public ZugErgebnis ziehen(String figurID, String zielFeldID);
+	public ZugErgebnis ziehen(int figurID);
 	
 	/**
 	 * Verhält sich wie ein gezinkter Würfel (setzt Spiel.zuletztGewuerfelt)
@@ -46,6 +46,6 @@ public interface iBediener {
 	 * @param zielFeldID Die ID des Zielfeldes
 	 * @throws SpielerNichtGefundenException Es gibt keinen Spieler mit der farbe "spielerFarbe"
 	 */
-	public void debugSetzeFigur(FarbEnum spielerFarbe, String figurID, String zielFeldID) throws SpielerNichtGefundenException;
+	public void debugSetzeFigur(FarbEnum spielerFarbe, int figurID, String zielFeldID) throws SpielerNichtGefundenException;
 
 }
