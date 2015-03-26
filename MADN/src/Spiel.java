@@ -35,7 +35,7 @@ public class Spiel implements iBediener {
 	 * 
 	 * @param spieler
 	 */
-	private void setSpieler(ArrayList<Spieler> spieler) {
+	private void setTeinehmendeSpieler(ArrayList<Spieler> spieler) {
 		if (spieler == null) {
 			throw new NullPointerException("spieler");
 		}
@@ -110,7 +110,10 @@ public class Spiel implements iBediener {
 	 *            KITyp des ersten Spielers
 	 */
 	public Spiel(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
-		this.setSpieler(new ArrayList<Spieler>());
+		
+		this.spielbrett = new Spielbrett();
+		this.setTeinehmendeSpieler(new ArrayList<Spieler>());
+		
 		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe, kiTyp);
 
 		this.setSpielerAmZug(ersterSpieler);

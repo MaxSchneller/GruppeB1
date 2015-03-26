@@ -3,10 +3,15 @@
  * @author Gruppe B1
  */
 public class Spieler {
+	/** Der Name des Spielers */
 	private String name;
+	/** Die Farbe des Spielers */
 	private FarbEnum farbe;
-	private Wuerfel w;
+	/** Jeder Spieler hat seinen eigenen Wuerfel */
+	private Wuerfel wuerfel;
+	/** Das Spiel an dem dieser Spieler teilnimmt */
 	private Spiel spiel;
+	/** Die Spielfiguren dieses Spielers */
 	private Spielfigur[] figuren=new Spielfigur[4];
 	
 	/**
@@ -16,28 +21,21 @@ public class Spieler {
 	 * @param kiTyp Welche Art von KI diesen Spieler steuern soll (oder keine)
 	 */
 	public Spieler(Spiel spiel, String name, FarbEnum farbe, KiTypEnum kiTyp){
+		this.setSpiel(spiel);
 		this.setName(name);
 		this.setFarbe(farbe);
-		this.setSpiel(spiel);
-		
-		this.w = new Wuerfel();
+		this.wuerfel = new Wuerfel();
 		
 		for (int i = 0; i < 4; ++i) {
-			this.figuren[i] = new Spielfigur(this.getFarbe(),
-					this.spiel.getSpielbrett().findeFeldDurchID("S" + (i+1) + " " + getFarbe()));
+			String feldID = "S" + (i+1) + " " + this.getFarbe();
+			Spielfeld feld = this.spiel.getSpielbrett().findeFeldDurchID(feldID);
+			
+			if (feld == null) {
+				throw new NullPointerException();
+			}
+				
+			this.figuren[i] = new Spielfigur(this.getFarbe(), feld, i, this);
 		}
-	}
-	
-	private void setSpiel(Spiel spiel) {
-		if(spiel==null){
-			throw new RuntimeException("Spiel existiert nicht");
-		}
-		this.spiel=spiel;
-		
-	}
-
-	public int wuerfeln(){
-		return this.w.werfen();	
 	}
 	
 	/**
@@ -49,17 +47,34 @@ public class Spieler {
 		this(spiel, name, farbe, KiTypEnum.KEINE_KI);
 	}
 	
-	/**
-	 * Getter-Methode der Wuerfels
-	 * @return Gibt die gewuerfelte Zahl zurück
-	 */
-	public Wuerfel getWuerfel(){
-		return w;
+	private void setSpiel(Spiel spiel) {
+		if (spiel != null) {
+			this.spiel = spiel;
+		} else {
+			throw new NullPointerException("Spiel darf nicht null sein");
+		}
 	}
-	
+
+	private void setFarbe(FarbEnum farbe) {
+		if (farbe != null) {
+			this.farbe = farbe;
+		} else {
+			throw new NullPointerException("farbe ist null");
+		}
+		
+	}
+
+	private void setName(String name) {
+		if (name != null && !name.isEmpty()) {
+			this.name = name;
+		} else {
+			throw new IllegalArgumentException("name ist null oder leer");
+		}
+	}
+
 	/**
 	 * Getter-Methode des Namens
-	 * @return Gibt den Namen zurück
+	 * @return Gibt den Namen zurueck
 	 */
 	public String getName(){
 		return name;
@@ -67,37 +82,37 @@ public class Spieler {
 	
 	/**
 	 * Getter-Methode der Farbe
-	 * @return Gibt die Farbe zurück
+	 * @return Gibt die Farbe zurueck
 	 */
 	public FarbEnum getFarbe() {
 		return farbe;
 	}
 	
 	/**
-	 * Setter-Methode des Namens
-	 * @param name Der Name des Spielers
+	 * Laesst den Spieler seinen Wuerfel werfen und gibt das Ergbnis zurueck
+	 * @return Die gewuerfelte Zahl
 	 */
-	public void setName(String name){
-		this.name = name;
+	public int wuerfeln(){
+		return this.wuerfel.werfen();	
 	}
 
-	/**
-	 * Setter-Methode der Farbe
-	 * @param farbe Die Farbe der Spielers
+	/** 
+	 * Gibt die gewuenschte Spielfigur dieses Spielers zurueck
+	 * @param figurID Die Nummer der gesuchten Figur (0-3)
+	 * @return Die Spielfigur, falls diese gefunden wurde
 	 */
-	public void setFarbe(FarbEnum farbe) {
-		this.farbe = farbe;
-	}
-
 	public Spielfigur getFigurDurchID(int figurID) {
 		if(figurID<=3 && figurID>=0){
 			return figuren[figurID];
 			}else{
-				throw new RuntimeException("ID ungueltig!");
+				throw new IndexOutOfBoundsException("ID ungueltig!");
 			}
 
 	}
 	
+	/**
+	 * Gibt die ID des Feldes zurueck, das sich unmittelbar vor den Endfeldern dieses Spielers befindet
+	 */
 	public String getFeldvorEndfeld(){
 		switch(farbe){
 			case ROT: return "40";
@@ -108,7 +123,11 @@ public class Spieler {
 		return "0";
 	}
 	
-	public String rausZiehFeld(){
+	/**
+	 * Gibt die ID des Feldes zurueck, auf welches dieser Spieler seine Spielfiguren
+	 * aus den Startfeldern stellt. 
+	 */
+	public String getRausZiehFeld(){
 		switch(farbe){
 			case ROT: return "1";
 			case BLAU: return "11";

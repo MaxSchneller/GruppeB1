@@ -1,3 +1,5 @@
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * Die Klasse Spielbrett
  * 
@@ -6,10 +8,10 @@
  */
 public class Spielbrett {
 
-	private static Spielfeld[] regulaereFelder = new Spielfeld[40];
+	private  Spielfeld[] regulaereFelder = new Spielfeld[40];
 
-	private static Spielfeld[][] startfelder = new Spielfeld[4][4];
-	private static Spielfeld[][] endfelder = new Spielfeld[4][4];
+	private  Spielfeld[][] startfelder = new Spielfeld[4][4];
+	private  Spielfeld[][] endfelder = new Spielfeld[4][4];
 
 	/**
 	 * Konstruktor des Spielbretts
@@ -27,7 +29,7 @@ public class Spielbrett {
 	 * setzt Spielfelder in das Array und weißt ID zu
 	 */
 
-	public void setStartfelderID() {
+	private void setStartfelderID() {
 		FarbEnum farbe = null;
 		for (int i = 0; i < 4; i++) {
 			switch (i + 1) {
@@ -80,12 +82,12 @@ public class Spielbrett {
 	}
 
 	/**
-	 * Getter-Methode fuer Spartfelder
+	 * Getter-Methode fuer Startfelder
 	 * 
 	 * @return startfeld
 	 */
-	public static Spielfeld[][] getStartfelder() {
-		return startfelder;
+	public  Spielfeld[][] getStartfelder() {
+		return this.startfelder;
 	}
 
 	/**
@@ -94,8 +96,8 @@ public class Spielbrett {
 	 * @param startfelder
 	 *            Das Startfeld
 	 */
-	public static void setStartfelder(Spielfeld[][] startfelder) {
-		Spielbrett.startfelder = startfelder;
+	public  void setStartfelder(Spielfeld[][] startfelder) {
+		this.startfelder = startfelder;
 	}
 
 	/**
@@ -103,46 +105,235 @@ public class Spielbrett {
 	 * 
 	 * @return endfeld
 	 */
-	public static Spielfeld[][] getEndfelder() {
-		return endfelder;
+	public  Spielfeld[][] getEndfelder() {
+		return this.endfelder;
 	}
 
 	/**
-	 * Setter-Methode fuer Endfeld
-	 * 
-	 * @param endfelder
-	 *            Das Endfeld
+	 * Versucht, den gewuenschten Zug auszufuehren und gibt das Ergebnis zurueck 
+	 * @param gewuerfelteZahl Die Zahl die der Spieler gewuerfelt hat
+	 * @param figur Die Figur, die Bewegt werden soll
+	 * @return Das Ergebnis des Ziehversuches
 	 */
-	public static void setEndfelder(Spielfeld[][] endfelder) {
-		Spielbrett.endfelder = endfelder;
+	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur) {
+		
+		Spielfeld feldDerFigur = figur.getSpielfeld();
+		
+		if(gewuerfelteZahl == 6 && feldDerFigur.isStartfeld()){
+			
+			return figurRausziehen(figur);
+		} else if (gewuerfelteZahl > 3 && feldDerFigur.isEndfeld()) {
+			
+			// Kann nicht sein
+			return new ZugErgebnis(false, false, null, false, null, null, "Ungueltiger Zug!");
+		} else if (!feldDerFigur.isEndfeld() && !feldDerFigur.isStartfeld()) {
+			
+			// Figur steht auf einem ganz normalen Feld
+			int nummerDesFeldes = Integer.parseInt(feldDerFigur.getID());
+			nummerDesFeldes += gewuerfelteZahl;
+			
+			int feldVorEndfeldNummer = Integer.parseInt(figur.getSpieler().getFeldvorEndfeld());
+			
+			if (nummerDesFeldes > feldVorEndfeldNummer) {
+				// Hier koentte er noch in die Endfelder ziehen wollen
+				
+				return figurInEndfeldBringen(figur, gewuerfelteZahl);
+				
+			} else {
+				// Der normalste Zug der Welt
+				Spielfeld zielFeld = findeFeldDurchID(String.format("%d", nummerDesFeldes));
+				return ganzNormalerZug(feldDerFigur, zielFeld);
+			}
+		} else {
+			// Ist in Endfeld und will weiter
+			return figurImEndFeldBewegen(figur, gewuerfelteZahl);
+		}
 	}
 
-	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur) {
-		String id = figur.getSpielfeld().getID();
-		Spielfeld feld = figur.getSpielfeld();
-		if(gewuerfelteZahl == 6 && feld.isStartfeld()){
-			Spielfeld startfeld = findeFeldDurchID(figur.getSpieler().rausZiehFeld());
-			if(startfeld.getFigurAufFeld() != null){
-				Spielfigur figurAufStartfeld = startfeld.getFigurAufFeld();
-				startfeld.setFigurAufFeld(figur);
-				feld.setFigurAufFeld(null);
-				Spielfeld anderesFeld = findeFeldDurchID("S" + (figurAufStartfeld.getID() + 1) + " " + figurAufStartfeld.getFarbe());
-				figurAufStartfeld.setSpielfeld(anderesFeld);
-				anderesFeld.setFigurAufFeld(figurAufStartfeld);
-				Spielfigur [] geaenderteFiguren = new Spielfigur [2];
-				geaenderteFiguren [0] = figur;
-				geaenderteFiguren [1] = figurAufStartfeld;
-				return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Zug gueltig");
-			} else{
-				startfeld.setFigurAufFeld(figur);
-				feld.setFigurAufFeld(null);
-				figur.setSpielfeld(startfeld);
-				Spielfigur [] geaenderteFiguren = new Spielfigur [1];
-				geaenderteFiguren[0] = figur;
-				return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Spielfigur ist raus");
+
+	private ZugErgebnis figurImEndFeldBewegen(Spielfigur figur,
+			int gewuerfelteZahl) {
+		
+		Spielfeld feldDerFigur = figur.getSpielfeld();
+		
+		if (feldDerFigur.isEndfeld()) {
+			String id = feldDerFigur.getID();
+			
+			String[] teile = id.split(" ");
+			
+			if (teile[0].length() == 2) {
+				int feldNummer = Integer.parseInt(teile[0].substring(1));
+				
+				int zielFeldNummer = feldNummer + gewuerfelteZahl;
+				
+				if (zielFeldNummer > 4) {
+					return new ZugErgebnis(false, false, null, false, null, null, "Kann nicht im Endfeld vorruecken");
+				} else {
+					Spielfeld[] spielerEndfelder = endfelder[figur.getFarbe().ordinal()];
+					
+					
+					for (int i = feldNummer + 1; i < zielFeldNummer; ++i) {
+						if (spielerEndfelder[i].getFigurAufFeld() != null) {
+							return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur steht im Weg");
+						}
+					}
+					
+					// Alle Felder frei
+					int zielFeldIndex = zielFeldNummer - 1;
+					
+					figurBewegen(figur, spielerEndfelder[zielFeldIndex]);
+					
+					Spielfigur[] neueFig = new Spielfigur[1];
+					
+					boolean allesVoll = true;
+					for (int i = 0; i < spielerEndfelder.length; ++i) {
+						if (spielerEndfelder[i].getFigurAufFeld() == null) {
+							allesVoll = false;
+						}
+					}
+					
+					return new ZugErgebnis(true, true, neueFig, 
+							allesVoll, figur.getSpieler().getName(), figur.getFarbe(), 
+							"Figur wurde bewegt");
+					
+				}
+			}
+		} 
+	}
+
+	private ZugErgebnis figurInEndfeldBringen(Spielfigur figur,
+			int gewuerfelteZahl) {
+		
+		int feldNummer = Integer.parseInt(figur.getSpielfeld().getID());
+		int zielFeldNummer = feldNummer + gewuerfelteZahl;
+		
+		int rausZiehNummer = Integer.parseInt(figur.getSpieler().getRausZiehFeld());
+		
+		int endFeldNummer = zielFeldNummer - rausZiehNummer;
+		int endFeldIndex = endFeldNummer - 1;
+		
+		if (endFeldIndex < 0 || endFeldIndex > 3) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		Spielfeld[] spielerEndfelder = this.endfelder[figur.getFarbe().ordinal()];
+		
+		for (int i = 0; i <= endFeldIndex; i++) {
+			if (spielerEndfelder[i].getFigurAufFeld() != null) {
+				return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur steht im Weg");
 			}
 		}
-		return null;
+		
+		// Hier sind alle Endfelder bis zum Zielfeld leer
+		figurBewegen(figur, spielerEndfelder[endFeldIndex]);
+		Spielfigur[] neueFig = new Spielfigur[1];
+		neueFig[0] = figur;
+		
+		boolean allesVoll = true;
+		// Pruefen,ob ein Feld noch leer
+		for (int i = 0; i < spielerEndfelder.length; ++i) {
+			if (spielerEndfelder[i].getFigurAufFeld() == null) {
+				allesVoll = false;
+			}
+		}
+		return new ZugErgebnis(true, true, neueFig, 
+				allesVoll, figur.getSpieler().getName(), figur.getFarbe(), 
+				"Figur wurde ins Endfeld bewegt");
+		
+		
+	}
+
+	private ZugErgebnis ganzNormalerZug(Spielfeld feldDerFigur,
+			Spielfeld zielFeld) {
+		
+		Spielfigur gegnerFigur = zielFeld.getFigurAufFeld();
+		Spielfigur eigeneFigur = feldDerFigur.getFigurAufFeld();
+		
+		if (gegnerFigur != null && 
+				(eigeneFigur.getFarbe() != gegnerFigur.getFarbe())) {
+			// Figur schlagen
+			
+			figurSchlagen(eigeneFigur, gegnerFigur);
+			
+			Spielfigur[] neueFig = new Spielfigur[2];
+			neueFig[0] = eigeneFigur;
+			neueFig[1] = gegnerFigur;
+			
+			return new ZugErgebnis(true, true, neueFig, false, null, null, "Figur geschlagen!");
+		} else if (gegnerFigur != null &&
+				(eigeneFigur.getFarbe() == gegnerFigur.getFarbe())) {
+			
+			// Darf keine eigenen Figuren schlagen
+			return new ZugErgebnis(false, false, null, false, null, null, "Eigene Figur steht dort bereits");
+		} else {
+			
+			// Zielfeld ist leer
+			figurBewegen(eigeneFigur, zielFeld);
+			
+			Spielfigur[] neueFig = new Spielfigur[1];
+			neueFig[0] = eigeneFigur;
+			
+			return new ZugErgebnis(true, true, neueFig, false, null, null, "Figur wurde bewegt");
+		}
+	}
+
+	private ZugErgebnis figurRausziehen(Spielfigur figur) {
+		
+		Spielfeld feldDerFigur = figur.getSpielfeld();
+		Spielfeld rausZiehFeld = findeFeldDurchID(figur.getSpieler().getRausZiehFeld());
+		
+		Spielfigur figurAufRausZiehFeld = rausZiehFeld.getFigurAufFeld();
+		if(figurAufRausZiehFeld != null && figurAufRausZiehFeld.getFarbe() != figur.getFarbe()){
+			// Das Rausziehfeld ist belegt...
+			
+			figurSchlagen(figur, figurAufRausZiehFeld);
+			
+			// Das Ergbnis zurueckgeben
+			Spielfigur [] geaenderteFiguren = new Spielfigur [2];
+			geaenderteFiguren [0] = figur;
+			geaenderteFiguren [1] = figurAufRausZiehFeld;
+			return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Zug gueltig");
+		} else if (figurAufRausZiehFeld != null && 
+					(figurAufRausZiehFeld.getFarbe() == figur.getFarbe())){
+			// Eine seiner eigenen Figuren steht noch auf dem Feld
+			return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur der selben Farbe steht bereits auf dem Rausziehfeld");
+			
+		} else {
+			// Das Rausziehfeld ist frei
+			
+			// Figur rausziehen
+			rausZiehFeld.setFigurAufFeld(figur);
+			feldDerFigur.setFigurAufFeld(null);
+			figur.setSpielfeld(rausZiehFeld);
+			
+			// Ergbnis zurrueckgeben
+			Spielfigur [] geaenderteFiguren = new Spielfigur [1];
+			geaenderteFiguren[0] = figur;
+			return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Spielfigur ist raus");
+		}
+	}
+	
+	private void figurSchlagen(Spielfigur figur, Spielfigur gegnerFigur) {
+		
+		String idGegnerStart = "S" + (gegnerFigur.getID() + 1) + " " + gegnerFigur.getFarbe();
+		Spielfeld startFeldDesGegners = findeFeldDurchID(idGegnerStart);
+		
+		// Figur auf Gegnerfeld
+		Spielfeld ziel = gegnerFigur.getSpielfeld();
+		figur.setSpielfeld(ziel);
+		ziel.setFigurAufFeld(figur);
+		
+		// Gegner zuruecksetzen
+		startFeldDesGegners.setFigurAufFeld(gegnerFigur);
+		gegnerFigur.setSpielfeld(startFeldDesGegners);
+		
+	}
+	
+	private void figurBewegen(Spielfigur figur, Spielfeld zielFeld) {
+		
+		figur.getSpielfeld().setFigurAufFeld(null);
+		figur.setSpielfeld(zielFeld);
+		zielFeld.setFigurAufFeld(figur);
 	}
 
 	/**
@@ -212,24 +403,29 @@ public class Spielbrett {
 
 		Spielbrett s = new Spielbrett();
 
-		for (int i = 0; i < regulaereFelder.length; i++) {
-			System.out.print(regulaereFelder[i].toString() + " ");
+		for (int i = 0; i < s.regulaereFelder.length; i++) {
+			System.out.print(s.regulaereFelder[i].toString() + " ");
 		}
 
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				System.out.print(startfelder[i][j] + " | ");
+				System.out.print(s.startfelder[i][j] + " | ");
 			}
 		}
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				System.out.print(endfelder[i][j] + " | ");
+				System.out.print(s.endfelder[i][j] + " | ");
 			}
 		}
 	}
 
+	/**
+	 * Durchsucht die Spielfelder nach der gwuenschten ID
+	 * @param feldID Die ID des gesuchten Feldes
+	 * @return Das Feld, falls es gefunden wurde, sonst null
+	 */
 	public Spielfeld findeFeldDurchID(String feldID) {
 		if (Spielfeld.isFeldIDgueltig(feldID)) {
 			for (int i = 0; i < regulaereFelder.length; i++) {
