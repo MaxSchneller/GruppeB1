@@ -198,7 +198,8 @@ public class Spielbrett {
 					
 				}
 			}
-		} 
+		}
+		return new ZugErgebnis(false, false, null, false, null, null, "Etwas lief schief ;)"); 
 	}
 
 	private ZugErgebnis figurInEndfeldBringen(Spielfigur figur,
