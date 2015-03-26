@@ -96,10 +96,10 @@ public class Spielfeld {
 	 *            Die ID des Spielfelds
 	 */
 	private void setID(String ID) {
-		if (Spielfeld.isFeldIDgueltig(ID)){
+		if (Spielfeld.isFeldIDgueltig(ID)) {
 			this.ID = ID;
-		}else{
-			throw new RuntimeException ("ungueltige ID");
+		} else {
+			throw new RuntimeException("ungueltige ID");
 		}
 	}
 
@@ -123,5 +123,66 @@ public class Spielfeld {
 
 	public void setFigurAufFeld(Spielfigur figur) {
 		this.figurAufFeld = figur;
+	}
+
+	/**
+	 * Konvertiert den Farbteil der ID (falls vorhanden) in eine Farbe aus
+	 * FarbEnum
+	 * 
+	 * @return Die Farbe dieses Feldes oder null falls es keine Farbe hat
+	 */
+	public FarbEnum getFarbe() {
+		String id = this.getID();
+
+		if (Spielfeld.isFeldIDgueltig(id)) {
+			if (id.length() > 2) {
+
+				String[] teile = id.split(" ");
+
+				return FarbEnum.vonString(teile[1]);
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Ermittelt anhand der ID, ob dieses Feld ein Startfeld ist
+	 * 
+	 * @return True falls dieses Feld ein Startfeld ist, sonst false
+	 */
+	public boolean isStartfeld() {
+		String id = this.getID();
+
+		if (Spielfeld.isFeldIDgueltig(id)) {
+			if (id.length() > 2) {
+				String[] teile = id.split(" ");
+
+				return teile[0].startsWith("S");
+
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Ermittelt anhand der ID, ob dieses Feld ein Endfeld ist
+	 * 
+	 * @return True falls dieses Feld ein Endfeld ist, sonst false
+	 */
+	public boolean isEndfeld() {
+		
+		String id = this.getID();
+		
+		if (Spielfeld.isFeldIDgueltig(id)) {
+			
+			if (id.length() > 2) {
+				
+				String[] teile = id.split(" ");
+				return teile[0].startsWith("E");
+			}
+		}
+		return false;
 	}
 }
