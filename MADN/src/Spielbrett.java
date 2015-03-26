@@ -118,6 +118,30 @@ public class Spielbrett {
 	}
 
 	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur) {
+		String id = figur.getSpielfeld().getID();
+		Spielfeld feld = figur.getSpielfeld();
+		if(gewuerfelteZahl == 6 && feld.isStartfeld()){
+			Spielfeld startfeld = findeFeldDurchID(figur.getSpieler().rausZiehFeld());
+			if(startfeld.getFigurAufFeld() != null){
+				Spielfigur figurAufStartfeld = startfeld.getFigurAufFeld();
+				startfeld.setFigurAufFeld(figur);
+				feld.setFigurAufFeld(null);
+				Spielfeld anderesFeld = findeFeldDurchID("S" + (figurAufStartfeld.getID() + 1) + " " + figurAufStartfeld.getFarbe());
+				figurAufStartfeld.setSpielfeld(anderesFeld);
+				anderesFeld.setFigurAufFeld(figurAufStartfeld);
+				Spielfigur [] geaenderteFiguren = new Spielfigur [2];
+				geaenderteFiguren [0] = figur;
+				geaenderteFiguren [1] = figurAufStartfeld;
+				return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Zug gueltig");
+			} else{
+				startfeld.setFigurAufFeld(figur);
+				feld.setFigurAufFeld(null);
+				figur.setSpielfeld(startfeld);
+				Spielfigur [] geaenderteFiguren = new Spielfigur [1];
+				geaenderteFiguren[0] = figur;
+				return new ZugErgebnis(true, false, geaenderteFiguren, false, null, null, "Spielfigur ist raus");
+			}
+		}
 		return null;
 	}
 
@@ -176,6 +200,7 @@ public class Spielbrett {
 
 		return null;
 	}
+	
 
 	/**
 	 * Zum testen

@@ -97,6 +97,26 @@ public class Spieler {
 			}
 
 	}
+	
+	public String getFeldvorEndfeld(){
+		switch(farbe){
+			case ROT: return "40";
+			case BLAU: return "10";
+			case GRUEN: return "20";
+			case GELB: return "30";
+		}
+		return "0";
+	}
+	
+	public String rausZiehFeld(){
+		switch(farbe){
+			case ROT: return "1";
+			case BLAU: return "11";
+			case GRUEN: return "21";
+			case GELB: return "31";
+		}
+		return "0";
+	}
 
 }
 
