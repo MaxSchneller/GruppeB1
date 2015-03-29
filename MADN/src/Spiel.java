@@ -8,15 +8,17 @@ public class Spiel implements iBediener {
 	// Attribute
 
 	/** Alle Spieler, die zur Zeit teilnehmen */
-	private ArrayList<Spieler> teilnehmendeSpieler;
+	private ArrayList<Spieler> teilnehmendeSpieler = new ArrayList<Spieler>();
 	/** Der Spieler, der gerade am Zug ist */
-	private Spieler spielerAmZug;
+	private Spieler spielerAmZug = null;
 	/** Die zuletzt geürfelte Zahl */
-	private int zuleztGewuerfelt;
+	private int zuleztGewuerfelt = 0;
 	/** Index des Spielers, der gerade am Zug ist */
-	private int spielerAmZugIndex;
+	private int spielerAmZugIndex = 0;
 	/** Das Spielbrett */
-	private Spielbrett spielbrett;
+	private Spielbrett spielbrett = new Spielbrett();
+	/** Kann zur Zeit gewuerfelt werden? */
+	private boolean kannWuerfeln = true;
 
 	// Getter und Setter
 
@@ -65,8 +67,12 @@ public class Spiel implements iBediener {
 		if (zuleztGewuerfelt < 1 || zuleztGewuerfelt > 6) {
 			throw new IllegalArgumentException(
 					"zuletztGewuerfelt liegt nicht zwischen 1 und 6");
+		} else if (!this.kannWuerfeln) {
+			System.out.println("Kann nicht wuerfeln, Zug muss zuerst ausgefuehrt werden!");
+			return;
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
+		this.kannWuerfeln = false;
 	}
 
 	/**
@@ -110,9 +116,6 @@ public class Spiel implements iBediener {
 	 *            KITyp des ersten Spielers
 	 */
 	public Spiel(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
-		
-		this.spielbrett = new Spielbrett();
-		this.setTeinehmendeSpieler(new ArrayList<Spieler>());
 		
 		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe, kiTyp);
 
@@ -189,13 +192,22 @@ public class Spiel implements iBediener {
 	@Override
 	public ZugErgebnis ziehen(int figurID) {
 
+		// Wenn noch alle drin sind und keine 6 gewuefelt wurde, kommt der naechste dran
 
-		ZugErgebnis ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
-				this.spielerAmZug.getFigurDurchID(figurID));
+		ZugErgebnis ergebnis;
+		if (this.spielerAmZug.hatFigurAufSpielfeld() ||
+				(this.zuleztGewuerfelt == 6)) {
+			ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
+					this.spielerAmZug.getFigurDurchID(figurID));
+		} else {
+			ergebnis = new ZugErgebnis(false, true, null, false, null, null, "Kein Zug moeglich");
+		}
+		
+		
 
 		// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 		// nächste Spieler dran
-		if (ergebnis.isGueltig() && ergebnis.isZugBeendet()) {
+		if (ergebnis.isZugBeendet()) {
 
 			// Der Index muss immer neu geprüft werden, da Spieler hinzugekommen
 			// sein könnten
@@ -209,6 +221,7 @@ public class Spiel implements iBediener {
 
 		}
 
+		this.kannWuerfeln = true;
 		return ergebnis;
 	}
 

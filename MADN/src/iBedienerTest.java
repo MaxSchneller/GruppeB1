@@ -52,7 +52,7 @@ public class iBedienerTest {
 		s.spielerHinzufuegen("Karl", FarbEnum.GELB, KiTypEnum.KEINE_KI);
 		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
 		
-		s.spielerEntfernen(FarbEnum.BLAU);
+		s.spielerEntfernen(FarbEnum.ROT);
 	}
 	
 	@Test
@@ -92,7 +92,42 @@ public class iBedienerTest {
 		
 		ZugErgebnis e = s.ziehen(0);
 		
-		assertFalse(e.isGueltig());
+		assertTrue(e.isGueltig());
+	}
+	
+	@Test
+	public void testZugInEndfeld() throws SpielerNichtGefundenException {
+		s.debugSetzeFigur(FarbEnum.BLAU, 0, "10");
+		
+		s.debugWuerfeln(2);
+		
+		ZugErgebnis ergebnis =  s.ziehen(0);
+		
+		System.out.println(ergebnis);
+		
+		assertTrue(ergebnis.isGueltig());
+		
+		s.debugSetzeFigur(FarbEnum.BLAU, 1, "10");
+		s.debugWuerfeln(3);
+		
+		ergebnis = s.ziehen(1);
+		
+		System.out.println(ergebnis);
+		
+		assertFalse(ergebnis.isGueltig());
+	}
+	
+	@Test
+	public void testStartspielfeldBelegt() throws SpielerNichtGefundenException {
+		
+		s.debugSetzeFigur(FarbEnum.BLAU, 0, "11");
+		
+		s.debugWuerfeln(6);
+		
+		ZugErgebnis ergebnis = s.ziehen(1);
+		
+		System.out.println(ergebnis);
+		assertFalse(ergebnis.isGueltig());
 	}
 
 }

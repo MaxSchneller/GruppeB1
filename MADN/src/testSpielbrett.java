@@ -1,22 +1,15 @@
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 public class testSpielbrett {
 	
-	protected Spielbrett sb=new Spielbrett();
+	protected static Spielbrett sb=new Spielbrett();
 	
-	@Test
-	public void testStart() {
-		assertNotNull(Spielbrett.getStartfelder());
+	@BeforeClass
+	public static void ganzAmAnfang() {
 	}
-	
-	@Test
-	public void testEndNull(){
-		assertNotNull(Spielbrett.getEndfelder());
-	}
-	
-
 }

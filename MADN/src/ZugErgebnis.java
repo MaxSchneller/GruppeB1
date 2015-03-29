@@ -18,9 +18,10 @@ public class ZugErgebnis {
 		this.gewinnerFarbe=gewinnerFarbe;
 		this.nachricht=nachricht;
 		
-		if(zugBeendet && !gueltig){
+		// Bei einem ungueltige Zug ist sofort der nöchste Spieler dran
+		/*if(zugBeendet && !gueltig){
 			throw new RuntimeException("Zug ungueltig!");
-			}
+			}*/
 		if(gueltig && geanderteFiguren == null){
 			throw new RuntimeException("Zug ungueltig!");
 		}
@@ -59,6 +60,29 @@ public class ZugErgebnis {
 	}
 	public String getNachricht() {
 		return nachricht;
+	}
+	
+	@Override
+	public String toString() {
+		String nachrichtenString = "";
+		
+		nachrichtenString += "Gueltig: " + (isGueltig() ? "Ja" : "Nein") + "\n";
+		nachrichtenString += "Beendet: " + (isZugBeendet() ? "Ja" : "Nein") + "\n";
+		nachrichtenString += getNachricht() + "\n";
+		
+		if (isGueltig()) {
+			for (Spielfigur fig : getGeaenderteFiguren()) {
+				nachrichtenString += "Figur: " + fig.getID() + " auf Feld: " + fig.getSpielfeld().getID() + "\n";
+			}
+			
+			if (isSpielGewonnen()) {
+				nachrichtenString += "Spiel wurde gewonnen! \n";
+				nachrichtenString += "Gewinner Name: " + getGewinnerName() + "\n";
+				nachrichtenString += "Gewinner Farbe: " + getGewinnerFarbe() + "\n";
+			}
+		}
+		
+		return nachrichtenString;
 	}
 	
 	
