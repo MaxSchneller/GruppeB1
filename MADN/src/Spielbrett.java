@@ -170,6 +170,15 @@ public class Spielbrett {
 		}
 	}
 
+	/**
+	 * Eine Figur, die bereits im Endfeld steht verruecken
+	 * 
+	 * @param figur
+	 *            Die zu verrueckende Figur
+	 * @param gewuerfelteZahl
+	 *            Wuerfelergebnis des Spielers
+	 * @return Das Ergebnis dieses Zuges
+	 */
 	private ZugErgebnis figurImEndFeldBewegen(Spielfigur figur,
 			int gewuerfelteZahl) {
 
@@ -228,6 +237,15 @@ public class Spielbrett {
 				null, "Etwas lief schief ;)");
 	}
 
+	/**
+	 * Eine Figur ausserhalb des Endfeldes in selbiges bewegen
+	 * 
+	 * @param figur
+	 *            Figur die bewegt werden soll
+	 * @param gewuerfelteZahl
+	 *            Wuefelergebnis des Spielers
+	 * @return Ergbnis dieses Zuges
+	 */
 	private ZugErgebnis figurInEndfeldBringen(Spielfigur figur,
 			int gewuerfelteZahl) {
 
@@ -280,6 +298,17 @@ public class Spielbrett {
 
 	}
 
+	/**
+	 * Eine Figur auf den 40 Spielfeldern bewegen
+	 * 
+	 * @param feldDerFigur
+	 *            Feld auf dem die Figur steht
+	 * @param zielFeld
+	 *            Das Zielfeld
+	 * @param gewuerfelteZahl
+	 *            Wuerfelergebnis des Spielers
+	 * @return Das Ergebnis dieses Zuges
+	 */
 	private ZugErgebnis ganzNormalerZug(Spielfeld feldDerFigur,
 			Spielfeld zielFeld, int gewuerfelteZahl) {
 
@@ -319,6 +348,13 @@ public class Spielbrett {
 		}
 	}
 
+	/**
+	 * Eine Figur aus ihrem Startfeld bewegen
+	 * 
+	 * @param figur
+	 *            Die zu bewegende Figur
+	 * @return Das Ergebnis dieses Zuges
+	 */
 	private ZugErgebnis figurRausziehen(Spielfigur figur) {
 
 		Spielfeld feldDerFigur = figur.getSpielfeld();
@@ -360,6 +396,15 @@ public class Spielbrett {
 		}
 	}
 
+	/**
+	 * Setzt figur auf das Feld von gegnerFigur und setzt gegnerFigur zurueck
+	 * auf ihr Startfeld
+	 * 
+	 * @param figur
+	 *            Die Figur die bewegt werden soll
+	 * @param gegnerFigur
+	 *            Die Figur die geschlagen werden soll
+	 */
 	private void figurSchlagen(Spielfigur figur, Spielfigur gegnerFigur) {
 
 		String idGegnerStart = "S" + (gegnerFigur.getID() + 1) + " "
@@ -377,6 +422,14 @@ public class Spielbrett {
 
 	}
 
+	/**
+	 * Setzt die gewuenschte Figur auf das gewuenschte Feld
+	 * 
+	 * @param figur
+	 *            Figur die bewegt werden soll
+	 * @param zielFeld
+	 *            Feld auf das die Figur gestellt werden soll
+	 */
 	private void figurBewegen(Spielfigur figur, Spielfeld zielFeld) {
 
 		figur.getSpielfeld().setFigurAufFeld(null);
@@ -400,6 +453,12 @@ public class Spielbrett {
 		if (zielFeld != null && figur != null) {
 
 			if (zielFeld.getFigurAufFeld() == null) {
+				if (zielFeld.getFarbe() != null) {
+					if (zielFeld.getFarbe() != figur.getFarbe()) {
+						// Verhindern, dass Farben vermischt werden
+						return false;
+					}
+				}
 				figur.getSpielfeld().setFigurAufFeld(null);
 				zielFeld.setFigurAufFeld(figur);
 				figur.setSpielfeld(zielFeld);
