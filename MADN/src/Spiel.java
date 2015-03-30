@@ -19,6 +19,8 @@ public class Spiel implements iBediener {
 	private Spielbrett spielbrett = new Spielbrett();
 	/** Kann zur Zeit gewuerfelt werden? */
 	private boolean kannWuerfeln = true;
+	/** Anzahl der Versuche eine 6 zu wuerfeln */
+	private int wuerfelVersuche = 0;
 
 	// Getter und Setter
 
@@ -68,7 +70,8 @@ public class Spiel implements iBediener {
 			throw new IllegalArgumentException(
 					"zuletztGewuerfelt liegt nicht zwischen 1 und 6");
 		} else if (!this.kannWuerfeln) {
-			System.out.println("Kann nicht wuerfeln, Zug muss zuerst ausgefuehrt werden!");
+			System.out
+					.println("Kann nicht wuerfeln, Zug muss zuerst ausgefuehrt werden!");
 			return;
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
@@ -116,8 +119,9 @@ public class Spiel implements iBediener {
 	 *            KITyp des ersten Spielers
 	 */
 	public Spiel(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
-		
-		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe, kiTyp);
+
+		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe,
+				kiTyp);
 
 		this.setSpielerAmZug(ersterSpieler);
 		this.setSpielerAmZugIndex(0);
@@ -152,8 +156,8 @@ public class Spiel implements iBediener {
 	@Override
 	public void spielerEntfernen(FarbEnum farbeDesSpielers)
 			throws SpielerNichtGefundenException {
-		
-		if (farbeDesSpielers == null) 
+
+		if (farbeDesSpielers == null)
 			throw new NullPointerException("farbeDesSpielers");
 
 		int indexZuEntfernen = -1;
@@ -191,19 +195,28 @@ public class Spiel implements iBediener {
 	 */
 	@Override
 	public ZugErgebnis ziehen(int figurID) {
-
-		// Wenn noch alle drin sind und keine 6 gewuefelt wurde, kommt der naechste dran
-
+		
 		ZugErgebnis ergebnis;
-		if (this.spielerAmZug.hatFigurAufSpielfeld() ||
-				(this.zuleztGewuerfelt == 6)) {
+		if (this.spielerAmZug.hatFigurAufSpielfeld()
+				|| (this.zuleztGewuerfelt == 6)) {
+			// Spieler hat schon Figuren draussen oder eine 6 gewuerfelt
 			ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
 					this.spielerAmZug.getFigurDurchID(figurID));
 		} else {
-			ergebnis = new ZugErgebnis(false, true, null, false, null, null, "Kein Zug moeglich");
+			// Noch keine Figuren draussen, also drei Versuche
+			if (this.wuerfelVersuche < 2) {
+				// Die ersten zwei Versuche
+				ergebnis = new ZugErgebnis(false, false, null, false, null,
+						null, "Kein Zug moeglich, nochmal wuerferln (Versuch: "
+								+ (this.wuerfelVersuche + 1) + ")");
+				++this.wuerfelVersuche;
+			} else {
+				// Der letzte Versuch
+				ergebnis = new ZugErgebnis(false, true, null, false, null,
+						null, "Kein Zug moeglich, Versuche aufgebraucht");
+				this.wuerfelVersuche = 0;
+			}
 		}
-		
-		
 
 		// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 		// nächste Spieler dran
@@ -251,6 +264,12 @@ public class Spiel implements iBediener {
 				this.spielbrett.debugSetPos(figur, zielFeldID);
 			}
 		}
+	}
+
+	@Override
+	public FarbEnum getSpielerAmZugFarbe() {
+		return (this.spielerAmZug != null) ? this.spielerAmZug.getFarbe()
+				: null;
 	}
 
 	// Private Methoden

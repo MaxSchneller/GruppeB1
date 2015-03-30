@@ -21,6 +21,7 @@ public class SpielTest {
 		String weiterSpielen = "Ja";
 
 		do {
+			System.out.println("Spieler : " + s1.getSpielerAmZugFarbe() + " ist am Zug");
 			System.out.println("Enter  druecken zum Wuerfeln (Zahl eingeben, um Wuerfel zu manipulieren)");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					System.in));
@@ -94,7 +95,7 @@ public class SpielTest {
 		s.debugSetzeFigur(FarbEnum.ROT, 2, "E2 ROT");
 		s.debugSetzeFigur(FarbEnum.ROT, 3, "39");
 		
-		s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
+		//s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
 		
 	}
 }

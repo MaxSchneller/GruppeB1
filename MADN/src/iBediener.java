@@ -47,5 +47,10 @@ public interface iBediener {
 	 * @throws SpielerNichtGefundenException Es gibt keinen Spieler mit der farbe "spielerFarbe"
 	 */
 	public void debugSetzeFigur(FarbEnum spielerFarbe, int figurID, String zielFeldID) throws SpielerNichtGefundenException;
+	
+	/**
+	 * Gibt die Farbe des Spielers, der gerade am Zug ist zurueck
+	 */
+	public FarbEnum getSpielerAmZugFarbe();
 
 }
