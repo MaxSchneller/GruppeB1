@@ -125,27 +125,35 @@ public class Spielbrett {
 		} else if (gewuerfelteZahl > 3 && feldDerFigur.isEndfeld()) {
 			
 			// Kann nicht sein
-			return new ZugErgebnis(false, false, null, false, null, null, "Ungueltiger Zug!");
+			return new ZugErgebnis(false, true, null, false, null, null, "Ungueltiger Zug!");
 		} else if (!feldDerFigur.isEndfeld() && !feldDerFigur.isStartfeld()) {
 			
 			// Figur steht auf einem ganz normalen Feld
 			int nummerDesFeldes = Integer.parseInt(feldDerFigur.getID());
-			nummerDesFeldes += gewuerfelteZahl;
 			
 			int feldVorEndfeldNummer = Integer.parseInt(figur.getSpieler().getFeldvorEndfeld());
+			int distanzZuEndfeld = 0;
 			
 			if (nummerDesFeldes > feldVorEndfeldNummer) {
+				distanzZuEndfeld = 40 - nummerDesFeldes + feldVorEndfeldNummer;
+			} else if (nummerDesFeldes <= feldVorEndfeldNummer) {
+				distanzZuEndfeld = feldVorEndfeldNummer - nummerDesFeldes;
+			} 
+			
+			int zielFeldNummer = nummerDesFeldes + gewuerfelteZahl;
+			
+			if (gewuerfelteZahl > distanzZuEndfeld) {
 				// Hier koentte er noch in die Endfelder ziehen wollen
 				
 				return figurInEndfeldBringen(figur, gewuerfelteZahl);
 				
 			} else {
 				// Der normalste Zug der Welt
-				Spielfeld zielFeld = findeFeldDurchID(String.format("%d", nummerDesFeldes));
+				Spielfeld zielFeld = findeFeldDurchID(String.format("%d", zielFeldNummer));
 				return ganzNormalerZug(feldDerFigur, zielFeld);
 			}
 		} else {
-			// Ist in Endfeld und will weiter
+			// Ist in Endfeld und will weiter, oder hat alle Figuren noch drin und keine 6 gewuerfelt
 			return figurImEndFeldBewegen(figur, gewuerfelteZahl);
 		}
 	}
@@ -167,14 +175,14 @@ public class Spielbrett {
 				int zielFeldNummer = feldNummer + gewuerfelteZahl;
 				
 				if (zielFeldNummer > 4) {
-					return new ZugErgebnis(false, false, null, false, null, null, "Kann nicht im Endfeld vorruecken");
+					return new ZugErgebnis(false, true, null, false, null, null, "Kann nicht im Endfeld vorruecken");
 				} else {
 					Spielfeld[] spielerEndfelder = endfelder[figur.getFarbe().ordinal()];
 					
 					
 					for (int i = feldNummer + 1; i < zielFeldNummer; ++i) {
 						if (spielerEndfelder[i].getFigurAufFeld() != null) {
-							return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur steht im Weg");
+							return new ZugErgebnis(false, true, null, false, null, null, "Eine Figur steht im Weg");
 						}
 					}
 					
@@ -199,7 +207,7 @@ public class Spielbrett {
 				}
 			}
 		}
-		return new ZugErgebnis(false, false, null, false, null, null, "Etwas lief schief ;)"); 
+		return new ZugErgebnis(false, true, null, false, null, null, "Etwas lief schief ;)"); 
 	}
 
 	private ZugErgebnis figurInEndfeldBringen(Spielfigur figur,
@@ -208,9 +216,9 @@ public class Spielbrett {
 		int feldNummer = Integer.parseInt(figur.getSpielfeld().getID());
 		int zielFeldNummer = feldNummer + gewuerfelteZahl;
 		
-		int rausZiehNummer = Integer.parseInt(figur.getSpieler().getRausZiehFeld());
+		int feldVorEndfeldNummer = Integer.parseInt(figur.getSpieler().getFeldvorEndfeld());
 		
-		int endFeldNummer = zielFeldNummer - rausZiehNummer;
+		int endFeldNummer = zielFeldNummer - feldVorEndfeldNummer;
 		int endFeldIndex = endFeldNummer - 1;
 		
 		if (endFeldIndex < 0 || endFeldIndex > 3) {
@@ -221,7 +229,7 @@ public class Spielbrett {
 		
 		for (int i = 0; i <= endFeldIndex; i++) {
 			if (spielerEndfelder[i].getFigurAufFeld() != null) {
-				return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur steht im Weg");
+				return new ZugErgebnis(false, true, null, false, null, null, "Eine Figur steht im Weg");
 			}
 		}
 		
@@ -265,7 +273,7 @@ public class Spielbrett {
 				(eigeneFigur.getFarbe() == gegnerFigur.getFarbe())) {
 			
 			// Darf keine eigenen Figuren schlagen
-			return new ZugErgebnis(false, false, null, false, null, null, "Eigene Figur steht dort bereits");
+			return new ZugErgebnis(false, true, null, false, null, null, "Eigene Figur steht dort bereits");
 		} else {
 			
 			// Zielfeld ist leer
@@ -297,7 +305,7 @@ public class Spielbrett {
 		} else if (figurAufRausZiehFeld != null && 
 					(figurAufRausZiehFeld.getFarbe() == figur.getFarbe())){
 			// Eine seiner eigenen Figuren steht noch auf dem Feld
-			return new ZugErgebnis(false, false, null, false, null, null, "Eine Figur der selben Farbe steht bereits auf dem Rausziehfeld");
+			return new ZugErgebnis(false, true, null, false, null, null, "Eine Figur der selben Farbe steht bereits auf dem Rausziehfeld");
 			
 		} else {
 			// Das Rausziehfeld ist frei

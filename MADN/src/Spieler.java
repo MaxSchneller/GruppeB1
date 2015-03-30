@@ -136,6 +136,21 @@ public class Spieler {
 		}
 		return "0";
 	}
+	
+	/**
+	 * Prueft ob mindestens eine Spielfigur nicht mehr auf den Startfeldern sitzt
+	 */
+	public boolean hatFigurAufSpielfeld() {
+		
+		for (int i = 0; i < figuren.length; i++) {
+			Spielfigur spielfigur = figuren[i];
+			if (spielfigur.getSpielfeld().isStartfeld() == false) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 }
 

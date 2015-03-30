@@ -22,6 +22,8 @@ public class Spielfigur {
 		setSpielfeld(feld);
 		setID(id);
 		setSpieler(spieler);
+		
+		feld.setFigurAufFeld(this);
 	}
 	
 	public int getID() {
