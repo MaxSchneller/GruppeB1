@@ -12,7 +12,7 @@ public class SpielTest {
 
 	public static void main(String[] args)
 			throws SpielerFarbeVorhandenException, IOException, SpielerNichtGefundenException {
-		Spiel s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.KEINE_KI);
+		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.KEINE_KI);
 		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
 		
 		vorbedingungenAendern(s1);
@@ -21,6 +21,7 @@ public class SpielTest {
 		String weiterSpielen = "Ja";
 
 		do {
+			
 			System.out.println("Spieler : " + s1.getSpielerAmZugFarbe() + " ist am Zug");
 			System.out.println("Enter  druecken zum Wuerfeln (Zahl eingeben, um Wuerfel zu manipulieren)");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -90,10 +91,10 @@ public class SpielTest {
 	 * @throws SpielerNichtGefundenException
 	 */
 	private static void vorbedingungenAendern(iBediener s) throws SpielerNichtGefundenException {
-		s.debugSetzeFigur(FarbEnum.ROT, 0, "E4 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 1, "E3 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 2, "E2 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 3, "40");
+		s.debugSetzeFigur(FarbEnum.ROT, 0, "S1 ROT");
+		s.debugSetzeFigur(FarbEnum.ROT, 1, "S2 ROT");
+		s.debugSetzeFigur(FarbEnum.ROT, 2, "1");
+		s.debugSetzeFigur(FarbEnum.ROT, 3, "S4 ROT");
 		
 		s.debugSetzeFigur(FarbEnum.BLAU, 0, "35");
 		

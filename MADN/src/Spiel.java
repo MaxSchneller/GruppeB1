@@ -1,4 +1,7 @@
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.PrimitiveIterator.OfDouble;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Die zentrale Managerklasse des Spiels
@@ -197,6 +200,17 @@ public class Spiel implements iBediener {
 						null, "Kein Zug moeglich, nochmal wuerferln (Versuch: "
 								+ (this.wuerfelVersuche + 1) + ")");
 				++this.wuerfelVersuche;
+			} else if (this.spielerAmZug.hatKI())
+				int count = teilnehmendeSpieler.size() * 4;
+				Spielfigur[][] figuren = new Spielfigur[count];
+				for (i = 0; i < teilnehmendeSpieler.size(); ++i) {
+					Spieler spieler = teilnehmendeSpieler.get(i);
+					
+					for (int j = 0; j < 4; ++j) {
+						figur
+						
+						spielbrett.zug (spielerAmZug.kiBrech(figure, zuleztGewuerfelt));
+				}
 			} else {
 				// Der letzte Versuch
 				ergebnis = new ZugErgebnis(false, true, null, false, null,

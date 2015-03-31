@@ -3,8 +3,11 @@ public abstract class KI {
 	
 	boolean zugBeendet;
 	
-	private int KiSchlagen(Spielfeld feldDerFigur, int gewuerfelteZahl){
+	protected Spielfiguren[][] figuren;
+	private int KiSchlagen(Spielfigur[][] figuren, int gewuerfelteZahl){
+		this.figuren = figuren;
 		
+		figuren[0][0].getSpielfeld()
 	}
 		
 	
