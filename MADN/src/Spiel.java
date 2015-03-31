@@ -34,19 +34,6 @@ public class Spiel implements iBediener {
 	}
 
 	/**
-	 * Setzt die ArrayList der Spieler (nicht die Spieler selbst, darf nicht
-	 * null sein)
-	 * 
-	 * @param spieler
-	 */
-	private void setTeinehmendeSpieler(ArrayList<Spieler> spieler) {
-		if (spieler == null) {
-			throw new NullPointerException("spieler");
-		}
-		this.teilnehmendeSpieler = spieler;
-	}
-
-	/**
 	 * Setzt den Spieler der jetzt am Zug ist (darf nicht null sein)
 	 * 
 	 * @param spielerAmZug
