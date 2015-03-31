@@ -159,6 +159,9 @@ public class Spielbrett {
 
 			} else {
 				// Der normalste Zug der Welt
+				if (zielFeldNummer > 40) {
+					zielFeldNummer -= 40;
+				}
 				Spielfeld zielFeld = findeFeldDurchID(String.format("%d",
 						zielFeldNummer));
 				return ganzNormalerZug(feldDerFigur, zielFeld, gewuerfelteZahl);
@@ -204,7 +207,7 @@ public class Spielbrett {
 					Spielfeld[] spielerEndfelder = endfelder[figur.getFarbe()
 							.ordinal()];
 
-					for (int i = feldNummer - 1; i < zielFeldNummer - 1; ++i) {
+					for (int i = feldNummer; i < zielFeldNummer; ++i) {
 						if (spielerEndfelder[i].getFigurAufFeld() != null) {
 							return new ZugErgebnis(false, true && zugBeendet,
 									null, false, null, null,
@@ -218,6 +221,7 @@ public class Spielbrett {
 					figurBewegen(figur, spielerEndfelder[zielFeldIndex]);
 
 					Spielfigur[] neueFig = new Spielfigur[1];
+					neueFig[0] = figur;
 
 					boolean allesVoll = true;
 					for (int i = 0; i < spielerEndfelder.length; ++i) {
@@ -377,7 +381,8 @@ public class Spielbrett {
 		} else if (figurAufRausZiehFeld != null
 				&& (figurAufRausZiehFeld.getFarbe() == figur.getFarbe())) {
 			// Eine seiner eigenen Figuren steht noch auf dem Feld
-			return new ZugErgebnis(false, true, null, false, null, null,
+			// Zug ist nicht beendet, da garantiert eine 6 gewuerfelt wurde
+			return new ZugErgebnis(false, false, null, false, null, null,
 					"Eine Figur der selben Farbe steht bereits auf dem Rausziehfeld");
 
 		} else {
@@ -411,14 +416,19 @@ public class Spielbrett {
 				+ gegnerFigur.getFarbe();
 		Spielfeld startFeldDesGegners = findeFeldDurchID(idGegnerStart);
 
+		Spielfeld zielFeld = gegnerFigur.getSpielfeld();
+		
+		figurBewegen(gegnerFigur, startFeldDesGegners);
+		figurBewegen(figur, zielFeld);
+		
 		// Figur auf Gegnerfeld
-		Spielfeld ziel = gegnerFigur.getSpielfeld();
+		/*Spielfeld ziel = gegnerFigur.getSpielfeld();
 		figur.setSpielfeld(ziel);
 		ziel.setFigurAufFeld(figur);
 
 		// Gegner zuruecksetzen
 		startFeldDesGegners.setFigurAufFeld(gegnerFigur);
-		gegnerFigur.setSpielfeld(startFeldDesGegners);
+		gegnerFigur.setSpielfeld(startFeldDesGegners);*/
 
 	}
 
