@@ -90,12 +90,12 @@ public class SpielTest {
 	 * @throws SpielerNichtGefundenException
 	 */
 	private static void vorbedingungenAendern(iBediener s) throws SpielerNichtGefundenException {
-		s.debugSetzeFigur(FarbEnum.ROT, 0, "E4 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 1, "E3 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 2, "E2 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 3, "39");
+//		s.debugSetzeFigur(FarbEnum.ROT, 0, "E4 ROT");
+		s.debugSetzeFigur(FarbEnum.ROT, 1, "40");
+//		s.debugSetzeFigur(FarbEnum.ROT, 2, "E1 ROT");
+		s.debugSetzeFigur(FarbEnum.ROT, 3, "37");
 		
-		s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
+//		s.debugSetzeFigur(FarbEnum.BLAU, 0, "35");
 		
 	}
 }

@@ -1,11 +1,24 @@
 
 public abstract class KI {
 	
-	private Spielfigur schlagen(){
+	boolean zugBeendet;
+	
+	private int KiSchlagen(Spielfeld feldDerFigur, int gewuerfelteZahl){
+		
+	}
+		
+	
+	
+	
+	private Spielfigur KiRaus(int wuerfel){
 		
 	}
 	
-	private Spielfigur raus(){
+	private ZugErgebnis KiZiehen(){
+		
+	}
+	
+	private ZugErgebnis KiBeenden(){
 		
 	}
 	

@@ -29,8 +29,8 @@ public class Spielfeld {
 			int id = Integer.parseInt(ID);
 			if (id > 40 || id < 1) {
 				throw new RuntimeException("ID muss zwischen 1 und 40 liegen");
+			}
 			return true;
-
 		} else {
 			if (!ID.contains(" ")) {
 				throw new RuntimeException("ID nicht gültig");

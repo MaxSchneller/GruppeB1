@@ -1,8 +1,9 @@
-public class KiAggresiv extends Ki {
+public class KI_Agressiv extends KI {
 
-	public KiAggresiv(){
+	
+	public KI_Agressiv(){
 		int counter=1;
-		
+		Spieler k = new Spieler(spiel, name, farbe, KiTypEnum);
 		
 		String name="CPU" + counter;
 		counter++;
@@ -37,22 +38,22 @@ public class KiAggresiv extends Ki {
 		}
 	}
 
-	@Overwrite
+	@Override
 	public void KiSchlagen() {
 
 	}
 
-	@Overwrite
+	@Override
 	public void KiRaus() {
 
 	}
 
-	@Overwrite
+	@Override
 	public void KiBeenden() {
 
 	}
 
-	@Overwrite
+	@Override
 	public void KiZiehen() {
 
 	}
