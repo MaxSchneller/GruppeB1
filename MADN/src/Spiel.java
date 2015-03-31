@@ -200,18 +200,21 @@ public class Spiel implements iBediener {
 						null, "Kein Zug moeglich, nochmal wuerferln (Versuch: "
 								+ (this.wuerfelVersuche + 1) + ")");
 				++this.wuerfelVersuche;
-			} else if (this.spielerAmZug.hatKI())
-				int count = teilnehmendeSpieler.size() * 4;
-				Spielfigur[][] figuren = new Spielfigur[count];
-				for (i = 0; i < teilnehmendeSpieler.size(); ++i) {
-					Spieler spieler = teilnehmendeSpieler.get(i);
+			} /*else if (this.spielerAmZug.hatKI()) {
+				
+				Spielfigur[][] figuren = new Spielfigur[teilnehmendeSpieler.size()][4];
+				
+				for (int i = 0; i < teilnehmendeSpieler.size(); ++i) {
 					
 					for (int j = 0; j < 4; ++j) {
-						figur
-						
-						spielbrett.zug (spielerAmZug.kiBrech(figure, zuleztGewuerfelt));
+						figuren[i][j] = teilnehmendeSpieler.get(i).getFigurDurchID(j);
+					}
 				}
-			} else {
+				
+				int fig = spielerAmZug.kiBrerechnen(figuren, zuleztGewuerfelt);
+				return spielbrett.zug(zuleztGewuerfelt, fig);
+				
+			} */else {
 				// Der letzte Versuch
 				ergebnis = new ZugErgebnis(false, true, null, false, null,
 						null, "Kein Zug moeglich, Versuche aufgebraucht");
