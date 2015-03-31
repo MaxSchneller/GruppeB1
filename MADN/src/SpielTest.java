@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -95,7 +96,7 @@ public class SpielTest {
 		s.debugSetzeFigur(FarbEnum.ROT, 2, "E2 ROT");
 		s.debugSetzeFigur(FarbEnum.ROT, 3, "39");
 		
-		//s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
+		s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
 		
 	}
 }
