@@ -15,6 +15,7 @@ public class SpielTest {
 		Spiel s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.KEINE_KI);
 		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
 		
+		
 		vorbedingungenAendern(s1);
 
 		ZugErgebnis ergebnis = null;
@@ -90,11 +91,18 @@ public class SpielTest {
 	 * @throws SpielerNichtGefundenException
 	 */
 	private static void vorbedingungenAendern(iBediener s) throws SpielerNichtGefundenException {
+		s.debugSetzeFigur(FarbEnum.BLAU, 0, "E4 BLAU");
+		s.debugSetzeFigur(FarbEnum.BLAU, 1, "E3 BLAU");
+		s.debugSetzeFigur(FarbEnum.BLAU, 2, "E2 BLAU");
+		
+		s.debugSetzeFigur(FarbEnum.BLAU, 3, "26");
+		
+		
 		s.debugSetzeFigur(FarbEnum.ROT, 0, "E4 ROT");
 		s.debugSetzeFigur(FarbEnum.ROT, 1, "E3 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 2, "E2 ROT");
-		s.debugSetzeFigur(FarbEnum.ROT, 3, "39");
+		s.debugSetzeFigur(FarbEnum.ROT, 2, "E1 ROT");
 		
+		s.debugSetzeFigur(FarbEnum.ROT, 3, "13");
 		//s.debugSetzeFigur(FarbEnum.BLAU, 0, "37");
 		
 	}
