@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.concurrent.CountDownLatch;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 /**
  * Die zentrale Managerklasse des Spiels
  */
@@ -296,6 +298,22 @@ public class Spiel implements iBediener {
 		}
 
 		throw new SpielerNichtGefundenException(spielerFarbe);
+	}
+
+	@Override
+	public String[][] getAlleFigurenPositionen() {
+		String[][] positionenStrings = new String[this.teilnehmendeSpieler.size() * 4][3];
+		
+		for (int i = 0; i < this.teilnehmendeSpieler.size(); ++i) {
+			for (int j = 0; j < 4; ++j) {
+				int figurenIndex = i*4 + j;
+				Spielfigur figur = this.teilnehmendeSpieler.get(i).getFigurDurchID(j);
+				positionenStrings[figurenIndex][0] = figur.getFarbe().toString();
+				positionenStrings[figurenIndex][1] = String.format("%d", figur.getID());
+				positionenStrings[figurenIndex][2] = figur.getSpielfeld().getID();
+			}
+		}
+		return positionenStrings;
 	}
 
 }

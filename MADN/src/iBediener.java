@@ -52,5 +52,14 @@ public interface iBediener {
 	 * Gibt die Farbe des Spielers, der gerade am Zug ist zurueck
 	 */
 	public FarbEnum getSpielerAmZugFarbe();
+	
+	/**
+	 * Format: <br>
+	 * Index 0: Farbe der Figur <br>
+	 * Index 1: ID der Figur <br>
+	 * Index 2: ID des Feldes auf dem sie steht
+	 * @return Positionen aller Figuren aller Spieler, die zur Zeit am Spiel teilnehmen
+	 */
+	public String[][] getAlleFigurenPositionen();
 
 }

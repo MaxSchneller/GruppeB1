@@ -18,6 +18,15 @@ public class iBedienerTest {
 	@Test
 	public void test() throws SpielerFarbeVorhandenException {
 		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		
+		String[][] strings = s.getAlleFigurenPositionen();
+		
+		for (int i = 0; i < strings.length; ++i) {
+			for (int j = 0; j < strings[i].length; ++j) {
+				System.out.print(strings[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
