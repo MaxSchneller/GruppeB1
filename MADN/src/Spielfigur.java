@@ -68,7 +68,7 @@ public class Spielfigur {
 		return spieler;
 	}
 	
-	public void setSpieler(Spieler spieler){
+	private void setSpieler(Spieler spieler){
 		if(spieler == null){
 			throw new RuntimeException("Spieler darf nicht null sein");
 		}

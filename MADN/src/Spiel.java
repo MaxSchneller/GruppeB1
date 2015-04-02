@@ -21,7 +21,7 @@ public class Spiel implements iBediener {
 	/** Index des Spielers, der gerade am Zug ist */
 	private int spielerAmZugIndex = 0;
 	/** Das Spielbrett */
-	private Spielbrett spielbrett = new Spielbrett();
+	private Spielbrett spielbrett = new Spielbrett(this);
 	/** Kann zur Zeit gewuerfelt werden? */
 	private boolean kannWuerfeln = true;
 	/** Anzahl der Versuche eine 6 zu wuerfeln */

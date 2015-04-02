@@ -7,6 +7,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  */
 public class Spielbrett {
+	
+	private Spiel spiel;
 
 	private Spielfeld[] regulaereFelder = new Spielfeld[40];
 
@@ -16,13 +18,21 @@ public class Spielbrett {
 	/**
 	 * Konstruktor des Spielbretts
 	 */
-	public Spielbrett() {
+	public Spielbrett(Spiel spiel) {
+		setSpiel(spiel);
 		setStartfelderID();
 		setEndfelderID();
 
 		for (int i = 1; i <= 40; i++) {
 			regulaereFelder[i - 1] = new Spielfeld(String.format("%d", i), this);
 		}
+	}
+
+	private void setSpiel(Spiel spiel) {
+		if (spiel == null) {
+			throw new IllegalArgumentException();
+		}
+		this.spiel = spiel;
 	}
 
 	/**
@@ -507,34 +517,6 @@ public class Spielbrett {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Zum testen
-	 * 
-	 * @param args
-	 */
-
-	public static void main(String[] args) {
-
-		Spielbrett s = new Spielbrett();
-
-		for (int i = 0; i < s.regulaereFelder.length; i++) {
-			System.out.print(s.regulaereFelder[i].toString() + " ");
-		}
-
-		System.out.println();
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				System.out.print(s.startfelder[i][j] + " | ");
-			}
-		}
-		System.out.println();
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				System.out.print(s.endfelder[i][j] + " | ");
-			}
-		}
 	}
 
 	/**

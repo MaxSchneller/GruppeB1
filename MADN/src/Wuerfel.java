@@ -3,7 +3,7 @@
  * @author Gruppe B1
  *
  */
-public class Wuerfel {
+class Wuerfel {
 	/** 
 	 * @return Der Returnwert ist die gewuerfelte Zahl, zwieschen 1 und 6.
 	 */
