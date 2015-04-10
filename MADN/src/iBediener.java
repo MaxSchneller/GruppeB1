@@ -22,7 +22,7 @@ public interface iBediener {
 	 * Lässt den Spieler, der gerade an der Reihe ist würfeln
 	 * @return Die gewürfelte Zahl
 	 */
-	public int sWuerfeln();
+	public WuerfelErgebnis sWuerfeln();
 
 	/**
 	 * Lässt den Spieler, der am Zug ist, die gewünschte Figur auf das gewünschte Feld ziehen, falls dies möglich ist
@@ -37,7 +37,7 @@ public interface iBediener {
 	 * @param gewuenschteZahl Die Zahl die gewuerfelt werden soll
 	 * @return Die gewuerfelte Zahl
 	 */
-	public int debugWuerfeln(int gewuenschteZahl);
+	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl);
 
 	/**
 	 * Setzt die gewünschte Figur ohne Regelprüfung auf das gewünschte Feld

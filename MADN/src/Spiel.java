@@ -67,7 +67,6 @@ public class Spiel implements iBediener {
 			return;
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
-		this.kannWuerfeln = false;
 	}
 
 	/**
@@ -171,14 +170,28 @@ public class Spiel implements iBediener {
 	 * würfeln lässt und die gewürfelte Zahl zurück gibt
 	 */
 	@Override
-	public int sWuerfeln() {
+	public WuerfelErgebnis sWuerfeln() {
 
 		if (this.spielerAmZug != null) {
 			this.setZuleztGewuerfelt(this.spielerAmZug.wuerfeln());
-			return this.zuleztGewuerfelt;
-		} else
-			throw new NullPointerException("this.spielerAmZug");
 
+			return konstruiereWuerfelErgebnis();
+		} else {
+			throw new NullPointerException("this.spielerAmZug");
+		}
+
+	}
+
+	private void naechsterSpielerIstDran() {
+		this.kannWuerfeln = true;
+		this.wuerfelVersuche = 0;
+		this.setSpielerAmZugIndex(this.spielerAmZugIndex + 1);
+
+		if (this.spielerAmZugIndex >= this.teilnehmendeSpieler.size())
+			this.setSpielerAmZugIndex(0);
+
+		this.setSpielerAmZug(this.teilnehmendeSpieler
+				.get(this.spielerAmZugIndex));
 	}
 
 	/**
@@ -187,61 +200,26 @@ public class Spiel implements iBediener {
 	 */
 	@Override
 	public ZugErgebnis ziehen(int figurID) {
-		
+
 		ZugErgebnis ergebnis;
 		if (this.spielerAmZug.hatFigurAufSpielfeld()
 				|| (this.zuleztGewuerfelt == 6)) {
 			// Spieler hat schon Figuren draussen oder eine 6 gewuerfelt
 			ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
-					this.spielerAmZug.getFigurDurchID(figurID));
-		} else {
-			// Noch keine Figuren draussen, also drei Versuche
-			if (this.wuerfelVersuche < 2) {
-				// Die ersten zwei Versuche
-				ergebnis = new ZugErgebnis(false, false, null, false, null,
-						null, "Kein Zug moeglich, nochmal wuerferln (Versuch: "
-								+ (this.wuerfelVersuche + 1) + ")");
-				++this.wuerfelVersuche;
-			} /*else if (this.spielerAmZug.hatKI()) {
-				
-				Spielfigur[][] figuren = new Spielfigur[teilnehmendeSpieler.size()][4];
-				
-				for (int i = 0; i < teilnehmendeSpieler.size(); ++i) {
-					
-					for (int j = 0; j < 4; ++j) {
-						figuren[i][j] = teilnehmendeSpieler.get(i).getFigurDurchID(j);
-					}
-				}
-				
-				int fig = spielerAmZug.kiBrerechnen(figuren, zuleztGewuerfelt);
-				return spielbrett.zug(zuleztGewuerfelt, fig);
-				
-			} */else {
-				// Der letzte Versuch
-				ergebnis = new ZugErgebnis(false, true, null, false, null,
-						null, "Kein Zug moeglich, Versuche aufgebraucht");
-				this.wuerfelVersuche = 0;
+					this.spielerAmZug.getFigurDurchID(figurID), true);
+
+			// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
+			// nächste Spieler dran
+			if (ergebnis.isZugBeendet()) {
+
+				naechsterSpielerIstDran();
 			}
+
+			this.kannWuerfeln = true;
+			return ergebnis;
+		} else {
+			throw new RuntimeException("Etwas lief schief");
 		}
-
-		// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
-		// nächste Spieler dran
-		if (ergebnis.isZugBeendet()) {
-
-			// Der Index muss immer neu geprüft werden, da Spieler hinzugekommen
-			// sein könnten
-			this.setSpielerAmZugIndex(this.spielerAmZugIndex + 1);
-
-			if (this.spielerAmZugIndex >= this.teilnehmendeSpieler.size())
-				this.setSpielerAmZugIndex(0);
-
-			this.setSpielerAmZug(this.teilnehmendeSpieler
-					.get(this.spielerAmZugIndex));
-
-		}
-
-		this.kannWuerfeln = true;
-		return ergebnis;
 	}
 
 	/**
@@ -249,8 +227,10 @@ public class Spiel implements iBediener {
 	 * simuliert, der die gewünschte Zahl ergibt
 	 */
 	@Override
-	public int debugWuerfeln(int gewuenschteZahl) {
-		return this.zuleztGewuerfelt = gewuenschteZahl;
+	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl) {
+		setZuleztGewuerfelt(gewuenschteZahl);
+
+		return konstruiereWuerfelErgebnis();
 	}
 
 	/**
@@ -300,17 +280,61 @@ public class Spiel implements iBediener {
 		throw new SpielerNichtGefundenException(spielerFarbe);
 	}
 
+	private boolean kannZiehen() {
+
+		for (int i = 0; i < 4; ++i) {
+			Spielfigur figur = this.spielerAmZug.getFigurDurchID(i);
+
+			ZugErgebnis ergebnis = this.spielbrett.zug(zuleztGewuerfelt, figur,
+					false);
+
+			if (ergebnis.isGueltig()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private WuerfelErgebnis konstruiereWuerfelErgebnis() {
+		if (!kannZiehen()) {
+			if (!this.spielerAmZug.hatFigurAufSpielfeld()) {
+				++this.wuerfelVersuche;
+				if (this.wuerfelVersuche < 3) {
+					return new WuerfelErgebnis(this.zuleztGewuerfelt, false,
+							true);
+				} else {
+					naechsterSpielerIstDran();
+					return new WuerfelErgebnis(this.zuleztGewuerfelt, false,
+							false);
+				}
+			} else {
+				this.naechsterSpielerIstDran();
+				this.wuerfelVersuche = 0;
+				return new WuerfelErgebnis(this.zuleztGewuerfelt, false, false);
+			}
+		} else {
+			this.kannWuerfeln = false;
+			return new WuerfelErgebnis(this.zuleztGewuerfelt, true, false);
+		}
+	}
+
 	@Override
 	public String[][] getAlleFigurenPositionen() {
-		String[][] positionenStrings = new String[this.teilnehmendeSpieler.size() * 4][3];
-		
+		String[][] positionenStrings = new String[this.teilnehmendeSpieler
+				.size() * 4][3];
+
 		for (int i = 0; i < this.teilnehmendeSpieler.size(); ++i) {
 			for (int j = 0; j < 4; ++j) {
-				int figurenIndex = i*4 + j;
-				Spielfigur figur = this.teilnehmendeSpieler.get(i).getFigurDurchID(j);
-				positionenStrings[figurenIndex][0] = figur.getFarbe().toString();
-				positionenStrings[figurenIndex][1] = String.format("%d", figur.getID());
-				positionenStrings[figurenIndex][2] = figur.getSpielfeld().getID();
+				int figurenIndex = i * 4 + j;
+				Spielfigur figur = this.teilnehmendeSpieler.get(i)
+						.getFigurDurchID(j);
+				positionenStrings[figurenIndex][0] = figur.getFarbe()
+						.toString();
+				positionenStrings[figurenIndex][1] = String.format("%d",
+						figur.getID());
+				positionenStrings[figurenIndex][2] = figur.getSpielfeld()
+						.getID();
 			}
 		}
 		return positionenStrings;

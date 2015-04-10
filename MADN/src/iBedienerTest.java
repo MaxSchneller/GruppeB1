@@ -66,7 +66,7 @@ public class iBedienerTest {
 	
 	@Test
 	public void testWuerfeln(){
-		int zahl = s.sWuerfeln();
+		int zahl = s.sWuerfeln().getGewuerfelteZahl();
 		
 		if (!(zahl > 0 && zahl < 7))
 			fail();
@@ -75,7 +75,7 @@ public class iBedienerTest {
 	@Test
 	public void testZiehen() {
 		
-		int zahl = s.sWuerfeln();		
+		int zahl = s.sWuerfeln().getGewuerfelteZahl();		
 		ZugErgebnis e = s.ziehen(0);
 		
 		if (zahl != 6)

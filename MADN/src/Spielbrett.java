@@ -1,5 +1,6 @@
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+
 /**
  * Die Klasse Spielbrett
  * 
@@ -7,7 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  */
 public class Spielbrett {
-	
+
 	private Spiel spiel;
 
 	private Spielfeld[] regulaereFelder = new Spielfeld[40];
@@ -128,13 +129,14 @@ public class Spielbrett {
 	 *            Die Figur, die Bewegt werden soll
 	 * @return Das Ergebnis des Ziehversuches
 	 */
-	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur) {
+	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur,
+			boolean ausfuehren) {
 
 		Spielfeld feldDerFigur = figur.getSpielfeld();
 
 		if (feldDerFigur.isStartfeld()) {
 			if (gewuerfelteZahl == 6) {
-				return figurRausziehen(figur);
+				return figurRausziehen(figur, ausfuehren);
 			} else {
 				return new ZugErgebnis(false, true, null, false, null, null,
 						"Kann Figur nicht rausziehen ohne 6er zu wuerfeln");
@@ -165,7 +167,7 @@ public class Spielbrett {
 			if (gewuerfelteZahl > distanzZuEndfeld) {
 				// Hier koentte er noch in die Endfelder ziehen wollen
 
-				return figurInEndfeldBringen(figur, gewuerfelteZahl);
+				return figurInEndfeldBringen(figur, gewuerfelteZahl, ausfuehren);
 
 			} else {
 				// Der normalste Zug der Welt
@@ -174,12 +176,12 @@ public class Spielbrett {
 				}
 				Spielfeld zielFeld = findeFeldDurchID(String.format("%d",
 						zielFeldNummer));
-				return ganzNormalerZug(feldDerFigur, zielFeld, gewuerfelteZahl);
+				return ganzNormalerZug(feldDerFigur, zielFeld, gewuerfelteZahl, ausfuehren);
 			}
 		} else {
 			// Ist in Endfeld und will weiter, oder hat alle Figuren noch drin
 			// und keine 6 gewuerfelt
-			return figurImEndFeldBewegen(figur, gewuerfelteZahl);
+			return figurImEndFeldBewegen(figur, gewuerfelteZahl, ausfuehren);
 		}
 	}
 
@@ -193,7 +195,7 @@ public class Spielbrett {
 	 * @return Das Ergebnis dieses Zuges
 	 */
 	private ZugErgebnis figurImEndFeldBewegen(Spielfigur figur,
-			int gewuerfelteZahl) {
+			int gewuerfelteZahl, boolean ausfuehren) {
 
 		Spielfeld feldDerFigur = figur.getSpielfeld();
 
@@ -228,18 +230,22 @@ public class Spielbrett {
 					// Alle Felder frei
 					int zielFeldIndex = zielFeldNummer - 1;
 
-					figurBewegen(figur, spielerEndfelder[zielFeldIndex]);
-
-					Spielfigur[] neueFig = new Spielfigur[1];
-					neueFig[0] = figur;
-
+					Spielfigur[] neueFig = null;
 					boolean allesVoll = true;
-					for (int i = 0; i < spielerEndfelder.length; ++i) {
-						if (spielerEndfelder[i].getFigurAufFeld() == null) {
-							allesVoll = false;
+					
+					if (ausfuehren) {
+						figurBewegen(figur, spielerEndfelder[zielFeldIndex]);
+						neueFig = new Spielfigur[1];
+						neueFig[0] = figur;
+
+						for (int i = 0; i < spielerEndfelder.length; ++i) {
+							if (spielerEndfelder[i].getFigurAufFeld() == null) {
+								allesVoll = false;
+							}
 						}
 					}
-
+					
+					allesVoll = ausfuehren ? allesVoll : false;
 					return new ZugErgebnis(true, true && zugBeendet, neueFig,
 							allesVoll, figur.getSpieler().getName(),
 							figur.getFarbe(), "Figur wurde bewegt");
@@ -258,10 +264,11 @@ public class Spielbrett {
 	 *            Figur die bewegt werden soll
 	 * @param gewuerfelteZahl
 	 *            Wuefelergebnis des Spielers
+	 * @param ausfuehren
 	 * @return Ergbnis dieses Zuges
 	 */
 	private ZugErgebnis figurInEndfeldBringen(Spielfigur figur,
-			int gewuerfelteZahl) {
+			int gewuerfelteZahl, boolean ausfuehren) {
 
 		boolean zugBeendet = gewuerfelteZahl == 6 ? false : true;
 
@@ -295,17 +302,24 @@ public class Spielbrett {
 		}
 
 		// Hier sind alle Endfelder bis zum Zielfeld leer
-		figurBewegen(figur, spielerEndfelder[endFeldIndex]);
-		Spielfigur[] neueFig = new Spielfigur[1];
-		neueFig[0] = figur;
-
+		Spielfigur[] neueFig = null;
 		boolean allesVoll = true;
-		// Pruefen,ob ein Feld noch leer
-		for (int i = 0; i < spielerEndfelder.length; ++i) {
-			if (spielerEndfelder[i].getFigurAufFeld() == null) {
-				allesVoll = false;
+		
+		if (ausfuehren) {
+			figurBewegen(figur, spielerEndfelder[endFeldIndex]);
+			neueFig = new Spielfigur[1];
+			neueFig[0] = figur;
+
+			
+			// Pruefen,ob ein Feld noch leer
+			for (int i = 0; i < spielerEndfelder.length; ++i) {
+				if (spielerEndfelder[i].getFigurAufFeld() == null) {
+					allesVoll = false;
+				}
 			}
 		}
+		
+		allesVoll = ausfuehren ? allesVoll : false;
 		return new ZugErgebnis(true, true && zugBeendet, neueFig, allesVoll,
 				figur.getSpieler().getName(), figur.getFarbe(),
 				"Figur wurde ins Endfeld bewegt");
@@ -324,7 +338,7 @@ public class Spielbrett {
 	 * @return Das Ergebnis dieses Zuges
 	 */
 	private ZugErgebnis ganzNormalerZug(Spielfeld feldDerFigur,
-			Spielfeld zielFeld, int gewuerfelteZahl) {
+			Spielfeld zielFeld, int gewuerfelteZahl, boolean ausfuehren) {
 
 		Spielfigur gegnerFigur = zielFeld.getFigurAufFeld();
 		Spielfigur eigeneFigur = feldDerFigur.getFigurAufFeld();
@@ -335,12 +349,13 @@ public class Spielbrett {
 				&& (eigeneFigur.getFarbe() != gegnerFigur.getFarbe())) {
 			// Figur schlagen
 
-			figurSchlagen(eigeneFigur, gegnerFigur);
-
-			Spielfigur[] neueFig = new Spielfigur[2];
-			neueFig[0] = eigeneFigur;
-			neueFig[1] = gegnerFigur;
-
+			Spielfigur[] neueFig = null;
+			if (ausfuehren) {
+				figurSchlagen(eigeneFigur, gegnerFigur);
+				neueFig = new Spielfigur[2];
+				neueFig[0] = eigeneFigur;
+				neueFig[1] = gegnerFigur;
+			}
 			return new ZugErgebnis(true, true && zugBeendet, neueFig, false,
 					null, null, "Figur geschlagen!");
 		} else if (gegnerFigur != null
@@ -352,11 +367,12 @@ public class Spielbrett {
 		} else {
 
 			// Zielfeld ist leer
-			figurBewegen(eigeneFigur, zielFeld);
-
-			Spielfigur[] neueFig = new Spielfigur[1];
-			neueFig[0] = eigeneFigur;
-
+			Spielfigur[] neueFig = null;
+			if (ausfuehren) {
+				figurBewegen(eigeneFigur, zielFeld);
+				neueFig = new Spielfigur[1];
+				neueFig[0] = eigeneFigur;
+			}
 			return new ZugErgebnis(true, true && zugBeendet, neueFig, false,
 					null, null, "Figur wurde bewegt");
 		}
@@ -367,9 +383,10 @@ public class Spielbrett {
 	 * 
 	 * @param figur
 	 *            Die zu bewegende Figur
+	 * @param ausfuehren
 	 * @return Das Ergebnis dieses Zuges
 	 */
-	private ZugErgebnis figurRausziehen(Spielfigur figur) {
+	private ZugErgebnis figurRausziehen(Spielfigur figur, boolean ausfuehren) {
 
 		Spielfeld feldDerFigur = figur.getSpielfeld();
 		Spielfeld rausZiehFeld = findeFeldDurchID(figur.getSpieler()
@@ -380,12 +397,14 @@ public class Spielbrett {
 				&& figurAufRausZiehFeld.getFarbe() != figur.getFarbe()) {
 			// Das Rausziehfeld ist belegt...
 
-			figurSchlagen(figur, figurAufRausZiehFeld);
-
+			Spielfigur[] geaenderteFiguren = null;
+			if (ausfuehren) {
+				figurSchlagen(figur, figurAufRausZiehFeld);
+				geaenderteFiguren = new Spielfigur[2];
+				geaenderteFiguren[0] = figur;
+				geaenderteFiguren[1] = figurAufRausZiehFeld;
+			}
 			// Das Ergbnis zurueckgeben
-			Spielfigur[] geaenderteFiguren = new Spielfigur[2];
-			geaenderteFiguren[0] = figur;
-			geaenderteFiguren[1] = figurAufRausZiehFeld;
 			return new ZugErgebnis(true, false, geaenderteFiguren, false, null,
 					null, "Zug gueltig");
 		} else if (figurAufRausZiehFeld != null
@@ -399,13 +418,15 @@ public class Spielbrett {
 			// Das Rausziehfeld ist frei
 
 			// Figur rausziehen
-			rausZiehFeld.setFigurAufFeld(figur);
-			feldDerFigur.setFigurAufFeld(null);
-			figur.setSpielfeld(rausZiehFeld);
+			Spielfigur[] geaenderteFiguren = null;
+			if (ausfuehren) {
+				figurBewegen(figur, rausZiehFeld);
+				geaenderteFiguren = new Spielfigur[1];
+				geaenderteFiguren[0] = figur;
+			}
 
 			// Ergbnis zurrueckgeben
-			Spielfigur[] geaenderteFiguren = new Spielfigur[1];
-			geaenderteFiguren[0] = figur;
+
 			return new ZugErgebnis(true, false, geaenderteFiguren, false, null,
 					null, "Spielfigur ist raus");
 		}
@@ -427,18 +448,19 @@ public class Spielbrett {
 		Spielfeld startFeldDesGegners = findeFeldDurchID(idGegnerStart);
 
 		Spielfeld zielFeld = gegnerFigur.getSpielfeld();
-		
+
 		figurBewegen(gegnerFigur, startFeldDesGegners);
 		figurBewegen(figur, zielFeld);
-		
-		// Figur auf Gegnerfeld
-		/*Spielfeld ziel = gegnerFigur.getSpielfeld();
-		figur.setSpielfeld(ziel);
-		ziel.setFigurAufFeld(figur);
 
-		// Gegner zuruecksetzen
-		startFeldDesGegners.setFigurAufFeld(gegnerFigur);
-		gegnerFigur.setSpielfeld(startFeldDesGegners);*/
+		// Figur auf Gegnerfeld
+		/*
+		 * Spielfeld ziel = gegnerFigur.getSpielfeld();
+		 * figur.setSpielfeld(ziel); ziel.setFigurAufFeld(figur);
+		 * 
+		 * // Gegner zuruecksetzen
+		 * startFeldDesGegners.setFigurAufFeld(gegnerFigur);
+		 * gegnerFigur.setSpielfeld(startFeldDesGegners);
+		 */
 
 	}
 

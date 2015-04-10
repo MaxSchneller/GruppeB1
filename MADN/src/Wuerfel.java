@@ -9,7 +9,7 @@ class Wuerfel {
 	 */
 	public int werfen (){
 		int zahl = (int) (6 * Math.random()) + 1;
-		System.out.println("Sie haben mit dem Wuerfel die Zahl " + zahl + " geworfen.");
+		//System.out.println("Sie haben mit dem Wuerfel die Zahl " + zahl + " geworfen.");
 		return zahl;
 	}
 }
