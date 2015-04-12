@@ -36,6 +36,11 @@ public class Spielfigur {
 		}
 		this.id = id;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getFarbe() + " " + this.getID();
+	}
 
 	/**
 	 * Setter-Methode der Farbe

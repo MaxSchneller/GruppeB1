@@ -156,7 +156,9 @@ public class KI_Aggressiv extends KI {
 				}
 			}
 
-			return figurMeisterSchaden.getID();
+			if (figurMeisterSchaden != null) {
+				return figurMeisterSchaden.getID();
+			}
 		}
 
 		// Hier sind Startspielfelder frei und keine Figuren zu schlagen, also
@@ -181,7 +183,12 @@ public class KI_Aggressiv extends KI {
 				boolean kannZiehen = true;
 				
 				int feldInt = Integer.parseInt(spielfigur.getSpielfeld().getID());
-				String zielFeldID = String.format("%d", feldInt + distanz);
+				int zielFeldInt = feldInt + distanz;
+				if (zielFeldInt > 40) {
+					zielFeldInt -= 40;
+				}
+				
+				String zielFeldID = String.format("%d", zielFeldInt);
 				
 				for (Spielfigur spielfigur2 : this.eigeneFiguren) {
 					if (spielfigur2.getSpielfeld().getID().equals(zielFeldID)) {

@@ -211,15 +211,18 @@ public class Spiel implements iBediener {
 						this.spielerAmZug.getFigurDurchID(figurID), true);
 			} else {
 				// Spieler ist KI
-				Spielfigur[][] gegnerFiguren = new Spielfigur[this.teilnehmendeSpieler.size() - 1][4];
 				
-				for (int i = 0; i < this.teilnehmendeSpieler.size() - 1; ++i) {
-					// Alle Figuren aller Gegner sammeln und der KI uebergeben
-					Spieler spieler = this.teilnehmendeSpieler.get(i);
-					// KI hat durch Spieler Zugriff auf eigenen Figuren, also diese nicht sammeln
-					if (spieler.getFarbe() == this.spielerAmZug.getFarbe()) {
-						continue;
+				ArrayList<Spieler> gegner = new ArrayList<Spieler>();
+				
+				for (Spieler spieler : this.teilnehmendeSpieler) {
+					if (spieler.getFarbe() != this.spielerAmZug.getFarbe()) {
+						gegner.add(spieler);
 					}
+				}
+				Spielfigur[][] gegnerFiguren = new Spielfigur[gegner.size()][4];
+				
+				for (int i = 0; i < gegner.size(); ++i) {
+					Spieler spieler = gegner.get(i);
 					for (int j = 0; j < 4; ++j) {
 						gegnerFiguren[i][j] = spieler.getFigurDurchID(j);
 					}

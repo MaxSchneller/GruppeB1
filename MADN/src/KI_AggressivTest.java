@@ -140,5 +140,50 @@ public class KI_AggressivTest {
 		
 		
 	}
+	
+	@Test
+	public void test9() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException {
+		
+		spiel.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
+		
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "17");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "14");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "23");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 3, "12");
+		
+		spiel.debugSetzeFigur(FarbEnum.GELB, 0, "13");
+
+		spiel.debugWuerfeln(1);
+
+		ZugErgebnis ergebnis = spiel.ziehen(3);
+
+		assertTrue(ergebnis.isGueltig());
+
+		assertEquals("3", ergebnis.getGeaenderteFiguren()[0][1]);
+		
+		
+	}
+	
+	@Test
+	public void test10() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException {
+		
+		spiel.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
+		
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "17");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "14");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "23");
+		spiel.debugSetzeFigur(FarbEnum.BLAU, 3, "13");
+		
+		spiel.debugSetzeFigur(FarbEnum.GELB, 0, "16");
+		spiel.debugSetzeFigur(FarbEnum.GELB, 1, "25");
+
+		spiel.debugWuerfeln(1);
+
+		ZugErgebnis ergebnis = spiel.ziehen(3);
+
+		assertTrue(ergebnis.isGueltig());
+
+		assertEquals("3", ergebnis.getGeaenderteFiguren()[0][1]);	
+	}
 
 }
