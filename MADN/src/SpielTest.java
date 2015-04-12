@@ -15,7 +15,7 @@ public class SpielTest {
 		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.KEINE_KI);
 		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
 		
-		vorbedingungenAendern(s1);
+		//vorbedingungenAendern(s1);
 
 		ZugErgebnis ergebnis = null;
 		String weiterSpielen = "Ja";
