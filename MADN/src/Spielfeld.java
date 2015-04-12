@@ -111,6 +111,7 @@ public class Spielfeld {
 		return ID;
 	}
 
+	@Override
 	public String toString() {
 		return ID;
 	}
@@ -183,5 +184,26 @@ public class Spielfeld {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Falls dieses Feld ein End- oder Startfeld ist, wird die Nummer des Feldes
+	 * zurueckgegeben sonst -1
+	 * @return
+	 */
+	public int getEndStartFeldNummer() {
+		if (this.isEndfeld() || this.isStartfeld()) {
+			// S1 ROT
+			
+			String[] teile = this.getID().split(" ");
+			
+			if (teile.length == 2) {
+				String nummer = teile[0];
+				
+				return Integer.parseInt(nummer.substring(1));
+			}
+		}
+		
+		return -1;
 	}
 }

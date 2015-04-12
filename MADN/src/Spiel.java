@@ -205,9 +205,30 @@ public class Spiel implements iBediener {
 		if (this.spielerAmZug.hatFigurAufSpielfeld()
 				|| (this.zuleztGewuerfelt == 6)) {
 			// Spieler hat schon Figuren draussen oder eine 6 gewuerfelt
-			ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
-					this.spielerAmZug.getFigurDurchID(figurID), true);
-
+			if (!this.isSpielerAmZugKI()) {
+				// Spieler ist keine KI
+				ergebnis = this.getSpielbrett().zug(this.zuleztGewuerfelt,
+						this.spielerAmZug.getFigurDurchID(figurID), true);
+			} else {
+				// Spieler ist KI
+				Spielfigur[][] gegnerFiguren = new Spielfigur[this.teilnehmendeSpieler.size() - 1][4];
+				
+				for (int i = 0; i < this.teilnehmendeSpieler.size() - 1; ++i) {
+					// Alle Figuren aller Gegner sammeln und der KI uebergeben
+					Spieler spieler = this.teilnehmendeSpieler.get(i);
+					// KI hat durch Spieler Zugriff auf eigenen Figuren, also diese nicht sammeln
+					if (spieler.getFarbe() == this.spielerAmZug.getFarbe()) {
+						continue;
+					}
+					for (int j = 0; j < 4; ++j) {
+						gegnerFiguren[i][j] = spieler.getFigurDurchID(j);
+					}
+				}
+				
+				int figID = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+				Spielfigur figur = this.spielerAmZug.getFigurDurchID(figID);
+				ergebnis = this.spielbrett.zug(this.zuleztGewuerfelt, figur, true);
+			}
 			// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 			// nächste Spieler dran
 			if (ergebnis.isZugBeendet()) {
@@ -338,6 +359,11 @@ public class Spiel implements iBediener {
 			}
 		}
 		return positionenStrings;
+	}
+
+	@Override
+	public boolean isSpielerAmZugKI() {
+		return this.spielerAmZug.isSpielerKI();
 	}
 
 }

@@ -13,8 +13,8 @@ public class SpielTest {
 	public static void main(String[] args)
 			throws SpielerFarbeVorhandenException, IOException,
 			SpielerNichtGefundenException {
-		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.KEINE_KI);
-		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
+		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, null);
+		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, null);
 		
 		//vorbedingungenAendern(s1);
 

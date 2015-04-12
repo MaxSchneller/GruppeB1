@@ -11,13 +11,13 @@ public class iBedienerTest {
 	
 	@Before
 	public void vorher() {
-		s = new Spiel("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
+		s = new Spiel("Heinz", FarbEnum.BLAU, null);
 	}
 	
 	
 	@Test
 	public void test() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
 		
 		String[][] strings = s.getAlleFigurenPositionen();
 		
@@ -31,8 +31,8 @@ public class iBedienerTest {
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
 	public void testGleicheFarbe() throws SpielerFarbeVorhandenException {
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
 	}
 	
 	@Test(expected=SpielerFarbeVorhandenException.class)
@@ -40,17 +40,17 @@ public class iBedienerTest {
 		// Hier wird eine doppelte Spielerfarbe sowieso gefunden,
 		// es bringt also nichts noch eine extra Zählervariable für Spiel
 		// zu erstellen
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.ROT, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.KEINE_KI);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GELB, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.ROT, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GELB, null);
 	}
 	
 	@Test
 	public void testSpielerEntfernen() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufuegen("Karl", FarbEnum.GELB, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		s.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
 		
 		s.spielerEntfernen(FarbEnum.GRUEN);
 		
@@ -58,8 +58,8 @@ public class iBedienerTest {
 	
 	@Test(expected=SpielerNichtGefundenException.class)
 	public void testSpielerEntfernenNichtGefunden() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		s.spielerHinzufuegen("Karl", FarbEnum.GELB, KiTypEnum.KEINE_KI);
-		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		s.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
+		s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, null);
 		
 		s.spielerEntfernen(FarbEnum.ROT);
 	}

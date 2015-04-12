@@ -61,5 +61,11 @@ public interface iBediener {
 	 * @return Positionen aller Figuren aller Spieler, die zur Zeit am Spiel teilnehmen
 	 */
 	public String[][] getAlleFigurenPositionen();
+	
+	/**
+	 * Gibt an, ob der Spieler, der gerade am Zug ist, von einer KI gesteuert wird
+	 * @return True falls eine KI den Spieler steuert, sonst false
+	 */
+	public boolean isSpielerAmZugKI();
 
 }

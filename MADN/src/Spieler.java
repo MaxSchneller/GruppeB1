@@ -13,6 +13,8 @@ public class Spieler {
 	private Spiel spiel;
 	/** Die Spielfiguren dieses Spielers */
 	private Spielfigur[] figuren=new Spielfigur[4];
+	/** Die KI dieses Spielers, falls eine vorhanden */
+	private KI spielerKI;
 	
 	/**
 	 * Der Konstruktor der Klasse Spieler
@@ -36,6 +38,20 @@ public class Spieler {
 				
 			this.figuren[i] = new Spielfigur(this.getFarbe(), feld, i, this);
 		}
+		
+		if (kiTyp != null) {
+			switch (kiTyp) {
+			case AGGRESIV: {
+				this.spielerKI = new KI_Aggressiv(this);
+			}break;
+			case DEFENSIV: {
+				this.spielerKI = new KI_Defensiv(this);
+			}break;
+
+			default:
+				break;
+			}
+		}
 	}
 	
 	/**
@@ -44,7 +60,7 @@ public class Spieler {
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
 	 */
 	public Spieler(Spiel spiel, String name, FarbEnum farbe){
-		this(spiel, name, farbe, KiTypEnum.KEINE_KI);
+		this(spiel, name, farbe, null);
 	}
 	
 	private void setSpiel(Spiel spiel) {
@@ -105,7 +121,7 @@ public class Spieler {
 		if(figurID<=3 && figurID>=0){
 			return figuren[figurID];
 			}else{
-				throw new IndexOutOfBoundsException("ID ungueltig!");
+				throw new IndexOutOfBoundsException("ID ungueltig! (" + figurID + ")");
 			}
 
 	}
@@ -150,6 +166,24 @@ public class Spieler {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * Gibt an, ob dieser Spieler eine KI besitzt
+	 * @return
+	 */
+	public boolean isSpielerKI() {
+		return this.spielerKI == null ? false : true;
+	}
+
+	/**
+	 * Laesst die KI dieses Spielers den Zug anhand der Parameter berechnen
+	 * @param gegnerFiguren Die Figuren aller Gegner im Spiel
+	 * @param zuleztGewuerfelt Die Zahl, die fuer diesen Zug gewuerfelt wurde
+	 * @return Die ID der Figur dieses Spielers die bewegt werden soll
+	 */
+	public int kiBerechnen(Spielfigur[][] gegnerFiguren, int zuleztGewuerfelt) {
+		return this.spielerKI.zugBerechnen(gegnerFiguren, zuleztGewuerfelt);
 	}
 
 }

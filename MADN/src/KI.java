@@ -72,6 +72,75 @@ public abstract class KI {
 		 * Berechne, ob eine eigenene Figur ins ein Endfeld kommen kann,
 		 * wenn nicht, schaue ob eigene Figuren im Endfeld bewegt werden koennen 
 		 */
+		
+		String endFeldID = this.spieler.getFeldvorEndfeld();
+		
+		for (Spielfigur spielfigur : this.eigeneFiguren) {
+			
+			int distanz = this.berechneDistanzZuFeld(spielfigur, endFeldID);
+			
+			if (distanz == -1) {
+				continue;
+			}
+			
+			if (distanz < gewuerfelteZahl) {
+				// Echt-kleiner noetig, da + 1 um wirklich im Endfeld zu sein
+				
+				int feldInt = Integer.parseInt(spielfigur.getSpielfeld().getID());
+				int zielInt = feldInt + distanz;
+				int endFeldInt = Integer.parseInt(endFeldID);
+				
+				int endFeldNummer = zielInt - endFeldInt + 1;
+				
+				boolean kannZiehen = true;
+				for (Spielfigur spielfigur2 : this.eigeneFiguren) {
+					if (spielfigur2.getSpielfeld().isEndfeld()) {
+						if (spielfigur2.getSpielfeld().getEndStartFeldNummer() <= endFeldNummer) {
+							kannZiehen = false;
+							break;
+						}
+					}
+				}
+				if (kannZiehen) {
+					return spielfigur.getID();
+				}
+			}
+		}
+		// Es keine keine Figur ins Endfeld gebracht werden,
+		if (gewuerfelteZahl < 4) {
+			
+			// Vielleicht koennen Figuren in den Feldern bewegt werden
+			for (Spielfigur spielfigur : this.eigeneFiguren) {
+				if (spielfigur.getSpielfeld().isEndfeld()) {
+					int feldNummer = spielfigur.getSpielfeld()
+							.getEndStartFeldNummer();
+
+					int zielFeldNummer = feldNummer + gewuerfelteZahl;
+
+					if (zielFeldNummer > 4) {
+						// Kann allein durch Zahl nicht ziehen
+						continue;
+					} else {
+						// Pruefen ob Figuren dazwischen
+						boolean kannZiehen = true;
+						for (Spielfigur spielfigur2 : this.eigeneFiguren) {
+							int andereFeldNummer = spielfigur2.getSpielfeld()
+									.getEndStartFeldNummer();
+
+							if (andereFeldNummer <= zielFeldNummer
+									&& andereFeldNummer > feldNummer) {
+								kannZiehen = false;
+								break;
+							}
+						}
+
+						if (kannZiehen) {
+							return spielfigur.getID();
+						}
+					}
+				}
+			}
+		}
 		return -1;
 	}
 	
@@ -87,7 +156,116 @@ public abstract class KI {
 		 * Schaue ob das Startspielfeld belegt ist,
 		 * Nimm die naechste Figur auf das Startspielfeld
 		 */
+		
+		if (gewuerfelteZahl == 6) {
+			
+			String startFeldID = this.spieler.getRausZiehFeld();
+			Spielfigur figurAufFeld = this.getFigurAufFeld(gegnerFiguren, startFeldID);
+			
+			if (figurAufFeld != null) {
+				// Eine Figur steht auf dem Startspielfeld
+				if (figurAufFeld.getFarbe() == this.spieler.getFarbe()) {
+					// Eine eigene Figur steht auf dem Feld also kann nicht rausgezogen werden
+					return -1;
+				}
+			}
+			// Es steht hoechstens ein Gegner auf dem Startspielfeld
+			
+			for (int i = 0; i < 4; ++i) {
+				// Pruefen ob und welche der eigenen Figuren noch in den Startfeldern stehen
+				Spielfeld feldDerFigur = this.eigeneFiguren[i].getSpielfeld();
+				
+				if (feldDerFigur.isStartfeld()) {
+					// Diese Figur steht noch im Startfeld also diese rausziehen
+					return this.eigeneFiguren[i].getID();
+				}
+			}
+			
+		}
 		return -1;
+	}
+	
+	/**
+	 * Gibt die Figur, die auf dem angebenen Feld steht zurueck, falls vorhanden 
+	 * @param figuren Alle Gegnerfiguren (eigene Figuren werden auch geprueft
+	 * @param feldID Die ID des Feldes, welches zu pruefen ist
+	 * @return Die Spielfigur, die auf dem Feld steht oder null falls keine darauf steht
+	 */
+	protected final Spielfigur getFigurAufFeld(Spielfigur[][] figuren,String feldID) {
+		for (int i = 0; i < figuren.length; ++i) {
+			for (int j = 0; j  < figuren[i].length; ++j) {
+				if (figuren[i][j].getSpielfeld().getID().equals(feldID)) {
+					return figuren[i][j];
+				}
+			}
+		}
+		
+		for (int i = 0; i < 4; ++i) {
+			if (this.eigeneFiguren[i].getSpielfeld().getID().equals(feldID)) {
+				return this.eigeneFiguren[i];
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Berechnet die Anzahl an Feldern, die zwischen zwei Figuren liegen. Dabei werden
+	 * Figuren in End- und Startfeldern ignoriert
+	 * @param figur Erste Figur
+	 * @param andereFigur Zweite Figur
+	 * @return Die Anzahl an Feldern zwischen den Figuren oder -1 falls unerreichbar
+	 */
+	protected int berechneDistanzZwischenFiguren(Spielfigur figur, Spielfigur andereFigur) {
+		
+		Spielfeld feld = figur.getSpielfeld();
+		Spielfeld anderesFeld = andereFigur.getSpielfeld();
+		
+		if (feld.isStartfeld() || feld.isEndfeld() ||
+				anderesFeld.isStartfeld() || anderesFeld.isEndfeld()) {
+			// Start und Endfelder werden ignoriert
+			return -1;
+		}
+		
+		int feldVorEndfeld = Integer.parseInt(figur.getSpieler().getFeldvorEndfeld());
+		int anderesFeldInt = Integer.parseInt(anderesFeld.getID());
+		int eigenesFeldInt = Integer.parseInt(feld.getID());
+		
+		if (anderesFeldInt > feldVorEndfeld || anderesFeldInt < eigenesFeldInt) {
+			// Wenn andere Figur hinter eigenem Endfeld liegt oder hinter der eigenen Figur
+			// ist sie unerreichbar
+			return -1;
+		} else {
+			return anderesFeldInt - eigenesFeldInt;
+		}
+	}
+	
+	/**
+	 * Berechnet die Distanz einer Figur zu einem Spielfeld
+	 * Kann nur Distanzen zu normalen Feldern von Figuren, die aktiv am Spiel teilnehemen berechnen
+	 * @param figur Die Figur von der aus gemessen werden soll (Darf nicht in Start- oder Endfeld stehen) 
+	 * @param feldID Die ID des Feldes bis zu dem gemssen werden soll (darf kein Start- oder Endfeld sein)
+	 * @return Die Distanz oder -1 falls Distanz negativ oder ungueltige paramter
+	 */
+	protected int berechneDistanzZuFeld(Spielfigur figur, String feldID) {
+		int feldInt = 0;
+		try {
+			feldInt = Integer.parseInt(feldID);
+			
+			int eigenesFeldInt = Integer.parseInt(figur.getSpielfeld().getID());
+		
+			int distanz = feldInt - eigenesFeldInt;
+			
+			if (feldInt < eigenesFeldInt) {
+				distanz = 40 - eigenesFeldInt + feldInt;
+			}
+			
+			
+			distanz = Math.max(-1, distanz);
+			return distanz;
+		} catch (Exception e)  {
+			return -1;
+		}
 	}
 	
 }
