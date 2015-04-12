@@ -45,9 +45,10 @@ public class ZugErgebnis {
 		 * if(zugBeendet && !gueltig){ throw new
 		 * RuntimeException("Zug ungueltig!"); }
 		 */
-		if (gueltig && geanderteFiguren == null) {
+		// Kann vorkommen, da Zuege nicht mehr ausgefuehrt werden muessen
+		/*if (gueltig && geanderteFiguren == null) {
 			throw new RuntimeException("Zug ungueltig!");
-		}
+		}*/
 		if (spielGewonnen) {
 			if (gewinnerName == null || gewinnerFarbe == null) {
 				throw new RuntimeException("Zug ungueltig!");
