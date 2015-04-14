@@ -9,14 +9,14 @@ public class testSpieler {
 	
 	@Before
 	public void vorher() {
-		this.spiel = new Spiel("Heinz", FarbEnum.BLAU, KiTypEnum.KEINE_KI);
+		this.spiel = new Spiel("Heinz", FarbEnum.BLAU,null);
 	}
 	
 	@Test
 	public void test() {
 		assertNotNull(this.spiel);
 		
-		Spieler s = new Spieler(this.spiel, "Arnold", FarbEnum.GRUEN, KiTypEnum.KEINE_KI);
+		Spieler s = new Spieler(this.spiel, "Arnold", FarbEnum.GRUEN, null);
 		
 		assertNotNull(s);
 		
@@ -35,7 +35,7 @@ public class testSpieler {
 	
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void test1() {
-		Spieler s = new Spieler(this.spiel, "Kurt", FarbEnum.ROT, KiTypEnum.KEINE_KI);
+		Spieler s = new Spieler(this.spiel, "Kurt", FarbEnum.ROT, null);
 		
 		s.getFigurDurchID(5);
 	}

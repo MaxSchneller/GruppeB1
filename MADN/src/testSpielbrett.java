@@ -7,7 +7,6 @@ import org.junit.Test;
 
 public class testSpielbrett {
 	
-	protected static Spielbrett sb=new Spielbrett();
 	
 	@BeforeClass
 	public static void ganzAmAnfang() {

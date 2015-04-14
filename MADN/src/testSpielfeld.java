@@ -7,10 +7,11 @@ import org.junit.Test;
 public class testSpielfeld {
 	
 	protected static Spielbrett s;
+	protected static Spiel sp = new Spiel("YOLO", FarbEnum.BLAU, null);
 	
 	@BeforeClass
 	public static void ganzVorher() {
-		s = new Spielbrett();
+		s = new Spielbrett(sp);
 	}
 
 	@Test(expected=RuntimeException.class)
