@@ -1,4 +1,10 @@
 package Spiel;
+
+import Künstliche_Intelligenz.KI;
+import Künstliche_Intelligenz.KI_Aggressiv;
+import Künstliche_Intelligenz.KI_Defensiv;
+import Künstliche_Intelligenz.KiTypEnum;
+
 /**
  * Die Klasse Spieler
  * @author Gruppe B1

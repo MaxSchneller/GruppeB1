@@ -1,4 +1,8 @@
-package Spiel;
+package Künstliche_Intelligenz;
+
+import Spiel.Spieler;
+import Spiel.Spielfigur;
+
 /**
  * Die defensive KI, die versucht das Spiel moeglichst schnell zu beenden
  */

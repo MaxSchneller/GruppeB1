@@ -1,4 +1,7 @@
-package Spiel;
+package Fehler_Exceptions;
+
+import Spiel.FarbEnum;
+
 /**
  * Die Klasse SpielerNichtGefundenException
  * @author Gruppe B1

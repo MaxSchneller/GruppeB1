@@ -5,10 +5,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import Fehler_Exceptions.SpielerFarbeVorhandenException;
+import Fehler_Exceptions.SpielerNichtGefundenException;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
-import Spiel.SpielerFarbeVorhandenException;
-import Spiel.SpielerNichtGefundenException;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
 

@@ -1,5 +1,8 @@
-package Spiel;
+package Künstliche_Intelligenz;
 import java.util.ArrayList;
+
+import Spiel.Spieler;
+import Spiel.Spielfigur;
 
 import com.sun.security.auth.NTDomainPrincipal;
 

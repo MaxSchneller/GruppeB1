@@ -1,5 +1,9 @@
-package Spiel;
+package Künstliche_Intelligenz;
 import java.util.ArrayList;
+
+import Spiel.Spieler;
+import Spiel.Spielfeld;
+import Spiel.Spielfigur;
 
 /**
  * Die Basisklasse der beiden KIs

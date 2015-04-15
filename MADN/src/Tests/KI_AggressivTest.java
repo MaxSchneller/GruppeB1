@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import Fehler_Exceptions.SpielerFarbeVorhandenException;
+import Fehler_Exceptions.SpielerNichtGefundenException;
+import Künstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.KiTypEnum;
 import Spiel.Spiel;
-import Spiel.SpielerFarbeVorhandenException;
-import Spiel.SpielerNichtGefundenException;
 import Spiel.ZugErgebnis;
 
 public class KI_AggressivTest {

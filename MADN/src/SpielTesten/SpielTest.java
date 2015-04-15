@@ -1,13 +1,13 @@
-package Tests;
+package SpielTesten;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Fehler_Exceptions.SpielerFarbeVorhandenException;
+import Fehler_Exceptions.SpielerNichtGefundenException;
+import Künstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.KiTypEnum;
 import Spiel.Spiel;
-import Spiel.SpielerFarbeVorhandenException;
-import Spiel.SpielerNichtGefundenException;
 import Spiel.WuerfelErgebnis;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
