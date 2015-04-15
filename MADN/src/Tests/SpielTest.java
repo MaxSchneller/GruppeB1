@@ -1,6 +1,16 @@
+package Tests;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import Spiel.FarbEnum;
+import Spiel.KiTypEnum;
+import Spiel.Spiel;
+import Spiel.SpielerFarbeVorhandenException;
+import Spiel.SpielerNichtGefundenException;
+import Spiel.WuerfelErgebnis;
+import Spiel.ZugErgebnis;
+import Spiel.iBediener;
 
 /**
  * Klasse zum Testen eines realen Spiels
@@ -151,7 +161,7 @@ public class SpielTest {
 			//weiterSpielen = reader.readLine();
 			//weiterSpielen = weiterSpielen.toLowerCase();
 
-		} while (/*!weiterSpielen.equals("nein") */ true);
+		} while (!weiterSpielen.equals("nein")); // true);
 	}
 
 	/**

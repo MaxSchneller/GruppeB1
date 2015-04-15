@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Die defensive KI, die versucht das Spiel moeglichst schnell zu beenden
  */

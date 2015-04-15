@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Über diese Schnittstelle wird das Spiel bedient
  */

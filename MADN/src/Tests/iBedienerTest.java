@@ -1,8 +1,16 @@
+package Tests;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import Spiel.FarbEnum;
+import Spiel.Spiel;
+import Spiel.SpielerFarbeVorhandenException;
+import Spiel.SpielerNichtGefundenException;
+import Spiel.ZugErgebnis;
+import Spiel.iBediener;
 
 
 public class iBedienerTest {

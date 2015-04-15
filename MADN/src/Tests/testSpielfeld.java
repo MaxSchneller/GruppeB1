@@ -1,7 +1,13 @@
+package Tests;
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import Spiel.FarbEnum;
+import Spiel.Spiel;
+import Spiel.Spielbrett;
+import Spiel.Spielfeld;
 
 
 public class testSpielfeld {

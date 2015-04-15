@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Die Klasse Spieler
  * @author Gruppe B1

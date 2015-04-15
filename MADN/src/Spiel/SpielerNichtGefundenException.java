@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Die Klasse SpielerNichtGefundenException
  * @author Gruppe B1

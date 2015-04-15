@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Farbenum, der Farben Rot, Blau, Gruen, Gelb 
  * @author Gruppe B1

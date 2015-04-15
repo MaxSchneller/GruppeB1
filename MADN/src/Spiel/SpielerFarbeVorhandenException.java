@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Die Klasse SpielerFarbeVorhandenException
  * @author Gruppe B1

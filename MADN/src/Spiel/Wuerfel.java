@@ -1,9 +1,10 @@
+package Spiel;
 /**
  * Die Wuerfelklasse
  * @author Gruppe B1
  *
  */
-class Wuerfel {
+public class Wuerfel {
 	/** 
 	 * @return Der Returnwert ist die gewuerfelte Zahl, zwieschen 1 und 6.
 	 */

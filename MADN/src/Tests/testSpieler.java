@@ -1,7 +1,14 @@
+package Tests;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import Spiel.FarbEnum;
+import Spiel.Spiel;
+import Spiel.Spieler;
+import Spiel.Spielfeld;
+import Spiel.Spielfigur;
 
 
 public class testSpieler {

@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Die Klasse Spielfigur
  * @author Gruppe B1
@@ -6,7 +7,6 @@
 public class Spielfigur {
 	
 	private FarbEnum farbe;
-	private Position position;
 	private Spielfeld feld;
 	private int id;
 	private Spieler spieler;

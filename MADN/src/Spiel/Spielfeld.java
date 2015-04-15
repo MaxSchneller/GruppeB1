@@ -1,3 +1,4 @@
+package Spiel;
 /**
  * Klasse Spielfeld
  * 
