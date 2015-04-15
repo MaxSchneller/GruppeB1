@@ -3,6 +3,7 @@ package Kuenstliche_Intelligenz;
 import java.io.Serializable;
 
 import Spiel.Spieler;
+import Spiel.Spielfeld;
 import Spiel.Spielfigur;
 
 /**
@@ -49,7 +50,38 @@ public class KI_Defensiv extends KI implements Serializable{
 		 * Schaue welche meiner Figuren am naechsten am Endfeld ist und bewege diese weiter darauf zu
 		 * Dabei immer pruefen, ob der Zug moeglich ist (Figur im Weg etc)
 		 */
-		return -1;
+		
+		int kleinsteDistanz = 40;
+		Spielfigur zuZiehendeFigur = null;
+		String endFeldID = this.spieler.getFeldvorEndfeld();
+		for (Spielfigur figur : this.eigeneFiguren) {
+			Spielfeld feldDerFigur = figur.getSpielfeld();
+			
+			if (feldDerFigur.isEndfeld() || feldDerFigur.isStartfeld()) {
+				continue;
+			}
+			
+			int distanz = this.berechneDistanzZuFeld(figur, endFeldID);
+			
+			if (distanz < kleinsteDistanz) {
+				
+				int feldInt = Integer.parseInt(feldDerFigur.getID());
+				int zielFeldInt = feldInt + gewuerfelteZahl;
+				
+				if (zielFeldInt > 40) {
+					zielFeldInt -= 40;
+				}
+				
+				String zielFeldID = String.format("%d", zielFeldInt);
+				
+				if (this.kannAufFeldZiehen(figur, gegnerFiguren, zielFeldID)) {
+					kleinsteDistanz = distanz;
+					zuZiehendeFigur = figur;
+				}
+				
+			}
+		}
+		return zuZiehendeFigur == null ? -1 : zuZiehendeFigur.getID();
 	}
 	
 	@Override

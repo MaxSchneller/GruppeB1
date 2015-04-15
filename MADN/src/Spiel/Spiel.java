@@ -93,13 +93,15 @@ public class Spiel implements iBediener, Serializable {
 	public int getSpielerAmZugIndex(){
 		return spielerAmZugIndex;
 	}
+	
+	
 
 	/**
 	 * Setzt das Spielbrett, auf dem das Spiel abläuft (darf nicht null sein)
 	 * 
 	 * @param spielbrett
 	 */
-	private void setSpielbrett(Spielbrett spielbrett) {
+	public void setSpielbrett(Spielbrett spielbrett) {
 		if (spielbrett == null) {
 			throw new NullPointerException("spielbrett");
 		}
@@ -389,6 +391,23 @@ public class Spiel implements iBediener, Serializable {
 						}
 		}
 		return spieler;
+	}
+
+	public void setSpielerAmZug(FarbEnum spielerAmZugFarbe) {
+		if (spielerAmZugFarbe != null) {
+			for (int i = 0; i < this.teilnehmendeSpieler.size(); ++i) {
+				Spieler s = this.teilnehmendeSpieler.get(i);
+				
+				if (s.getFarbe() == spielerAmZugFarbe) {
+					this.kannWuerfeln = true;
+					this.wuerfelVersuche = 0;
+					this.setSpielerAmZugIndex(i);
+					this.spielerAmZug = s;
+					return;
+					
+				}
+			}
+		}
 	}
 
 }

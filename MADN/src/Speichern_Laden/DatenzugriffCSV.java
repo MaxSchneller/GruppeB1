@@ -27,7 +27,7 @@ public class DatenzugriffCSV implements iDatenzugriff, Serializable {
 			bw.write(spieler);
 		    bw.newLine();
 		}
-		bw.write((String.format("%d",spiel.getSpielerAmZugIndex())));
+		bw.write(spiel.getSpielerAmZugFarbe().name());
 		bw.newLine();
 		bw.close();
 		
@@ -61,10 +61,12 @@ public class DatenzugriffCSV implements iDatenzugriff, Serializable {
 					var.debugSetzeFigur(farbe, i, teile[3+i].trim());
 				}
 			} else {
-				int amZugIndex = Integer.parseInt(teile[0].trim());
-				var.setSpielerAmZugIndex(amZugIndex);
+				FarbEnum spielerAmZugFarbe = FarbEnum.vonString(teile[0].trim());
+				var.setSpielerAmZug(spielerAmZugFarbe);
 			}
 		}
+		
+		br.close();
 		return var;
 	}
 

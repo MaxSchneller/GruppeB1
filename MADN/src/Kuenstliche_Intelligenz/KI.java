@@ -1,4 +1,5 @@
 package Kuenstliche_Intelligenz;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import Spiel.Spielfigur;
 /**
  * Die Basisklasse der beiden KIs
  */
-public abstract class KI implements Serializable{
+public abstract class KI implements Serializable {
 
 	/** Der Spieler, dem diese KI gehoert */
 	protected Spieler spieler;
@@ -314,7 +315,7 @@ public abstract class KI implements Serializable{
 	 * @return Die Anzahl an Feldern zwischen den Figuren oder -1 falls
 	 *         unerreichbar
 	 */
-	protected int berechneDistanzZwischenFiguren(Spielfigur figur,
+	protected final int berechneDistanzZwischenFiguren(Spielfigur figur,
 			Spielfigur andereFigur) {
 
 		Spielfeld feld = figur.getSpielfeld();
@@ -336,7 +337,7 @@ public abstract class KI implements Serializable{
 				return -1;
 			}
 		}
-		
+
 		return anderesFeldInt - eigenesFeldInt;
 	}
 
@@ -353,7 +354,7 @@ public abstract class KI implements Serializable{
 	 * @return Die Distanz oder -1 falls Distanz negativ oder ungueltige
 	 *         paramter
 	 */
-	protected int berechneDistanzZuFeld(Spielfigur figur, String feldID) {
+	protected final int berechneDistanzZuFeld(Spielfigur figur, String feldID) {
 		int feldInt = 0;
 		try {
 			feldInt = Integer.parseInt(feldID);
@@ -372,8 +373,30 @@ public abstract class KI implements Serializable{
 			return -1;
 		}
 	}
-	
-	public KiTypEnum getKiTyp(){
+
+	/**
+	 * Berechnet anhand der gegebenen Parameter, ob die Figur auf das Zielfeld gesetzt werden kann
+	 * @param figur Die Figur die versetzt werden soll
+	 * @param gegner Alle Gegner im Spiel
+	 * @param zielFeldID Die ID des Zielfeldes
+	 * @return True falls keine eigene Figur auf dem Zielfeld steht.
+	 */
+	protected final boolean kannAufFeldZiehen(Spielfigur figur,
+			Spielfigur[][] gegner, String zielFeldID) {
+
+		Spielfigur figurAufZiel = this.getFigurAufFeld(gegner, zielFeldID);
+
+		if (figurAufZiel != null && figurAufZiel.getFarbe() == figur.getFarbe()) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Gibt den Typ dieser KI zurueck
+	 */
+	public KiTypEnum getKiTyp() {
 		return null;
 	}
 
