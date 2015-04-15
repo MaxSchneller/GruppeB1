@@ -1,4 +1,4 @@
-package Künstliche_Intelligenz;
+package Kuenstliche_Intelligenz;
 import java.util.ArrayList;
 
 import Spiel.Spieler;
@@ -207,7 +207,8 @@ public abstract class KI {
 									.getEndStartFeldNummer();
 
 							if (andereFeldNummer <= zielFeldNummer
-									&& andereFeldNummer > feldNummer) {
+									&& andereFeldNummer > feldNummer
+									&& spielfigur2.getSpielfeld().isEndfeld()) {
 								kannZiehen = false;
 								break;
 							}

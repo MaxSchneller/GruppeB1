@@ -2,7 +2,7 @@ package Spiel;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
-import Künstliche_Intelligenz.KiTypEnum;
+import Kuenstliche_Intelligenz.KiTypEnum;
 
 /**
  * Über diese Schnittstelle wird das Spiel bedient

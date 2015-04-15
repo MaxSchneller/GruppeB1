@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
-import Künstliche_Intelligenz.KiTypEnum;
+import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
 import Spiel.WuerfelErgebnis;

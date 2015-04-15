@@ -1,9 +1,9 @@
 package Spiel;
 
-import Künstliche_Intelligenz.KI;
-import Künstliche_Intelligenz.KI_Aggressiv;
-import Künstliche_Intelligenz.KI_Defensiv;
-import Künstliche_Intelligenz.KiTypEnum;
+import Kuenstliche_Intelligenz.KI;
+import Kuenstliche_Intelligenz.KI_Aggressiv;
+import Kuenstliche_Intelligenz.KI_Defensiv;
+import Kuenstliche_Intelligenz.KiTypEnum;
 
 /**
  * Die Klasse Spieler

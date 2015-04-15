@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
-import Künstliche_Intelligenz.KiTypEnum;
+import Kuenstliche_Intelligenz.KiTypEnum;
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 /**

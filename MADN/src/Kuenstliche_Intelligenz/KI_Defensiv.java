@@ -1,4 +1,4 @@
-package Künstliche_Intelligenz;
+package Kuenstliche_Intelligenz;
 
 import Spiel.Spieler;
 import Spiel.Spielfigur;
