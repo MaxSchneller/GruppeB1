@@ -1,9 +1,11 @@
 package Spiel;
 
+import java.io.Serializable;
+
 /**
  * Das Resultat eines Zugversuches
  */
-public class ZugErgebnis {
+public class ZugErgebnis implements Serializable {
 
 	/** War der Zug gueltig? */
 	private boolean gueltig;

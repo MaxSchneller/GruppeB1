@@ -73,5 +73,7 @@ public interface iBediener {
 	 * @return True falls eine KI den Spieler steuert, sonst false
 	 */
 	public boolean isSpielerAmZugKI();
+	
+	public String[] getSpieler();
 
 }

@@ -1,10 +1,13 @@
 package Spiel;
+
+import java.io.Serializable;
+
 /**
  * Die Klasse Spielfigur
  * @author Gruppe B1
  *
  */
-public class Spielfigur {
+public class Spielfigur implements Serializable {
 	
 	private FarbEnum farbe;
 	private Spielfeld feld;

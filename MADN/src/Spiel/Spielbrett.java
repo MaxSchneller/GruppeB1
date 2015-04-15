@@ -1,4 +1,6 @@
 package Spiel;
+import java.io.Serializable;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
@@ -8,7 +10,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author Gruppe B1
  *
  */
-public class Spielbrett {
+public class Spielbrett implements Serializable {
 
 	private Spiel spiel;
 

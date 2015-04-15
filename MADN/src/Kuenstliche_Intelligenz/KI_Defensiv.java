@@ -1,12 +1,14 @@
 package Kuenstliche_Intelligenz;
 
+import java.io.Serializable;
+
 import Spiel.Spieler;
 import Spiel.Spielfigur;
 
 /**
  * Die defensive KI, die versucht das Spiel moeglichst schnell zu beenden
  */
-public class KI_Defensiv extends KI {
+public class KI_Defensiv extends KI implements Serializable{
 	
 	/**
 	 * Erstellt eine neue defensive KI
@@ -49,6 +51,10 @@ public class KI_Defensiv extends KI {
 		 */
 		return -1;
 	}
-
+	
+	@Override
+	public KiTypEnum getKiTyp(){
+		return KiTypEnum.DEFENSIV;
+	}
 	
 }

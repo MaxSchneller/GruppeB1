@@ -1,4 +1,5 @@
 package Spiel;
+import java.io.Serializable;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.PrimitiveIterator.OfDouble;
@@ -12,7 +13,7 @@ import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 /**
  * Die zentrale Managerklasse des Spiels
  */
-public class Spiel implements iBediener {
+public class Spiel implements iBediener, Serializable {
 
 	// Attribute
 
@@ -80,13 +81,17 @@ public class Spiel implements iBediener {
 	 * 
 	 * @param spielerAmZugIndex
 	 */
-	private void setSpielerAmZugIndex(int spielerAmZugIndex) {
+	public void setSpielerAmZugIndex(int spielerAmZugIndex) {
 		if (spielerAmZugIndex < 0
 				|| spielerAmZugIndex >= this.teilnehmendeSpieler.size()) {
 			this.spielerAmZugIndex = 0;
 		} else {
 			this.spielerAmZugIndex = spielerAmZugIndex;
 		}
+	}
+	
+	public int getSpielerAmZugIndex(){
+		return spielerAmZugIndex;
 	}
 
 	/**
@@ -371,6 +376,19 @@ public class Spiel implements iBediener {
 	@Override
 	public boolean isSpielerAmZugKI() {
 		return this.spielerAmZug.isSpielerKI();
+	}
+
+	@Override
+	public String[] getSpieler() {
+		String [] spieler = new String[this.teilnehmendeSpieler.size()];
+		for(int i = 0; i < teilnehmendeSpieler.size(); i++){
+			spieler[i] = teilnehmendeSpieler.get(i).getName() + " ; " + teilnehmendeSpieler.get(i).getFarbe().name() + " ; ";
+				spieler[i] += teilnehmendeSpieler.get(i).getKiTyp() == null? " ; ": teilnehmendeSpieler.get(i).getKiTyp() + " ; "; 
+						for(int j = 0; j < 4; j++){
+							spieler[i] += teilnehmendeSpieler.get(i).getFigurDurchID(j).getSpielfeld().getID() + " ; ";
+						}
+		}
+		return spieler;
 	}
 
 }

@@ -1,5 +1,7 @@
 package Spiel;
 
+import java.io.Serializable;
+
 import Kuenstliche_Intelligenz.KI;
 import Kuenstliche_Intelligenz.KI_Aggressiv;
 import Kuenstliche_Intelligenz.KI_Defensiv;
@@ -9,7 +11,7 @@ import Kuenstliche_Intelligenz.KiTypEnum;
  * Die Klasse Spieler
  * @author Gruppe B1
  */
-public class Spieler {
+public class Spieler implements Serializable {
 	/** Der Name des Spielers */
 	private String name;
 	/** Die Farbe des Spielers */
@@ -192,7 +194,14 @@ public class Spieler {
 	public int kiBerechnen(Spielfigur[][] gegnerFiguren, int zuleztGewuerfelt) {
 		return this.spielerKI.zugBerechnen(gegnerFiguren, zuleztGewuerfelt);
 	}
-
+	
+	public KiTypEnum getKiTyp(){
+		if(this.spielerKI == null){
+			return null;
+		} else {
+			return this.spielerKI.getKiTyp();
+		}
+	}
 }
 
  

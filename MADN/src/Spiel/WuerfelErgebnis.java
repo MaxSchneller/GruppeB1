@@ -1,10 +1,12 @@
 package Spiel;
 
+import java.io.Serializable;
+
 
 /**
  * Das Ergebnis eines Wuerfelversuches
  */
-public class WuerfelErgebnis {
+public class WuerfelErgebnis implements Serializable {
 
 	public int getGewuerfelteZahl() {
 		return gewuerfelteZahl;

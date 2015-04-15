@@ -1,5 +1,6 @@
 package Kuenstliche_Intelligenz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Spiel.Spieler;
@@ -10,7 +11,7 @@ import com.sun.security.auth.NTDomainPrincipal;
 /**
  * Die aggressive KI, die immer zuerst eine Gegnerfigur schlagen will
  */
-public class KI_Aggressiv extends KI {
+public class KI_Aggressiv extends KI implements Serializable{
 	/**
 	 * Erstellt eine neue aggressive KI
 	 * 
@@ -81,5 +82,10 @@ public class KI_Aggressiv extends KI {
 		}
 		
 		return -1;
+	}
+	
+	@Override
+	public KiTypEnum getKiTyp(){
+		return KiTypEnum.AGGRESIV;
 	}
 }

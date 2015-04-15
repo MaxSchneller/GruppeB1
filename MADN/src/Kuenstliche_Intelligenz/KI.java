@@ -1,4 +1,5 @@
 package Kuenstliche_Intelligenz;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Spiel.Spieler;
@@ -8,7 +9,7 @@ import Spiel.Spielfigur;
 /**
  * Die Basisklasse der beiden KIs
  */
-public abstract class KI {
+public abstract class KI implements Serializable{
 
 	/** Der Spieler, dem diese KI gehoert */
 	protected Spieler spieler;
@@ -370,6 +371,10 @@ public abstract class KI {
 		} catch (Exception e) {
 			return -1;
 		}
+	}
+	
+	public KiTypEnum getKiTyp(){
+		return null;
 	}
 
 }
