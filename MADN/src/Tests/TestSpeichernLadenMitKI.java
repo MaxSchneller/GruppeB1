@@ -19,7 +19,7 @@ import Spiel.WuerfelErgebnis;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
 
-public class SpeichernLadenMitKI {
+public class TestSpeichernLadenMitKI {
 
 	@Before
 	public void setUp() throws Exception {
@@ -55,7 +55,6 @@ public class SpeichernLadenMitKI {
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}

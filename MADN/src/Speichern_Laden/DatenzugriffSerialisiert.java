@@ -10,15 +10,25 @@ import java.io.Serializable;
 
 import Spiel.Spiel;
 
+/**
+ * Die Klasse DatenzugriffSerialisiert, welches das Interface iDatenzugriff und Serializable implementiert.
+ * @author Gruppe B1
+ *
+ */
+
 public class DatenzugriffSerialisiert implements Serializable, iDatenzugriff {
 
+	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als Serialisierte Datei speichert.
+	 */
 	@Override
 	public void spielSpeichern(Spiel spiel){
 		ObjectOutputStream oos = null;
 		try{
-			oos = new ObjectOutputStream(new FileOutputStream("spiel.ser"));
+			oos = new ObjectOutputStream(new FileOutputStream("Dateien_Gespeichert/spiel.ser"));
 			oos.writeObject(spiel);
 		} catch (FileNotFoundException e){
 			System.err.println("Konnte spiel.ser nicht erzeugen.");
@@ -33,11 +43,14 @@ public class DatenzugriffSerialisiert implements Serializable, iDatenzugriff {
 		}
 	}
 
+	/**
+	 * Ueberschreibt die Methode spielLaden des Interface iDatenzugriff, um die serialisierte Datei des Sielstands zu laden.
+	 */
 	@Override
 	public Spiel spielLaden() throws ClassNotFoundException {
 		ObjectInputStream ois = null;
 		try{
-			ois = new ObjectInputStream(new FileInputStream("spiel.ser"));
+			ois = new ObjectInputStream(new FileInputStream("Dateien_Gespeichert/spiel.csv"));
 			Object o = ois.readObject();
 			if(o instanceof Spiel){
 				Spiel spiel = (Spiel)o;

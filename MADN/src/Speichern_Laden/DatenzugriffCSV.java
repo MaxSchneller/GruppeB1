@@ -14,13 +14,20 @@ import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
 
-
+/**
+ * Die Klasse DatenzugriffCSV, welches das Interface iDatenzugriff und Serializable implementiert.
+ * @author Gruppe B1
+ *
+ */
 public class DatenzugriffCSV implements iDatenzugriff, Serializable {
 
+	/**
+	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als CSV Datei zu speichert.
+	 */
 	@Override
 	public void spielSpeichern(Spiel spiel) throws IOException {
 	
-		String dateiPfad = "CSV/spiel.csv";
+		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
 		
 		BufferedWriter bw = new BufferedWriter(new FileWriter(dateiPfad));
 		for (String spieler : spiel.getSpieler()) {
@@ -33,10 +40,13 @@ public class DatenzugriffCSV implements iDatenzugriff, Serializable {
 		
 	}
 
+	/**
+	 * Ueberschreibt die Methode spielLaden des Interface iDatenzugriff, um die CSV Datei des Sielstands zu laden.
+	 */
 	@Override
 	public Spiel spielLaden() throws ClassNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException {
 		
-		String dateiPfad = "CSV/spiel.csv";
+		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
 		
 		BufferedReader br = new BufferedReader(new FileReader(dateiPfad));
 		boolean wurdeSpielErstellt = false;

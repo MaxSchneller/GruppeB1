@@ -12,38 +12,42 @@ import Spiel.FarbEnum;
 import Spiel.Spiel;
 
 public class SpielTestSpeichern {
+	
 	public static void main (String [] args) throws ClassNotFoundException, SpielerNichtGefundenException, IOException, SpielerFarbeVorhandenException{
+		
+		//Vorbedingungen
+		Spiel s = new Spiel("MADN", FarbEnum.BLAU, null);
+		s.spielerHinzufuegen("Maggus", FarbEnum.GELB, KiTypEnum.AGGRESIV);
+		s.spielerHinzufuegen("Peter", FarbEnum.ROT, null);
+		s.spielerHinzufuegen("Olga", FarbEnum.GRUEN, KiTypEnum.DEFENSIV);
+		s.sWuerfeln();
+		
+		//Blauer Spieler
+		s.debugSetzeFigur(FarbEnum.BLAU, 0, "40");
+		s.debugSetzeFigur(FarbEnum.BLAU, 1, "15");
+		
+		//Gelber Spieler
+		s.debugSetzeFigur(FarbEnum.GELB, 0, "1");
+		s.debugSetzeFigur(FarbEnum.GELB, 1, "30");
+		s.debugSetzeFigur(FarbEnum.GELB, 3, "E2");
+		
+		//Roter Spieler alle auff Startfelder
+		
+		//Gruener Spieler
+		s.debugSetzeFigur(FarbEnum.GRUEN, 0, "13");
+		s.debugSetzeFigur(FarbEnum.GRUEN, 1, "14");
+		s.debugSetzeFigur(FarbEnum.GRUEN, 2, "E4");
+		s.debugSetzeFigur(FarbEnum.GRUEN, 3, "E2");
+		
+		//Wo gespeichert
 		iDatenzugriff id = new DatenzugriffSerialisiert();
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
-		Spiel s = new Spiel("MADN", FarbEnum.BLAU, null);
-		s.spielerHinzufuegen("Mongo", FarbEnum.GELB, KiTypEnum.AGGRESIV);
-		s.sWuerfeln();
-		
-		s.debugSetzeFigur(FarbEnum.BLAU, 0, "40");
+		//Als .ser speichern
 		id.spielSpeichern(s);
-		Spiel s1 = id.spielLaden();
-		String[][] ausgabe = s1.getAlleFigurenPositionen();
 		
-		for(int i = 0; i < ausgabe.length; i++){
-			String str = "";
-			for(int j = 0; j < ausgabe[i].length; j++){
-				str += ausgabe[i][j] + " ";
-			}
-			System.out.println(str);
-		}
-		
+		//Als .csv speichern
 		id1.spielSpeichern(s);
-		Spiel var = id1.spielLaden();
 		
-		String[][] ausgabe1 = var.getAlleFigurenPositionen();
-		
-		for(int i = 0; i < ausgabe1.length; i++){
-			String str = "";
-			for(int j = 0; j < ausgabe1[i].length; j++){
-				str += ausgabe1[i][j] + " ";
-			}
-			System.out.println(str);
 		}
-	}
 }
