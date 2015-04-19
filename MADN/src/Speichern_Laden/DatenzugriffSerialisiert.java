@@ -50,7 +50,7 @@ public class DatenzugriffSerialisiert implements Serializable, iDatenzugriff {
 	public Spiel spielLaden() throws ClassNotFoundException {
 		ObjectInputStream ois = null;
 		try{
-			ois = new ObjectInputStream(new FileInputStream("Dateien_Gespeichert/spiel.csv"));
+			ois = new ObjectInputStream(new FileInputStream("Dateien_Gespeichert/spiel.ser"));
 			Object o = ois.readObject();
 			if(o instanceof Spiel){
 				Spiel spiel = (Spiel)o;

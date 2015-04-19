@@ -1,7 +1,6 @@
 package Tests;
 
 import java.io.IOException;
-
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -29,7 +28,6 @@ public class SpielTestSpeichern {
 		//Gelber Spieler
 		s.debugSetzeFigur(FarbEnum.GELB, 0, "1");
 		s.debugSetzeFigur(FarbEnum.GELB, 1, "30");
-		s.debugSetzeFigur(FarbEnum.GELB, 3, "E2");
 		
 		//Roter Spieler alle auff Startfelder
 		
