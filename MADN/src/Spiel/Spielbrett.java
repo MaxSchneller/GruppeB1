@@ -32,6 +32,10 @@ public class Spielbrett implements Serializable {
 		}
 	}
 
+	/**
+	 * Setter fuer Spiel
+	 * @param spiel
+	 */
 	private void setSpiel(Spiel spiel) {
 		if (spiel == null) {
 			throw new IllegalArgumentException();
@@ -42,7 +46,6 @@ public class Spielbrett implements Serializable {
 	/**
 	 * setzt Spielfelder in das Array und weißt ID zu
 	 */
-
 	private void setStartfelderID() {
 		FarbEnum farbe = null;
 		for (int i = 0; i < 4; i++) {

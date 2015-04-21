@@ -72,6 +72,10 @@ public class Spieler implements Serializable {
 		this(spiel, name, farbe, null);
 	}
 	
+	/**
+	 * Setter fuer Spiel
+	 * @param spiel
+	 */
 	private void setSpiel(Spiel spiel) {
 		if (spiel != null) {
 			this.spiel = spiel;
@@ -80,6 +84,10 @@ public class Spieler implements Serializable {
 		}
 	}
 
+	/**
+	 * Setter fuer Farbe
+	 * @param farbe
+	 */
 	private void setFarbe(FarbEnum farbe) {
 		if (farbe != null) {
 			this.farbe = farbe;
@@ -89,6 +97,10 @@ public class Spieler implements Serializable {
 		
 	}
 
+	/**
+	 * Setter fuer Name
+	 * @param name
+	 */
 	private void setName(String name) {
 		if (name != null && !name.isEmpty()) {
 			this.name = name;
@@ -195,6 +207,10 @@ public class Spieler implements Serializable {
 		return this.spielerKI.zugBerechnen(gegnerFiguren, zuleztGewuerfelt);
 	}
 	
+	/**
+	 * Welcher Typ von KI oder keiner?
+	 * @return Wenn null, dann dann ist der Spieler keine KI. Wenn nicht dann welche KI? Gib diese zurueck
+	 */
 	public KiTypEnum getKiTyp(){
 		if(this.spielerKI == null){
 			return null;

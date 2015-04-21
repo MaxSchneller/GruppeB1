@@ -59,6 +59,10 @@ public class ZugErgebnis implements Serializable {
 		}
 	}
 
+	/**
+	 * Setter fuer geaenderte Figur
+	 * @param geanderteFiguren
+	 */
 	private void setGeaennderteFiguren(Spielfigur[] geanderteFiguren) {
 		if (geanderteFiguren == null) {
 			// Nichts tun
@@ -76,6 +80,7 @@ public class ZugErgebnis implements Serializable {
 		}
 	}
 
+	
 	public boolean isGueltig() {
 		return gueltig;
 	}

@@ -90,6 +90,10 @@ public class Spiel implements iBediener, Serializable {
 		}
 	}
 	
+	/**
+	 * Getter fuer getSpielerAmZugIndex
+	 * @return den Index welcher Spieler am zug ist
+	 */
 	public int getSpielerAmZugIndex(){
 		return spielerAmZugIndex;
 	}
@@ -99,7 +103,7 @@ public class Spiel implements iBediener, Serializable {
 	/**
 	 * Setzt das Spielbrett, auf dem das Spiel abläuft (darf nicht null sein)
 	 * 
-	 * @param spielbrett
+	 * @param spielbrett Objekt
 	 */
 	public void setSpielbrett(Spielbrett spielbrett) {
 		if (spielbrett == null) {
@@ -193,6 +197,9 @@ public class Spiel implements iBediener, Serializable {
 
 	}
 
+	/**
+	 * Der naechste Spieler ist am Zug.
+	 */
 	private void naechsterSpielerIstDran() {
 		this.kannWuerfeln = true;
 		this.wuerfelVersuche = 0;
@@ -331,6 +338,10 @@ public class Spiel implements iBediener, Serializable {
 		return false;
 	}
 
+	/**
+	 * Ueberprueft ob die Wuerfelzahl, was mit ihr gemacht werden kann (ziehen, nochmal wuerfeln, ...)
+	 * @return Gibt das Ergebnis zurueck.
+	 */
 	private WuerfelErgebnis konstruiereWuerfelErgebnis() {
 		if (!kannZiehen()) {
 			if (!this.spielerAmZug.hatFigurAufSpielfeld()) {
@@ -380,6 +391,7 @@ public class Spiel implements iBediener, Serializable {
 		return this.spielerAmZug.isSpielerKI();
 	}
 
+
 	@Override
 	public String[] getSpieler() {
 		String [] spieler = new String[this.teilnehmendeSpieler.size()];
@@ -393,6 +405,10 @@ public class Spiel implements iBediener, Serializable {
 		return spieler;
 	}
 
+	/**
+	 * Welcher Spieler ist am Zug? setten!
+	 * @param spielerAmZugFarbe Gibt die Farbe des Spielers, der am zug ist zurueck.
+	 */
 	public void setSpielerAmZug(FarbEnum spielerAmZugFarbe) {
 		if (spielerAmZugFarbe != null) {
 			for (int i = 0; i < this.teilnehmendeSpieler.size(); ++i) {

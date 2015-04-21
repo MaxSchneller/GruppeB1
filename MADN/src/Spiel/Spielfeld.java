@@ -26,6 +26,11 @@ public class Spielfeld implements Serializable {
 		setSpielbrett(brett);
 	}
 
+	/**
+	 * Ist die ID des Felds gueltig? Ueberpruefung.
+	 * @param ID FeldId
+	 * @return gueltig oder ungueltig
+	 */
 	public static boolean isFeldIDgueltig(String ID) {
 		if (ID == null || ID.isEmpty()) {
 			throw new RuntimeException("ID darf nicht leer sein");
@@ -68,15 +73,6 @@ public class Spielfeld implements Serializable {
 		}
 	}
 
-	/**
-	 * Eine Spielfigur auf Feld setzen
-	 * 
-	 * @param figur
-	 *            ist eine Spielfigur
-	 */
-	public void figurAufFeld(Spielfigur figur) {
-
-	}
 
 	/**
 	 * Setter-Methode fuer Spielbrett
@@ -120,11 +116,18 @@ public class Spielfeld implements Serializable {
 		return ID;
 	}
 
+	/**
+	 * Getter fuer Figur auf einem Feld
+	 * @return gibt die Figur zurueck, die auf dem Feld ist
+	 */
 	public Spielfigur getFigurAufFeld() {
-
 		return this.figurAufFeld;
 	}
 
+	/**
+	 * Setter fuer Figur auf einem Feld
+	 * @param figur
+	 */
 	public void setFigurAufFeld(Spielfigur figur) {
 		this.figurAufFeld = figur;
 	}

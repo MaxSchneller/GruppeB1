@@ -8,14 +8,26 @@ import java.io.Serializable;
  */
 public class WuerfelErgebnis implements Serializable {
 
+	/**
+	 * Getter der gewuerfelten Zahl
+	 * @return gewuerfelteZahl
+	 */
 	public int getGewuerfelteZahl() {
 		return gewuerfelteZahl;
 	}
 
+	/**
+	 * Ist der Zug auszufuehren
+	 * @return kannZugAusfuehren
+	 */
 	public boolean isKannZugAusfuehren() {
 		return kannZugAusfuehren;
 	}
 
+	/**
+	 * Kann man nochmal wuerfeln
+	 * @return kannNochmalWuerfeln
+	 */
 	public boolean isKannNochmalWuerfeln() {
 		return kannNochmalWuerfeln;
 	}
@@ -40,6 +52,10 @@ public class WuerfelErgebnis implements Serializable {
 		this.kannNochmalWuerfeln = kannNochmalWuerfeln;
 	}
 	
+	/**
+	 * Setter fuer gewuerfelte Zahl. Muss zwischen 1 und 6 sein
+	 * @param zahl
+	 */
 	private void setGewuerfelteZahl(int zahl) {
 		if (zahl < 1 || zahl > 6) {
 			throw new IllegalArgumentException("Gewuerfelte Zahl kann nicht von einem Wuerfel stammen");

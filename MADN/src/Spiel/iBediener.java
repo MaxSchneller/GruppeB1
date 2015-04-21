@@ -74,6 +74,10 @@ public interface iBediener {
 	 */
 	public boolean isSpielerAmZugKI();
 	
+	/**
+	 * Alle Eigenschaften, die ein teilnehmender Spieler besitzt werden in einem Array gespeichert (Name, Farbe, ob es eine KI ist, und die Positionen der Spielfiguren)
+	 * @return Gibt alle Eigenschaften, die ein Spieler besitzt zurueck
+	 */
 	public String[] getSpieler();
 
 }
