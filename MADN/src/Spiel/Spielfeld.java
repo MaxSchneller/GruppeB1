@@ -126,7 +126,7 @@ public class Spielfeld implements Serializable {
 
 	/**
 	 * Setter fuer Figur auf einem Feld
-	 * @param figur
+	 * @param figur die Spielfigur
 	 */
 	public void setFigurAufFeld(Spielfigur figur) {
 		this.figurAufFeld = figur;
@@ -196,7 +196,7 @@ public class Spielfeld implements Serializable {
 	/**
 	 * Falls dieses Feld ein End- oder Startfeld ist, wird die Nummer des Feldes
 	 * zurueckgegeben sonst -1
-	 * @return
+	 * @return Die EndStartFeldNummer
 	 */
 	public int getEndStartFeldNummer() {
 		if (this.isEndfeld() || this.isStartfeld()) {

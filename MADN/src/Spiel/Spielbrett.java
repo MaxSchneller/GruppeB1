@@ -21,6 +21,7 @@ public class Spielbrett implements Serializable {
 
 	/**
 	 * Konstruktor des Spielbretts
+	 * @param spiel Das Objekt Speil
 	 */
 	public Spielbrett(Spiel spiel) {
 		setSpiel(spiel);
@@ -134,6 +135,7 @@ public class Spielbrett implements Serializable {
 	 * @param figur
 	 *            Die Figur, die Bewegt werden soll
 	 * @return Das Ergebnis des Ziehversuches
+	 * @param ausfuehren true oder false
 	 */
 	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur,
 			boolean ausfuehren) {

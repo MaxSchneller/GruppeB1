@@ -30,6 +30,7 @@ public class Spieler implements Serializable {
 	 * @param name Der Name der Spielers
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
 	 * @param kiTyp Welche Art von KI diesen Spieler steuern soll (oder keine)
+	 * @param spiel Das Objekt Spiel
 	 */
 	public Spieler(Spiel spiel, String name, FarbEnum farbe, KiTypEnum kiTyp){
 		this.setSpiel(spiel);
@@ -67,6 +68,7 @@ public class Spieler implements Serializable {
 	 * Der Konstruktor der Klasse Spieler. Erstellt einen Spieler ohne KI
 	 * @param name Der Name der Spielers
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
+	 * @param spiel das Objekt Spiel
 	 */
 	public Spieler(Spiel spiel, String name, FarbEnum farbe){
 		this(spiel, name, farbe, null);
@@ -149,6 +151,7 @@ public class Spieler implements Serializable {
 	
 	/**
 	 * Gibt die ID des Feldes zurueck, das sich unmittelbar vor den Endfeldern dieses Spielers befindet
+	 * @return Das Feld vor den Endfeldern oder keins.
 	 */
 	public String getFeldvorEndfeld(){
 		switch(farbe){
@@ -163,6 +166,7 @@ public class Spieler implements Serializable {
 	/**
 	 * Gibt die ID des Feldes zurueck, auf welches dieser Spieler seine Spielfiguren
 	 * aus den Startfeldern stellt. 
+	 * @return Das Feld der jeweiligen Farbe, auf das die Figuren vom Startfeld springen. 
 	 */
 	public String getRausZiehFeld(){
 		switch(farbe){
@@ -176,6 +180,7 @@ public class Spieler implements Serializable {
 	
 	/**
 	 * Prueft ob mindestens eine Spielfigur nicht mehr auf den Startfeldern sitzt
+	 * @return true oder false
 	 */
 	public boolean hatFigurAufSpielfeld() {
 		
@@ -191,7 +196,7 @@ public class Spieler implements Serializable {
 
 	/**
 	 * Gibt an, ob dieser Spieler eine KI besitzt
-	 * @return
+	 * @return is der Spieler eine KI true oder false
 	 */
 	public boolean isSpielerKI() {
 		return this.spielerKI == null ? false : true;

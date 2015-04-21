@@ -37,7 +37,7 @@ public class Spiel implements iBediener, Serializable {
 	/**
 	 * Gibt das Spielbrett dieses Spiels zurück
 	 * 
-	 * @return
+	 * @return Spielbrett
 	 */
 	public Spielbrett getSpielbrett() {
 		return spielbrett;
@@ -79,7 +79,7 @@ public class Spiel implements iBediener, Serializable {
 	 * Spieler verweist, der jetzt am Zug ist (ist der Index nicht im erlaubten
 	 * Bereich, so wird er auf 0 gesetzt)
 	 * 
-	 * @param spielerAmZugIndex
+	 * @param spielerAmZugIndex Index des Spielers am Zug
 	 */
 	public void setSpielerAmZugIndex(int spielerAmZugIndex) {
 		if (spielerAmZugIndex < 0

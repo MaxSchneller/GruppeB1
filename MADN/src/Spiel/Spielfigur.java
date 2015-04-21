@@ -18,7 +18,6 @@ public class Spielfigur implements Serializable {
 	/**
 	 * Der Konstruktor der Klasse Spielfigur
 	 * @param farbe Jede Spielfigur besitzt eine Farbe
-	 * @param position Jede Spielfigur besitzt eine Position auf dem Spielbrett
 	 */
 	public Spielfigur(FarbEnum farbe, Spielfeld feld, int id, Spieler spieler){
 		setFarbe(farbe);

@@ -13,6 +13,7 @@ public interface iBediener {
 	 * Einen neuen Spieler zum Spiel hinzufügen
 	 * @param name Der Name des Spielers (darf mehrfach vorkommen)
 	 * @param farbe Die Farbe des Spielers (muss einzigartig im Spiel sein)
+	 * @param kiTyp Ist die KI Aggressiv, Defensiv oder keine
 	 * @throws SpielerFarbeVorhandenException Die Farbe ist bereits vergeben
 	 */
 	public void spielerHinzufuegen(String name, FarbEnum farbe, KiTypEnum kiTyp) throws SpielerFarbeVorhandenException;
@@ -33,7 +34,6 @@ public interface iBediener {
 	/**
 	 * Lässt den Spieler, der am Zug ist, die gewünschte Figur auf das gewünschte Feld ziehen, falls dies möglich ist
 	 * @param figurID Die ID der Figur, welche versetzt werden soll
-	 * @param zielFeldID Die ID des Feldes auf das die Figur gesetzt werden soll
 	 * @return Das Ergebnis dieses Zuges
 	 */
 	public ZugErgebnis ziehen(int figurID);
@@ -55,7 +55,8 @@ public interface iBediener {
 	public void debugSetzeFigur(FarbEnum spielerFarbe, int figurID, String zielFeldID) throws SpielerNichtGefundenException;
 	
 	/**
-	 * Gibt die Farbe des Spielers, der gerade am Zug ist zurueck
+	 * Gibt die Farbe des Spielers, der gerade am Zug ist zurueck7
+	 * @return Gibt den Spieler zuruech, der am Zug ist
 	 */
 	public FarbEnum getSpielerAmZugFarbe();
 	
