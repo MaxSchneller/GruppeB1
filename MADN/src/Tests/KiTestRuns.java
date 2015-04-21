@@ -22,8 +22,8 @@ public class KiTestRuns {
 	@Test
 	public void test() throws SpielerFarbeVorhandenException {
 		for (int i = 0; i < 100; i++) {
-			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
+			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.DEFENSIV);
+			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.DEFENSIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.AGGRESIV);
 			

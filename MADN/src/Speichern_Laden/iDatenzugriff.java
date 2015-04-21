@@ -18,7 +18,7 @@ public interface iDatenzugriff {
 	 * @param spiel Ein Spielstand der gespeichert werden soll (Lauft alles im Spiel ab)
 	 * @throws IOException Fehlermeldung bei falscher Ein- und Ausgabe
 	 */
-	public void spielSpeichern (Spiel spiel) throws IOException;
+	public void spielSpeichern (Object spiel) throws IOException;
 	
 	/**
 	 * 
@@ -29,5 +29,5 @@ public interface iDatenzugriff {
 	 * @throws SpielerFarbeVorhandenException Hat ein Spieler schon eine Farbe gewählt, kann ein anderer diese nicht nutzen.
 	 * @throws SpielerNichtGefundenException Fehlermeldung, wenn es keinen Spieler mit dieser Farbe gibt.
 	 */
-	public Spiel spielLaden() throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException;
+	public Object spielLaden() throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException;
 }

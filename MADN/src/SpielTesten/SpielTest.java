@@ -24,7 +24,7 @@ public class SpielTest {
 			throws SpielerFarbeVorhandenException, IOException,
 			SpielerNichtGefundenException {
 		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.AGGRESIV);
-		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV
+		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV
 				);
 
 		// vorbedingungenAendern(s1);

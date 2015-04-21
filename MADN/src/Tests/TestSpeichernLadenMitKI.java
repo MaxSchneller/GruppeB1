@@ -50,7 +50,7 @@ public class TestSpeichernLadenMitKI {
 						String[][] figurenVorLaden = s.getAlleFigurenPositionen();
 						dzg.spielSpeichern((Spiel)s);
 						
-						s = dzg.spielLaden();
+						s = (Spiel)dzg.spielLaden();
 						String[][] figurenNachLaden = s.getAlleFigurenPositionen();
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());

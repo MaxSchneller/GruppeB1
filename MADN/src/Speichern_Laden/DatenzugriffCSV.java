@@ -25,18 +25,30 @@ public class DatenzugriffCSV implements iDatenzugriff {
 	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als CSV Datei zu speichert.
 	 */
 	@Override
-	public void spielSpeichern(Spiel spiel) throws IOException {
+	public void spielSpeichern(Object spiel) throws IOException {
 	
 		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
 		
-		BufferedWriter bw = new BufferedWriter(new FileWriter(dateiPfad));
-		for (String spieler : spiel.getSpieler()) {
-			bw.write(spieler);
-		    bw.newLine();
+		if (spiel instanceof Spiel) {
+			
+			BufferedWriter bw = null;
+			Spiel s = (Spiel)spiel;
+		
+			try {
+				bw = new BufferedWriter(new FileWriter(dateiPfad));
+				for (String spieler : s.getSpieler()) {
+					bw.write(spieler);
+					bw.newLine();
+				}
+				bw.write(s.getSpielerAmZugFarbe().name());
+				bw.newLine();
+				
+			} finally {
+				if (bw != null) {
+					bw.close();
+				}
+			}
 		}
-		bw.write(spiel.getSpielerAmZugFarbe().name());
-		bw.newLine();
-		bw.close();
 		
 	}
 
@@ -44,7 +56,7 @@ public class DatenzugriffCSV implements iDatenzugriff {
 	 * Ueberschreibt die Methode spielLaden des Interface iDatenzugriff, um die CSV Datei des Sielstands zu laden.
 	 */
 	@Override
-	public Spiel spielLaden() throws ClassNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException {
+	public Object spielLaden() throws ClassNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException {
 		
 		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
 		
