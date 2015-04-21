@@ -16,10 +16,7 @@ import Spiel.Spiel;
  *
  */
 
-public class DatenzugriffSerialisiert implements Serializable, iDatenzugriff {
-
-	
-	private static final long serialVersionUID = 1L;
+public class DatenzugriffSerialisiert implements iDatenzugriff {
 	
 	/**
 	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als Serialisierte Datei speichert.

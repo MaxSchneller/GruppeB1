@@ -1,6 +1,7 @@
 package Tests;
 
 import java.io.IOException;
+
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -9,13 +10,14 @@ import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
+import Spiel.iBediener;
 
 public class SpielTestSpeichern {
 	
 	public static void main (String [] args) throws ClassNotFoundException, SpielerNichtGefundenException, IOException, SpielerFarbeVorhandenException{
 		
 		//Vorbedingungen
-		Spiel s = new Spiel("MADN", FarbEnum.BLAU, null);
+		iBediener s = new Spiel("MADN", FarbEnum.BLAU, null);
 		s.spielerHinzufuegen("Maggus", FarbEnum.GELB, KiTypEnum.AGGRESIV);
 		s.spielerHinzufuegen("Peter", FarbEnum.ROT, null);
 		s.spielerHinzufuegen("Olga", FarbEnum.GRUEN, KiTypEnum.DEFENSIV);
@@ -42,10 +44,10 @@ public class SpielTestSpeichern {
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
 		//Als .ser speichern
-		id.spielSpeichern(s);
+		id.spielSpeichern((Spiel)s);
 		
 		//Als .csv speichern
-		id1.spielSpeichern(s);
+		id1.spielSpeichern((Spiel)s);
 		
 		}
 }

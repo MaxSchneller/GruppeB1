@@ -19,7 +19,7 @@ import Spiel.Spiel;
  * @author Gruppe B1
  *
  */
-public class DatenzugriffCSV implements iDatenzugriff, Serializable {
+public class DatenzugriffCSV implements iDatenzugriff {
 
 	/**
 	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als CSV Datei zu speichert.
