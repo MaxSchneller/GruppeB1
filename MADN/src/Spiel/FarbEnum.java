@@ -23,4 +23,29 @@ public enum FarbEnum {
 		else
 			return null;
 	}
+	
+	/**
+	 * Konvertiert den angegeben int Wert in ein FarbEnum
+	 * @param i Der zu konvertierende Wert
+	 * @return ROT = 0, BLAU = 1, GRUEN = 2, GELB = 3, Rest = null
+	 */
+	public static FarbEnum vonInt(int i) {
+		switch (i) {
+		case 0: {
+			return ROT;
+		} 
+		case 1: {
+			return BLAU;
+		} 
+		case 2: {
+			return GRUEN;
+		} 
+		case 3: {
+			return GELB;
+		}
+		default: {
+			return null;
+		}
+		}
+	}
 }
