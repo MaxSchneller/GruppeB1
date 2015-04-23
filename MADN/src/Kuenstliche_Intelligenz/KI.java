@@ -373,6 +373,26 @@ public abstract class KI implements Serializable {
 			return -1;
 		}
 	}
+	
+	/**
+	 * Prueft ob das Startspielfeld geraeumt werden kann und muss.
+	 * @param gegner Alle gegnerischen Figuren im Spiel
+	 * @param gewuerfelteZahl Die Zahl die gewuerfelt wurde
+	 * @return Die ID der zu ziehenden Figur oder -1 falls nicht moeglich oder noetig
+	 */
+	protected final int raeumeStartSpielfeld(Spielfigur[][] gegner, int gewuerfelteZahl) {
+		String startSpielfeldID = this.spieler.getRausZiehFeld();
+		
+		Spielfigur figur = this.getFigurAufFeld(gegner, startSpielfeldID);
+		
+		if (figur != null && figur.getFarbe() == this.spieler.getFarbe()) {
+			if (this.kannAufFeldZiehen(figur, gegner, startSpielfeldID)) {
+				return figur.getID();
+			}
+		}
+		
+		return -1;
+	}
 
 	/**
 	 * Berechnet anhand der gegebenen Parameter, ob die Figur auf das Zielfeld gesetzt werden kann
