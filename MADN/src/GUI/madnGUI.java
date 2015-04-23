@@ -37,10 +37,10 @@ public class madnGUI {
 		 public static void main(String [] args) throws IOException{
 			 
 		
-		File imageFile = new File("madn.jpg");
+		File imageFile = new File("bilder/madn.jpg");
 		BufferedImage madn = ImageIO.read(imageFile);
 		
-		File imageFile2 = new File("wuerfel.png");
+		File imageFile2 = new File("bilder/wuerfel.png");
 		BufferedImage wuerfel = ImageIO.read(imageFile2);
 		
 		Color color=Color.BLACK;
