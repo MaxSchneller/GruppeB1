@@ -33,8 +33,14 @@ public class KI_Defensiv extends KI implements Serializable{
 				this.figurSchlagen(gegnerFiguren, gewuerfelteZahl);
 				
 				if (figID == -1) {
-					// Dann normal ziehen
-					figID = this.normalerZug(gegnerFiguren, gewuerfelteZahl);
+					// Startspielfeld raeumen
+					figID = this.raeumeStartSpielfeld(gegnerFiguren,
+							gewuerfelteZahl);
+					if (figID == -1) {
+						// Dann normal ziehen
+						figID = this.normalerZug(gegnerFiguren,
+								gewuerfelteZahl);
+					}
 				}
 			}
 		}

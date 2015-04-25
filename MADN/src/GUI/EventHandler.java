@@ -20,7 +20,7 @@ import Spiel.iBediener;
 public class EventHandler implements ActionListener {
 
 	/** Die GUI mit der gearbeitet wird */
-	private MADNGui gui;
+	private madnGUI gui;
 	/** Das Spiel */
 	private iBediener spiel;
 	/** Nummer des Spielers dessen Daten abgefragt werden sollen */
@@ -28,7 +28,7 @@ public class EventHandler implements ActionListener {
 	/** Anzahl der zu erstellenden Spieler */
 	private int spielerAnzahl = -1;
 
-	private void setGui(MADNGui gui) {
+	private void setGui(madnGUI gui) {
 		if (gui == null) {
 			throw new IllegalArgumentException(
 					"EventHandler kann nicht ohne GUI arbeiten (gui ist null)");
@@ -36,7 +36,11 @@ public class EventHandler implements ActionListener {
 		this.gui = gui;
 	}
 
-	public EventHandler(MADNGui gui) {
+	/**
+	 * Erstellt einen neuen EventHandler fuer die Verbindung zwischen GUI und Spiel
+	 * @param gui Die GUI, die diesen EventHandler erstellen will
+	 */
+	public EventHandler(madnGUI gui) {
 		this.setGui(gui);
 
 		this.gui.frageGewuenschteSpielerAnzahl();
@@ -53,6 +57,10 @@ public class EventHandler implements ActionListener {
 
 	}
 
+	/**
+	 * Prueft ob das ActionEvent von dem "Wuerfeln" Button ausgeloest wurde
+	 * @param source Die Eventquelle des ActionEvents
+	 */
 	private void verarbeiteWuerfeln(Object source) {
 		if (source == this.gui.getButtonWuerfeln()) {
 			// "Wuerfeln" wurde gedrueckt
@@ -87,10 +95,51 @@ public class EventHandler implements ActionListener {
 	}
 
 	private void lassKIWuerfeln() {
-		// TODO Auto-generated method stub
-
+		if (!this.spiel.isSpielerAmZugKI()) {
+			throw new RuntimeException("lassKIWuerfeln wurde aufgerufen, aber es ist keine KI am Zug.");
+		}
+		
+		this.logKI("KI wuerfelt...");
+		
+		WuerfelErgebnis ergebnis = this.spiel.sWuerfeln();
+		
+		this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+		this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
+		
+		while (!ergebnis.isKannZugAusfuehren()) {
+			this.logKI("Kein Zug moeglich");
+			
+			if (ergebnis.isKannNochmalWuerfeln()) {
+				this.logKI("KI wuerfelt nochmal...");
+				ergebnis = this.spiel.sWuerfeln();
+				this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+			} else {
+				this.logKI("Kann nicht nochmal wuerfeln, naechster ist dran.");
+				return;
+			}
+		}
+		
+		this.logKI("KI zieht...");
+		ZugErgebnis e = this.spiel.ziehen(0);
+		
+		if (e.isGueltig()) {
+			for (String[] figuren : e.getGeaenderteFiguren()) {
+				this.gui.setzeSpielfigur(figuren[0], Integer.parseInt(figuren[1]), figuren[2]);
+				
+			}
+			
+			if (e.isSpielGewonnen()) {
+				this.gui.spielGewonnen(e.getGewinnerName(), e.getGewinnerFarbe());
+			}
+		} else {
+			throw new RuntimeException("KI hat ungueltigen Zug errechnet...och noeeee");
+		}
 	}
 
+	/**
+	 * Prueft ob das ActionEvent von dem "Weiter" Button bei der Spielerstellung ausgeloest wurde
+	 * @param source Die Eventquelle des ActionEvents
+	 */
 	private void verarbeiteNeuerSpieler(Object source) {
 		if (source == this.gui.getButtonWeiter()) {
 			// True wenn der "Weiter" Button bei der Spielererstellung gedrueckt
@@ -121,31 +170,31 @@ public class EventHandler implements ActionListener {
 		}
 	}
 
+	/**
+	 * Prueft ob das ActionEvent von den Figurenbuttons ausgeloest wurde
+	 * @param source Die Eventquelle des ActionEvents
+	 */
 	private void verarbeiteFiguren(Object source) {
 		if (this.spiel != null) {
 			// Macht nur Sinn mit Spiel...
 
-			boolean ziehen = false;
+		
 			int figurID = -1;
 			
 			if (source == this.gui.getButtonFigur1()) {
 				figurID = 1;
-				ziehen = true;
 			}
 			if (source == this.gui.getButtonFigur2()) {
 				figurID = 2;
-				ziehen = true;
 			}
 			if (source == this.gui.getButtonFigur3()) {
 				figurID = 3;
-				ziehen = true;
 			}
 			if (source == this.gui.getButtonFigur4()) {
 				figurID = 4;
-				ziehen = true;
 			}
 			
-			if (ziehen) {
+			if (figurID != -1) {
 				ZugErgebnis ergebnis = this.spiel.ziehen(figurID);
 				
 				if (ergebnis.isGueltig()) {
@@ -153,7 +202,7 @@ public class EventHandler implements ActionListener {
 					
 					for (String[] figur : ergebnis.getGeaenderteFiguren()) {
 						this.gui.setzeSpielfigur(figur[0], 
-												Integer.parseInt(figur[1]), // Try noetig, da garantiert
+												Integer.parseInt(figur[1]), // Try nicht noetig, da garantiert
 												figur[2]);
 					}
 				} else {
@@ -177,6 +226,10 @@ public class EventHandler implements ActionListener {
 		}
 	}
 
+	/**
+	 * Prueft ob das ActionEvent von Spieleranzahlbuttons ganz am Anfang einer Partie ausgeloest wurde
+	 * @param source Die Eventquelle des ActionEvents
+	 */
 	private void verarbeiteSpielerAnzahl(Object source) {
 		// Wenn schon ein Spiel existiert, nichts machen
 		if (this.spiel != null) {
@@ -210,18 +263,34 @@ public class EventHandler implements ActionListener {
 		}
 	}
 
+	/**
+	 * Laesst die GUI die Nachricht als normale Info praesentieren
+	 * @param s Die Nachricht, die geschrieben werden soll
+	 */
 	private void logInfo(String s) {
 		this.gui.setzeStatusNachricht(s);
 	}
 
+	/**
+	 * Laesst die GUI die Nachricht als Warnung praesentieren
+	 * @param s Die Nachricht, die geschrieben werden soll
+	 */
 	private void logWarnung(String s) {
 		this.gui.zeigeWarnung(s);
 	}
 
+	/**
+	 * Laesst die GUI die Nachricht als Fehler praesentieren
+	 * @param s Die Nachricht, die geschrieben werden soll
+	 */
 	private void logFehler(String s) {
 		this.gui.ziegeFehler(s);
 	}
 
+	/**
+	 * Loggt KI Nachrichten
+	 * @param s Die Nachricht, die geschrieben werden soll
+	 */
 	private void logKI(String s) {
 		this.logInfo(s);
 	}

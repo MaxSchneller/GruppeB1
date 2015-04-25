@@ -11,7 +11,7 @@ import com.sun.security.auth.NTDomainPrincipal;
 /**
  * Die aggressive KI, die immer zuerst eine Gegnerfigur schlagen will
  */
-public class KI_Aggressiv extends KI implements Serializable{
+public class KI_Aggressiv extends KI implements Serializable {
 	/**
 	 * Erstellt eine neue aggressive KI
 	 * 
@@ -38,8 +38,14 @@ public class KI_Aggressiv extends KI implements Serializable{
 				figurID = this.spielBeenden(gegnerFiguren, gewuerfelteZahl);
 
 				if (figurID == -1) {
-					// Dann normal ziehen
-					figurID = this.normalerZug(gegnerFiguren, gewuerfelteZahl);
+					// Startspielfeld raeumen
+					figurID = this.raeumeStartSpielfeld(gegnerFiguren,
+							gewuerfelteZahl);
+					if (figurID == -1) {
+						// Dann normal ziehen
+						figurID = this.normalerZug(gegnerFiguren,
+								gewuerfelteZahl);
+					}
 				}
 			}
 		}
@@ -50,42 +56,44 @@ public class KI_Aggressiv extends KI implements Serializable{
 	@Override
 	protected final int normalerZug(Spielfigur[][] gegnerFiguren,
 			int gewuerfelteZahl) {
-		
+
 		for (int i = 0; i < this.eigeneFiguren.length; ++i) {
-			
+
 			Spielfigur eigeneSpielfigur = this.eigeneFiguren[i];
 			String feldID = eigeneSpielfigur.getSpielfeld().getID();
 			int feldInt = 0;
-			
+
 			try {
 				feldInt = Integer.parseInt(feldID);
 			} catch (NumberFormatException e) {
 				continue;
 			}
-			
+
 			int zielFeldInt = feldInt + gewuerfelteZahl;
-			
+
 			if (zielFeldInt > 40) {
 				zielFeldInt -= 40;
 			}
-			
+
 			String zielFeldID = String.format("%d", zielFeldInt);
-			
-			Spielfigur figurAufZielfeld = this.getFigurAufFeld(gegnerFiguren, zielFeldID);
-			
-			if (figurAufZielfeld != null &&
-					(eigeneSpielfigur.getFarbe() == figurAufZielfeld.getFarbe())) {
+
+			Spielfigur figurAufZielfeld = this.getFigurAufFeld(gegnerFiguren,
+					zielFeldID);
+
+			if (figurAufZielfeld != null
+					&& (eigeneSpielfigur.getFarbe() == figurAufZielfeld
+							.getFarbe())) {
 				continue;
 			}
-			
+
 			return eigeneSpielfigur.getID();
 		}
-		
+
 		return -1;
 	}
-	
+
 	@Override
-	public KiTypEnum getKiTyp(){
+	public KiTypEnum getKiTyp() {
 		return KiTypEnum.AGGRESIV;
 	}
 }
