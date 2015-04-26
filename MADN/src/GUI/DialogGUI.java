@@ -49,6 +49,8 @@ public class DialogGUI {
 	private JRadioButton agressiverComputer;
 	private JRadioButton devensiverComputer;
 	
+	private JButton oKButton;
+	
 	
 
 	public static void main(String[] args) {
@@ -144,6 +146,10 @@ public class DialogGUI {
 		jp5.add(kIAuswahl);
 		box1.add(jp5);
 		
+		box1.add(new JPanel());
+		
+		oKButton = new JButton("Spieler anlegen");
+		box1.add(oKButton);
 		
 		jd2.setContentPane(box1);
 		jd2.pack();
