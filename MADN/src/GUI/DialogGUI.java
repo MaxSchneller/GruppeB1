@@ -170,6 +170,7 @@ public class DialogGUI {
 		realerSpieler = new JRadioButton("Realer Spieler", true);
 		agressiverComputer = new JRadioButton("aggressiver Computergegner" , false);
 		devensiverComputer = new JRadioButton("devensiver Comutergegner" , false);
+
 		kIAuswahl.add(realerSpieler);
 		kIAuswahl.add(agressiverComputer);
 		kIAuswahl.add(devensiverComputer);
@@ -177,6 +178,8 @@ public class DialogGUI {
 		jp5.add(agressiverComputer);
 		jp5.add(devensiverComputer);
 		
+
+
 		box1.add(jp5);
 		
 		box1.add(new JPanel());
