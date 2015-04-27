@@ -41,7 +41,7 @@ import java.awt.Image;
 public class madnGUI {
 
 	public static void main(String[] args) throws IOException {
-
+		new DialogGUI();
 		File imageFile = new File("bilder/madn.jpg");
 		BufferedImage madn = ImageIO.read(imageFile);
 		
