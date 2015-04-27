@@ -16,6 +16,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.Utilities;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfReader;
@@ -30,11 +31,36 @@ import Spiel.Spiel;
  * Ermoeglicht das Speichern von Spielen via PDF
  */
 public class DatenzugriffPDF implements iDatenzugriff {
+	
+	
+	/** Luecke zwischen zwei Feldern X */
+	private int standardLueckeX = 50;
+	/** Luecke zwischen zwei Feldern Y*/
+	private int standardLueckeY = 50;
+	/** Alle Spalten des Bretts */
+	private int[] xSpalten = new int[11];
+	/** Alle Zeilen des Bretts */
+	private int[] ySpalten = new int[11];
+	
+	public DatenzugriffPDF() {
+		
+		for (int i = 0; i < 11; ++i) {
+			if (i == 0) {
+				this.xSpalten[i] = 75 - 20;
+				this.ySpalten[i] = 75 - 20;
+			} else {
+				this.xSpalten[i] = this.xSpalten[i-1] + this.standardLueckeX;
+				this.ySpalten[i] = this.xSpalten[i- 1] + this.standardLueckeY;
+			}
+		}
+		
+		
+	}
 
 	@Override
 	public void spielSpeichern(Object spiel) throws IOException {
 		if (spiel instanceof Spiel) {
-			Document document = new Document(new Rectangle(650f, 650f));
+			Document document = new Document(new Rectangle(650f, 650f), 0,0,0,0);
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
 			try {
@@ -43,14 +69,19 @@ public class DatenzugriffPDF implements iDatenzugriff {
 
 				document.open();
 				
-				
+				// 92 px = 70.86614 pts
+				// 1 px =
 
-				Image image = Image.getInstance("Bilder/madn.jpg");
+				Image image = Image.getInstance("Bilder/madn-neu.png");
 				image.setAbsolutePosition(0, 0);
 
 				document.add(image);
 
 				image = Image.getInstance("Bilder/blau.png");
+				image.setAbsolutePosition(this.xSpalten[0], this.ySpalten[10]);
+				
+				System.out.println(image.getScaledHeight());
+				
 
 				document.add(image);
 
@@ -113,5 +144,29 @@ public class DatenzugriffPDF implements iDatenzugriff {
 			SpielerNichtGefundenException {
 		return null;
 	}
+	
+	private int getXNormalesFeld(String feldID) {
+		int feldInt = Integer.parseInt(feldID);
+		
+		// 1-5
+		if (feldInt <= 5) {
+			int basis = this.startX[0];
+			
+			basis += (40 + this.standardLueckeX) * (feldInt - 1);
+			
+			return basis;
+		} else if  
+		else if (feldInt >= 9 && feldInt <= 11) {
+			int basis = this.feld9X;
+			
+			basis += (40 + this.standardLueckeX) * (feldInt - 11);
+			return basis;
+		} else if (feldInt >= 15 && feldInt <= 19) {
+			int basis = this.feld11X;
+			
+			basis += (40 + this.standardLueckeX) * (feldInt - 15);
+		} else if (feldInt >= 21 && feldInt <= 25)
+	}
+	
 
 }
