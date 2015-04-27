@@ -152,7 +152,7 @@ public class DialogGUI {
 		farbAuswahl = new ButtonGroup ();
 		rotAuswahl = new JRadioButton("ROT" , rot1 , false);
 		blauAuswahl = new JRadioButton("BLAU" , blau1, false);
-		gruenAuswahl = new JRadioButton("GRUEN" , gruen1 , false);
+		gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
 		gelbAuswahl = new JRadioButton("GELB", gelb1 , false);
 		farbe.add(rotAuswahl);
 		farbe.add(blauAuswahl);
@@ -164,6 +164,7 @@ public class DialogGUI {
 		box1.add(new JPanel());
 		
 		JPanel jp5 = new JPanel();
+	
 		spielerComputer = new JLabel ("Spielerart: "); jp3.add(spielerComputer);
 		kIAuswahl = new ButtonGroup ();
 		realerSpieler = new JRadioButton("Realer Spieler", true);
@@ -172,7 +173,10 @@ public class DialogGUI {
 		kIAuswahl.add(realerSpieler);
 		kIAuswahl.add(agressiverComputer);
 		kIAuswahl.add(devensiverComputer);
-		//jp5.add(kIAuswahl);
+		jp5.add(realerSpieler);
+		jp5.add(agressiverComputer);
+		jp5.add(devensiverComputer);
+		
 		box1.add(jp5);
 		
 		box1.add(new JPanel());
