@@ -164,15 +164,16 @@ public class DialogGUI {
 		box1.add(new JPanel());
 		
 		JPanel jp5 = new JPanel();
+		JPanel ki = new JPanel();
 		spielerComputer = new JLabel ("Spielerart: "); jp3.add(spielerComputer);
 		kIAuswahl = new ButtonGroup ();
 		realerSpieler = new JRadioButton("Realer Spieler", true);
 		agressiverComputer = new JRadioButton("aggressiver Computergegner" , false);
 		devensiverComputer = new JRadioButton("devensiver Comutergegner" , false);
-		kIAuswahl.add(realerSpieler);
-		kIAuswahl.add(agressiverComputer);
-		kIAuswahl.add(devensiverComputer);
-		//jp5.add(kIAuswahl);
+		ki.add(realerSpieler);
+		ki.add(agressiverComputer);
+		ki.add(devensiverComputer);
+		jp5.add(ki);
 		box1.add(jp5);
 		
 		box1.add(new JPanel());
