@@ -148,7 +148,6 @@ public class DialogGUI {
 		
 		JPanel jp4 = new JPanel();
 		JPanel farbe = new JPanel();
-		spielerFarbe = new JLabel ("Spielerfarbe: "); jp3.add(spielerFarbe);
 		farbAuswahl = new ButtonGroup ();
 		rotAuswahl = new JRadioButton("ROT" , rot1 , false);
 		blauAuswahl = new JRadioButton("BLAU" , blau1, false);
@@ -165,7 +164,6 @@ public class DialogGUI {
 		
 		JPanel jp5 = new JPanel();
 	
-		spielerComputer = new JLabel ("Spielerart: "); jp3.add(spielerComputer);
 		kIAuswahl = new ButtonGroup ();
 		realerSpieler = new JRadioButton("Realer Spieler", true);
 		agressiverComputer = new JRadioButton("aggressiver Computergegner" , false);
