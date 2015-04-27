@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,12 +26,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
 import java.awt.Image;
@@ -60,26 +63,31 @@ public class madnGUI {
 		
 		File imageFile7 = new File("bilder/gelb.png");
 		BufferedImage gelb = ImageIO.read(imageFile7);
+		
+		File imageFile8 = new File("bilder/wuerfeln.png");
+		BufferedImage wuerfeln = ImageIO.read(imageFile8);
+
 
 		ImageIcon bild = new ImageIcon(wuerfel);
 		bild.setImage(bild.getImage().getScaledInstance(80, 80,Image.SCALE_DEFAULT));
 
 		Color color = Color.BLACK;
 		JFrame jf = new JFrame("Mensch-Ärgere-Dich-Nicht");
-		
 		jf.setResizable(false);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setVisible(true);
 		
 		ImageIcon platz1 = new ImageIcon(platz);
 		
+		ImageIcon wuerfeln1=new ImageIcon(wuerfeln);
+		wuerfeln1.setImage(wuerfeln1.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT));
 		
 		ImageIcon blau1=new ImageIcon(blau);
 		ImageIcon gruen1=new ImageIcon(gruen);
 		ImageIcon rot1=new ImageIcon(rot);
 		ImageIcon gelb1=new ImageIcon(gelb);
 		
-		JMenuItem jmi = new JMenuItem("Speichern");
-		JMenuItem jmi1 = new JMenuItem("Laden");
-		JMenuItem jmi2 = new JMenuItem("Beenden");
+	
 		JPanel jp_north = new JPanel();
 		JPanel jp_south = new JPanel();
 		JPanel jp_west = new JPanel();
@@ -88,12 +96,22 @@ public class madnGUI {
 		
 		JLabel brett = new JLabel(new ImageIcon(madn));
 
-		JButton buttonWuerfel = new JButton("Wuerfeln");
+		JButton buttonWuerfel = new JButton(wuerfeln1);
 		
+		/**
+		 * Menu
+		 */
 		JMenuBar jm = new JMenuBar();
 		JMenu jMenu = new JMenu("Datei");
 		JMenu jMenu2 = new JMenu("Hilfe");
-		JTextArea console = new JTextArea(5, 60);
+		JMenuItem jmi = new JMenuItem("Speichern");
+		JMenuItem jmi1 = new JMenuItem("Laden");
+		JMenuItem jmi2 = new JMenuItem("Beenden");
+		
+		/**
+		 * Spiel Log
+		 */
+		JTextArea console = new JTextArea(5, 1000);
 		console.setEditable(false);
 		
 		jf.setLayout(new BorderLayout());
@@ -103,9 +121,8 @@ public class madnGUI {
 		jf.add(jp_west, BorderLayout.WEST);
 		jf.add(jp_center, BorderLayout.CENTER);
 		jf.setJMenuBar(jm);
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setVisible(true);
-		//jp_center.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		
+	//	jp_center.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		jp_west.setBackground(color);
 		jp_east.setBackground(color);
 		jp_south.setBackground(color);
@@ -113,8 +130,6 @@ public class madnGUI {
 		jp_north.setBackground(color);
 		
 		ImageIcon farbe= platz1;
-		
-		
 		JPanel jpPlatz = new JPanel();
 		jpPlatz.setPreferredSize(new Dimension(40,40));
 		jpPlatz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -390,45 +405,74 @@ public class madnGUI {
 		jl71.setBounds(71, 356, 40, 40); //Position 39;
 		brett.add(jl72);
 		jl72.setBounds(71, 304, 40, 40); //Position 40;
-		
-		
-		//jp1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
 
-	
-		
-		
-		
-		
-		
 		jp_south.add(console);
-		jp_east.setPreferredSize(new Dimension(150,1));
-		jp_east.setLayout(new GridBagLayout());
-		GridBagConstraints gbc=new GridBagConstraints();
 	
-		gbc.gridx = 0;  // x-Position im gedachten Gitter
-		gbc.gridy = 0;  // y-Position im gedachten Gitter
-		gbc.gridheight = 2;  // zwei Gitter-Felder hoch
-		gbc.fill=GridBagConstraints.HORIZONTAL;
+		/**
+		 * East Steuerung
+		 */
+		
+		JLabel jlSpieler = new JLabel("Spieler");
+		jlSpieler.setForeground(Color.WHITE);
+		
+		JLabel jlFarbe = new JLabel(gruen1);
+		JLabel jlSpielerEnde= new JLabel("ist am Zug");
+		
+		jlSpielerEnde.setForeground(Color.WHITE);
+		
+		JLabel jlWuerfeln= new JLabel("Würfeln:");
+		jlWuerfeln.setForeground(Color.WHITE);
+		
+		JPanel jpZug = new JPanel();
+		JPanel jpWuerfel = new JPanel();
+		JPanel jpWuerfelTxt = new JPanel();
+		JPanel jbButtonWuerfel = new JPanel();
+		
+		
+		jp_east.setLayout(new BorderLayout());
+		
+		jpZug.add(jlSpieler);
+		jpZug.add(jlFarbe);
+		jpZug.add(jlSpielerEnde);
+		jpZug.setBackground(color);
+		jp_east.add(jpWuerfelTxt,BorderLayout.CENTER);
+		jp_east.add(jpZug, BorderLayout.NORTH);
+		jp_east.add(jpWuerfel, BorderLayout.SOUTH);
+		jpWuerfel.setLayout(new BorderLayout());
+		jpWuerfelTxt.add(jlWuerfeln);
+		
+		jpWuerfelTxt.setBackground(color);
+		
+		
+		jpWuerfel.setPreferredSize(new Dimension(155,350));
+		jpWuerfel.setLayout(new BorderLayout());
+		jpWuerfel.add(jbButtonWuerfel, BorderLayout.NORTH);
+		jbButtonWuerfel.add(buttonWuerfel);
+		jbButtonWuerfel.setBackground(color);
+		
+		jpZug.setPreferredSize(new Dimension(155,250));
+		
+		
+		jpWuerfel.setBackground(color);
+		buttonWuerfel.setContentAreaFilled(false);
+		buttonWuerfel.setBorder(null);
+		//buttonWuerfel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		//jpWuerfel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		
 	
-
-
-		gbc.gridx = 1;  // x-Position im gedachten Gitter
-		gbc.gridy = 1;  // y-Position im gedachten Gitter
-		gbc.gridheight = 2;  // zwei Gitter-Felder hoch
-		
-		
-		
-		
-		jp_east.add(buttonWuerfel);
+	
+	
+		/**
+		 * West Bereich
+		 */
 		jp_west.setPreferredSize(new Dimension(150,1));
 		
 		jp_west.setLayout(new BorderLayout());
-		buttonWuerfel.setPreferredSize(new Dimension(150,150));
 		
-
 		jp_west.add(new JLabel(bild), BorderLayout.EAST);
 
+		
+		
 		jm.add(jMenu);
 		jm.add(jMenu2);
 		jMenu.add(jmi);
@@ -440,14 +484,7 @@ public class madnGUI {
 	}
 		
 		
-//		public JLabel[] Label(ImageIcon farbe){
-//			JLabel[] labels =  new JLabel[72];
-//					 
-//					for(int i = 0;  i < labels.length; i++ ) {
-//					  labels [i] = new JLabel ();
-//		}
-//					return labels;
-		
+
 
 	
 	
