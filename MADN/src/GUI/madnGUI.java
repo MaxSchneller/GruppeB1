@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.TextArea;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -36,12 +38,21 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
+import Spiel.FarbEnum;
+
 import java.awt.Image;
 
 public class madnGUI {
+	
+	EventHandler eH;
+	
 
 	public static void main(String[] args) throws IOException {
-		new DialogGUI();
+		madnGUI GUI =new madnGUI();
+		GUI.erstelleGUI();
+	}
+	
+		public void erstelleGUI() throws IOException{
 		File imageFile = new File("bilder/madn.jpg");
 		BufferedImage madn = ImageIO.read(imageFile);
 		
@@ -480,7 +491,135 @@ public class madnGUI {
 		jMenu.add(jmi2);
 
 		
+				
+		
+		
+		new DialogGUI(this);
 		jf.setSize(1000, 800);
+		
+		eH=new EventHandler(this);
+
+		
+	}
+	
+	public ActionListener getEventHandler() {
+		return eH;
+		
+	}
+
+	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setzeSpielfigur(String string, int parseInt, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getButtonWeiter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JComboBox getFarbeCombo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JTextField getNameArea() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JComboBox getKICombo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void frageSpielerDaten(int neuerSpielerNummer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getButtonFigur1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonFigur2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonFigur3() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonFigur4() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setzteSpielerAmZug(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getButtonSpielerZahl1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonSpielerZahl2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonSpielerZahl3() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getButtonSpielerZahl4() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setzeStatusNachricht(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void zeigeWarnung(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void ziegeFehler(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void zeigeWuerfel(int gewuerfelteZahl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setzeSpielerAmZug(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getButtonWuerfeln() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void frageGewuenschteSpielerAnzahl() {
+		// TODO Auto-generated method stub
+		
 	}
 		
 		

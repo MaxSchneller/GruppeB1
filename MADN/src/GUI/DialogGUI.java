@@ -55,20 +55,19 @@ public class DialogGUI {
 	private JRadioButton devensiverComputer;
 	
 	private JButton oKButton;
+	private madnGUI GUI;
 	
 	
 
 
 	
-	public static void main(String[] args) throws IOException{
-		new DialogGUI();
-	}
 
-	public DialogGUI() throws IOException {
-
-		//fensterFuerAnzahl();
-		
+	public DialogGUI(madnGUI GUI) throws IOException {
+		this.GUI=GUI;
 		fensterFuerSpielerAnlegen();
+		fensterFuerAnzahl();
+		
+	
 
 	}
 
@@ -90,12 +89,17 @@ public class DialogGUI {
 
 		JPanel jp1 = new JPanel();
 		b1 = new JButton("Ein Spieler");
+		b1.addActionListener(this.GUI.getEventHandler());
 		jp1.add(b1);
+		
 		b2 = new JButton("Zwei Spieler");
+		b2.addActionListener(this.GUI.getEventHandler());
 		jp1.add(b2);
 		b3 = new JButton("Drei Spieler");
+		b3.addActionListener(this.GUI.getEventHandler());
 		jp1.add(b3);
 		b4 = new JButton("Vier Spieler");
+		b4.addActionListener(this.GUI.getEventHandler());
 		jp1.add(b4);
 		box.add(jp1);
 
