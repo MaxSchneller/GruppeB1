@@ -45,6 +45,8 @@ import java.awt.Image;
 public class madnGUI {
 	
 	EventHandler eH;
+	private DialogGUI diaGui;
+	private SpielerAnzahlGUI spielerAnzahlGui;
 	
 
 	public static void main(String[] args) throws IOException {
@@ -492,12 +494,12 @@ public class madnGUI {
 
 		
 				
+		eH=new EventHandler(this);
 		
-		
-		new DialogGUI(this);
+//		this.diaGui = new DialogGUI(this);
 		jf.setSize(1000, 800);
 		
-		eH=new EventHandler(this);
+		
 
 		
 	}
@@ -512,7 +514,7 @@ public class madnGUI {
 		
 	}
 
-	public void setzeSpielfigur(String string, int parseInt, String string2) {
+	public void setzeSpielfigur(String farbe, int figurID, String feldID) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -568,23 +570,19 @@ public class madnGUI {
 	}
 
 	public Object getButtonSpielerZahl1() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.spielerAnzahlGui.getButtonSpielerZahl1();
 	}
 
 	public Object getButtonSpielerZahl2() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.spielerAnzahlGui.getButtonSpielerZahl2();
 	}
 
 	public Object getButtonSpielerZahl3() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.spielerAnzahlGui.getButtonSpielerZahl3();
 	}
 
 	public Object getButtonSpielerZahl4() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.spielerAnzahlGui.getButtonSpielerZahl4();
 	}
 
 	public void setzeStatusNachricht(String s) {
@@ -618,8 +616,11 @@ public class madnGUI {
 	}
 
 	public void frageGewuenschteSpielerAnzahl() {
-		// TODO Auto-generated method stub
-		
+		this.spielerAnzahlGui = new SpielerAnzahlGUI(this);
+	}
+	
+	public void schliesseGewuenschteSpielerAnzahl() {
+		this.spielerAnzahlGui.schliessen();
 	}
 		
 		

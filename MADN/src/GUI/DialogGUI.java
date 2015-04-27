@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +67,7 @@ public class DialogGUI {
 	public DialogGUI(madnGUI GUI) throws IOException {
 		this.GUI=GUI;
 		fensterFuerSpielerAnlegen();
-		fensterFuerAnzahl();
+//		fensterFuerAnzahl();
 		
 	
 
@@ -187,6 +189,7 @@ public class DialogGUI {
 		box1.add(new JPanel());
 		
 		oKButton = new JButton("Spieler anlegen");
+		oKButton.addActionListener(this.GUI.getEventHandler());
 		box1.add(oKButton);
 		
 		jd2.setContentPane(box1);
@@ -215,5 +218,11 @@ public class DialogGUI {
 
 	public KiTypEnum getKiTyp() {
 		return kiTyp;
+	}
+
+
+	
+	public Object getButtonWeiter() {
+		return this.oKButton;
 	}
 }
