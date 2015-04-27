@@ -2,10 +2,15 @@ package GUI;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -53,11 +58,13 @@ public class DialogGUI {
 	
 	
 
-	public static void main(String[] args) {
+
+	
+	public static void main(String[] args) throws IOException{
 		new DialogGUI();
 	}
 
-	public DialogGUI() {
+	public DialogGUI() throws IOException {
 
 		//fensterFuerAnzahl();
 		
@@ -100,8 +107,29 @@ public class DialogGUI {
 
 	/**
 	 * Das Dialogfenster, mit dem man einen Spieler anlegen kann.
+	 * @throws IOException 
 	 */
-	public void fensterFuerSpielerAnlegen() {
+	public void fensterFuerSpielerAnlegen() throws IOException {
+		
+		
+		File imageFile5 = new File("bilder/BLAU_Figur.png");
+		BufferedImage blau = ImageIO.read(imageFile5);
+		
+		File imageFile6 = new File("bilder/ROT_Figur.png");
+		BufferedImage rot = ImageIO.read(imageFile6);
+		
+		File imageFile7 = new File("bilder/GELB_Figur.png");
+		BufferedImage gelb = ImageIO.read(imageFile7);
+		
+		File imageFile8 = new File("bilder/GRUEN_Figur.png");
+		BufferedImage gruen = ImageIO.read(imageFile8);
+		
+		
+		ImageIcon blau1=new ImageIcon(blau);
+		ImageIcon gruen1=new ImageIcon(gruen);
+		ImageIcon rot1=new ImageIcon(rot);
+		ImageIcon gelb1=new ImageIcon(gelb);
+		
 		JDialog jd2 = new JDialog();
 		box1 = new Box(BoxLayout.Y_AXIS);
 		jd2.setTitle("Spieler erstellen");
@@ -119,17 +147,18 @@ public class DialogGUI {
 		box1.add(jp3);
 		
 		JPanel jp4 = new JPanel();
+		JPanel farbe = new JPanel();
 		spielerFarbe = new JLabel ("Spielerfarbe: "); jp3.add(spielerFarbe);
 		farbAuswahl = new ButtonGroup ();
-		rotAuswahl = new JRadioButton("ROT" , ROT_Figur.png , false);
-		blauAuswahl = new JRadioButton("BLAU" , BLAU_Figur.png , false);
-		gruenAuswahl = new JRadioButton("GRUEN" , GRUEN_Figur.png , false);
-		gelbAuswahl = new JRadioButton("GELB", GELB_Figur.png , false);
-		farbAuswahl.add(rotAuswahl);
-		farbAuswahl.add(blauAuswahl);
-		farbAuswahl.add(gruenAuswahl);
-		farbAuswahl.add(gelbAuswahl);
-		jp4.add(farbAuswahl);
+		rotAuswahl = new JRadioButton("ROT" , rot1 , false);
+		blauAuswahl = new JRadioButton("BLAU" , blau1, false);
+		gruenAuswahl = new JRadioButton("GRUEN" , gruen1 , false);
+		gelbAuswahl = new JRadioButton("GELB", gelb1 , false);
+		farbe.add(rotAuswahl);
+		farbe.add(blauAuswahl);
+		farbe.add(gruenAuswahl);
+		farbe.add(gelbAuswahl);
+		jp4.add(farbe);
 		box1.add(jp4);
 		
 		box1.add(new JPanel());
@@ -143,7 +172,7 @@ public class DialogGUI {
 		kIAuswahl.add(realerSpieler);
 		kIAuswahl.add(agressiverComputer);
 		kIAuswahl.add(devensiverComputer);
-		jp5.add(kIAuswahl);
+		//jp5.add(kIAuswahl);
 		box1.add(jp5);
 		
 		box1.add(new JPanel());
