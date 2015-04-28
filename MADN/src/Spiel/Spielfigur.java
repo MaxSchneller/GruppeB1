@@ -18,6 +18,9 @@ public class Spielfigur implements Serializable {
 	/**
 	 * Der Konstruktor der Klasse Spielfigur
 	 * @param farbe Jede Spielfigur besitzt eine Farbe
+	 * @param feld Das Feld auf dem die Figur steht
+	 * @param id Die ID diese Figur
+	 * @param spieler Der Spieler dem diese Figur gehoert
 	 */
 	public Spielfigur(FarbEnum farbe, Spielfeld feld, int id, Spieler spieler){
 		setFarbe(farbe);
@@ -70,7 +73,7 @@ public class Spielfigur implements Serializable {
 	
 	/**
 	 * Setter des Spielfelds darf nicht null sein
-	 * @param feld
+	 * @param feld Das Feld auf dem die Figur nun steht
 	 */
 	public void setSpielfeld(Spielfeld feld){
 		if(feld != null){

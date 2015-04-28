@@ -414,7 +414,7 @@ public abstract class KI implements Serializable {
 	}
 
 	/**
-	 * Gibt den Typ dieser KI zurueck
+	 * @return Gibt den Typ dieser KI zurueck
 	 */
 	public KiTypEnum getKiTyp() {
 		return null;

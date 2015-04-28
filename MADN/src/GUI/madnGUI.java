@@ -45,8 +45,11 @@ import java.awt.Image;
 
 public class madnGUI {
 
+	/** Der EventHandler der alle events dieses GUIs verarbeitet */
 	EventHandler eH;
+	/** Das Dialogfenster mit dem Spielerdate abgefragt werden */
 	private DialogGUI diaGui;
+	/** Das Dialogfenster mit dem die Spieleranzahl abgefragt wird */
 	private SpielerAnzahlGUI spielerAnzahlGui;
 
 	public static void main(String[] args) throws IOException {
@@ -62,6 +65,10 @@ public class madnGUI {
 		}
 	}
 
+	/**
+	 * Erstellt ein neues Hauptfenster
+	 * @throws IOException Das Laden der Bolder lief schief
+	 */
 	public madnGUI() throws IOException {
 		this.eH = new EventHandler(this);
 
@@ -69,6 +76,10 @@ public class madnGUI {
 		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
+	/** 
+	 * Erstellt alle Komponenten der Haupgui und fuegt diese zusammen
+	 * @throws IOException Die Bilder konnten nicht geladen werden
+	 */
 	public void erstelleGUI() throws IOException {
 		File imageFile = new File("bilder/madn.jpg");
 		BufferedImage madn = ImageIO.read(imageFile);
@@ -494,41 +505,49 @@ public class madnGUI {
 
 	}
 
+	/**
+	 * 
+	 * @return Gibt den EventHandler dieses GUIs zurrueck
+	 */
 	public EventHandler getEventHandler() {
 		return eH;
 
 	}
 
+	/**
+	 * Wird von EventHandler aufgerufen, wenn das Spiel gewonnen wurde
+	 * @param gewinnerName Der Name des Gewinners
+	 * @param gewinnerFarbe Die Farbe des Gewinners
+	 */
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Wird vom EventHandler aufgerufen und setzt die angegebene Figur auf das angegebene Feld
+	 * @param farbe Die Farbe der zu versetzenden Figur
+	 * @param figurID Die ID der Figur
+	 * @param feldID Das Feld auf dem sich die Figur jetzt befindet
+	 */
 	public void setzeSpielfigur(String farbe, int figurID, String feldID) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * 
+	 * @return Gibt den Button "Spieler Anlegen" aus dem DialogGUI zurrueck
+	 */
 	public Object getButtonWeiter() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public JComboBox getFarbeCombo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public JTextField getNameArea() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public JComboBox getKICombo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	/**
+	 * Ruft ein neues DialogGUI auf um die Spielerdaten abzufragen
+	 * @param neuerSpielerNummer Die Nummer des Spielers dessen Daten abgefragt werden sollen
+	 */
 	public void frageSpielerDaten(int neuerSpielerNummer) {
 		try {
 			this.diaGui = new DialogGUI(this);
@@ -540,81 +559,129 @@ public class madnGUI {
 		}
 	}
 
+	/**
+	 * @return Gibt den Button der ersten Spelfigur zurrueck
+	 */
 	public Object getButtonFigur1() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @return Gibt den Button der zweiten Spelfigur zurrueck
+	 */
 	public Object getButtonFigur2() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @return Gibt den Button der dritten Spelfigur zurrueck
+	 */
 	public Object getButtonFigur3() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @return Gibt den Button der vierten Spelfigur zurrueck
+	 */
 	public Object getButtonFigur4() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void setzteSpielerAmZug(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
+	/**
+	 * @return Spieleranzahl 1 Button
+	 */
 	public Object getButtonSpielerZahl1() {
 		return this.spielerAnzahlGui.getButtonSpielerZahl1();
 	}
 
+	/**
+	 * @return Spieleranzahl 2 Button
+	 */
 	public Object getButtonSpielerZahl2() {
 		return this.spielerAnzahlGui.getButtonSpielerZahl2();
 	}
 
+	/**
+	 * @return Spieleranzahl 3 Button
+	 */
 	public Object getButtonSpielerZahl3() {
 		return this.spielerAnzahlGui.getButtonSpielerZahl3();
 	}
 
+	/**
+	 * @return Spieleranzahl 4 Button
+	 */
 	public Object getButtonSpielerZahl4() {
 		return this.spielerAnzahlGui.getButtonSpielerZahl4();
 	}
 
+	/**
+	 * Gibt eine Statusnachricht aus
+	 * @param s Die Nachricht
+	 */
 	public void setzeStatusNachricht(String s) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Gibt eine Warnung aus 
+	 * @param s Die Warnung
+	 */
 	public void zeigeWarnung(String s) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Gibt einen Fehler aus
+	 * @param s Die Fehlernachricht
+	 */
 	public void ziegeFehler(String s) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Setzt den Wuerfel so, dass er die gewuerfelte Zah anzeigt
+	 * @param gewuerfelteZahl Die gewuerfelte Zahl
+	 */
 	public void zeigeWuerfel(int gewuerfelteZahl) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Setzt den Spieler der am Zug ist
+	 * @param name Der Name des Spielers
+	 */
 	public void setzeSpielerAmZug(String name) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * @return Gibt den Button fuer das Wuerfeln zurrueck
+	 */
 	public Object getButtonWuerfeln() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 *  Ruft ein neues Dialogfenster zur Abfrage der Spieleranzahl
+	 */
 	public void frageGewuenschteSpielerAnzahl() {
 		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
+	/**
+	 * Schliesst den Dialog zur Abfrage der Spieleranzahl
+	 */
 	public void schliesseGewuenschteSpielerAnzahl() {
 		this.spielerAnzahlGui.schliessen();
 	}

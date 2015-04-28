@@ -141,33 +141,33 @@ public class EventHandler implements ActionListener {
 	 * @param source Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteNeuerSpieler(Object source) {
-		if (source == this.gui.getButtonWeiter()) {
-			// True wenn der "Weiter" Button bei der Spielererstellung gedrueckt
-			// wurde
-			JTextField nameArea = this.gui.getNameArea();
-			JComboBox farbeComboBox = this.gui.getFarbeCombo();
-			JComboBox kiComboBox = this.gui.getKICombo();
-
-			String name = nameArea.getText();
-			FarbEnum farbe = FarbEnum.vonInt(farbeComboBox.getSelectedIndex());
-			KiTypEnum kiTyp = KiTypEnum.vonInt(kiComboBox.getSelectedIndex());
-
-			if (this.spiel == null) {
-				this.spiel = new Spiel(name, farbe, kiTyp);
-			} else {
-				try {
-
-					this.spiel.spielerHinzufuegen(name, farbe, kiTyp);
-					++this.neuerSpielerNummer;
-				} catch (SpielerFarbeVorhandenException e) {
-					this.logFehler(e.getMessage());
-				}
-			}
-
-			if (this.neuerSpielerNummer < this.spielerAnzahl) {
-				this.gui.frageSpielerDaten(this.neuerSpielerNummer);
-			}
-		}
+//		if (source == this.gui.getButtonWeiter()) {
+//			// True wenn der "Weiter" Button bei der Spielererstellung gedrueckt
+//			// wurde
+//			JTextField nameArea = this.gui.getNameArea();
+//			JComboBox farbeComboBox = this.gui.getFarbeCombo();
+//			JComboBox kiComboBox = this.gui.getKICombo();
+//
+//			String name = nameArea.getText();
+//			FarbEnum farbe = FarbEnum.vonInt(farbeComboBox.getSelectedIndex());
+//			KiTypEnum kiTyp = KiTypEnum.vonInt(kiComboBox.getSelectedIndex());
+//
+//			if (this.spiel == null) {
+//				this.spiel = new Spiel(name, farbe, kiTyp);
+//			} else {
+//				try {
+//
+//					this.spiel.spielerHinzufuegen(name, farbe, kiTyp);
+//					++this.neuerSpielerNummer;
+//				} catch (SpielerFarbeVorhandenException e) {
+//					this.logFehler(e.getMessage());
+//				}
+//			}
+//
+//			if (this.neuerSpielerNummer < this.spielerAnzahl) {
+//				this.gui.frageSpielerDaten(this.neuerSpielerNummer);
+//			}
+//		}
 	}
 
 	/**
@@ -175,55 +175,55 @@ public class EventHandler implements ActionListener {
 	 * @param source Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteFiguren(Object source) {
-		if (this.spiel != null) {
-			// Macht nur Sinn mit Spiel...
-
-		
-			int figurID = -1;
-			
-			if (source == this.gui.getButtonFigur1()) {
-				figurID = 1;
-			}
-			if (source == this.gui.getButtonFigur2()) {
-				figurID = 2;
-			}
-			if (source == this.gui.getButtonFigur3()) {
-				figurID = 3;
-			}
-			if (source == this.gui.getButtonFigur4()) {
-				figurID = 4;
-			}
-			
-			if (figurID != -1) {
-				ZugErgebnis ergebnis = this.spiel.ziehen(figurID);
-				
-				if (ergebnis.isGueltig()) {
-					this.logInfo("Zug ist gueltig.");
-					
-					for (String[] figur : ergebnis.getGeaenderteFiguren()) {
-						this.gui.setzeSpielfigur(figur[0], 
-												Integer.parseInt(figur[1]), // Try nicht noetig, da garantiert
-												figur[2]);
-					}
-				} else {
-					this.logFehler("Ungueltiger Zug!");
-				}
-				
-				if (ergebnis.isSpielGewonnen()) {
-					this.gui.spielGewonnen(ergebnis.getGewinnerName(), ergebnis.getGewinnerFarbe());
-					return;
-				}
-				
-				if (ergebnis.isZugBeendet()) {
-					this.logInfo("Naechster Spieler ist dran.");
-					this.gui.setzteSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
-					
-					if (this.spiel.isSpielerAmZugKI()) {
-						this.lassKIWuerfeln();
-					}
-				}
-			}
-		}
+//		if (this.spiel != null) {
+//			// Macht nur Sinn mit Spiel...
+//
+//		
+//			int figurID = -1;
+//			
+//			if (source == this.gui.getButtonFigur1()) {
+//				figurID = 1;
+//			}
+//			if (source == this.gui.getButtonFigur2()) {
+//				figurID = 2;
+//			}
+//			if (source == this.gui.getButtonFigur3()) {
+//				figurID = 3;
+//			}
+//			if (source == this.gui.getButtonFigur4()) {
+//				figurID = 4;
+//			}
+//			
+//			if (figurID != -1) {
+//				ZugErgebnis ergebnis = this.spiel.ziehen(figurID);
+//				
+//				if (ergebnis.isGueltig()) {
+//					this.logInfo("Zug ist gueltig.");
+//					
+//					for (String[] figur : ergebnis.getGeaenderteFiguren()) {
+//						this.gui.setzeSpielfigur(figur[0], 
+//												Integer.parseInt(figur[1]), // Try nicht noetig, da garantiert
+//												figur[2]);
+//					}
+//				} else {
+//					this.logFehler("Ungueltiger Zug!");
+//				}
+//				
+//				if (ergebnis.isSpielGewonnen()) {
+//					this.gui.spielGewonnen(ergebnis.getGewinnerName(), ergebnis.getGewinnerFarbe());
+//					return;
+//				}
+//				
+//				if (ergebnis.isZugBeendet()) {
+//					this.logInfo("Naechster Spieler ist dran.");
+//					this.gui.setzteSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
+//					
+//					if (this.spiel.isSpielerAmZugKI()) {
+//						this.lassKIWuerfeln();
+//					}
+//				}
+//			}
+//		}
 	}
 
 	/**

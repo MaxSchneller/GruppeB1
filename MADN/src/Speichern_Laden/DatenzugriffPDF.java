@@ -196,7 +196,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 			directContent.saveState();
 			directContent.beginText();
 		
-			BaseFont bf = BaseFont.createFont();
+			BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, true);
 			directContent.setFontAndSize(bf, 27);
 			directContent.showTextAligned(Element.ALIGN_LEFT, teile[0],
 					this.namen[ordinal][0], this.namen[ordinal][1], 0);

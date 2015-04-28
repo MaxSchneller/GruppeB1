@@ -24,6 +24,9 @@ import javax.swing.JTextField;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 
+/**
+ * Ein Dialogfenster zur Eingabe von Spielerdaten
+ */
 public class DialogGUI {
 
 	private String name;
@@ -62,14 +65,14 @@ public class DialogGUI {
 	
 
 
-	
+	/**
+	 * Erstellt ein neues Dialogfenster zur Abfrage von Spielerdaten 
+	 * @param GUI Die main GUI
+	 * @throws IOException Bilder konnten nicht geladen werden
+	 */
 	public DialogGUI(madnGUI GUI) throws IOException {
 		this.GUI=GUI;
 		fensterFuerSpielerAnlegen();
-//		fensterFuerAnzahl();
-		
-	
-
 	}
 
 	/**
@@ -112,7 +115,7 @@ public class DialogGUI {
 
 	/**
 	 * Das Dialogfenster, mit dem man einen Spieler anlegen kann.
-	 * @throws IOException 
+	 * @throws IOException Bilder konnten nicht geladen werden
 	 */
 	public void fensterFuerSpielerAnlegen() throws IOException {
 		
@@ -207,20 +210,31 @@ public class DialogGUI {
 		}
 	}
 
+	/**
+	 * @return Gibt den gewuenschten Name des Spielers zurrueck
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return Gibt die geuwenschte Farbe des Spielers zurrueck
+	 */
 	public FarbEnum getFarbe() {
 		return farbe;
 	}
 
+	/**
+	 * @return Gibt den KiTyp des zu erstellenden Spielers zurrueck
+	 */
 	public KiTypEnum getKiTyp() {
 		return kiTyp;
 	}
 
 
-	
+	/**
+	 * @return Gibt den Button "Spieler anlegen" zurrueck
+	 */
 	public Object getButtonWeiter() {
 		return this.oKButton;
 	}
