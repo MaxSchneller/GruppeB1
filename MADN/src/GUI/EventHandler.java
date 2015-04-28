@@ -56,6 +56,15 @@ public class EventHandler implements ActionListener {
 		this.verarbeiteSpielerAnzahl(source);
 
 	}
+	
+	/**
+	 * Gibt an ob eine Farbe bereits vergeben ist
+	 * @param farbe Die Farbe die geprueft werden soll
+	 * @return True falls die Farbe vergeben ist, sonst false
+	 */
+	public boolean isFarbeVergeben(FarbEnum farbe) {
+		return this.spiel.isFarbeVergeben(farbe);
+	}
 
 	/**
 	 * Prueft ob das ActionEvent von dem "Wuerfeln" Button ausgeloest wurde

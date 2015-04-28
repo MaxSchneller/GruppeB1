@@ -80,5 +80,12 @@ public interface iBediener {
 	 * @return Gibt alle Eigenschaften, die ein Spieler besitzt zurueck
 	 */
 	public String[] getSpieler();
+	
+	/**
+	 * Gibt an, ob eine Farbe bereits vergeben ist, oder noch genommen werden kann
+	 * @param farbe Die zu pruefende Farbe
+	 * @return True falls die Farbe vergeben ist, sonst false
+	 */
+	public boolean isFarbeVergeben(FarbEnum farbe);
 
 }
