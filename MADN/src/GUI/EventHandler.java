@@ -43,7 +43,7 @@ public class EventHandler implements ActionListener {
 	public EventHandler(madnGUI gui) {
 		this.setGui(gui);
 
-		this.gui.frageGewuenschteSpielerAnzahl();
+		//this.gui.frageGewuenschteSpielerAnzahl();
 	}
 
 	@Override
@@ -259,6 +259,7 @@ public class EventHandler implements ActionListener {
 		}
 
 		if (einerWurdeGedrueckt) {
+			this.gui.schliesseGewuenschteSpielerAnzahl();
 			this.gui.frageSpielerDaten(this.neuerSpielerNummer);
 		}
 	}

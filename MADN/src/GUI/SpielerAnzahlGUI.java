@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Ein Dialogfenster zur Erfragung der Spieleranzahl
+ */
 public class SpielerAnzahlGUI {
 
 	private Box box;
@@ -20,26 +23,41 @@ public class SpielerAnzahlGUI {
 	private JDialog jd;
 	private EventHandler eH;
 	
-	public SpielerAnzahlGUI(madnGUI gui) {
-		this.setGUI(gui);
+	/**
+	 * Erstellt ein neues Dialogfenster fuer die Spieleranzahl
+	 * @param eH Der EventHandler, der die events verarbeitet
+	 */
+	public SpielerAnzahlGUI(EventHandler eH) {
+		this.setEventHandler(eH);
 		
 		fensterFuerAnzahl();
 	}
 	
 
-	private void setGUI(EventHandler eH) {
+	/**
+	 * Prueft den Eventhandler auf null und setzt in
+	 * @param eH Der EventHandler
+	 */
+	private void setEventHandler(EventHandler eH) {
 		if (eH == null) {
-			throw new RuntimeException("Gui darf nicht null sein");
+			throw new RuntimeException("EventHandler darf nicht null sein");
 		}
 		
 		this.eH = eH;
 	}
 
+	/**
+	 * Verbirgt dieses Dialogfenster
+	 */
 	public void schliessen() {
 		
 		jd.setVisible(false);
 	}
-
+	
+	/**
+	 * Erstellt alle Komponenten fuer das Dialogfenster und fuegt diese zusammen.
+	 * Registriert den EventHandler als ActionListener wo noetig
+	 */
 	public void fensterFuerAnzahl() {
 		this.jd = new JDialog();
 		box = new Box(BoxLayout.Y_AXIS);
@@ -75,18 +93,30 @@ public class SpielerAnzahlGUI {
 		jd.setVisible(true);
 	}
 	
+	/**
+	 * @return Gibt den Button fuer "1" Spieler zurrueck
+	 */
 	public Object getButtonSpielerZahl1() {
 		return this.b1;
 	}
 
+	/**
+	 * @return Gibt den Button fuer "2" Spieler zurrueck
+	 */
 	public Object getButtonSpielerZahl2() {
 		return this.b2;
 	}
 
+	/**
+	 * @return Gibt den Button fuer "4" Spieler zurrueck
+	 */
 	public Object getButtonSpielerZahl3() {
 		return this.b3;
 	}
 
+	/**
+	 * @return Gibt den Button fuer "4" Spieler zurrueck
+	 */
 	public Object getButtonSpielerZahl4() {
 		return this.b4;
 	}

@@ -63,7 +63,6 @@ public class DialogGUI {
 
 
 	
-
 	public DialogGUI(madnGUI GUI) throws IOException {
 		this.GUI=GUI;
 		fensterFuerSpielerAnlegen();
