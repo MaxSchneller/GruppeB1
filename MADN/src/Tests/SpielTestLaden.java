@@ -23,7 +23,7 @@ public class SpielTestLaden {
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
 		// Den Speicherstand (Selialisiert) laden
-		iBediener s1 = (Spiel)id.spielLaden();
+		iBediener s1 = (Spiel)id.spielLaden("Dateien_Gespeichert/test.ser");
 
 		String[] ausgabe = s1.getSpieler();
 		System.out.println("Serialisiert:\n===================");
@@ -46,7 +46,7 @@ public class SpielTestLaden {
 		}
 
 		// Den Speicherstand (CVS) laden
-		iBediener var = (Spiel)id1.spielLaden();
+		iBediener var = (Spiel)id1.spielLaden("Dateien_Gespeichert/test.csv");
 
 		String[] ausgabe1 = var.getSpieler();
 		System.out.println("CSV:\n====================");

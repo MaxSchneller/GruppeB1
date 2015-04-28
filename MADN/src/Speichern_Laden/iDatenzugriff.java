@@ -16,12 +16,13 @@ public interface iDatenzugriff {
 	/**
 	 * Einen Spielstand speichern
 	 * @param spiel Ein Spielstand der gespeichert werden soll (Lauft alles im Spiel ab)
+	 * @param dateipfad Gewuenschter Speicherpfad
 	 * @throws IOException Fehlermeldung bei falscher Ein- und Ausgabe
 	 */
-	public void spielSpeichern (Object spiel) throws IOException;
+	public void spielSpeichern (Object spiel, String dateipfad) throws IOException;
 	
 	/**
-	 * 
+	 * @param dateipfad Pfad zur Datei, die geladen werden soll
 	 * @return Gibt den gespeicherten Spielstand zurück, falls vorhanden.
 	 * @throws ClassNotFoundException Fehlermeldung falls es keine Datei gibt, zum lesen
 	 * @throws FileNotFoundException Fehlermeldung beim laden des Spielstands
@@ -29,5 +30,5 @@ public interface iDatenzugriff {
 	 * @throws SpielerFarbeVorhandenException Hat ein Spieler schon eine Farbe gewählt, kann ein anderer diese nicht nutzen.
 	 * @throws SpielerNichtGefundenException Fehlermeldung, wenn es keinen Spieler mit dieser Farbe gibt.
 	 */
-	public Object spielLaden() throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException;
+	public Object spielLaden(String dateipfad) throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException;
 }

@@ -44,10 +44,10 @@ public class SpielTestSpeichern {
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
 		//Als .ser speichern
-		id.spielSpeichern((Spiel)s);
+		id.spielSpeichern((Spiel)s, "Dateien_Gespeichert/test.ser");
 		
 		//Als .csv speichern
-		id1.spielSpeichern((Spiel)s);
+		id1.spielSpeichern((Spiel)s, "Dateien_Gespeichert/test.csv");
 		
 		}
 }

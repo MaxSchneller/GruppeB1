@@ -48,9 +48,9 @@ public class TestSpeichernLadenMitKI {
 						
 						FarbEnum spielerAmZugFarbe = s.getSpielerAmZugFarbe();
 						String[][] figurenVorLaden = s.getAlleFigurenPositionen();
-						dzg.spielSpeichern((Spiel)s);
+						dzg.spielSpeichern((Spiel)s, "Dateien_Gespeichert/kiTest.ser");
 						
-						s = (Spiel)dzg.spielLaden();
+						s = (Spiel)dzg.spielLaden("Dateien_Gespeichert/kiTest.ser");
 						String[][] figurenNachLaden = s.getAlleFigurenPositionen();
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());

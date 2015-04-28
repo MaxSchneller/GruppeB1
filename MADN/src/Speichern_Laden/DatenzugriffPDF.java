@@ -67,7 +67,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 	}
 
 	@Override
-	public void spielSpeichern(Object spiel) throws IOException {
+	public void spielSpeichern(Object spiel, String dateipfad) throws IOException {
 		if (spiel instanceof Spiel) {
 			Spiel zuSpeicherndesSpiel = (Spiel) spiel;
 			Document document = new Document(new Rectangle(650f, 650f), 0,0,0,0);
@@ -94,7 +94,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				PdfReader pdfReader = new PdfReader(stream.toByteArray());
 
 				PdfStamper pdfStamper = new PdfStamper(pdfReader,
-						new FileOutputStream("Dateien_Gespeichert/test.pdf"));
+						new FileOutputStream(dateipfad));
 
 				HashMap<String, String> info = pdfReader.getInfo();
 
@@ -114,13 +114,13 @@ public class DatenzugriffPDF implements iDatenzugriff {
 	
 
 	@Override
-	public Object spielLaden() throws ClassNotFoundException,
+	public Object spielLaden(String dateipfad) throws ClassNotFoundException,
 			FileNotFoundException, IOException, SpielerFarbeVorhandenException,
 			SpielerNichtGefundenException {
 		
 		 PdfReader pdfReader = null;
 		 try {
-			 pdfReader = new PdfReader("Dateien_Gespeichert/test.pdf");
+			 pdfReader = new PdfReader(dateipfad);
 			 HashMap<String, String> info = pdfReader.getInfo();
 			 
 			 int spielerZahl = Integer.parseInt(info.get("spielerAnzahl"));

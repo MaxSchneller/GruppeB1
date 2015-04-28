@@ -25,9 +25,9 @@ public class DatenzugriffCSV implements iDatenzugriff {
 	 * Ueberschreibt die Methode des Interface iDatenzugriff, um den Sielstand als CSV Datei zu speichert.
 	 */
 	@Override
-	public void spielSpeichern(Object spiel) throws IOException {
+	public void spielSpeichern(Object spiel, String dateipfad) throws IOException {
 	
-		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
+		String dateiPfad = dateipfad;
 		
 		if (spiel instanceof Spiel) {
 			
@@ -56,9 +56,9 @@ public class DatenzugriffCSV implements iDatenzugriff {
 	 * Ueberschreibt die Methode spielLaden des Interface iDatenzugriff, um die CSV Datei des Sielstands zu laden.
 	 */
 	@Override
-	public Object spielLaden() throws ClassNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException {
+	public Object spielLaden(String dateipfad) throws ClassNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException {
 		
-		String dateiPfad = "Dateien_Gespeichert/spiel1.csv";
+		String dateiPfad = dateipfad;
 		
 		BufferedReader br = new BufferedReader(new FileReader(dateiPfad));
 		boolean wurdeSpielErstellt = false;

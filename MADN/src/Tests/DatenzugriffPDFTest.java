@@ -45,10 +45,10 @@ public class DatenzugriffPDFTest {
 			SpielerFarbeVorhandenException, SpielerNichtGefundenException {
 		iDatenzugriff d = new DatenzugriffPDF();
 
-		d.spielSpeichern(spiel);
+		d.spielSpeichern(spiel, "Dateien_Gespeichert/test.pdf");
 		String[][] alleFigurenPositionen = spiel.getAlleFigurenPositionen();
 
-		Spiel geladen = (Spiel) d.spielLaden();
+		Spiel geladen = (Spiel) d.spielLaden("Dateien_Gespeichert/test.pdf");
 
 		String[][] alleFigurenPositionen2 = geladen.getAlleFigurenPositionen();
 
