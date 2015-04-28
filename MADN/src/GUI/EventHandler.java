@@ -63,7 +63,10 @@ public class EventHandler implements ActionListener {
 	 * @return True falls die Farbe vergeben ist, sonst false
 	 */
 	public boolean isFarbeVergeben(FarbEnum farbe) {
-		return this.spiel.isFarbeVergeben(farbe);
+		if(spiel != null){
+			return this.spiel.isFarbeVergeben(farbe);
+		}
+		return false;
 	}
 
 	/**

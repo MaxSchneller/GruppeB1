@@ -1,9 +1,5 @@
 package GUI;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -34,27 +31,16 @@ public class DialogGUI {
 	private KiTypEnum kiTyp;
 	private madnGUI maingui;
 
-	private Box box;
-	private JLabel jl1;
-	private JButton b1;
-	private JButton b2;
-	private JButton b3;
-	private JButton b4;
-
 	private Box box1;
 	private JLabel jl2;
 	private JLabel spielerName;
 	private JTextField spielerNameText;
 	
-	private JLabel spielerFarbe;
 	private JRadioButton rotAuswahl;
 	private JRadioButton blauAuswahl;
 	private JRadioButton gruenAuswahl;
 	private JRadioButton gelbAuswahl;
-	private ButtonGroup farbAuswahl;
 	
-	
-	private JLabel spielerComputer;
 	private ButtonGroup kIAuswahl;
 	private JRadioButton realerSpieler;
 	private JRadioButton agressiverComputer;
@@ -74,6 +60,7 @@ public class DialogGUI {
 	private ImageIcon rot1;
 	private ImageIcon gelb1;
 	private ImageIcon keine1;
+	private JButton keineAuswahl;
 	
 	private JButton oKButton;
 	private madnGUI GUI;
@@ -87,7 +74,7 @@ public class DialogGUI {
 	 * @throws IOException Bilder konnten nicht geladen werden
 	 */
 	public DialogGUI(madnGUI GUI) throws IOException {
-		this.GUI=GUI;
+		setMaingui(GUI);
 		fensterFuerSpielerAnlegen();
 	}
 	
@@ -119,34 +106,8 @@ public class DialogGUI {
 		box1.add(jp3);
 		
 		//Farbe Waehlen
-		JPanel jp4 = new JPanel();
-		JPanel farbe = new JPanel();
-		imageFile5 = new File("bilder/BLAU_Figur.png");
-		blau = ImageIO.read(imageFile5);
-		imageFile6 = new File("bilder/ROT_Figur.png");
-		rot = ImageIO.read(imageFile6);
-		imageFile7 = new File("bilder/GELB_Figur.png");
-		gelb = ImageIO.read(imageFile7);
-		imageFile8 = new File("bilder/GRUEN_Figur.png");
-		gruen = ImageIO.read(imageFile8);
-		imageFile9 = new File("bilder/keine_Figur.png");
-		keine = ImageIO.read(imageFile8);
-		blau1=new ImageIcon(blau);
-		gruen1=new ImageIcon(gruen);
-		rot1=new ImageIcon(rot);
-		gelb1=new ImageIcon(gelb);
-		keine1=new ImageIcon(keine);
-		farbAuswahl = new ButtonGroup ();
-		rotAuswahl = new JRadioButton("ROT" , rot1 , false);
-		blauAuswahl = new JRadioButton("BLAU" , blau1, false);
-		gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
-		gelbAuswahl = new JRadioButton("GELB", gelb1 , false);
-		farbe.add(rotAuswahl);
-		farbe.add(blauAuswahl);
-		farbe.add(gruenAuswahl);
-		farbe.add(gelbAuswahl);
-		jp4.add(farbe);
-		box1.add(jp4);
+		JPanel farbButtons = farbButtonvergeben ();
+		box1.add(farbButtons);
 		
 		//Abstand
 		box1.add(new JPanel());
@@ -170,7 +131,7 @@ public class DialogGUI {
 		
 		//OK Button fuer naechsten Spieler
 		oKButton = new JButton("Spieler anlegen");
-		oKButton.addActionListener(this.GUI.getEventHandler());
+		oKButton.addActionListener(this.maingui.getEventHandler());
 		box1.add(oKButton);
 		
 		jd2.setContentPane(box1);
@@ -216,5 +177,61 @@ public class DialogGUI {
 	 */
 	public Object getButtonWeiter() {
 		return this.oKButton;
+	}
+	
+	public JPanel farbButtonvergeben () throws IOException{
+		try{
+		JPanel farbe = new JPanel();
+		imageFile5 = new File("bilder/BLAU_Figur.png");
+		blau = ImageIO.read(imageFile5);
+		imageFile6 = new File("bilder/ROT_Figur.png");
+		rot = ImageIO.read(imageFile6);
+		imageFile7 = new File("bilder/GELB_Figur.png");
+		gelb = ImageIO.read(imageFile7);
+		imageFile8 = new File("bilder/GRUEN_Figur.png");
+		gruen = ImageIO.read(imageFile8);
+		imageFile9 = new File("bilder/Keine_Figur.png");
+		keine = ImageIO.read(imageFile9);
+		blau1=new ImageIcon(blau);
+		gruen1=new ImageIcon(gruen);
+		rot1=new ImageIcon(rot);
+		gelb1=new ImageIcon(gelb);
+		keine1=new ImageIcon(keine);
+		
+		keineAuswahl = new JButton();
+		keineAuswahl.setIcon(keine1);
+		
+		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.ROT)){
+			farbe.add(keineAuswahl);
+		}else {
+			rotAuswahl = new JRadioButton("ROT" , rot1 , false);
+			farbe.add(rotAuswahl);
+		}
+		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.BLAU)){
+			farbe.add(keineAuswahl);
+		}else {
+			blauAuswahl = new JRadioButton("BLAU" , blau1 , false);
+			farbe.add(blauAuswahl);
+		}
+		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GRUEN)){
+			farbe.add(keineAuswahl);
+		}else {
+			gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
+			farbe.add(gruenAuswahl);
+		}
+		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GELB)){
+			farbe.add(keineAuswahl);
+		}else {
+			gelbAuswahl = new JRadioButton("GELB" , gelb1 , false);
+			farbe.add(gelbAuswahl);
+		}
+		return farbe;
+		}
+		catch (IOException e){
+			JOptionPane.showMessageDialog(null, "Etwas lief beim Laden der Bilder schief" + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 }
