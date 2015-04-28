@@ -426,4 +426,15 @@ public class Spiel implements iBediener, Serializable {
 		}
 	}
 
+	@Override
+	public boolean isFarbeVergeben(FarbEnum farbe) {
+		for (Spieler s : this.teilnehmendeSpieler) {
+			if (s.getFarbe() == farbe) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }
