@@ -51,6 +51,7 @@ public class EventHandler implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
 
+		this.verarbeiteNaechsterZug(source);
 		this.verarbeiteNeuerSpieler(source);
 		this.verarbeiteWuerfeln(source);
 		this.verarbeiteFiguren(source);
@@ -58,6 +59,33 @@ public class EventHandler implements ActionListener {
 
 	}
 	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		Object source = arg0.getSource();
+	
+		this.verarbeiteNaechsterZug(source);
+		this.verarbeiteNeuerSpieler(source);
+		this.verarbeiteWuerfeln(source);
+		this.verarbeiteFiguren(source);
+		this.verarbeiteSpielerAnzahl(source);
+	
+	}
+
+	/**
+	 * Prueft ob der "Naechster Zug" Button gedrueckt wurde 
+	 * und laesst falls vorhanden die KI wuerfeln und ziehen
+	 * @param source Die Eventquellr
+	 */
+	private void verarbeiteNaechsterZug(Object source) {
+		if (source == this.gui.getNaechsterZugButton()) {
+			if (this.spiel.isSpielerAmZugKI()) {
+				this.lassKIWuerfeln();
+			} else {
+				this.gui.setzeStatusNachricht("Naechster Spieler kann wuerfeln");
+			}
+		}
+	}
+
 	/**
 	 * Gibt an ob eine Farbe bereits vergeben ist
 	 * @param farbe Die Farbe die geprueft werden soll
@@ -214,6 +242,8 @@ public class EventHandler implements ActionListener {
 					this.logInfo("Zug ist gueltig.");
 					
 					for (String[] figur : ergebnis.getGeaenderteFiguren()) {
+						this.gui.setzeStatusNachricht("Figur: " + Integer.parseInt(figur[1]) +
+														 " " + figur[0] + " sitzt auf Feld " + figur[2]);
 						this.gui.setzeSpielfigur(figur[0], 
 												Integer.parseInt(figur[1]), // Try nicht noetig, da garantiert
 												figur[2]);
@@ -223,6 +253,8 @@ public class EventHandler implements ActionListener {
 				}
 				
 				if (ergebnis.isSpielGewonnen()) {
+					this.gui.setzeStatusNachricht("Spiel wurde von " + ergebnis.getGewinnerName()+ "(" + 
+													ergebnis.getGewinnerFarbe() + ")" + " gewonnen");
 					this.gui.spielGewonnen(ergebnis.getGewinnerName(), ergebnis.getGewinnerFarbe());
 					return;
 				}
@@ -230,10 +262,6 @@ public class EventHandler implements ActionListener {
 				if (ergebnis.isZugBeendet()) {
 					this.logInfo("Naechster Spieler ist dran.");
 					this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
-					
-					if (this.spiel.isSpielerAmZugKI()) {
-						this.lassKIWuerfeln();
-					}
 				}
 			}
 		}
