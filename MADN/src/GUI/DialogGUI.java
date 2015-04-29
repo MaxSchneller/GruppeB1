@@ -88,6 +88,7 @@ public class DialogGUI {
 		
 		JDialog jd2 = new JDialog();
 		box1 = new Box(BoxLayout.Y_AXIS);
+		jd2.setLocationRelativeTo(null);
 		jd2.setTitle("Spieler erstellen");
 
 		//Fuer was ist das Fester?

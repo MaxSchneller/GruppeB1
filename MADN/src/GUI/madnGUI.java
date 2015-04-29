@@ -3,6 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -26,6 +28,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -34,6 +38,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -55,6 +60,22 @@ public class madnGUI {
 	private JLabel[][] endfelder = new JLabel[4][4];
 	private JLabel[] normaleFelder = new JLabel[40];
 	private JButton[][] spielfiguren = new JButton[4][4];
+	private JEditorPane console;
+	private HTMLFormatierer formatierer;
+	private Container jp_west;
+	private ImageIcon w5;
+	private ImageIcon w4;
+	private ImageIcon w1;
+	private ImageIcon w2;
+	private ImageIcon w3;
+	private ImageIcon w6;
+	private JLabel wuerfel;
+	private JLabel jlFarbe;
+	private ImageIcon blau1;
+	private ImageIcon gruen1;
+	private ImageIcon rot1;
+	private ImageIcon gelb1;
+	private JButton buttonWuerfel;
 
 	public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
@@ -91,8 +112,25 @@ public class madnGUI {
 		File imageFile3 = new File("bilder/gruen.png");
 		BufferedImage gruen = ImageIO.read(imageFile3);
 
-		File imageFile2 = new File("bilder/wuerfel.png");
-		BufferedImage wuerfel = ImageIO.read(imageFile2);
+		File imageFileWuerfel_1 = new File("bilder/wuerfel_1.png");
+		BufferedImage wuerfel_1 = ImageIO.read(imageFileWuerfel_1);
+		
+		File imageFileWuerfel_2 = new File("bilder/wuerfel_2.png");
+		BufferedImage wuerfel_2 = ImageIO.read(imageFileWuerfel_2);
+
+		File imageFileWuerfel_3 = new File("bilder/wuerfel_3.png");
+		BufferedImage wuerfel_3 = ImageIO.read(imageFileWuerfel_3);
+
+		File imageFileWuerfel_4 = new File("bilder/wuerfel_4.png");
+		BufferedImage wuerfel_4 = ImageIO.read(imageFileWuerfel_4);
+		
+		File imageFileWuerfel_5 = new File("bilder/wuerfel_5.png");
+		BufferedImage wuerfel_5 = ImageIO.read(imageFileWuerfel_5);
+		
+
+		File imageFileWuerfel_6 = new File("bilder/wuerfel_6.png");
+		BufferedImage wuerfel_6 = ImageIO.read(imageFileWuerfel_6);
+
 
 		File imageFile4 = new File("bilder/platz.png");
 		BufferedImage platz = ImageIO.read(imageFile4);
@@ -109,8 +147,28 @@ public class madnGUI {
 		File imageFile8 = new File("bilder/wuerfeln.png");
 		BufferedImage wuerfeln = ImageIO.read(imageFile8);
 
-		ImageIcon bild = new ImageIcon(wuerfel);
-		bild.setImage(bild.getImage().getScaledInstance(80, 80,
+		w1 = new ImageIcon(wuerfel_1);
+		w1.setImage(w1.getImage().getScaledInstance(80, 80,
+				Image.SCALE_DEFAULT));
+		
+		w2 = new ImageIcon(wuerfel_2);
+		w2.setImage(w2.getImage().getScaledInstance(80, 80,
+				Image.SCALE_DEFAULT));
+		
+		w3 = new ImageIcon(wuerfel_3);
+		w3.setImage(w3.getImage().getScaledInstance(80, 80,
+				Image.SCALE_DEFAULT));
+		
+		w4 = new ImageIcon(wuerfel_4);
+		w4.setImage(w4.getImage().getScaledInstance(80, 80,
+				Image.SCALE_DEFAULT));
+	
+		w5 = new ImageIcon(wuerfel_5);
+		w5.setImage(w5.getImage().getScaledInstance(80, 80,
+				Image.SCALE_DEFAULT));
+		
+		w6 = new ImageIcon(wuerfel_6);
+		w6.setImage(w6.getImage().getScaledInstance(80, 80,
 				Image.SCALE_DEFAULT));
 
 		Color color = Color.BLACK;
@@ -118,6 +176,8 @@ public class madnGUI {
 		jf.setResizable(false);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
+		jf.setSize(1000, 800);
+		jf.setLocationRelativeTo(null);
 
 		ImageIcon platz1 = new ImageIcon(platz);
 
@@ -125,10 +185,10 @@ public class madnGUI {
 		wuerfeln1.setImage(wuerfeln1.getImage().getScaledInstance(100, 100,
 				Image.SCALE_DEFAULT));
 
-		ImageIcon blau1 = new ImageIcon(blau);
-		ImageIcon gruen1 = new ImageIcon(gruen);
-		ImageIcon rot1 = new ImageIcon(rot);
-		ImageIcon gelb1 = new ImageIcon(gelb);
+		blau1 = new ImageIcon(blau);
+		gruen1 = new ImageIcon(gruen);
+		rot1 = new ImageIcon(rot);
+		gelb1 = new ImageIcon(gelb);
 
 		JPanel jp_north = new JPanel();
 		JPanel jp_south = new JPanel();
@@ -138,7 +198,7 @@ public class madnGUI {
 
 		JLabel brett = new JLabel(new ImageIcon(madn));
 
-		JButton buttonWuerfel = new JButton(wuerfeln1);
+		buttonWuerfel = new JButton(wuerfeln1);
 		
 		JButton s1_gruen = new JButton(gruen1);
 		s1_gruen.setContentAreaFilled(false);
@@ -162,9 +222,13 @@ public class madnGUI {
 		/**
 		 * Spiel Log
 		 */
-		JTextArea console = new JTextArea(5, 1000);
-		console.setEditable(false);
 
+		jp_south.setPreferredSize(new Dimension(650, 80));
+		
+		
+		
+		
+		
 		jf.setLayout(new BorderLayout());
 		jf.add(jp_north, BorderLayout.NORTH);
 		jf.add(jp_south, BorderLayout.SOUTH);
@@ -405,10 +469,13 @@ public class madnGUI {
 		normaleFelder[38].setBounds(71, 356, 40, 40); // Position 39;
 		brett.add(normaleFelder[39]);
 		normaleFelder[39].setBounds(71, 304, 40, 40); // Position 40;
-		
-		setzeSpielfigur("ROT", 0, "E1 ROT");
-		
-		jp_south.add(console);
+
+		JScrollPane scrollPane = new JScrollPane();
+		console = new JEditorPane("text/html", "");
+		console.setPreferredSize(new Dimension(650, 80));
+		scrollPane.setViewportView(console);
+		jp_south.add(scrollPane);
+		formatierer = new HTMLFormatierer(true);
 
 		/**
 		 * East Steuerung
@@ -417,7 +484,7 @@ public class madnGUI {
 		JLabel jlSpieler = new JLabel("Spieler");
 		jlSpieler.setForeground(Color.WHITE);
 
-		JLabel jlFarbe = new JLabel(gruen1);
+		jlFarbe = new JLabel(gruen1);
 		JLabel jlSpielerEnde = new JLabel("ist am Zug");
 
 		jlSpielerEnde.setForeground(Color.WHITE);
@@ -464,17 +531,22 @@ public class madnGUI {
 		jp_west.setPreferredSize(new Dimension(150, 1));
 
 		jp_west.setLayout(new BorderLayout());
-
-		jp_west.add(new JLabel(bild), BorderLayout.EAST);
+		
+		wuerfel = new JLabel();
+		wuerfel.setIcon(w1);
+		jp_west.add(wuerfel, BorderLayout.EAST);
 
 		jm.add(jMenu);
 		jm.add(jMenu2);
 		jMenu.add(jmi);
 		jMenu.add(jmi1);
 		jMenu.add(jmi2);
-
-		jf.setSize(1000, 800);
-
+		
+		zeigeWuerfel(4);
+		zeigeFehler("HILFE!!");
+		zeigeWarnung("ACHTUNG!");
+		setzeSpielerAmZug("ROT");
+		spielGewonnen("Max", FarbEnum.GRUEN);
 	}
 
 	/**
@@ -492,8 +564,31 @@ public class madnGUI {
 	 * @param gewinnerFarbe Die Farbe des Gewinners
 	 */
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
-		// TODO Auto-generated method stub
-
+		JDialog jd = new JDialog();
+		jd.setLayout(new GridBagLayout());
+		jd.setSize(400, 200);
+		JLabel turk = new JLabel("Spieler: " + gewinnerName);
+		jd.add(turk);
+		if(gewinnerFarbe == FarbEnum.ROT){
+			JLabel jl2 = new JLabel(rot1);
+			jd.add(jl2);
+		}
+		if(gewinnerFarbe == FarbEnum.BLAU){
+			JLabel jl2 = new JLabel(blau1);
+			jd.add(jl2);
+		}
+		if(gewinnerFarbe == FarbEnum.GRUEN){
+			JLabel jl2 = new JLabel(gruen1);
+			jd.add(jl2);
+		}
+		if(gewinnerFarbe == FarbEnum.GELB){
+			JLabel jl2 = new JLabel(gelb1);
+			jd.add(jl2);
+		}
+		JLabel jl3 = new JLabel("hat gewonnen! HIPP HIPP HURRA!!!");
+		jd.add(jl3);
+		jd.setVisible(true);
+		jd.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -612,8 +707,8 @@ public class madnGUI {
 	 * @param s Die Nachricht
 	 */
 	public void setzeStatusNachricht(String s) {
-		// TODO Auto-generated method stub
-
+		formatierer.schreibeInfo(s);
+		console.setText(formatierer.konstruiereHTML());
 	}
 
 	/**
@@ -621,17 +716,17 @@ public class madnGUI {
 	 * @param s Die Warnung
 	 */
 	public void zeigeWarnung(String s) {
-		// TODO Auto-generated method stub
-
+		formatierer.schreibeWarnung(s);
+		console.setText(formatierer.konstruiereHTML());
 	}
 
 	/**
 	 * Gibt einen Fehler aus
 	 * @param s Die Fehlernachricht
 	 */
-	public void ziegeFehler(String s) {
-		// TODO Auto-generated method stub
-
+	public void zeigeFehler(String s) {
+		formatierer.schreibeFehler(s);
+		console.setText(formatierer.konstruiereHTML());
 	}
 
 	/**
@@ -639,25 +734,63 @@ public class madnGUI {
 	 * @param gewuerfelteZahl Die gewuerfelte Zahl
 	 */
 	public void zeigeWuerfel(int gewuerfelteZahl) {
-		// TODO Auto-generated method stub
-
+		switch(gewuerfelteZahl){
+		case 1:{
+			wuerfel.setIcon(w1);
+			break;
+		}
+		case 2:{
+			wuerfel.setIcon(w2);
+			break;
+		}
+		case 3:{
+			wuerfel.setIcon(w3);
+			break;
+		}
+		case 4:{
+			wuerfel.setIcon(w4);
+			break;
+		}
+		case 5:{
+			wuerfel.setIcon(w5);
+			break;
+		}
+		case 6:{
+			wuerfel.setIcon(w6);
+			break;
+		}
+		default:{
+			zeigeFehler("Die gewürfelte Zahl ist nicht zwischen 1-6!");
+		}
+		}
+		
+			
 	}
 
 	/**
 	 * Setzt den Spieler der am Zug ist
-	 * @param name Der Name des Spielers
+	 * @param name Die Farbe des Spielers
 	 */
-	public void setzeSpielerAmZug(String name) {
-		// TODO Auto-generated method stub
-
+	public void setzeSpielerAmZug(String farbe) {
+		if(farbe.equals("ROT")){
+			jlFarbe.setIcon(rot1);
+		}
+		if(farbe.equals("GRUEN")){
+			jlFarbe.setIcon(gruen1);
+		}
+		if(farbe.equals("BLAU")){
+			jlFarbe.setIcon(blau1);
+		}
+		if(farbe.equals("GELB")){
+			jlFarbe.setIcon(gelb1);
+		}
 	}
 
 	/**
 	 * @return Gibt den Button fuer das Wuerfeln zurrueck
 	 */
 	public Object getButtonWuerfeln() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.buttonWuerfel;
 	}
 
 	/**
@@ -673,5 +806,4 @@ public class madnGUI {
 	public void schliesseGewuenschteSpielerAnzahl() {
 		this.spielerAnzahlGui.schliessen();
 	}
-
 }

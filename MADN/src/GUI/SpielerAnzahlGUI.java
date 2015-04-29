@@ -91,6 +91,7 @@ public class SpielerAnzahlGUI {
 		jd.pack();
 		jd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jd.setVisible(true);
+		jd.setLocationRelativeTo(null);
 	}
 	
 	/**
