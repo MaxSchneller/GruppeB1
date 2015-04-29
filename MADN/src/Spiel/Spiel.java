@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.concurrent.CountDownLatch;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -60,16 +61,15 @@ public class Spiel implements iBediener, Serializable {
 	 * sein)
 	 * 
 	 * @param zuleztGewuerfelt
+	 * @throws KannNichtWuerfelnException 
 	 */
-	private void setZuleztGewuerfelt(int zuleztGewuerfelt) {
+	private void setZuleztGewuerfelt(int zuleztGewuerfelt) throws KannNichtWuerfelnException {
 
 		if (zuleztGewuerfelt < 1 || zuleztGewuerfelt > 6) {
 			throw new IllegalArgumentException(
 					"zuletztGewuerfelt liegt nicht zwischen 1 und 6");
 		} else if (!this.kannWuerfeln) {
-			System.out
-					.println("Kann nicht wuerfeln, Zug muss zuerst ausgefuehrt werden!");
-			return;
+			throw new KannNichtWuerfelnException();
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
 	}
@@ -183,9 +183,10 @@ public class Spiel implements iBediener, Serializable {
 	/**
 	 * Überschreiben der Methode sWuerfeln, welche den Spieler, der am Zug ist,
 	 * würfeln lässt und die gewürfelte Zahl zurück gibt
+	 * @throws KannNichtWuerfelnException 
 	 */
 	@Override
-	public WuerfelErgebnis sWuerfeln() {
+	public WuerfelErgebnis sWuerfeln() throws KannNichtWuerfelnException {
 
 		if (this.spielerAmZug != null) {
 			this.setZuleztGewuerfelt(this.spielerAmZug.wuerfeln());
@@ -267,9 +268,10 @@ public class Spiel implements iBediener, Serializable {
 	/**
 	 * Überschrieben der Methode debugWuerfeln, welche einen Würfel Wurf
 	 * simuliert, der die gewünschte Zahl ergibt
+	 * @throws KannNichtWuerfelnException 
 	 */
 	@Override
-	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl) {
+	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl) throws KannNichtWuerfelnException {
 		setZuleztGewuerfelt(gewuenschteZahl);
 
 		return konstruiereWuerfelErgebnis();

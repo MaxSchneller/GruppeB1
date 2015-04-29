@@ -2,6 +2,7 @@ package Tests;
 
 import java.io.IOException;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -14,7 +15,7 @@ import Spiel.iBediener;
 
 public class SpielTestSpeichern {
 	
-	public static void main (String [] args) throws ClassNotFoundException, SpielerNichtGefundenException, IOException, SpielerFarbeVorhandenException{
+	public static void main (String [] args) throws ClassNotFoundException, SpielerNichtGefundenException, IOException, SpielerFarbeVorhandenException, KannNichtWuerfelnException{
 		
 		//Vorbedingungen
 		iBediener s = new Spiel("MADN", FarbEnum.BLAU, null);

@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -26,7 +27,7 @@ public class TestSpeichernLadenMitKI {
 	}
 
 	@Test
-	public void test() throws SpielerFarbeVorhandenException {
+	public void test() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		for (int i = 0; i < 100; i++) {
 			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);

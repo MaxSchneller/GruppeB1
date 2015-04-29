@@ -1,6 +1,7 @@
 package Tests;
 
 import static org.junit.Assert.*;
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Spiel.FarbEnum;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -20,7 +21,7 @@ public class KiTestRuns {
 	}
 
 	@Test
-	public void test() throws SpielerFarbeVorhandenException {
+	public void test() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		for (int i = 0; i < 100; i++) {
 			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.DEFENSIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV);

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Spiel.FarbEnum;
@@ -73,7 +74,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testWuerfeln(){
+	public void testWuerfeln() throws KannNichtWuerfelnException{
 		int zahl = s.sWuerfeln().getGewuerfelteZahl();
 		
 		if (!(zahl > 0 && zahl < 7))
@@ -81,7 +82,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testZiehen() {
+	public void testZiehen() throws KannNichtWuerfelnException {
 		
 		int zahl = s.sWuerfeln().getGewuerfelteZahl();		
 		ZugErgebnis e = s.ziehen(0);
@@ -91,7 +92,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testZiehenSechser() {
+	public void testZiehenSechser() throws KannNichtWuerfelnException {
 		s.debugWuerfeln(6);
 		ZugErgebnis e = s.ziehen(0);
 		
@@ -100,7 +101,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testZiehenUngueltigerZug() throws SpielerNichtGefundenException {
+	public void testZiehenUngueltigerZug() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		
 		// Spieler 1 ist im Test immer blau...
 		s.debugSetzeFigur(FarbEnum.BLAU, 0, "12");
@@ -113,7 +114,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testZugInEndfeld() throws SpielerNichtGefundenException {
+	public void testZugInEndfeld() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		s.debugSetzeFigur(FarbEnum.BLAU, 0, "10");
 		
 		s.debugWuerfeln(2);
@@ -135,7 +136,7 @@ public class iBedienerTest {
 	}
 	
 	@Test
-	public void testStartspielfeldBelegt() throws SpielerNichtGefundenException {
+	public void testStartspielfeldBelegt() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		
 		s.debugSetzeFigur(FarbEnum.BLAU, 0, "11");
 		

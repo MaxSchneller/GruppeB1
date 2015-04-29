@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -21,7 +22,7 @@ public class KI_AggressivTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws KannNichtWuerfelnException {
 
 		spiel.debugWuerfeln(6);
 
@@ -35,7 +36,7 @@ public class KI_AggressivTest {
 	}
 
 	@Test
-	public void test2() {
+	public void test2() throws KannNichtWuerfelnException {
 		spiel.debugWuerfeln(6);
 
 		spiel.ziehen(0);
@@ -50,7 +51,7 @@ public class KI_AggressivTest {
 	}
 
 	@Test
-	public void test3() throws SpielerNichtGefundenException {
+	public void test3() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "11");
 
@@ -64,7 +65,7 @@ public class KI_AggressivTest {
 	}
 
 	@Test
-	public void test4() throws SpielerNichtGefundenException {
+	public void test4() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "17");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "11");
 
@@ -78,7 +79,7 @@ public class KI_AggressivTest {
 	}
 	
 	@Test
-	public void test5() throws SpielerNichtGefundenException {
+	public void test5() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "17");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "11");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "23");
@@ -92,7 +93,7 @@ public class KI_AggressivTest {
 		assertEquals("2", ergebnis.getGeaenderteFiguren()[0][1]);
 	}
 	@Test
-	public void test6() throws SpielerNichtGefundenException {
+	public void test6() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "17");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "14");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "23");
@@ -108,7 +109,7 @@ public class KI_AggressivTest {
 	}
 	
 	@Test
-	public void test7() throws SpielerNichtGefundenException {
+	public void test7() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "E4 BLAU");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "E3 BLAU");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "E1 BLAU");
@@ -132,7 +133,7 @@ public class KI_AggressivTest {
 	}
 	
 	@Test
-	public void test8() throws SpielerNichtGefundenException {
+	public void test8() throws SpielerNichtGefundenException, KannNichtWuerfelnException {
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 0, "E4 BLAU");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 1, "E3 BLAU");
 		spiel.debugSetzeFigur(FarbEnum.BLAU, 2, "E1 BLAU");
@@ -150,7 +151,7 @@ public class KI_AggressivTest {
 	}
 	
 	@Test
-	public void test9() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException {
+	public void test9() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		
 		spiel.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
 		
@@ -173,7 +174,7 @@ public class KI_AggressivTest {
 	}
 	
 	@Test
-	public void test10() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException {
+	public void test10() throws SpielerNichtGefundenException, SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		
 		spiel.spielerHinzufuegen("Karl", FarbEnum.GELB, null);
 		

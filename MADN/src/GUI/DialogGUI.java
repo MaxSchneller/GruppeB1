@@ -25,6 +25,7 @@ import Spiel.FarbEnum;
  * Ein Dialogfenster zur Eingabe von Spielerdaten
  */
 public class DialogGUI {
+	
 
 	private String name;
 	private FarbEnum farbe;
@@ -60,7 +61,7 @@ public class DialogGUI {
 	private ImageIcon rot1;
 	private ImageIcon gelb1;
 	private ImageIcon keine1;
-	private JButton keineAuswahl;
+	private JRadioButton keineAuswahl;
 	
 	private JButton oKButton;
 	private madnGUI GUI;
@@ -75,9 +76,9 @@ public class DialogGUI {
 	 * @param GUI Die main GUI
 	 * @throws IOException Bilder konnten nicht geladen werden
 	 */
-	public DialogGUI(madnGUI GUI) throws IOException {
+	public DialogGUI(madnGUI GUI, int spielerNummer) throws IOException {
 		setMaingui(GUI);
-		fensterFuerSpielerAnlegen();
+		fensterFuerSpielerAnlegen(spielerNummer);
 	}
 	
 
@@ -85,13 +86,13 @@ public class DialogGUI {
 	 * Das Dialogfenster, mit dem man einen Spieler anlegen kann.
 	 * @throws IOException Bilder konnten nicht geladen werden
 	 */
-	public void fensterFuerSpielerAnlegen() throws IOException {
+	public void fensterFuerSpielerAnlegen(int spielerNummer) throws IOException {
 		
 		
 		 jd2 = new JDialog();
 		box1 = new Box(BoxLayout.Y_AXIS);
-		jd2.setLocationRelativeTo(null);
-		jd2.setTitle("Spieler erstellen");
+		
+		jd2.setTitle("Spieler " + spielerNummer + " erstellen");
 
 		//Fuer was ist das Fester?
 		JPanel jp2 = new JPanel ();
@@ -106,6 +107,7 @@ public class DialogGUI {
 		JPanel jp3 = new JPanel();
 		spielerName = new JLabel ("Spielername: "); jp3.add(spielerName);
 		spielerNameText = new JTextField (15); jp3.add(spielerNameText);
+		spielerNameText.setText("Spieler"+spielerNummer);
 		box1.add(jp3);
 		
 		//Farbe Waehlen
@@ -139,6 +141,7 @@ public class DialogGUI {
 		
 		jd2.setContentPane(box1);
 		jd2.pack();
+		jd2.setLocationRelativeTo(null);
 		jd2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jd2.setVisible(true);
 		
@@ -221,42 +224,47 @@ public class DialogGUI {
 		gelb1=new ImageIcon(gelb);
 		keine1=new ImageIcon(keine);
 		
-		keineAuswahl = new JButton();
+		keineAuswahl = new JRadioButton();
 		keineAuswahl.setIcon(keine1);
+		
+		rotAuswahl = new JRadioButton("ROT" , rot1 , false);
+		blauAuswahl = new JRadioButton("BLAU" , blau1 , false);
+		gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
+		gelbAuswahl = new JRadioButton("GELB" , gelb1 , false);
 		
 		bgFarbe = new ButtonGroup();
 		
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.ROT)){
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
-		}else {
-			rotAuswahl = new JRadioButton("ROT" , rot1 , false);
+		}else {			
 			farbe.add(rotAuswahl);
 			bgFarbe.add(rotAuswahl);
+			rotAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.BLAU)){
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
-			blauAuswahl = new JRadioButton("BLAU" , blau1 , false);
 			farbe.add(blauAuswahl);
 			bgFarbe.add(blauAuswahl);
+			blauAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GRUEN)){
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
-			gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
 			farbe.add(gruenAuswahl);
 			bgFarbe.add(gruenAuswahl);
+			gruenAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GELB)){
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
-			gelbAuswahl = new JRadioButton("GELB" , gelb1 , false);
 			farbe.add(gelbAuswahl);
 			bgFarbe.add(gelbAuswahl);
+			gelbAuswahl.setSelected(true);
 		}
 		return farbe;
 		}

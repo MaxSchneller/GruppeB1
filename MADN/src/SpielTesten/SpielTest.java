@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -22,7 +23,7 @@ public class SpielTest {
 
 	public static void main(String[] args)
 			throws SpielerFarbeVorhandenException, IOException,
-			SpielerNichtGefundenException {
+			SpielerNichtGefundenException, KannNichtWuerfelnException {
 		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV
 				);

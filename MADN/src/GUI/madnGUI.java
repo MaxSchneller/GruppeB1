@@ -202,6 +202,7 @@ public class madnGUI {
 		JLabel brett = new JLabel(new ImageIcon(madn));
 
 		buttonWuerfel = new JButton(wuerfeln1);
+		buttonWuerfel.addActionListener(this.getEventHandler());
 
 		JButton s1_gruen = new JButton(gruen1);
 		s1_gruen.setContentAreaFilled(false);
@@ -250,13 +251,16 @@ public class madnGUI {
 			for (int j = 0; j < startfelder[i].length; j++) {
 				startfelder[i][j] = new JLabel();
 				startfelder[i][j].setLayout(new BorderLayout());
+				//startfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED, 2, 1, 1, false));
 			}
 		}
-
+		
+		
 		for (int i = 0; i < endfelder.length; i++) {
 			for (int j = 0; j < endfelder[i].length; j++) {
 				endfelder[i][j] = new JLabel();
 				endfelder[i][j].setLayout(new BorderLayout());
+				//endfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED, 2, 1, 1, false));
 			}
 		}
 
@@ -306,8 +310,8 @@ public class madnGUI {
 		startfelder[1][1].setBounds(490, 71, 40, 40); // Position S2;
 		brett.add(startfelder[1][2]);
 		startfelder[1][2].setBounds(490, 116, 40, 40); // Position S3
-		brett.add(startfelder[0][0]);
-		startfelder[0][0].setBounds(535, 71, 40, 40);// Position S1
+		brett.add(startfelder[1][0]);
+		startfelder[1][0].setBounds(535, 71, 40, 40);// Position S1
 		brett.add(startfelder[1][3]);
 		startfelder[1][3].setBounds(535, 116, 40, 40);// Position S4
 		/**
@@ -469,10 +473,11 @@ public class madnGUI {
 
 		JScrollPane scrollPane = new JScrollPane();
 		console = new JEditorPane("text/html", "");
-		console.setPreferredSize(new Dimension(650, 80));
+		scrollPane.setPreferredSize(new Dimension(650, 80));
 		scrollPane.setViewportView(console);
 		jp_south.add(scrollPane);
 		formatierer = new HTMLFormatierer(true);
+		
 
 		/**
 		 * East Steuerung
@@ -538,12 +543,8 @@ public class madnGUI {
 		jMenu.add(jmi);
 		jMenu.add(jmi1);
 		jMenu.add(jmi2);
-
-		zeigeWuerfel(4);
-		zeigeFehler("HILFE!!");
-		zeigeWarnung("ACHTUNG!");
-		setzeSpielerAmZug("ROT");
-		spielGewonnen("Max", FarbEnum.GRUEN);
+		
+		setzeSpielfigur("ROT", 0, "40");
 	}
 
 	/**
@@ -607,9 +608,9 @@ public class madnGUI {
 		JLabel jl = null;
 		JButton jb = spielfiguren[farbeInt][figurID];
 		try {
-			int feldIDint = Integer.parseInt(feldID);
+			int feldIDint = Integer.parseInt(feldID) - 1;
 			jl = normaleFelder[feldIDint];
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			String[] teile = feldID.split(" ");
 			int feldFarbeInt = FarbEnum.vonString(teile[1]).ordinal();
 			int intFeldNr = Integer.parseInt(teile[0].substring(1)) - 1;
@@ -643,7 +644,7 @@ public class madnGUI {
 	 */
 	public void frageSpielerDaten(int neuerSpielerNummer) {
 		try {
-			this.diaGui = new DialogGUI(this);
+			this.diaGui = new DialogGUI(this, neuerSpielerNummer);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(
 					null,

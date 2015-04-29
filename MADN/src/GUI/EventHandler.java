@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
@@ -65,13 +66,13 @@ public class EventHandler implements ActionListener {
 	 * @param source Die Eventquellr
 	 */
 	private void verarbeiteNaechsterZug(Object source) {
-		if (source == this.gui.getNaechsterZugButton()) {
+		/*if (source == this.gui.getNaechsterZugButton()) {
 			if (this.spiel.isSpielerAmZugKI()) {
 				this.lassKIWuerfeln();
 			} else {
 				this.gui.setzeStatusNachricht("Naechster Spieler kann wuerfeln");
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -98,7 +99,15 @@ public class EventHandler implements ActionListener {
 				this.logFehler("Kann jetzt nicht wuerfeln, es gibt noch kein Spiel!");
 				return;
 			} else {
-				WuerfelErgebnis ergebnis = this.spiel.sWuerfeln();
+				
+				WuerfelErgebnis ergebnis = null;
+				
+				try {
+					ergebnis = this.spiel.sWuerfeln();
+				} catch (KannNichtWuerfelnException e) {
+					this.gui.zeigeFehler(e.getMessage());
+					return;
+				}
 
 				this.gui.setzeStatusNachricht("Es wurde " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 				this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
@@ -134,7 +143,13 @@ public class EventHandler implements ActionListener {
 		
 		this.logKI("KI wuerfelt...");
 		
-		WuerfelErgebnis ergebnis = this.spiel.sWuerfeln();
+		WuerfelErgebnis ergebnis;
+		try {
+			ergebnis = this.spiel.sWuerfeln();
+		} catch (KannNichtWuerfelnException e1) {
+			this.gui.zeigeFehler(e1.getMessage());
+			return;
+		}
 		
 		this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 		this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
@@ -144,7 +159,11 @@ public class EventHandler implements ActionListener {
 			
 			if (ergebnis.isKannNochmalWuerfeln()) {
 				this.logKI("KI wuerfelt nochmal...");
-				ergebnis = this.spiel.sWuerfeln();
+				try {
+					ergebnis = this.spiel.sWuerfeln();
+				} catch (KannNichtWuerfelnException e1) {
+					this.gui.zeigeFehler(e1.getMessage());
+				}
 				this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 			} else {
 				this.logKI("Kann nicht nochmal wuerfeln, naechster ist dran.");
@@ -184,6 +203,7 @@ public class EventHandler implements ActionListener {
 
 			if (this.spiel == null) {
 				this.spiel = new Spiel(name, farbe, kiTyp);
+				++this.neuerSpielerNummer;
 			} else {
 				try {
 
@@ -197,6 +217,9 @@ public class EventHandler implements ActionListener {
 			if (this.neuerSpielerNummer < this.spielerAnzahl) {
 				this.gui.schliesseSpielerDaten();
 				this.gui.frageSpielerDaten(this.neuerSpielerNummer);
+			} else {
+				this.gui.schliesseSpielerDaten();
+				this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
 			}
 		}
 	}

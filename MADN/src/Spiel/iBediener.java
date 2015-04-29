@@ -1,5 +1,6 @@
 package Spiel;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -28,8 +29,9 @@ public interface iBediener {
 	/**
 	 * Lässt den Spieler, der gerade an der Reihe ist würfeln
 	 * @return Die gewürfelte Zahl
+	 * @throws KannNichtWuerfelnException 
 	 */
-	public WuerfelErgebnis sWuerfeln();
+	public WuerfelErgebnis sWuerfeln() throws KannNichtWuerfelnException;
 
 	/**
 	 * Lässt den Spieler, der am Zug ist, die gewünschte Figur auf das gewünschte Feld ziehen, falls dies möglich ist
@@ -42,8 +44,9 @@ public interface iBediener {
 	 * Verhält sich wie ein gezinkter Würfel (setzt Spiel.zuletztGewuerfelt)
 	 * @param gewuenschteZahl Die Zahl die gewuerfelt werden soll
 	 * @return Die gewuerfelte Zahl
+	 * @throws KannNichtWuerfelnException 
 	 */
-	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl);
+	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl) throws KannNichtWuerfelnException;
 
 	/**
 	 * Setzt die gewünschte Figur ohne Regelprüfung auf das gewünschte Feld
