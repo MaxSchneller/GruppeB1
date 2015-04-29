@@ -51,7 +51,7 @@ public class SpielerAnzahlGUI {
 	 */
 	public void schliessen() {
 		
-		jd.setVisible(false);
+		jd.dispose();
 	}
 	
 	/**

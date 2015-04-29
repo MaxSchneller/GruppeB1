@@ -64,6 +64,8 @@ public class DialogGUI {
 	
 	private JButton oKButton;
 	private madnGUI GUI;
+	private ButtonGroup bgFarbe;
+	private JDialog jd2;
 	
 	
 
@@ -86,7 +88,7 @@ public class DialogGUI {
 	public void fensterFuerSpielerAnlegen() throws IOException {
 		
 		
-		JDialog jd2 = new JDialog();
+		 jd2 = new JDialog();
 		box1 = new Box(BoxLayout.Y_AXIS);
 		jd2.setLocationRelativeTo(null);
 		jd2.setTitle("Spieler erstellen");
@@ -155,22 +157,42 @@ public class DialogGUI {
 	 * @return Gibt den gewuenschten Name des Spielers zurrueck
 	 */
 	public String getName() {
-		return name;
+		return this.spielerNameText.getText();
 	}
 
 	/**
 	 * @return Gibt die geuwenschte Farbe des Spielers zurrueck
 	 */
 	public FarbEnum getFarbe() {
-		return farbe;
+		if (bgFarbe.isSelected(rotAuswahl.getModel())) {
+			return FarbEnum.ROT;
+		}
+		if (bgFarbe.isSelected(blauAuswahl.getModel())) {
+			return FarbEnum.BLAU;
+		}
+		if (bgFarbe.isSelected(gelbAuswahl.getModel())) {
+			return FarbEnum.GELB;
+		}
+		if (bgFarbe.isSelected(gruenAuswahl.getModel())) {
+			return FarbEnum.GRUEN;
+		}
+		
+		return null;
 	}
 
 	/**
 	 * @return Gibt den KiTyp des zu erstellenden Spielers zurrueck
 	 */
 	public KiTypEnum getKiTyp() {
-		return kiTyp;
+		if (kIAuswahl.isSelected(agressiverComputer.getModel())) {
+			return KiTypEnum.AGGRESIV;
+		}
+		if (kIAuswahl.isSelected(devensiverComputer.getModel())) {
+			return KiTypEnum.DEFENSIV;
+		}
+		return null;
 	}
+	
 
 
 	/**
@@ -202,29 +224,39 @@ public class DialogGUI {
 		keineAuswahl = new JButton();
 		keineAuswahl.setIcon(keine1);
 		
+		bgFarbe = new ButtonGroup();
+		
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.ROT)){
 			farbe.add(keineAuswahl);
+			bgFarbe.add(keineAuswahl);
 		}else {
 			rotAuswahl = new JRadioButton("ROT" , rot1 , false);
 			farbe.add(rotAuswahl);
+			bgFarbe.add(rotAuswahl);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.BLAU)){
 			farbe.add(keineAuswahl);
+			bgFarbe.add(keineAuswahl);
 		}else {
 			blauAuswahl = new JRadioButton("BLAU" , blau1 , false);
 			farbe.add(blauAuswahl);
+			bgFarbe.add(blauAuswahl);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GRUEN)){
 			farbe.add(keineAuswahl);
+			bgFarbe.add(keineAuswahl);
 		}else {
 			gruenAuswahl = new JRadioButton("GRÜN" , gruen1 , false);
 			farbe.add(gruenAuswahl);
+			bgFarbe.add(gruenAuswahl);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GELB)){
 			farbe.add(keineAuswahl);
+			bgFarbe.add(keineAuswahl);
 		}else {
 			gelbAuswahl = new JRadioButton("GELB" , gelb1 , false);
 			farbe.add(gelbAuswahl);
+			bgFarbe.add(gelbAuswahl);
 		}
 		return farbe;
 		}
@@ -234,5 +266,9 @@ public class DialogGUI {
 		}
 		return null;
 		
+	}
+	
+	public void schliessen() {
+		jd2.dispose();
 	}
 }

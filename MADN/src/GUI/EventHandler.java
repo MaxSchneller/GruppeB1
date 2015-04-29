@@ -46,18 +46,6 @@ public class EventHandler implements ActionListener {
 
 		//this.gui.frageGewuenschteSpielerAnzahl();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		Object source = arg0.getSource();
-
-		this.verarbeiteNaechsterZug(source);
-		this.verarbeiteNeuerSpieler(source);
-		this.verarbeiteWuerfeln(source);
-		this.verarbeiteFiguren(source);
-		this.verarbeiteSpielerAnzahl(source);
-
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -112,6 +100,7 @@ public class EventHandler implements ActionListener {
 			} else {
 				WuerfelErgebnis ergebnis = this.spiel.sWuerfeln();
 
+				this.gui.setzeStatusNachricht("Es wurde " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 				this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
 
 				if (ergebnis.isKannZugAusfuehren() == false) {
@@ -206,6 +195,7 @@ public class EventHandler implements ActionListener {
 			}
 
 			if (this.neuerSpielerNummer < this.spielerAnzahl) {
+				this.gui.schliesseSpielerDaten();
 				this.gui.frageSpielerDaten(this.neuerSpielerNummer);
 			}
 		}
@@ -326,7 +316,7 @@ public class EventHandler implements ActionListener {
 	 * @param s Die Nachricht, die geschrieben werden soll
 	 */
 	private void logFehler(String s) {
-		this.gui.ziegeFehler(s);
+		this.gui.zeigeFehler(s);
 	}
 
 	/**

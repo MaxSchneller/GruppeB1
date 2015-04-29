@@ -44,6 +44,7 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
+import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 
 import java.awt.Image;
@@ -92,7 +93,9 @@ public class madnGUI {
 
 	/**
 	 * Erstellt ein neues Hauptfenster
-	 * @throws IOException Das Laden der Bolder lief schief
+	 * 
+	 * @throws IOException
+	 *             Das Laden der Bolder lief schief
 	 */
 	public madnGUI() throws IOException {
 		this.eH = new EventHandler(this);
@@ -101,9 +104,11 @@ public class madnGUI {
 		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
-	/** 
+	/**
 	 * Erstellt alle Komponenten der Haupgui und fuegt diese zusammen
-	 * @throws IOException Die Bilder konnten nicht geladen werden
+	 * 
+	 * @throws IOException
+	 *             Die Bilder konnten nicht geladen werden
 	 */
 	public void erstelleGUI() throws IOException {
 		File imageFile = new File("bilder/madn.jpg");
@@ -114,7 +119,7 @@ public class madnGUI {
 
 		File imageFileWuerfel_1 = new File("bilder/wuerfel_1.png");
 		BufferedImage wuerfel_1 = ImageIO.read(imageFileWuerfel_1);
-		
+
 		File imageFileWuerfel_2 = new File("bilder/wuerfel_2.png");
 		BufferedImage wuerfel_2 = ImageIO.read(imageFileWuerfel_2);
 
@@ -123,14 +128,12 @@ public class madnGUI {
 
 		File imageFileWuerfel_4 = new File("bilder/wuerfel_4.png");
 		BufferedImage wuerfel_4 = ImageIO.read(imageFileWuerfel_4);
-		
+
 		File imageFileWuerfel_5 = new File("bilder/wuerfel_5.png");
 		BufferedImage wuerfel_5 = ImageIO.read(imageFileWuerfel_5);
-		
 
 		File imageFileWuerfel_6 = new File("bilder/wuerfel_6.png");
 		BufferedImage wuerfel_6 = ImageIO.read(imageFileWuerfel_6);
-
 
 		File imageFile4 = new File("bilder/platz.png");
 		BufferedImage platz = ImageIO.read(imageFile4);
@@ -148,28 +151,28 @@ public class madnGUI {
 		BufferedImage wuerfeln = ImageIO.read(imageFile8);
 
 		w1 = new ImageIcon(wuerfel_1);
-		w1.setImage(w1.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
-		
+		w1.setImage(w1.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		w2 = new ImageIcon(wuerfel_2);
-		w2.setImage(w2.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
-		
+		w2.setImage(w2.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		w3 = new ImageIcon(wuerfel_3);
-		w3.setImage(w3.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
-		
+		w3.setImage(w3.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		w4 = new ImageIcon(wuerfel_4);
-		w4.setImage(w4.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
-	
+		w4.setImage(w4.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		w5 = new ImageIcon(wuerfel_5);
-		w5.setImage(w5.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
-		
+		w5.setImage(w5.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		w6 = new ImageIcon(wuerfel_6);
-		w6.setImage(w6.getImage().getScaledInstance(80, 80,
-				Image.SCALE_DEFAULT));
+		w6.setImage(w6.getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 
 		Color color = Color.BLACK;
 		JFrame jf = new JFrame("Mensch-Ärgere-Dich-Nicht");
@@ -199,15 +202,13 @@ public class madnGUI {
 		JLabel brett = new JLabel(new ImageIcon(madn));
 
 		buttonWuerfel = new JButton(wuerfeln1);
-		
+
 		JButton s1_gruen = new JButton(gruen1);
 		s1_gruen.setContentAreaFilled(false);
 		s1_gruen.setBorder(null);
 		JButton s2_gruen = new JButton(gruen1);
 		JButton s3_gruen = new JButton(gruen1);
 		JButton s4_gruen = new JButton(gruen1);
-		
-		
 
 		/**
 		 * Menu
@@ -223,12 +224,8 @@ public class madnGUI {
 		 * Spiel Log
 		 */
 
-		jp_south.setPreferredSize(new Dimension(650, 80));
-		
-		
-		
-		
-		
+		//jp_south.setPreferredSize(new Dimension(650, 80));
+
 		jf.setLayout(new BorderLayout());
 		jf.add(jp_north, BorderLayout.NORTH);
 		jf.add(jp_south, BorderLayout.SOUTH);
@@ -248,45 +245,45 @@ public class madnGUI {
 		JPanel jpPlatz = new JPanel();
 		jpPlatz.setPreferredSize(new Dimension(40, 40));
 		jpPlatz.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		for(int i = 0; i < startfelder.length; i++){
-			for(int j = 0; j < startfelder[i].length; j++){
+
+		for (int i = 0; i < startfelder.length; i++) {
+			for (int j = 0; j < startfelder[i].length; j++) {
 				startfelder[i][j] = new JLabel();
 				startfelder[i][j].setLayout(new BorderLayout());
 			}
 		}
-		
-		for(int i = 0; i < endfelder.length; i++){
-			for(int j = 0; j < endfelder[i].length; j++){
+
+		for (int i = 0; i < endfelder.length; i++) {
+			for (int j = 0; j < endfelder[i].length; j++) {
 				endfelder[i][j] = new JLabel();
 				endfelder[i][j].setLayout(new BorderLayout());
 			}
 		}
-		
-		for(int i = 0; i < normaleFelder.length; i++){
+
+		for (int i = 0; i < normaleFelder.length; i++) {
 			normaleFelder[i] = new JLabel();
 			normaleFelder[i].setLayout(new BorderLayout());
 		}
-		
-		for(int i = 0; i < spielfiguren.length; i++){
-			for(int j = 0; j < spielfiguren[i].length; j++){
-				if(i == 0){
+
+		for (int i = 0; i < spielfiguren.length; i++) {
+			for (int j = 0; j < spielfiguren[i].length; j++) {
+				if (i == 0) {
 					spielfiguren[i][j] = new JButton(rot1);
 				}
-				if(i == 1){
+				if (i == 1) {
 					spielfiguren[i][j] = new JButton(blau1);
 				}
-				if(i == 2){
+				if (i == 2) {
 					spielfiguren[i][j] = new JButton(gruen1);
 				}
-				if(i == 3){
+				if (i == 3) {
 					spielfiguren[i][j] = new JButton(gelb1);
 				}
 				spielfiguren[i][j].setBorder(null);
 				spielfiguren[i][j].setContentAreaFilled(false);
 			}
 		}
-		
+
 		jp_center.add(brett);
 
 		/**
@@ -531,7 +528,7 @@ public class madnGUI {
 		jp_west.setPreferredSize(new Dimension(150, 1));
 
 		jp_west.setLayout(new BorderLayout());
-		
+
 		wuerfel = new JLabel();
 		wuerfel.setIcon(w1);
 		jp_west.add(wuerfel, BorderLayout.EAST);
@@ -541,7 +538,7 @@ public class madnGUI {
 		jMenu.add(jmi);
 		jMenu.add(jmi1);
 		jMenu.add(jmi2);
-		
+
 		zeigeWuerfel(4);
 		zeigeFehler("HILFE!!");
 		zeigeWarnung("ACHTUNG!");
@@ -560,8 +557,11 @@ public class madnGUI {
 
 	/**
 	 * Wird von EventHandler aufgerufen, wenn das Spiel gewonnen wurde
-	 * @param gewinnerName Der Name des Gewinners
-	 * @param gewinnerFarbe Die Farbe des Gewinners
+	 * 
+	 * @param gewinnerName
+	 *            Der Name des Gewinners
+	 * @param gewinnerFarbe
+	 *            Die Farbe des Gewinners
 	 */
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
 		JDialog jd = new JDialog();
@@ -569,19 +569,19 @@ public class madnGUI {
 		jd.setSize(400, 200);
 		JLabel turk = new JLabel("Spieler: " + gewinnerName);
 		jd.add(turk);
-		if(gewinnerFarbe == FarbEnum.ROT){
+		if (gewinnerFarbe == FarbEnum.ROT) {
 			JLabel jl2 = new JLabel(rot1);
 			jd.add(jl2);
 		}
-		if(gewinnerFarbe == FarbEnum.BLAU){
+		if (gewinnerFarbe == FarbEnum.BLAU) {
 			JLabel jl2 = new JLabel(blau1);
 			jd.add(jl2);
 		}
-		if(gewinnerFarbe == FarbEnum.GRUEN){
+		if (gewinnerFarbe == FarbEnum.GRUEN) {
 			JLabel jl2 = new JLabel(gruen1);
 			jd.add(jl2);
 		}
-		if(gewinnerFarbe == FarbEnum.GELB){
+		if (gewinnerFarbe == FarbEnum.GELB) {
 			JLabel jl2 = new JLabel(gelb1);
 			jd.add(jl2);
 		}
@@ -592,29 +592,34 @@ public class madnGUI {
 	}
 
 	/**
-	 * Wird vom EventHandler aufgerufen und setzt die angegebene Figur auf das angegebene Feld
-	 * @param farbe Die Farbe der zu versetzenden Figur
-	 * @param figurID Die ID der Figur
-	 * @param feldID Das Feld auf dem sich die Figur jetzt befindet
+	 * Wird vom EventHandler aufgerufen und setzt die angegebene Figur auf das
+	 * angegebene Feld
+	 * 
+	 * @param farbe
+	 *            Die Farbe der zu versetzenden Figur
+	 * @param figurID
+	 *            Die ID der Figur
+	 * @param feldID
+	 *            Das Feld auf dem sich die Figur jetzt befindet
 	 */
 	public void setzeSpielfigur(String farbe, int figurID, String feldID) {
 		int farbeInt = FarbEnum.vonString(farbe).ordinal();
 		JLabel jl = null;
 		JButton jb = spielfiguren[farbeInt][figurID];
-		try{
+		try {
 			int feldIDint = Integer.parseInt(feldID);
 			jl = normaleFelder[feldIDint];
-		} catch(Exception e){
+		} catch (Exception e) {
 			String[] teile = feldID.split(" ");
 			int feldFarbeInt = FarbEnum.vonString(teile[1]).ordinal();
 			int intFeldNr = Integer.parseInt(teile[0].substring(1)) - 1;
-			if(teile[0].contains("S")){
+			if (teile[0].contains("S")) {
 				jl = startfelder[feldFarbeInt][intFeldNr];
 			} else {
 				jl = endfelder[feldFarbeInt][intFeldNr];
 			}
 		}
-		if(jl != null){
+		if (jl != null) {
 			jl.add(jb);
 		}
 	}
@@ -624,12 +629,17 @@ public class madnGUI {
 	 * @return Gibt den Button "Spieler Anlegen" aus dem DialogGUI zurueck
 	 */
 	public Object getButtonWeiter() {
-		return this.diaGui.getButtonWeiter();
+		if (this.diaGui != null) {
+			return this.diaGui.getButtonWeiter();
+		}
+		return null;
 	}
-	
+
 	/**
 	 * Ruft ein neues DialogGUI auf um die Spielerdaten abzufragen
-	 * @param neuerSpielerNummer Die Nummer des Spielers dessen Daten abgefragt werden sollen
+	 * 
+	 * @param neuerSpielerNummer
+	 *            Die Nummer des Spielers dessen Daten abgefragt werden sollen
 	 */
 	public void frageSpielerDaten(int neuerSpielerNummer) {
 		try {
@@ -704,7 +714,9 @@ public class madnGUI {
 
 	/**
 	 * Gibt eine Statusnachricht aus
-	 * @param s Die Nachricht
+	 * 
+	 * @param s
+	 *            Die Nachricht
 	 */
 	public void setzeStatusNachricht(String s) {
 		formatierer.schreibeInfo(s);
@@ -712,8 +724,10 @@ public class madnGUI {
 	}
 
 	/**
-	 * Gibt eine Warnung aus 
-	 * @param s Die Warnung
+	 * Gibt eine Warnung aus
+	 * 
+	 * @param s
+	 *            Die Warnung
 	 */
 	public void zeigeWarnung(String s) {
 		formatierer.schreibeWarnung(s);
@@ -722,7 +736,9 @@ public class madnGUI {
 
 	/**
 	 * Gibt einen Fehler aus
-	 * @param s Die Fehlernachricht
+	 * 
+	 * @param s
+	 *            Die Fehlernachricht
 	 */
 	public void zeigeFehler(String s) {
 		formatierer.schreibeFehler(s);
@@ -731,57 +747,60 @@ public class madnGUI {
 
 	/**
 	 * Setzt den Wuerfel so, dass er die gewuerfelte Zah anzeigt
-	 * @param gewuerfelteZahl Die gewuerfelte Zahl
+	 * 
+	 * @param gewuerfelteZahl
+	 *            Die gewuerfelte Zahl
 	 */
 	public void zeigeWuerfel(int gewuerfelteZahl) {
-		switch(gewuerfelteZahl){
-		case 1:{
+		switch (gewuerfelteZahl) {
+		case 1: {
 			wuerfel.setIcon(w1);
 			break;
 		}
-		case 2:{
+		case 2: {
 			wuerfel.setIcon(w2);
 			break;
 		}
-		case 3:{
+		case 3: {
 			wuerfel.setIcon(w3);
 			break;
 		}
-		case 4:{
+		case 4: {
 			wuerfel.setIcon(w4);
 			break;
 		}
-		case 5:{
+		case 5: {
 			wuerfel.setIcon(w5);
 			break;
 		}
-		case 6:{
+		case 6: {
 			wuerfel.setIcon(w6);
 			break;
 		}
-		default:{
+		default: {
 			zeigeFehler("Die gewürfelte Zahl ist nicht zwischen 1-6!");
 		}
 		}
-		
-			
+
 	}
 
 	/**
 	 * Setzt den Spieler der am Zug ist
-	 * @param name Die Farbe des Spielers
+	 * 
+	 * @param name
+	 *            Die Farbe des Spielers
 	 */
 	public void setzeSpielerAmZug(String farbe) {
-		if(farbe.equals("ROT")){
+		if (farbe.equals("ROT")) {
 			jlFarbe.setIcon(rot1);
 		}
-		if(farbe.equals("GRUEN")){
+		if (farbe.equals("GRUEN")) {
 			jlFarbe.setIcon(gruen1);
 		}
-		if(farbe.equals("BLAU")){
+		if (farbe.equals("BLAU")) {
 			jlFarbe.setIcon(blau1);
 		}
-		if(farbe.equals("GELB")){
+		if (farbe.equals("GELB")) {
 			jlFarbe.setIcon(gelb1);
 		}
 	}
@@ -794,7 +813,7 @@ public class madnGUI {
 	}
 
 	/**
-	 *  Ruft ein neues Dialogfenster zur Abfrage der Spieleranzahl
+	 * Ruft ein neues Dialogfenster zur Abfrage der Spieleranzahl
 	 */
 	public void frageGewuenschteSpielerAnzahl() {
 		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
@@ -805,5 +824,42 @@ public class madnGUI {
 	 */
 	public void schliesseGewuenschteSpielerAnzahl() {
 		this.spielerAnzahlGui.schliessen();
+	}
+
+	public String getNeuerSpielerName() {
+		if (this.diaGui != null) {
+			return this.diaGui.getName();
+		} else {
+			this.zeigeFehler("Versuche Name eines neuen Spielers zu getten ohne dass DialogGui existiert");
+			return "";
+		}
+	}
+
+	public FarbEnum getNeuerSpielerFarbe() {
+		if (this.diaGui != null) {
+			return this.diaGui.getFarbe();
+		} else {
+			this.zeigeFehler("Versuche Farbe eines neuen Spielers zu getten ohne dass DialogGui existiert");
+			return FarbEnum.ROT;
+		}
+	}
+
+	public KiTypEnum getNeuerSpielerKiTyp() {
+		if (this.diaGui != null) {
+			return this.diaGui.getKiTyp();
+		} else {
+			this.zeigeFehler("Versuche KIType eines neuen Spielers zu getten ohne dass DialogGui existiert");
+			return null;
+		}
+	}
+
+	public Object getNaechsterZugButton() {
+		return this.buttonWuerfel;
+	}
+
+	public void schliesseSpielerDaten() {
+		if (this.diaGui != null) {
+			diaGui.schliessen();
+		}
 	}
 }
