@@ -81,7 +81,8 @@ public class madnGUI {
 	private JMenuItem jmi1;
 	private JMenuItem jmi2;
 	private JMenuItem jmi3;
-
+	private JButton jbja;
+	private JButton jbnein;
 	public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
@@ -574,8 +575,8 @@ public class madnGUI {
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
 	
 		JLabel jl= new JLabel("Neues Spiel starten?");
-		JButton jb = new JButton("Ja");
-		JButton jb1 = new JButton("Nein");
+		jbja = new JButton("Ja");
+		jbnein = new JButton("Nein");
 		JDialog jd = new JDialog();
 		JPanel jp = new JPanel();
 		JPanel jpg = new JPanel();
@@ -611,11 +612,12 @@ public class madnGUI {
 		JPanel jp1 = new JPanel();
 		jp2.add(jl);
 		jp.add(jp2);
-		jp1.add(jb);
-		jp1.add(jb1);
+		jp1.add(jbja);
+		jp1.add(jbnein);
 		jp.add(jp1);
 		jd.pack();
 		jd.setVisible(true);
+		jd.setTitle("Gewinner: " + gewinnerName);
 		
 		
 		jd.setLocationRelativeTo(null);
@@ -765,6 +767,13 @@ public class madnGUI {
 	public void setzeStatusNachricht(String s) {
 		formatierer.schreibeInfo(s);
 		console.setText(formatierer.konstruiereHTML());
+	}
+	
+	public JButton getSpielneustartenJa(){
+		return this.jbja;
+	}
+	public JButton getSpielneustartenNein(){
+		return this.jbnein;
 	}
 
 	/**
