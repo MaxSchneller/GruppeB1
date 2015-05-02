@@ -81,9 +81,11 @@ public class madnGUI {
 	private JMenuItem jmi1;
 	private JMenuItem jmi2;
 	private JMenuItem jmi3;
+	private JMenuItem jmi4;
+
 	private JButton jbja;
 	private JButton jbnein;
-	public static void main(String[] args) throws IOException {
+		public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
 
@@ -222,10 +224,12 @@ public class madnGUI {
 		JMenuBar jm = new JMenuBar();
 		JMenu jMenu = new JMenu("Datei");
 		JMenu jMenu2 = new JMenu("Hilfe");
-		jmi3=new JMenuItem("Neues Spiel");
+	
 		jmi = new JMenuItem("Speichern");
 		jmi1 = new JMenuItem("Laden");
 		jmi2 = new JMenuItem("Beenden");
+		jmi3=new JMenuItem("Neues Spiel");
+		jmi4 = new JMenuItem("Spielstand versenden");
 
 		/**
 		 * Spiel Log
@@ -549,7 +553,9 @@ public class madnGUI {
 		jMenu.add(jmi3);
 		jMenu.add(jmi);
 		jMenu.add(jmi1);
+		jMenu.add(jmi4);
 		jMenu.add(jmi2);
+		
 		
 		spielGewonnen("PIFF", FarbEnum.BLAU);
 		setzeSpielfigur("ROT", 0, "40");
@@ -683,19 +689,22 @@ public class madnGUI {
 							+ e.getMessage());
 		}
 	}
-	public Object getSpeichern(){
+	public JMenuItem getSpeichern(){
 		return this.jmi;
 	}
 	
-	public Object getLaden(){
+	public JMenuItem getLaden(){
 		return this.jmi1;
 	}
 	
-	public Object getBeenden(){
+	public JMenuItem getBeenden(){
 		return this.jmi2;
 	}
-	public Object getNeuesSpiel(){
+	public JMenuItem getNeuesSpiel(){
 		return this.jmi3;
+	}
+	public JMenuItem getVersenden(){
+		return this.jmi4;
 	}
 	
 	/**

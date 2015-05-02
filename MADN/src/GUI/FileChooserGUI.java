@@ -7,12 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 public class FileChooserGUI {
-
-	    public static void main(String[] args)
-	    {
-	 
-	    	dateiOeffnen();
-	    }
 	    
 	    
 	    public static void dateiOeffnen(){
