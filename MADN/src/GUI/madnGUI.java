@@ -77,6 +77,10 @@ public class madnGUI {
 	private ImageIcon rot1;
 	private ImageIcon gelb1;
 	private JButton buttonWuerfel;
+	private JMenuItem jmi;
+	private JMenuItem jmi1;
+	private JMenuItem jmi2;
+	private JMenuItem jmi3;
 
 	public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
@@ -217,9 +221,10 @@ public class madnGUI {
 		JMenuBar jm = new JMenuBar();
 		JMenu jMenu = new JMenu("Datei");
 		JMenu jMenu2 = new JMenu("Hilfe");
-		JMenuItem jmi = new JMenuItem("Speichern");
-		JMenuItem jmi1 = new JMenuItem("Laden");
-		JMenuItem jmi2 = new JMenuItem("Beenden");
+		jmi3=new JMenuItem("Neues Spiel");
+		jmi = new JMenuItem("Speichern");
+		jmi1 = new JMenuItem("Laden");
+		jmi2 = new JMenuItem("Beenden");
 
 		/**
 		 * Spiel Log
@@ -540,10 +545,12 @@ public class madnGUI {
 
 		jm.add(jMenu);
 		jm.add(jMenu2);
+		jMenu.add(jmi3);
 		jMenu.add(jmi);
 		jMenu.add(jmi1);
 		jMenu.add(jmi2);
 		
+		spielGewonnen("PIFF", FarbEnum.BLAU);
 		setzeSpielfigur("ROT", 0, "40");
 	}
 
@@ -565,30 +572,52 @@ public class madnGUI {
 	 *            Die Farbe des Gewinners
 	 */
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
+	
+		JLabel jl= new JLabel("Neues Spiel starten?");
+		JButton jb = new JButton("Ja");
+		JButton jb1 = new JButton("Nein");
 		JDialog jd = new JDialog();
-		jd.setLayout(new GridBagLayout());
-		jd.setSize(400, 200);
+		JPanel jp = new JPanel();
+		JPanel jpg = new JPanel();
+		JPanel jp2 = new JPanel();
+		jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
+		jp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		jd.add(jp);
+		
+		
 		JLabel turk = new JLabel("Spieler: " + gewinnerName);
-		jd.add(turk);
+		
+		jp.add(jpg);
+		jpg.add(turk);
 		if (gewinnerFarbe == FarbEnum.ROT) {
 			JLabel jl2 = new JLabel(rot1);
-			jd.add(jl2);
+			jpg.add(jl2);
 		}
 		if (gewinnerFarbe == FarbEnum.BLAU) {
 			JLabel jl2 = new JLabel(blau1);
-			jd.add(jl2);
+			jpg.add(jl2);
 		}
 		if (gewinnerFarbe == FarbEnum.GRUEN) {
 			JLabel jl2 = new JLabel(gruen1);
-			jd.add(jl2);
+			jpg.add(jl2);
 		}
 		if (gewinnerFarbe == FarbEnum.GELB) {
 			JLabel jl2 = new JLabel(gelb1);
-			jd.add(jl2);
+			jpg.add(jl2);
 		}
 		JLabel jl3 = new JLabel("hat gewonnen! HIPP HIPP HURRA!!!");
-		jd.add(jl3);
+		jpg.add(jl3);
+		
+		JPanel jp1 = new JPanel();
+		jp2.add(jl);
+		jp.add(jp2);
+		jp1.add(jb);
+		jp1.add(jb1);
+		jp.add(jp1);
+		jd.pack();
 		jd.setVisible(true);
+		
+		
 		jd.setLocationRelativeTo(null);
 	}
 
@@ -652,7 +681,21 @@ public class madnGUI {
 							+ e.getMessage());
 		}
 	}
-
+	public Object getSpeichern(){
+		return this.jmi;
+	}
+	
+	public Object getLaden(){
+		return this.jmi1;
+	}
+	
+	public Object getBeenden(){
+		return this.jmi2;
+	}
+	public Object getNeuesSpiel(){
+		return this.jmi3;
+	}
+	
 	/**
 	 * @return Gibt den Button der ersten Spelfigur zurrueck
 	 */
