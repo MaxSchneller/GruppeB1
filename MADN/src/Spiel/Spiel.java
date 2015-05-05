@@ -30,6 +30,8 @@ public class Spiel implements iBediener, Serializable {
 	private Spielbrett spielbrett = new Spielbrett(this);
 	/** Kann zur Zeit gewuerfelt werden? */
 	private boolean kannWuerfeln = true;
+	/** Gibt an ob der Spieler am Zug ziehen darf */
+	private boolean kanZiehen = false;
 	/** Anzahl der Versuche eine 6 zu wuerfeln */
 	private int wuerfelVersuche = 0;
 
@@ -72,6 +74,7 @@ public class Spiel implements iBediener, Serializable {
 			throw new KannNichtWuerfelnException();
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
+		this.kanZiehen = true;
 	}
 
 	/**
@@ -221,6 +224,11 @@ public class Spiel implements iBediener, Serializable {
 	public ZugErgebnis ziehen(int figurID) {
 
 		ZugErgebnis ergebnis;
+		if (this.kanZiehen == false) {
+			return new ZugErgebnis(false, false, null, false, null, null,
+					"Kann nicht ziehen, muss erst wuerfel");
+		}
+		
 		if (this.spielerAmZug.hatFigurAufSpielfeld()
 				|| (this.zuleztGewuerfelt == 6)) {
 			// Spieler hat schon Figuren draussen oder eine 6 gewuerfelt
@@ -259,9 +267,10 @@ public class Spiel implements iBediener, Serializable {
 			}
 
 			this.kannWuerfeln = true;
+			this.kanZiehen = false;
 			return ergebnis;
 		} else {
-			throw new RuntimeException("Etwas lief schief");
+			return new ZugErgebnis(false, false, null, false, null, null, "Kann nicht ziehen, muss erst wuerfeln");
 		}
 	}
 

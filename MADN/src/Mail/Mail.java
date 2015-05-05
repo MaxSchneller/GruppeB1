@@ -2,9 +2,7 @@ package Mail;
 
 import java.util.Date;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.Multipart;
@@ -37,13 +35,13 @@ public class Mail extends Thread{
 		} else {
 			p = new Properties();
 			p.put("mail.smtp.host","maildap.reutlingen-university.de");
-			p.put("mail.smtp.user",""); //geb deine buntzername an
+			p.put("mail.smtp.user","voehrinm"); //geb deine buntzername an
 			p.put("mail.smtp.password",""); //geb dein Passwort an
 			p.put("mail.smtp.socketFactory.port","465");
 			p.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 			p.put("mail.smtp.auth","true");
 			p.put("mail.smtp.port","465");
-			p.put("von",""); // deine email
+			p.put("von","martin.voehringer@student.reutlingen-university.de"); // deine email
 			p.put("an",an);
 			p.put("betreff",betreff);
 			p.put("text",text);

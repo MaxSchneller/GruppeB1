@@ -266,7 +266,7 @@ public class EventHandler implements ActionListener {
 												figur[2]);
 					}
 				} else {
-					this.logFehler("Ungueltiger Zug!");
+					this.logFehler("Ungueltiger Zug!: " + ergebnis.getNachricht());
 				}
 				
 				if (ergebnis.isSpielGewonnen()) {

@@ -559,8 +559,7 @@ public class madnGUI {
 		jMenu.add(jmi2);
 		
 		
-		spielGewonnen("PIFF", FarbEnum.BLAU);
-		setzeSpielfigur("ROT", 0, "40");
+		
 		jf.setVisible(true);
 	}
 
