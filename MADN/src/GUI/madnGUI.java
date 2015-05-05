@@ -86,6 +86,7 @@ public class madnGUI {
 	private JButton jbja;
 	private JButton jbnein;
 	private JFrame jf;
+	private JButton jbKIZug;
 		public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
@@ -365,26 +366,26 @@ public class madnGUI {
 		/**
 		 * EndFeldGruen Position
 		 */
-		brett.add(endfelder[1][3]);
-		endfelder[1][3].setBounds(353, 304, 40, 40); // Position E4;
-		brett.add(endfelder[1][2]);
-		endfelder[1][2].setBounds(398, 304, 40, 40); // Position E3:
-		brett.add(endfelder[1][1]);
-		endfelder[1][1].setBounds(444, 304, 40, 40);// Position E2;
-		brett.add(endfelder[1][0]);
-		endfelder[1][0].setBounds(490, 304, 40, 40);// Position E1;
+		brett.add(endfelder[2][3]);
+		endfelder[2][3].setBounds(353, 304, 40, 40); // Position E4;
+		brett.add(endfelder[2][2]);
+		endfelder[2][2].setBounds(398, 304, 40, 40); // Position E3:
+		brett.add(endfelder[2][1]);
+		endfelder[2][1].setBounds(444, 304, 40, 40);// Position E2;
+		brett.add(endfelder[2][0]);
+		endfelder[2][0].setBounds(490, 304, 40, 40);// Position E1;
 
 		/**
 		 * EndFeldBlau Position
 		 */
-		brett.add(endfelder[2][0]);
-		endfelder[2][0].setBounds(304, 116, 40, 40); // Position E1;
-		brett.add(endfelder[2][1]);
-		endfelder[2][1].setBounds(304, 162, 40, 40); // Position E2:
-		brett.add(endfelder[2][2]);
-		endfelder[2][2].setBounds(304, 208, 40, 40);// Position E3;
-		brett.add(endfelder[2][3]);
-		endfelder[2][3].setBounds(304, 253, 40, 40);// Position E4;
+		brett.add(endfelder[1][0]);
+		endfelder[1][0].setBounds(304, 116, 40, 40); // Position E1;
+		brett.add(endfelder[1][1]);
+		endfelder[1][1].setBounds(304, 162, 40, 40); // Position E2:
+		brett.add(endfelder[1][2]);
+		endfelder[1][2].setBounds(304, 208, 40, 40);// Position E3;
+		brett.add(endfelder[1][3]);
+		endfelder[1][3].setBounds(304, 253, 40, 40);// Position E4;
 
 		/**
 		 * EndFeldGelb Position
@@ -528,6 +529,10 @@ public class madnGUI {
 		jpWuerfel.setPreferredSize(new Dimension(155, 350));
 		jpWuerfel.setLayout(new BorderLayout());
 		jpWuerfel.add(jbButtonWuerfel, BorderLayout.NORTH);
+		jbKIZug = new JButton("Ki Zug");
+		jbKIZug.setVisible(false);
+		jbKIZug.addActionListener(getEventHandler());
+		jpWuerfel.add(jbKIZug, BorderLayout.SOUTH);
 		jbButtonWuerfel.add(buttonWuerfel);
 		jbButtonWuerfel.setBackground(color);
 
@@ -926,12 +931,16 @@ public class madnGUI {
 	}
 
 	public Object getNaechsterZugButton() {
-		return this.buttonWuerfel;
+		return this.jbKIZug;
 	}
 
 	public void schliesseSpielerDaten() {
 		if (this.diaGui != null) {
 			diaGui.schliessen();
 		}
+	}
+	
+	public JButton getButtonKI() {
+		return this.jbKIZug;
 	}
 }

@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -57,7 +58,15 @@ public class EventHandler implements ActionListener {
 		this.verarbeiteWuerfeln(source);
 		this.verarbeiteFiguren(source);
 		this.verarbeiteSpielerAnzahl(source);
+		
+		if (source == this.gui.getButtonKI()) {
+			this.verarbeiteKIZug(source);
+		}
 	
+	}
+
+	private void verarbeiteKIZug(Object source) {
+		lassKIWuerfeln();
 	}
 
 	/**
@@ -66,13 +75,18 @@ public class EventHandler implements ActionListener {
 	 * @param source Die Eventquellr
 	 */
 	private void verarbeiteNaechsterZug(Object source) {
-		/*if (source == this.gui.getNaechsterZugButton()) {
+		if (source == this.gui.getNaechsterZugButton()) {
 			if (this.spiel.isSpielerAmZugKI()) {
-				this.lassKIWuerfeln();
-			} else {
+				this.gui.getButtonKI().setVisible(true);
+				JButton b = (JButton)this.gui.getButtonWuerfeln();
+				b.setEnabled(false);
+				} else {
+				this.gui.getButtonKI().setVisible(false);
 				this.gui.setzeStatusNachricht("Naechster Spieler kann wuerfeln");
+				JButton b = (JButton)this.gui.getButtonWuerfeln();
+				b.setEnabled(true);
 			}
-		}*/
+		}
 	}
 
 	/**
@@ -124,13 +138,22 @@ public class EventHandler implements ActionListener {
 
 						// Hier ist im Spiel schon der naechste Spieler gesetzt
 						if (this.spiel.isSpielerAmZugKI()) {
-							this.lassKIWuerfeln();
+							this.neachsterSpielerAnDerReihe();
 						}
 					}
 				}
 
 			}
 		}
+	}
+
+	private void neachsterSpielerAnDerReihe() {
+		JButton wuerfel = (JButton)this.gui.getButtonWuerfeln();
+		JButton kiZug = this.gui.getButtonKI();
+		
+		wuerfel.setEnabled(!this.spiel.isSpielerAmZugKI());
+		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
+		this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
 	}
 
 	/**
@@ -167,6 +190,7 @@ public class EventHandler implements ActionListener {
 				this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 			} else {
 				this.logKI("Kann nicht nochmal wuerfeln, naechster ist dran.");
+				this.neachsterSpielerAnDerReihe();
 				return;
 			}
 		}
@@ -177,7 +201,9 @@ public class EventHandler implements ActionListener {
 		if (e.isGueltig()) {
 			for (String[] figuren : e.getGeaenderteFiguren()) {
 				this.gui.setzeSpielfigur(figuren[0], Integer.parseInt(figuren[1]), figuren[2]);
-				
+				this.gui.setzeStatusNachricht("Figur: " + Integer.parseInt(figuren[1]) +
+						 " " + figuren[0] + " sitzt auf Feld " + figuren[2]);
+
 			}
 			
 			if (e.isSpielGewonnen()) {
@@ -185,6 +211,10 @@ public class EventHandler implements ActionListener {
 			}
 		} else {
 			this.logFehler("KI hat ungueltigen Zug errechnet...och noeeee");
+		}
+		
+		if (e.isZugBeendet()) {
+			this.neachsterSpielerAnDerReihe();
 		}
 	}
 
@@ -224,6 +254,15 @@ public class EventHandler implements ActionListener {
 				for (String[] figur : this.spiel.getAlleFigurenPositionen()) {
 					this.gui.setzeSpielfigur(figur[0], Integer.parseInt(figur[1]), figur[2]);
 				}
+				
+				if (this.spiel.isSpielerAmZugKI()) {
+					this.gui.getButtonKI().setVisible(true);
+					JButton b = (JButton)this.gui.getButtonWuerfeln();
+					b.setEnabled(false);
+				} else {
+					JButton b = (JButton)this.gui.getButtonWuerfeln();
+					b.setEnabled(true);
+				}
 			}
 		}
 	}
@@ -253,6 +292,10 @@ public class EventHandler implements ActionListener {
 			}
 			
 			if (figurID != -1) {
+				if (this.spiel.isSpielerAmZugKI()) {
+					this.gui.zeigeFehler("KI ist am Zug, bitte \"KI Zug\" Button benutzen!");
+					return;
+				}
 				ZugErgebnis ergebnis = this.spiel.ziehen(figurID);
 				
 				if (ergebnis.isGueltig()) {
@@ -278,7 +321,7 @@ public class EventHandler implements ActionListener {
 				
 				if (ergebnis.isZugBeendet()) {
 					this.logInfo("Naechster Spieler ist dran.");
-					this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
+					this.neachsterSpielerAnDerReihe();
 				}
 			}
 		}
