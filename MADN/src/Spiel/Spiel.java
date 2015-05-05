@@ -256,8 +256,17 @@ public class Spiel implements iBediener, Serializable {
 				}
 				
 				int figID = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+				
+				if (figID == -1) {
+					int foo = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+				}
 				Spielfigur figur = this.spielerAmZug.getFigurDurchID(figID);
 				ergebnis = this.spielbrett.zug(this.zuleztGewuerfelt, figur, true);
+				
+				if (!ergebnis.isGueltig()){
+					@SuppressWarnings("unused")
+					int foo = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+				}
 			}
 			// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
 			// nächste Spieler dran

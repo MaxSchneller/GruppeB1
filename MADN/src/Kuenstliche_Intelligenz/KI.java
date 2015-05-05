@@ -168,10 +168,14 @@ public abstract class KI implements Serializable {
 
 				int feldInt = Integer.parseInt(spielfigur.getSpielfeld()
 						.getID());
-				int zielInt = feldInt + distanz;
+				int zielInt = feldInt + gewuerfelteZahl;
 				int endFeldInt = Integer.parseInt(endFeldID);
 
-				int endFeldNummer = zielInt - endFeldInt + 1;
+				int endFeldNummer = zielInt - endFeldInt;
+				
+				if (endFeldNummer > 4) {
+					continue;
+				}
 
 				boolean kannZiehen = true;
 				for (Spielfigur spielfigur2 : this.eigeneFiguren) {
@@ -386,7 +390,10 @@ public abstract class KI implements Serializable {
 		Spielfigur figur = this.getFigurAufFeld(gegner, startSpielfeldID);
 		
 		if (figur != null && figur.getFarbe() == this.spieler.getFarbe()) {
-			if (this.kannAufFeldZiehen(figur, gegner, startSpielfeldID)) {
+			int startFeldInt = Integer.parseInt(startSpielfeldID);
+			int zielFeldInt = startFeldInt + gewuerfelteZahl;
+			String zielFeldID = String.format("%d", zielFeldInt);
+			if (this.kannAufFeldZiehen(figur, gegner, zielFeldID)) {
 				return figur.getID();
 			}
 		}

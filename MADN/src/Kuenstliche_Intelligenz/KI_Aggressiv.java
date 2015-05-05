@@ -70,6 +70,13 @@ public class KI_Aggressiv extends KI implements Serializable {
 			}
 
 			int zielFeldInt = feldInt + gewuerfelteZahl;
+			
+			int feldVorEndfeldInt = Integer.parseInt(this.spieler.getFeldvorEndfeld());
+			
+			// Wenn die Figur hinter dem Endfeld steht und das Zielfeld vor dem Endfeld liegt nichts tun
+			if (zielFeldInt > feldVorEndfeldInt && feldInt <= feldVorEndfeldInt) {
+				continue;
+			}
 
 			if (zielFeldInt > 40) {
 				zielFeldInt -= 40;

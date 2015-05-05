@@ -671,7 +671,7 @@ public class madnGUI {
 				parent.remove(jb);
 			}
 			jl.add(jb);
-			jf.setSize(0, 0);
+			jf.setSize(1000, 799);
 			jf.setSize(1000, 800);
 			jf.repaint();
 		}
