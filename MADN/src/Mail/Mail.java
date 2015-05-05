@@ -37,13 +37,13 @@ public class Mail extends Thread{
 		} else {
 			p = new Properties();
 			p.put("mail.smtp.host","maildap.reutlingen-university.de");
-			p.put("mail.smtp.user","reinmar"); //geb deine Email an
+			p.put("mail.smtp.user",""); //geb deine buntzername an
 			p.put("mail.smtp.password",""); //geb dein Passwort an
 			p.put("mail.smtp.socketFactory.port","465");
 			p.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 			p.put("mail.smtp.auth","true");
 			p.put("mail.smtp.port","465");
-			p.put("von","Markus.Rein@Student.Reutlingen-University.DE");
+			p.put("von",""); // deine email
 			p.put("an",an);
 			p.put("betreff",betreff);
 			p.put("text",text);
@@ -80,13 +80,13 @@ public class Mail extends Thread{
 				body.addBodyPart(bodyNachricht);
 				
 				//2.Teil sind die Anhaenge
-					if ((!p.getProperty("anhangpfad1").equals("")) && (!p.getProperty("anhangname1").equals(""))){
+				/*	if ((!p.getProperty("anhangpfad1").equals("")) && (!p.getProperty("anhangname1").equals(""))){
 						MimeBodyPart bodyAnhang = new MimeBodyPart();
 						DataSource source =  new FileDataSource(p.getProperty("anhangpfad1"));
 						bodyAnhang.setDataHandler(new DataHandler(source));
 						bodyAnhang.setFileName(p.getProperty("anhangname1"));
 						body.addBodyPart(bodyAnhang);
-				}
+				}*/
 				
 				msg.setContent(body);
 				msg.setSentDate(new Date());

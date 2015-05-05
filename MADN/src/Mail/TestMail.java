@@ -6,7 +6,7 @@ public class TestMail {
 
 		
 		String m = "Hallo das ist ein test!!!";
-		new Mail ("max.schneller@gmx.net" , "test-betreff" , m , null , null); 
+		new Mail ("Max.Schneller@student.reutlingen-university.de" , "test-betreff" , m , null , null); 
 		System.out.println("Ende");
 	}
 }
