@@ -220,6 +220,10 @@ public class EventHandler implements ActionListener {
 			} else {
 				this.gui.schliesseSpielerDaten();
 				this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
+				
+				for (String[] figur : this.spiel.getAlleFigurenPositionen()) {
+					this.gui.setzeSpielfigur(figur[0], Integer.parseInt(figur[1]), figur[2]);
+				}
 			}
 		}
 	}
@@ -236,16 +240,16 @@ public class EventHandler implements ActionListener {
 			int figurID = -1;
 			
 			if (source == this.gui.getButtonFigur1(this.spiel.getSpielerAmZugFarbe())) {
-				figurID = 1;
+				figurID = 0;
 			}
 			if (source == this.gui.getButtonFigur2(this.spiel.getSpielerAmZugFarbe())) {
-				figurID = 2;
+				figurID = 1;
 			}
 			if (source == this.gui.getButtonFigur3(this.spiel.getSpielerAmZugFarbe())) {
-				figurID = 3;
+				figurID = 2;
 			}
 			if (source == this.gui.getButtonFigur4(this.spiel.getSpielerAmZugFarbe())) {
-				figurID = 4;
+				figurID = 3;
 			}
 			
 			if (figurID != -1) {

@@ -85,6 +85,7 @@ public class madnGUI {
 
 	private JButton jbja;
 	private JButton jbnein;
+	private JFrame jf;
 		public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
@@ -182,10 +183,10 @@ public class madnGUI {
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 
 		Color color = Color.BLACK;
-		JFrame jf = new JFrame("Mensch-Ärgere-Dich-Nicht");
+		jf = new JFrame("Mensch-Ärgere-Dich-Nicht");
 		jf.setResizable(false);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setVisible(true);
+		
 		jf.setSize(1000, 800);
 		jf.setLocationRelativeTo(null);
 
@@ -295,6 +296,7 @@ public class madnGUI {
 				}
 				spielfiguren[i][j].setBorder(null);
 				spielfiguren[i][j].setContentAreaFilled(false);
+				spielfiguren[i][j].addActionListener(getEventHandler());
 			}
 		}
 
@@ -559,6 +561,7 @@ public class madnGUI {
 		
 		spielGewonnen("PIFF", FarbEnum.BLAU);
 		setzeSpielfigur("ROT", 0, "40");
+		jf.setVisible(true);
 	}
 
 	/**
@@ -658,7 +661,15 @@ public class madnGUI {
 			}
 		}
 		if (jl != null) {
+			Container parent = jb.getParent();
+			
+			if (parent != null) {
+				parent.remove(jb);
+			}
 			jl.add(jb);
+			jf.setSize(0, 0);
+			jf.setSize(1000, 800);
+			jf.repaint();
 		}
 	}
 
