@@ -139,5 +139,13 @@ public class MailGUI {
 	public JTextArea getEmailtext() {
 		return jTA;
 	}
+
+	public JButton getSendeButton() {
+		return sendeButton;
+	}
+
+	public JButton getDateiButton() {
+		return dateiButton;
+	}
 	
 }
