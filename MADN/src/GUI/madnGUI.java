@@ -573,6 +573,7 @@ public class madnGUI {
 		
 		
 		jf.setVisible(true);
+		
 	}
 
 	/**
@@ -639,9 +640,9 @@ public class madnGUI {
 		jp.add(jp1);
 		jd.pack();
 		jd.setModalityType(ModalityType.APPLICATION_MODAL);
-		jd.setVisible(true);
-		jd.setTitle("Gewinner: " + gewinnerName);
 		
+		jd.setTitle("Gewinner: " + gewinnerName);
+		jd.setVisible(true);
 		
 		jd.setLocationRelativeTo(null);
 		
