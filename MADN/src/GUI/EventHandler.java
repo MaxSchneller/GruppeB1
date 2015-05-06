@@ -62,6 +62,11 @@ public class EventHandler implements ActionListener {
 		if (source == this.gui.getButtonKI()) {
 			this.verarbeiteKIZug(source);
 		}
+		
+		if (source  == this.gui.getNeuesSpiel()) {
+			this.neuerSpielerNummer = 0;
+			this.gui.frageGewuenschteSpielerAnzahl();
+		}
 	
 	}
 
@@ -333,8 +338,8 @@ public class EventHandler implements ActionListener {
 	 */
 	private void verarbeiteSpielerAnzahl(Object source) {
 		// Wenn schon ein Spiel existiert, nichts machen
-		if (this.spiel != null) {
-			return;
+		if (this.spiel != null && this.neuerSpielerNummer == 0) {
+			this.spiel = null;
 		}
 		// Wurde einer der Anzahlbuttons gedrueckt =?
 		boolean einerWurdeGedrueckt = false;
