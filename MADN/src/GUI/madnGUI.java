@@ -642,6 +642,7 @@ public class madnGUI {
 		jd.setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		jd.setTitle("Gewinner: " + gewinnerName);
+		jd.setResizable(false);
 		jd.setVisible(true);
 		
 		jd.setLocationRelativeTo(null);
@@ -973,5 +974,9 @@ public class madnGUI {
 
 	public void schliesseGewonnenDialog() {
 		jd.dispose();
+	}
+	
+	public void madnBeenden() {
+		this.jf.dispose();
 	}
 }

@@ -143,6 +143,7 @@ public class DialogGUI {
 		jd2.pack();
 		jd2.setLocationRelativeTo(null);
 		jd2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		jd2.setResizable(false);
 		jd2.setVisible(true);
 		
 
@@ -269,8 +270,7 @@ public class DialogGUI {
 		return farbe;
 		}
 		catch (IOException e){
-			JOptionPane.showMessageDialog(null, "Etwas lief beim Laden der Bilder schief" + e.getMessage());
-			e.printStackTrace();
+			this.GUI.zeigeFehler("Etwas lief beim Laden der Bilder schief" + e.getMessage());
 		}
 		return null;
 		

@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
+import Mail.Mail;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
 import Spiel.WuerfelErgebnis;
@@ -31,6 +34,7 @@ public class EventHandler implements ActionListener {
 	private int neuerSpielerNummer;
 	/** Anzahl der zu erstellenden Spieler */
 	private int spielerAnzahl = -1;
+	private MailGUI mailGUI;
 
 	private void setGui(madnGUI gui) {
 		if (gui == null) {
@@ -107,18 +111,70 @@ public class EventHandler implements ActionListener {
 						this.gui.setzeSpielfigur(fig[0],
 								Integer.parseInt(fig[1]), fig[2]);
 					}
-					
+
 					this.neuerSpielerNummer = s.getAlleFigurenPositionen().length / 4;
 					this.gui.setzeStatusNachricht("Spiel erfolgreich geladen");
 				} else {
 					this.gui.zeigeFehler("Konnte Spiel nicht laden");
 				}
-				
-				
+
 			} catch (Exception e) {
 				this.gui.zeigeFehler("Konnte Spiel nicht laden");
 			}
 
+		}
+
+		if (source == this.gui.getVersenden()) {
+			if (this.mailGUI != null) {
+				this.mailGUI = null;
+			}
+			try {
+				mailGUI = new MailGUI();
+				this.mailGUI.getDateiButton().addActionListener(this);
+				this.mailGUI.getSendeButton().addActionListener(this);
+			} catch (IOException e) {
+				this.gui.zeigeFehler("Konnte Mail GUI nicht erstellen");
+			}
+		}
+
+		if (this.mailGUI != null) {
+			if (source == this.mailGUI.getDateiButton()) {
+
+				String dateiPfad = this.mailGUI.dateiFileChooser();
+				if (dateiPfad != null) {
+					this.mailGUI.getAnhangDatei().setText(dateiPfad);
+				}
+			}
+
+			if (source == this.mailGUI.getSendeButton()) {
+				String adresse = this.mailGUI.geteMailAdresse().getText();
+				String text = this.mailGUI.getEmailtext().getText();
+
+				String anhangPfad = this.mailGUI.getAnhangDatei().getText();
+				String anhangName = "";
+				File f = new File(anhangPfad);
+
+				if (f.exists()) {
+					anhangName = f.getName();
+				} else {
+					if (!anhangPfad.isEmpty()) {
+						this.gui.zeigeFehler("Dateipfad fuer EMail ist nicht leer aber auch keine"
+								+ " existierende Datei");
+					}
+				}
+
+				if (!f.exists()) {
+					anhangPfad = null;
+					anhangName = null;
+				}
+
+				new Mail(this.gui, adresse, "MADN B1 EMail", text,
+						anhangPfad, anhangName, null, null);
+			}
+		}
+		
+		if (source == this.gui.getBeenden()) {
+			this.gui.madnBeenden();
 		}
 
 	}

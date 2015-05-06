@@ -107,6 +107,7 @@ public class MailGUI {
 		jd.pack();
 		jd.setLocationRelativeTo(null);
 		jd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		jd.setResizable(false);
 		jd.setVisible(true);
 	}
 	

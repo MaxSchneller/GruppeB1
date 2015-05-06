@@ -2,6 +2,7 @@ package Mail;
 
 import java.util.Date;
 import java.util.Properties;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -16,8 +17,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import GUI.madnGUI;
+
 public class Mail extends Thread {
 	private Properties p;
+	private madnGUI gui;
 
 	private class MailAuthenticetor extends Authenticator {
 		private String user, password;
@@ -32,19 +36,20 @@ public class Mail extends Thread {
 		}
 	}
 
-	public Mail(String an, String betreff, String text, String anhangPfad1,
+	public Mail(madnGUI gui, String an, String betreff, String text, String anhangPfad1,
 			String anhangName1, String anhangPfad2, String anhangName2) {
+		this.setGUI(gui);
 		if ((an == null) || (an.length() == 0))
 			return;
 		p = new Properties();
-		p.put("mail.smtp.host", "maildap.reutlingen-university.de");
-		p.put("mail.smtp.user", "reinmar"); // geb deine buntzername an
-		p.put("mail.smtp.password", ""); // geb dein Passwort an
+		p.put("mail.smtp.host", "mail.gmx.net");
+		p.put("mail.smtp.user", "madnb1@gmx.de"); // geb deine buntzername an
+		p.put("mail.smtp.password", "gruppeb1"); // geb dein Passwort an
 		p.put("mail.smtp.socketFactory.port", "465");
 		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		p.put("mail.smtp.auth", "true");
 		p.put("mail.smtp.port", "465");
-		p.put("von", "Markus.Rein@Student.Reutlingen-University.DE"); // deine
+		p.put("von", "madnb1@gmx.de"); // deine
 																		// email
 		p.put("an", an);
 		p.put("betreff", betreff);
@@ -73,10 +78,17 @@ public class Mail extends Thread {
 		this.start();
 	}
 
+	private void setGUI(madnGUI gui) {
+		if (gui == null) {
+			throw new NullPointerException("Mail : gui ist null");
+		}
+		this.gui = gui;
+	}
+
 	@Override
 	public void run() {
 		try {
-			System.out.println("Start Mailing an " + p.getProperty("an"));
+			gui.setzeStatusNachricht("Start Mailing an " + p.getProperty("an"));
 			MailAuthenticetor auth = new MailAuthenticetor();
 			Session session = Session.getDefaultInstance(p, auth);
 			Message msg = new MimeMessage(session);
@@ -107,10 +119,10 @@ public class Mail extends Thread {
 			msg.setContent(body);
 			msg.setSentDate(new Date());
 			Transport.send(msg);
-			System.out.println("Mailing an " + p.getProperty("an")
+			this.gui.setzeStatusNachricht("Mailing an " + p.getProperty("an")
 					+ " erfolgreich beendet.");
 		} catch (Exception e) {
-			System.out.println("mailing an " + p.getProperty("an")
+			this.gui.zeigeFehler("mailing an " + p.getProperty("an")
 					+ " FEHLGESCHLAGEN");
 			e.printStackTrace();
 		}
