@@ -1,25 +1,23 @@
 package GUI;
 
-import java.awt.Dialog;
-import java.io.IOException;
 
+import java.io.IOException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MailGUI {
 
 	private JDialog jd;
 	private Box box;
-	private Dialog jd2;
 
 	private JLabel jl2;
 
@@ -27,12 +25,12 @@ public class MailGUI {
 	private JTextField eMailAdresse;
 	private JTextArea jTA;
 
-	private ButtonGroup anhang;
-	private JRadioButton welcheDatei;
-	private JRadioButton welcheDatei2;
-
 	private JButton sendeButton;
 	private JPanel jp4;
+	private JTextField jTF2;
+	private JLabel jl;
+	private JButton dateiButton;
+	private JFileChooser welcheDateiSenden;
 
 	public static void main(String[] args) throws IOException {
 		new MailGUI();
@@ -73,7 +71,7 @@ public class MailGUI {
 		// Abstand
 		box.add(new JPanel());
 
-		//Email Text
+		// Email Text
 		jp4 = new JPanel();
 		String emailText = "Hallo, hier ist mein Spielstand meines Mensch Ärger dich nicht Spiels. Liebe Grüße ";
 		// + DialogGUI.getName();
@@ -86,14 +84,12 @@ public class MailGUI {
 
 		// Datei auswaehlen
 		JPanel jp5 = new JPanel();
-		anhang = new ButtonGroup();
-		welcheDatei = new JRadioButton("Serialisierte Datei", true);
-		welcheDatei2 = new JRadioButton("PDF Datei", false);
-
-		anhang.add(welcheDatei);
-		anhang.add(welcheDatei2);
-		jp5.add(welcheDatei);
-		jp5.add(welcheDatei2);
+		jl = new JLabel("Anhangsdatei: ");
+		jTF2 = new JTextField("DIE DATEI", 20);
+		dateiButton = new JButton("...");
+		jp5.add(jl);
+		jp5.add(jTF2);
+		jp5.add(dateiButton);
 		box.add(jp5);
 
 		// Abstand
@@ -104,11 +100,44 @@ public class MailGUI {
 		// sendeButton.addActionListener(this.maingui.getEventHandler());
 		box.add(sendeButton);
 
+		// Abstand
+		box.add(new JPanel());
+
 		jd.setContentPane(box);
 		jd.pack();
 		jd.setLocationRelativeTo(null);
 		jd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		jd.setVisible(true);
 	}
+	
+	public String dateiFileChooser (){
+		
+		welcheDateiSenden = new JFileChooser();
+		welcheDateiSenden.setDialogType(JFileChooser.OPEN_DIALOG);
+		welcheDateiSenden.setFileFilter(new FileNameExtensionFilter("PDF","pdf"));
+		welcheDateiSenden.setFileFilter(new FileNameExtensionFilter("SER", "ser"));
+		welcheDateiSenden.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		
+		int ergebnis = welcheDateiSenden.showOpenDialog(null);
+		
+		if (ergebnis == JFileChooser.APPROVE_OPTION){
+			return welcheDateiSenden.getSelectedFile().getAbsolutePath();
+		}
+		else {
+			return null;
+		}
+	}
 
+	public JTextField getAnhangDatei() {
+		return jTF2;
+	}
+
+	public JTextField geteMailAdresse() {
+		return eMailAdresse;
+	}
+
+	public JTextArea getEmailtext() {
+		return jTA;
+	}
+	
 }
