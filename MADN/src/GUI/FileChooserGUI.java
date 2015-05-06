@@ -13,6 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
+import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.iDatenzugriff;
@@ -41,6 +42,7 @@ public class FileChooserGUI {
 		chooser.setFileFilter(new FileNameExtensionFilter("PDF",
 				"pdf"));
 		chooser.setFileFilter(new FileNameExtensionFilter("SER", "ser"));
+		chooser.setFileFilter(new FileNameExtensionFilter("CSV", "csv"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
 		int showOpenDialog = chooser.showOpenDialog(null);
@@ -59,6 +61,14 @@ public class FileChooserGUI {
 
 			} else if (lcDateiName.endsWith(".ser")) {
 				iDatenzugriff id = new DatenzugriffSerialisiert();
+
+				try {
+					return (Spiel) id.spielLaden(dateiName);
+				} catch (FileNotFoundException e) {
+					gui.zeigeFehler("Die gewuenschte Datei kann nicht gefunden werden!");
+				}
+			} else if (lcDateiName.endsWith(".csv")) {
+				iDatenzugriff id = new DatenzugriffCSV();
 
 				try {
 					return (Spiel) id.spielLaden(dateiName);
@@ -88,6 +98,7 @@ public class FileChooserGUI {
 		chooser.setFileFilter(new FileNameExtensionFilter("PDF",
 				"pdf"));
 		chooser.setFileFilter(new FileNameExtensionFilter("SER", "ser"));
+		chooser.setFileFilter(new FileNameExtensionFilter("CSV", "csv"));
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		
 		int ergebnis = chooser.showSaveDialog(null);
@@ -103,7 +114,10 @@ public class FileChooserGUI {
 					dateiName += ".pdf";
 				} else if (s.getExtensions()[0].equals("ser")) {
 					dateiName += ".ser";
+				} else if (s.getExtensions()[0].equals("csv")) {
+					dateiName += ".csv";
 				} else {
+				
 					gui.zeigeFehler("Kann nicht speichern, da keine Endung angegeben");
 					return false;
 				}
@@ -123,6 +137,15 @@ public class FileChooserGUI {
 				return true;
 			} else if (lcDateiName.endsWith(".ser")) {
 				iDatenzugriff id = new DatenzugriffSerialisiert();
+				try {
+					id.spielSpeichern(spiel, dateiName);
+				} catch (IOException e) {
+					gui.zeigeFehler("Speichern fehlgeschlagen: " + e.getMessage());
+				}
+				
+				return true;
+			} else if (lcDateiName.endsWith(".csv")) {
+				iDatenzugriff id = new DatenzugriffCSV();
 				try {
 					id.spielSpeichern(spiel, dateiName);
 				} catch (IOException e) {
