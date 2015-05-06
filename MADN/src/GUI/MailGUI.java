@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Dialog;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -8,9 +9,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class MailGUI {
 
@@ -21,7 +24,7 @@ public class MailGUI {
 	private JLabel jl2;
 
 	private JPanel jp3;
-	private JLabel eMailAdresse;
+	private JTextField eMailAdresse;
 	private JTextArea jTA;
 
 	private ButtonGroup anhang;
@@ -29,12 +32,27 @@ public class MailGUI {
 	private JRadioButton welcheDatei2;
 
 	private JButton sendeButton;
+	private JPanel jp4;
+
+	public static void main(String[] args) throws IOException {
+		new MailGUI();
+	}
+
+	public MailGUI() throws IOException {
+		try {
+			fensterFuerMailVersenden();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,
+					"Etwas lief schief" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	public void fensterFuerMailVersenden() {
 
 		jd = new JDialog();
 		box = new Box(BoxLayout.Y_AXIS);
-		jd2.setTitle("Spielstand per Mail versenden");
+		jd.setTitle("Spielstand per Mail versenden");
 
 		// Fuer was ist das Fester?
 		JPanel jp2 = new JPanel();
@@ -48,13 +66,20 @@ public class MailGUI {
 
 		// Email Text eingeben
 		jp3 = new JPanel();
-		eMailAdresse = new JLabel("EMail Adresse des Empfängers: ");
-
-		String emailText = "Hallo, hier ist mein Spielstand meines Mensch Ärger dich nicht Spiels. Liebe Grüße ";
-				//+ DialogGUI.getName();
-		jTA = new JTextArea(emailText, 5, 30);
-		jp3.add(jTA);
+		eMailAdresse = new JTextField("EMail Adresse des Empfängers: ", 20);
+		jp3.add(eMailAdresse);
 		box.add(jp3);
+
+		// Abstand
+		box.add(new JPanel());
+
+		//Email Text
+		jp4 = new JPanel();
+		String emailText = "Hallo, hier ist mein Spielstand meines Mensch Ärger dich nicht Spiels. Liebe Grüße ";
+		// + DialogGUI.getName();
+		jTA = new JTextArea(emailText, 5, 30);
+		jp4.add(jTA);
+		box.add(jp4);
 
 		// Abstand
 		box.add(new JPanel());

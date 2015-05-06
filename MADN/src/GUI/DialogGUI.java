@@ -142,7 +142,7 @@ public class DialogGUI {
 		jd2.setContentPane(box1);
 		jd2.pack();
 		jd2.setLocationRelativeTo(null);
-		jd2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		jd2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		jd2.setVisible(true);
 		
 
