@@ -274,13 +274,13 @@ public class DatenzugriffPDF implements iDatenzugriff {
 		case 39: 
 			return 0;
 		case 2:
-		case 28:
+		case 38:
 			return 1;
 		case 3:
-		case 27: 
+		case 37: 
 			return 2;
 		case 4:
-		case 26: 
+		case 36: 
 			return 3;
 		case 10:
 		case 30: 

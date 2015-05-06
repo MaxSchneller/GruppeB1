@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,6 +10,7 @@ import javax.swing.JTextField;
 
 import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
+import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 import Spiel.Spiel;
@@ -39,35 +41,86 @@ public class EventHandler implements ActionListener {
 	}
 
 	/**
-	 * Erstellt einen neuen EventHandler fuer die Verbindung zwischen GUI und Spiel
-	 * @param gui Die GUI, die diesen EventHandler erstellen will
-	 * @exception IllegalArgumentException gui war null
+	 * Erstellt einen neuen EventHandler fuer die Verbindung zwischen GUI und
+	 * Spiel
+	 * 
+	 * @param gui
+	 *            Die GUI, die diesen EventHandler erstellen will
+	 * @exception IllegalArgumentException
+	 *                gui war null
 	 */
 	public EventHandler(madnGUI gui) throws IllegalArgumentException {
 		this.setGui(gui);
 
-		//this.gui.frageGewuenschteSpielerAnzahl();
+		// this.gui.frageGewuenschteSpielerAnzahl();
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
-	
+
 		this.verarbeiteNaechsterZug(source);
 		this.verarbeiteNeuerSpieler(source);
 		this.verarbeiteWuerfeln(source);
 		this.verarbeiteFiguren(source);
 		this.verarbeiteSpielerAnzahl(source);
-		
+
 		if (source == this.gui.getButtonKI()) {
 			this.verarbeiteKIZug(source);
 		}
-		
-		if (source  == this.gui.getNeuesSpiel()) {
+
+		if (source == this.gui.getNeuesSpiel()) {
 			this.neuerSpielerNummer = 0;
 			this.gui.frageGewuenschteSpielerAnzahl();
 		}
-	
+
+		if (source == this.gui.getSpielneustartenJa()) {
+			this.neuerSpielerNummer = 0;
+			this.gui.schliesseGewonnenDialog();
+			this.gui.frageGewuenschteSpielerAnzahl();
+		}
+
+		if (source == this.gui.getSpielneustartenNein()) {
+			this.neuerSpielerNummer = 0;
+			this.gui.schliesseGewonnenDialog();
+		}
+
+		if (source == this.gui.getSpeichern()) {
+			if (this.spiel != null) {
+				if (FileChooserGUI.dateiSpeicher(this.gui, (Spiel) this.spiel)) {
+					this.gui.setzeStatusNachricht("Spiel erfolgreich gespeichert");
+				}
+			} else {
+				this.gui.zeigeFehler("Kann nicht speichern da noch kein Spiel existiert.");
+			}
+		}
+
+		if (source == this.gui.getLaden()) {
+
+			try {
+				Spiel s = FileChooserGUI.dateiOeffnen(this.gui);
+				if (s != null) {
+					this.spiel = s;
+					this.neachsterSpielerAnDerReihe();
+
+					for (String[] fig : s.getAlleFigurenPositionen()) {
+						this.gui.setzeSpielfigur(fig[0],
+								Integer.parseInt(fig[1]), fig[2]);
+					}
+					
+					this.neuerSpielerNummer = s.getAlleFigurenPositionen().length / 4;
+					this.gui.setzeStatusNachricht("Spiel erfolgreich geladen");
+				} else {
+					this.gui.zeigeFehler("Konnte Spiel nicht laden");
+				}
+				
+				
+			} catch (Exception e) {
+				this.gui.zeigeFehler("Konnte Spiel nicht laden");
+			}
+
+		}
+
 	}
 
 	private void verarbeiteKIZug(Object source) {
@@ -75,20 +128,22 @@ public class EventHandler implements ActionListener {
 	}
 
 	/**
-	 * Prueft ob der "Naechster Zug" Button gedrueckt wurde 
-	 * und laesst falls vorhanden die KI wuerfeln und ziehen
-	 * @param source Die Eventquellr
+	 * Prueft ob der "Naechster Zug" Button gedrueckt wurde und laesst falls
+	 * vorhanden die KI wuerfeln und ziehen
+	 * 
+	 * @param source
+	 *            Die Eventquellr
 	 */
 	private void verarbeiteNaechsterZug(Object source) {
 		if (source == this.gui.getNaechsterZugButton()) {
 			if (this.spiel.isSpielerAmZugKI()) {
 				this.gui.getButtonKI().setVisible(true);
-				JButton b = (JButton)this.gui.getButtonWuerfeln();
+				JButton b = (JButton) this.gui.getButtonWuerfeln();
 				b.setEnabled(false);
-				} else {
+			} else {
 				this.gui.getButtonKI().setVisible(false);
 				this.gui.setzeStatusNachricht("Naechster Spieler kann wuerfeln");
-				JButton b = (JButton)this.gui.getButtonWuerfeln();
+				JButton b = (JButton) this.gui.getButtonWuerfeln();
 				b.setEnabled(true);
 			}
 		}
@@ -96,11 +151,13 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Gibt an ob eine Farbe bereits vergeben ist
-	 * @param farbe Die Farbe die geprueft werden soll
+	 * 
+	 * @param farbe
+	 *            Die Farbe die geprueft werden soll
 	 * @return True falls die Farbe vergeben ist, sonst false
 	 */
 	public boolean isFarbeVergeben(FarbEnum farbe) {
-		if(spiel != null){
+		if (spiel != null) {
 			return this.spiel.isFarbeVergeben(farbe);
 		}
 		return false;
@@ -108,7 +165,9 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Prueft ob das ActionEvent von dem "Wuerfeln" Button ausgeloest wurde
-	 * @param source Die Eventquelle des ActionEvents
+	 * 
+	 * @param source
+	 *            Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteWuerfeln(Object source) {
 		if (source == this.gui.getButtonWuerfeln()) {
@@ -118,9 +177,9 @@ public class EventHandler implements ActionListener {
 				this.logFehler("Kann jetzt nicht wuerfeln, es gibt noch kein Spiel!");
 				return;
 			} else {
-				
+
 				WuerfelErgebnis ergebnis = null;
-				
+
 				try {
 					ergebnis = this.spiel.sWuerfeln();
 				} catch (KannNichtWuerfelnException e) {
@@ -128,7 +187,8 @@ public class EventHandler implements ActionListener {
 					return;
 				}
 
-				this.gui.setzeStatusNachricht("Es wurde " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+				this.gui.setzeStatusNachricht("Es wurde "
+						+ ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 				this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
 
 				if (ergebnis.isKannZugAusfuehren() == false) {
@@ -153,9 +213,9 @@ public class EventHandler implements ActionListener {
 	}
 
 	private void neachsterSpielerAnDerReihe() {
-		JButton wuerfel = (JButton)this.gui.getButtonWuerfeln();
+		JButton wuerfel = (JButton) this.gui.getButtonWuerfeln();
 		JButton kiZug = this.gui.getButtonKI();
-		
+
 		wuerfel.setEnabled(!this.spiel.isSpielerAmZugKI());
 		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
 		this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
@@ -168,9 +228,9 @@ public class EventHandler implements ActionListener {
 		if (!this.spiel.isSpielerAmZugKI()) {
 			this.logFehler("lassKIWuerfeln wurde aufgerufen, aber es ist keine KI am Zug.");
 		}
-		
+
 		this.logKI("KI wuerfelt...");
-		
+
 		WuerfelErgebnis ergebnis;
 		try {
 			ergebnis = this.spiel.sWuerfeln();
@@ -178,13 +238,13 @@ public class EventHandler implements ActionListener {
 			this.gui.zeigeFehler(e1.getMessage());
 			return;
 		}
-		
+
 		this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
 		this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
-		
+
 		while (!ergebnis.isKannZugAusfuehren()) {
 			this.logKI("Kein Zug moeglich");
-			
+
 			if (ergebnis.isKannNochmalWuerfeln()) {
 				this.logKI("KI wuerfelt nochmal...");
 				try {
@@ -192,46 +252,53 @@ public class EventHandler implements ActionListener {
 				} catch (KannNichtWuerfelnException e1) {
 					this.gui.zeigeFehler(e1.getMessage());
 				}
-				this.logKI("KI hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+				this.logKI("KI hat " + ergebnis.getGewuerfelteZahl()
+						+ " gewuerfelt");
 			} else {
 				this.logKI("Kann nicht nochmal wuerfeln, naechster ist dran.");
 				this.neachsterSpielerAnDerReihe();
 				return;
 			}
 		}
-		
+
 		this.logKI("KI zieht...");
 		ZugErgebnis e = this.spiel.ziehen(0);
-		
+
 		if (e.isGueltig()) {
 			for (String[] figuren : e.getGeaenderteFiguren()) {
-				this.gui.setzeSpielfigur(figuren[0], Integer.parseInt(figuren[1]), figuren[2]);
-				this.gui.setzeStatusNachricht("Figur: " + Integer.parseInt(figuren[1]) +
-						 " " + figuren[0] + " sitzt auf Feld " + figuren[2]);
+				this.gui.setzeSpielfigur(figuren[0],
+						Integer.parseInt(figuren[1]), figuren[2]);
+				this.gui.setzeStatusNachricht("Figur: "
+						+ Integer.parseInt(figuren[1]) + " " + figuren[0]
+						+ " sitzt auf Feld " + figuren[2]);
 
 			}
-			
+
 			if (e.isSpielGewonnen()) {
-				this.gui.spielGewonnen(e.getGewinnerName(), e.getGewinnerFarbe());
+				this.gui.spielGewonnen(e.getGewinnerName(),
+						e.getGewinnerFarbe());
 			}
 		} else {
 			this.logFehler("KI hat ungueltigen Zug errechnet...och noeeee");
 		}
-		
+
 		if (e.isZugBeendet()) {
 			this.neachsterSpielerAnDerReihe();
 		}
 	}
 
 	/**
-	 * Prueft ob das ActionEvent von dem "Weiter" Button bei der Spielerstellung ausgeloest wurde
-	 * @param source Die Eventquelle des ActionEvents
+	 * Prueft ob das ActionEvent von dem "Weiter" Button bei der Spielerstellung
+	 * ausgeloest wurde
+	 * 
+	 * @param source
+	 *            Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteNeuerSpieler(Object source) {
 		if (source == this.gui.getButtonWeiter()) {
 			// True wenn der "Weiter" Button bei der Spielererstellung gedrueckt
 			// wurde
-		
+
 			String name = this.gui.getNeuerSpielerName();
 			FarbEnum farbe = this.gui.getNeuerSpielerFarbe();
 			KiTypEnum kiTyp = this.gui.getNeuerSpielerKiTyp();
@@ -254,18 +321,20 @@ public class EventHandler implements ActionListener {
 				this.gui.frageSpielerDaten(this.neuerSpielerNummer);
 			} else {
 				this.gui.schliesseSpielerDaten();
-				this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
-				
+				this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe()
+						.name());
+
 				for (String[] figur : this.spiel.getAlleFigurenPositionen()) {
-					this.gui.setzeSpielfigur(figur[0], Integer.parseInt(figur[1]), figur[2]);
+					this.gui.setzeSpielfigur(figur[0],
+							Integer.parseInt(figur[1]), figur[2]);
 				}
-				
+
 				if (this.spiel.isSpielerAmZugKI()) {
 					this.gui.getButtonKI().setVisible(true);
-					JButton b = (JButton)this.gui.getButtonWuerfeln();
+					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(false);
 				} else {
-					JButton b = (JButton)this.gui.getButtonWuerfeln();
+					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(true);
 				}
 			}
@@ -274,56 +343,66 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Prueft ob das ActionEvent von den Figurenbuttons ausgeloest wurde
-	 * @param source Die Eventquelle des ActionEvents
+	 * 
+	 * @param source
+	 *            Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteFiguren(Object source) {
 		if (this.spiel != null) {
 			// Macht nur Sinn mit Spiel...
 
-		
 			int figurID = -1;
-			
-			if (source == this.gui.getButtonFigur1(this.spiel.getSpielerAmZugFarbe())) {
+
+			if (source == this.gui.getButtonFigur1(this.spiel
+					.getSpielerAmZugFarbe())) {
 				figurID = 0;
 			}
-			if (source == this.gui.getButtonFigur2(this.spiel.getSpielerAmZugFarbe())) {
+			if (source == this.gui.getButtonFigur2(this.spiel
+					.getSpielerAmZugFarbe())) {
 				figurID = 1;
 			}
-			if (source == this.gui.getButtonFigur3(this.spiel.getSpielerAmZugFarbe())) {
+			if (source == this.gui.getButtonFigur3(this.spiel
+					.getSpielerAmZugFarbe())) {
 				figurID = 2;
 			}
-			if (source == this.gui.getButtonFigur4(this.spiel.getSpielerAmZugFarbe())) {
+			if (source == this.gui.getButtonFigur4(this.spiel
+					.getSpielerAmZugFarbe())) {
 				figurID = 3;
 			}
-			
+
 			if (figurID != -1) {
 				if (this.spiel.isSpielerAmZugKI()) {
 					this.gui.zeigeFehler("KI ist am Zug, bitte \"KI Zug\" Button benutzen!");
 					return;
 				}
 				ZugErgebnis ergebnis = this.spiel.ziehen(figurID);
-				
+
 				if (ergebnis.isGueltig()) {
 					this.logInfo("Zug ist gueltig.");
-					
+
 					for (String[] figur : ergebnis.getGeaenderteFiguren()) {
-						this.gui.setzeStatusNachricht("Figur: " + Integer.parseInt(figur[1]) +
-														 " " + figur[0] + " sitzt auf Feld " + figur[2]);
-						this.gui.setzeSpielfigur(figur[0], 
-												Integer.parseInt(figur[1]), // Try nicht noetig, da garantiert
-												figur[2]);
+						this.gui.setzeStatusNachricht("Figur: "
+								+ Integer.parseInt(figur[1]) + " " + figur[0]
+								+ " sitzt auf Feld " + figur[2]);
+						this.gui.setzeSpielfigur(figur[0],
+								Integer.parseInt(figur[1]), // Try nicht noetig,
+															// da garantiert
+								figur[2]);
 					}
 				} else {
-					this.logFehler("Ungueltiger Zug!: " + ergebnis.getNachricht());
+					this.logFehler("Ungueltiger Zug!: "
+							+ ergebnis.getNachricht());
 				}
-				
+
 				if (ergebnis.isSpielGewonnen()) {
-					this.gui.setzeStatusNachricht("Spiel wurde von " + ergebnis.getGewinnerName()+ "(" + 
-													ergebnis.getGewinnerFarbe() + ")" + " gewonnen");
-					this.gui.spielGewonnen(ergebnis.getGewinnerName(), ergebnis.getGewinnerFarbe());
+					this.gui.setzeStatusNachricht("Spiel wurde von "
+							+ ergebnis.getGewinnerName() + "("
+							+ ergebnis.getGewinnerFarbe() + ")" + " gewonnen");
+					this.gui.spielGewonnen(ergebnis.getGewinnerName(),
+							ergebnis.getGewinnerFarbe());
 					return;
 				}
-				
+
 				if (ergebnis.isZugBeendet()) {
 					this.logInfo("Naechster Spieler ist dran.");
 					this.neachsterSpielerAnDerReihe();
@@ -333,8 +412,11 @@ public class EventHandler implements ActionListener {
 	}
 
 	/**
-	 * Prueft ob das ActionEvent von Spieleranzahlbuttons ganz am Anfang einer Partie ausgeloest wurde
-	 * @param source Die Eventquelle des ActionEvents
+	 * Prueft ob das ActionEvent von Spieleranzahlbuttons ganz am Anfang einer
+	 * Partie ausgeloest wurde
+	 * 
+	 * @param source
+	 *            Die Eventquelle des ActionEvents
 	 */
 	private void verarbeiteSpielerAnzahl(Object source) {
 		// Wenn schon ein Spiel existiert, nichts machen
@@ -372,7 +454,9 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Laesst die GUI die Nachricht als normale Info praesentieren
-	 * @param s Die Nachricht, die geschrieben werden soll
+	 * 
+	 * @param s
+	 *            Die Nachricht, die geschrieben werden soll
 	 */
 	private void logInfo(String s) {
 		this.gui.setzeStatusNachricht(s);
@@ -380,7 +464,9 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Laesst die GUI die Nachricht als Warnung praesentieren
-	 * @param s Die Nachricht, die geschrieben werden soll
+	 * 
+	 * @param s
+	 *            Die Nachricht, die geschrieben werden soll
 	 */
 	private void logWarnung(String s) {
 		this.gui.zeigeWarnung(s);
@@ -388,7 +474,9 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Laesst die GUI die Nachricht als Fehler praesentieren
-	 * @param s Die Nachricht, die geschrieben werden soll
+	 * 
+	 * @param s
+	 *            Die Nachricht, die geschrieben werden soll
 	 */
 	private void logFehler(String s) {
 		this.gui.zeigeFehler(s);
@@ -396,7 +484,9 @@ public class EventHandler implements ActionListener {
 
 	/**
 	 * Loggt KI Nachrichten
-	 * @param s Die Nachricht, die geschrieben werden soll
+	 * 
+	 * @param s
+	 *            Die Nachricht, die geschrieben werden soll
 	 */
 	private void logKI(String s) {
 		this.logInfo(s);

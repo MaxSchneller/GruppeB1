@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -87,6 +88,7 @@ public class madnGUI {
 	private JButton jbnein;
 	private JFrame jf;
 	private JButton jbKIZug;
+	private JDialog jd;
 		public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
@@ -110,7 +112,7 @@ public class madnGUI {
 		this.eH = new EventHandler(this);
 
 		this.erstelleGUI();
-		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
+		//this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
 	/**
@@ -228,10 +230,15 @@ public class madnGUI {
 		JMenu jMenu2 = new JMenu("Hilfe");
 	
 		jmi = new JMenuItem("Speichern");
+		jmi.addActionListener(getEventHandler());
 		jmi1 = new JMenuItem("Laden");
+		jmi1.addActionListener(getEventHandler());
 		jmi2 = new JMenuItem("Beenden");
+		jmi2.addActionListener(getEventHandler());
 		jmi3=new JMenuItem("Neues Spiel");
+		jmi3.addActionListener(getEventHandler());
 		jmi4 = new JMenuItem("Spielstand versenden");
+		jmi4.addActionListener(getEventHandler());
 
 		/**
 		 * Spiel Log
@@ -589,8 +596,10 @@ public class madnGUI {
 	
 		JLabel jl= new JLabel("Neues Spiel starten?");
 		jbja = new JButton("Ja");
+		jbja.addActionListener(getEventHandler());
 		jbnein = new JButton("Nein");
-		JDialog jd = new JDialog();
+		jbnein.addActionListener(getEventHandler());
+		jd = new JDialog();
 		JPanel jp = new JPanel();
 		JPanel jpg = new JPanel();
 		JPanel jp2 = new JPanel();
@@ -629,11 +638,16 @@ public class madnGUI {
 		jp1.add(jbnein);
 		jp.add(jp1);
 		jd.pack();
+		jd.setModalityType(ModalityType.APPLICATION_MODAL);
 		jd.setVisible(true);
 		jd.setTitle("Gewinner: " + gewinnerName);
 		
 		
 		jd.setLocationRelativeTo(null);
+		
+		buttonWuerfel.setEnabled(false);
+		jbKIZug.setVisible(false);
+		
 	}
 
 	/**
@@ -758,28 +772,40 @@ public class madnGUI {
 	 * @return Spieleranzahl 1 Button
 	 */
 	public Object getButtonSpielerZahl1() {
-		return this.spielerAnzahlGui.getButtonSpielerZahl1();
+		if (this.spielerAnzahlGui != null) {
+			return this.spielerAnzahlGui.getButtonSpielerZahl1();
+		}
+		return null;
 	}
 
 	/**
 	 * @return Spieleranzahl 2 Button
 	 */
 	public Object getButtonSpielerZahl2() {
-		return this.spielerAnzahlGui.getButtonSpielerZahl2();
+		if (this.spielerAnzahlGui != null) {
+			return this.spielerAnzahlGui.getButtonSpielerZahl2();
+		}
+		return null;
 	}
 
 	/**
 	 * @return Spieleranzahl 3 Button
 	 */
 	public Object getButtonSpielerZahl3() {
-		return this.spielerAnzahlGui.getButtonSpielerZahl3();
+		if (this.spielerAnzahlGui != null) {
+			return this.spielerAnzahlGui.getButtonSpielerZahl3();
+		}
+		return null;
 	}
 
 	/**
 	 * @return Spieleranzahl 4 Button
 	 */
 	public Object getButtonSpielerZahl4() {
-		return this.spielerAnzahlGui.getButtonSpielerZahl4();
+		if (this.spielerAnzahlGui != null) {
+			return this.spielerAnzahlGui.getButtonSpielerZahl4();
+		}
+		return null;
 	}
 
 	/**
@@ -942,5 +968,9 @@ public class madnGUI {
 	
 	public JButton getButtonKI() {
 		return this.jbKIZug;
+	}
+
+	public void schliesseGewonnenDialog() {
+		jd.dispose();
 	}
 }
