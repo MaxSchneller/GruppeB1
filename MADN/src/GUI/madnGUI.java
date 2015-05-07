@@ -93,7 +93,7 @@ public class madnGUI {
 	private JButton jbKIZug;
 	private JDialog jd;
 	public final JButton jbDebWuerf = new JButton("Deb Wuerf");
-	public final JSpinner jsDebWuerf = new JSpinner(new SpinnerNumberModel(1, 1, 6,
+	public final JSpinner jsDebWuerf = new JSpinner(new SpinnerNumberModel(1, 0, 6,
 			1));
 
 	public static void main(String[] args) throws IOException {

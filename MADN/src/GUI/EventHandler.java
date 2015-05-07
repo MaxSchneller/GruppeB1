@@ -192,9 +192,16 @@ public class EventHandler implements ActionListener {
 		} else {
 
 			WuerfelErgebnis ergebnis = null;
-
+			int gewuenschteZahl = (int)this.gui.jsDebWuerf.getValue();
+			
+			if (gewuenschteZahl == 0) {
+				this.gui.zeigeFehler("Cheat wuerfel wurde aktiviert, aber 0 angegeben (Ist für KI reserviert), bitte"
+						+ " gültige Zahl eingeben");
+				return;
+			}
+			
 			try {
-				ergebnis = this.spiel.debugWuerfeln((int)this.gui.jsDebWuerf.getValue());
+				ergebnis = this.spiel.debugWuerfeln(gewuenschteZahl);
 			} catch (KannNichtWuerfelnException e) {
 				this.gui.zeigeFehler(e.getMessage());
 				return;
@@ -322,6 +329,10 @@ public class EventHandler implements ActionListener {
 		this.gui.jbDebWuerf.setEnabled(!this.spiel.isSpielerAmZugKI());
 		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
 		this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
+		
+		if (this.spiel.isSpielerAmZugKI()) {
+			this.gui.jsDebWuerf.setValue(0);
+		}
 	}
 
 	/**
@@ -336,7 +347,13 @@ public class EventHandler implements ActionListener {
 
 		WuerfelErgebnis ergebnis;
 		try {
-			ergebnis = this.spiel.sWuerfeln();
+			int cheatWuerfel = (int) this.gui.jsDebWuerf.getValue();
+			if (cheatWuerfel == 0) {
+				ergebnis = this.spiel.sWuerfeln();
+			} else  {
+				ergebnis = this.spiel.debugWuerfeln(cheatWuerfel);
+			}
+			
 		} catch (KannNichtWuerfelnException e1) {
 			this.gui.zeigeFehler(e1.getMessage());
 			return;
@@ -351,7 +368,12 @@ public class EventHandler implements ActionListener {
 			if (ergebnis.isKannNochmalWuerfeln()) {
 				this.logKI("KI wuerfelt nochmal...");
 				try {
-					ergebnis = this.spiel.sWuerfeln();
+					int cheatWuerfel = (int) this.gui.jsDebWuerf.getValue();
+					if (cheatWuerfel == 0) {
+						ergebnis = this.spiel.sWuerfeln();
+					} else  {
+						ergebnis = this.spiel.debugWuerfeln(cheatWuerfel);
+					}
 				} catch (KannNichtWuerfelnException e1) {
 					this.gui.zeigeFehler(e1.getMessage());
 				}
@@ -437,6 +459,7 @@ public class EventHandler implements ActionListener {
 					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(false);
 					this.gui.jbDebWuerf.setEnabled(false);
+					this.gui.jsDebWuerf.setValue(0);
 				} else {
 					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(true);
