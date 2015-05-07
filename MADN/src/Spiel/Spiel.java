@@ -300,10 +300,19 @@ public class Spiel implements iBediener, Serializable {
 			if (ergebnis.isZugBeendet()) {
 
 				naechsterSpielerIstDran();
+				this.kannWuerfeln = true;
+				this.kanZiehen = false;
+			} else {
+				if (!ergebnis.isGueltig()) {
+					this.kannWuerfeln = false;
+					this.kanZiehen = true;
+				} else {
+					this.kannWuerfeln = true;
+					this.kanZiehen = false;
+				}
 			}
 
-			this.kannWuerfeln = true;
-			this.kanZiehen = false;
+		
 			return ergebnis;
 		} else {
 			return new ZugErgebnis(false, false, null, false, null, null, "Kann nicht ziehen, muss erst wuerfeln");
