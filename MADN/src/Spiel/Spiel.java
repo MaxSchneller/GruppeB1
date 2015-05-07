@@ -1,4 +1,5 @@
 package Spiel;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
+import Speichern_Laden.DatenzugriffPDF;
+import Speichern_Laden.DatenzugriffSerialisiert;
+import Speichern_Laden.iDatenzugriff;
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 /**
@@ -258,14 +262,37 @@ public class Spiel implements iBediener, Serializable {
 				int figID = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
 				
 				if (figID == -1) {
+					iDatenzugriff s = new DatenzugriffPDF();
+					try {
+						s.spielSpeichern(this, "./KIMuell.pdf");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					@SuppressWarnings("unused")
 					int foo = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+					
+					throw new RuntimeException("KI hat ungueltigen Zug berechnet, Spielstand wurde unter"
+							+ " 'KI Muell.pdf' gespeichert.");
 				}
 				Spielfigur figur = this.spielerAmZug.getFigurDurchID(figID);
 				ergebnis = this.spielbrett.zug(this.zuleztGewuerfelt, figur, true);
 				
 				if (!ergebnis.isGueltig()){
+				
+					
+					iDatenzugriff s = new DatenzugriffPDF();
+					try {
+						s.spielSpeichern(this, "./KIMuell.pdf");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					@SuppressWarnings("unused")
 					int foo = this.spielerAmZug.kiBerechnen(gegnerFiguren, this.zuleztGewuerfelt);
+					
+					throw new RuntimeException("KI hat ungueltigen Zug berechnet, Spielstand wurde unter"
+							+ " 'KI Muell.pdf' gespeichert.");
 				}
 			}
 			// Der Zug war gültig und es wurde keine 6 gewürfelt, also ist der
@@ -455,6 +482,13 @@ public class Spiel implements iBediener, Serializable {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * @return Gibt die zulezt gewuerfelte Zahl zurueck
+	 */
+	public int getZuleztGewuerfelt() {
+		return this.zuleztGewuerfelt;
 	}
 
 }

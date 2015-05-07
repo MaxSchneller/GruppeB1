@@ -89,6 +89,7 @@ public class madnGUI {
 	private JFrame jf;
 	private JButton jbKIZug;
 	private JDialog jd;
+	private JButton jbDebWuerf;
 		public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
@@ -496,7 +497,7 @@ public class madnGUI {
 		scrollPane.setPreferredSize(new Dimension(650, 80));
 		scrollPane.setViewportView(console);
 		jp_south.add(scrollPane);
-		formatierer = new HTMLFormatierer(true);
+		formatierer = new HTMLFormatierer(false);
 		
 
 		/**

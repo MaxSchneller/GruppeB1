@@ -73,10 +73,16 @@ public class KI_Defensiv extends KI implements Serializable{
 				
 				int feldInt = Integer.parseInt(feldDerFigur.getID());
 				int zielFeldInt = feldInt + gewuerfelteZahl;
+				int endFeldInt = Integer.parseInt(endFeldID);
+				
+				if (zielFeldInt > endFeldInt && feldInt <= endFeldInt) {
+					continue;
+				}
 				
 				if (zielFeldInt > 40) {
 					zielFeldInt -= 40;
 				}
+				
 				
 				String zielFeldID = String.format("%d", zielFeldInt);
 				

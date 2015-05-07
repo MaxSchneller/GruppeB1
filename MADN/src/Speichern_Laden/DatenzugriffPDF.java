@@ -176,6 +176,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 		}
 		
 		info.put("amZug", spiel.getSpielerAmZugFarbe().name());
+		info.put("gewuerfelt", String.format("%d", spiel.getZuleztGewuerfelt()));
 	}
 
 	/**

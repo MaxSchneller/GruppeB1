@@ -23,9 +23,9 @@ public class KiTestRuns {
 	@Test
 	public void test() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		for (int i = 0; i < 100; i++) {
-			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.DEFENSIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.DEFENSIV);
+			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
+			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
+			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.AGGRESIV);
 			
 			while (true) {

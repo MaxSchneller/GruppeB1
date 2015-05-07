@@ -50,34 +50,22 @@ public class FileChooserGUI {
 			String dateiName = chooser.getSelectedFile().getAbsolutePath();
 			String lcDateiName = dateiName.toLowerCase();
 
+			iDatenzugriff id = null;
 			if (lcDateiName.endsWith(".pdf")) {
-				iDatenzugriff id = new DatenzugriffPDF();
-
-				try {
-					return (Spiel) id.spielLaden(dateiName);
-				} catch (FileNotFoundException e) {
-					gui.zeigeFehler("Die gewuenschte Datei kann nicht gefunden werden!");
-				}
-
+				 id = new DatenzugriffPDF();
 			} else if (lcDateiName.endsWith(".ser")) {
-				iDatenzugriff id = new DatenzugriffSerialisiert();
-
-				try {
-					return (Spiel) id.spielLaden(dateiName);
-				} catch (FileNotFoundException e) {
-					gui.zeigeFehler("Die gewuenschte Datei kann nicht gefunden werden!");
-				}
+				 id = new DatenzugriffSerialisiert();
 			} else if (lcDateiName.endsWith(".csv")) {
-				iDatenzugriff id = new DatenzugriffCSV();
-
-				try {
-					return (Spiel) id.spielLaden(dateiName);
-				} catch (FileNotFoundException e) {
-					gui.zeigeFehler("Die gewuenschte Datei kann nicht gefunden werden!");
-				}
+				 id = new DatenzugriffCSV();
 			} else {
 				gui.zeigeFehler("Es wurde eine ungueltige Datei zum Laden ausgewaehlt");
 				return null;
+			}
+			
+			try {
+				return (Spiel) id.spielLaden(dateiName);
+			} catch (FileNotFoundException e) {
+				gui.zeigeFehler("Die gewuenschte Datei kann nicht gefunden werden!");
 			}
 		}
 		return null;
@@ -124,38 +112,23 @@ public class FileChooserGUI {
 			}
 			
 			String lcDateiName = dateiName.toLowerCase();
+			iDatenzugriff id = null;
 			
 			if (lcDateiName.endsWith(".pdf")) {
-				iDatenzugriff id = new DatenzugriffPDF();
-				
-				try {
-					id.spielSpeichern(spiel, dateiName);
-				} catch (IOException e) {
-					gui.zeigeFehler("Speichern fehlgeschlagen: " + e.getMessage());
-				}
-				
-				return true;
+				 id = new DatenzugriffPDF();
 			} else if (lcDateiName.endsWith(".ser")) {
-				iDatenzugriff id = new DatenzugriffSerialisiert();
-				try {
-					id.spielSpeichern(spiel, dateiName);
-				} catch (IOException e) {
-					gui.zeigeFehler("Speichern fehlgeschlagen: " + e.getMessage());
-				}
-				
-				return true;
+				 id = new DatenzugriffSerialisiert();
 			} else if (lcDateiName.endsWith(".csv")) {
-				iDatenzugriff id = new DatenzugriffCSV();
-				try {
-					id.spielSpeichern(spiel, dateiName);
-				} catch (IOException e) {
-					gui.zeigeFehler("Speichern fehlgeschlagen: " + e.getMessage());
-				}
-				
-				return true;
+				 id = new DatenzugriffCSV();
 			} else {
 				gui.zeigeFehler("Der Dateiname hat keine gültige Endung");
 				return false;
+			}
+			
+			try {
+				id.spielSpeichern(spiel, dateiName);
+			} catch (IOException e) {
+				gui.zeigeFehler("Speichern fehlgeschlagen: " + e.getMessage());
 			}
 			
 		}
