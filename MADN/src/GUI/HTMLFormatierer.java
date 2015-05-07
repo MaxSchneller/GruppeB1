@@ -12,6 +12,7 @@ public class HTMLFormatierer {
     private StringBuffer bufferNachrichten;
     private final String htmlAnfang = "<html>" +
                                         "<style>" +
+                                        	"div{font-family:consolas;}" +
                                             ".error{color:red;}" +
                                             ".warning{color:#DAA520;}" +
                                         "</style>" +

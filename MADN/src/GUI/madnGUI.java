@@ -40,8 +40,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
 
@@ -89,8 +92,11 @@ public class madnGUI {
 	private JFrame jf;
 	private JButton jbKIZug;
 	private JDialog jd;
-	private JButton jbDebWuerf;
-		public static void main(String[] args) throws IOException {
+	public final JButton jbDebWuerf = new JButton("Deb Wuerf");
+	public final JSpinner jsDebWuerf = new JSpinner(new SpinnerNumberModel(1, 1, 6,
+			1));
+
+	public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
 		// GUI.erstelleGUI();
 
@@ -113,7 +119,7 @@ public class madnGUI {
 		this.eH = new EventHandler(this);
 
 		this.erstelleGUI();
-		//this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
+		// this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
 	/**
@@ -190,7 +196,7 @@ public class madnGUI {
 		jf = new JFrame("Mensch-Ärgere-Dich-Nicht");
 		jf.setResizable(false);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		jf.setSize(1000, 800);
 		jf.setLocationRelativeTo(null);
 
@@ -229,14 +235,14 @@ public class madnGUI {
 		JMenuBar jm = new JMenuBar();
 		JMenu jMenu = new JMenu("Datei");
 		JMenu jMenu2 = new JMenu("Hilfe");
-	
+
 		jmi = new JMenuItem("Speichern");
 		jmi.addActionListener(getEventHandler());
 		jmi1 = new JMenuItem("Laden");
 		jmi1.addActionListener(getEventHandler());
 		jmi2 = new JMenuItem("Beenden");
 		jmi2.addActionListener(getEventHandler());
-		jmi3=new JMenuItem("Neues Spiel");
+		jmi3 = new JMenuItem("Neues Spiel");
 		jmi3.addActionListener(getEventHandler());
 		jmi4 = new JMenuItem("Spielstand versenden");
 		jmi4.addActionListener(getEventHandler());
@@ -245,7 +251,7 @@ public class madnGUI {
 		 * Spiel Log
 		 */
 
-		//jp_south.setPreferredSize(new Dimension(650, 80));
+		// jp_south.setPreferredSize(new Dimension(650, 80));
 
 		jf.setLayout(new BorderLayout());
 		jf.add(jp_north, BorderLayout.NORTH);
@@ -271,16 +277,17 @@ public class madnGUI {
 			for (int j = 0; j < startfelder[i].length; j++) {
 				startfelder[i][j] = new JLabel();
 				startfelder[i][j].setLayout(new BorderLayout());
-				//startfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED, 2, 1, 1, false));
+				// startfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED,
+				// 2, 1, 1, false));
 			}
 		}
-		
-		
+
 		for (int i = 0; i < endfelder.length; i++) {
 			for (int j = 0; j < endfelder[i].length; j++) {
 				endfelder[i][j] = new JLabel();
 				endfelder[i][j].setLayout(new BorderLayout());
-				//endfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED, 2, 1, 1, false));
+				// endfelder[i][j].setBorder(BorderFactory.createDashedBorder(Color.RED,
+				// 2, 1, 1, false));
 			}
 		}
 
@@ -498,7 +505,6 @@ public class madnGUI {
 		scrollPane.setViewportView(console);
 		jp_south.add(scrollPane);
 		formatierer = new HTMLFormatierer(false);
-		
 
 		/**
 		 * East Steuerung
@@ -534,13 +540,26 @@ public class madnGUI {
 
 		jpWuerfelTxt.setBackground(color);
 
-		jpWuerfel.setPreferredSize(new Dimension(155, 350));
-		jpWuerfel.setLayout(new BorderLayout());
-		jpWuerfel.add(jbButtonWuerfel, BorderLayout.NORTH);
+		JPanel jpDebWuerf = new JPanel();
+		jpDebWuerf.setBackground(color);
+		jpDebWuerf.setLayout(new GridLayout(2, 2));
+		
 		jbKIZug = new JButton("Ki Zug");
 		jbKIZug.setVisible(false);
 		jbKIZug.addActionListener(getEventHandler());
-		jpWuerfel.add(jbKIZug, BorderLayout.SOUTH);
+		
+		jbDebWuerf.addActionListener(getEventHandler());
+
+		jpDebWuerf.add(jsDebWuerf);
+		jpDebWuerf.add(jbDebWuerf);
+		jpDebWuerf.add(jbKIZug);
+		jp_east.add(jpDebWuerf, BorderLayout.EAST);
+
+		jpWuerfel.setPreferredSize(new Dimension(155, 350));
+		jpWuerfel.setLayout(new BorderLayout());
+		jpWuerfel.add(jbButtonWuerfel, BorderLayout.NORTH);
+		
+		jpWuerfel.add(jpDebWuerf, BorderLayout.SOUTH);
 		jbButtonWuerfel.add(buttonWuerfel);
 		jbButtonWuerfel.setBackground(color);
 
@@ -570,11 +589,9 @@ public class madnGUI {
 		jMenu.add(jmi1);
 		jMenu.add(jmi4);
 		jMenu.add(jmi2);
-		
-		
-		
+
 		jf.setVisible(true);
-		
+
 	}
 
 	/**
@@ -595,8 +612,8 @@ public class madnGUI {
 	 *            Die Farbe des Gewinners
 	 */
 	public void spielGewonnen(String gewinnerName, FarbEnum gewinnerFarbe) {
-	
-		JLabel jl= new JLabel("Neues Spiel starten?");
+
+		JLabel jl = new JLabel("Neues Spiel starten?");
 		jbja = new JButton("Ja");
 		jbja.addActionListener(getEventHandler());
 		jbnein = new JButton("Nein");
@@ -608,10 +625,9 @@ public class madnGUI {
 		jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
 		jp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		jd.add(jp);
-		
-		
+
 		JLabel turk = new JLabel("Spieler: " + gewinnerName);
-		
+
 		jp.add(jpg);
 		jpg.add(turk);
 		if (gewinnerFarbe == FarbEnum.ROT) {
@@ -632,7 +648,7 @@ public class madnGUI {
 		}
 		JLabel jl3 = new JLabel("hat gewonnen! HIPP HIPP HURRA!!!");
 		jpg.add(jl3);
-		
+
 		JPanel jp1 = new JPanel();
 		jp2.add(jl);
 		jp.add(jp2);
@@ -641,16 +657,16 @@ public class madnGUI {
 		jp.add(jp1);
 		jd.pack();
 		jd.setModalityType(ModalityType.APPLICATION_MODAL);
-		
+
 		jd.setTitle("Gewinner: " + gewinnerName);
 		jd.setResizable(false);
 		jd.setVisible(true);
-		
+
 		jd.setLocationRelativeTo(null);
-		
+
 		buttonWuerfel.setEnabled(false);
 		jbKIZug.setVisible(false);
-		
+
 	}
 
 	/**
@@ -683,7 +699,7 @@ public class madnGUI {
 		}
 		if (jl != null) {
 			Container parent = jb.getParent();
-			
+
 			if (parent != null) {
 				parent.remove(jb);
 			}
@@ -721,24 +737,27 @@ public class madnGUI {
 							+ e.getMessage());
 		}
 	}
-	public JMenuItem getSpeichern(){
+
+	public JMenuItem getSpeichern() {
 		return this.jmi;
 	}
-	
-	public JMenuItem getLaden(){
+
+	public JMenuItem getLaden() {
 		return this.jmi1;
 	}
-	
-	public JMenuItem getBeenden(){
+
+	public JMenuItem getBeenden() {
 		return this.jmi2;
 	}
-	public JMenuItem getNeuesSpiel(){
+
+	public JMenuItem getNeuesSpiel() {
 		return this.jmi3;
 	}
-	public JMenuItem getVersenden(){
+
+	public JMenuItem getVersenden() {
 		return this.jmi4;
 	}
-	
+
 	/**
 	 * @return Gibt den Button der ersten Spelfigur zurrueck
 	 */
@@ -821,11 +840,12 @@ public class madnGUI {
 		formatierer.schreibeInfo(s);
 		console.setText(formatierer.konstruiereHTML());
 	}
-	
-	public JButton getSpielneustartenJa(){
+
+	public JButton getSpielneustartenJa() {
 		return this.jbja;
 	}
-	public JButton getSpielneustartenNein(){
+
+	public JButton getSpielneustartenNein() {
 		return this.jbnein;
 	}
 
@@ -968,7 +988,7 @@ public class madnGUI {
 			diaGui.schliessen();
 		}
 	}
-	
+
 	public JButton getButtonKI() {
 		return this.jbKIZug;
 	}
@@ -976,7 +996,7 @@ public class madnGUI {
 	public void schliesseGewonnenDialog() {
 		jd.dispose();
 	}
-	
+
 	public void madnBeenden() {
 		this.jf.dispose();
 	}

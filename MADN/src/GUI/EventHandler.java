@@ -93,6 +93,8 @@ public class EventHandler implements ActionListener {
 			if (this.spiel != null) {
 				if (FileChooserGUI.dateiSpeicher(this.gui, (Spiel) this.spiel)) {
 					this.gui.setzeStatusNachricht("Spiel erfolgreich gespeichert");
+				} else {
+					this.gui.zeigeFehler("Speichern fehlgeschlagen.");
 				}
 			} else {
 				this.gui.zeigeFehler("Kann nicht speichern da noch kein Spiel existiert.");
@@ -176,7 +178,51 @@ public class EventHandler implements ActionListener {
 		if (source == this.gui.getBeenden()) {
 			this.gui.madnBeenden();
 		}
+		
+		if (source == this.gui.jbDebWuerf) {
+			this.verarbeiteDebugWuerfeln();
+		}
 
+	}
+
+	private void verarbeiteDebugWuerfeln() {
+		if (this.spiel == null) {
+			this.logFehler("Kann jetzt nicht wuerfeln, es gibt noch kein Spiel!");
+			return;
+		} else {
+
+			WuerfelErgebnis ergebnis = null;
+
+			try {
+				ergebnis = this.spiel.debugWuerfeln((int)this.gui.jsDebWuerf.getValue());
+			} catch (KannNichtWuerfelnException e) {
+				this.gui.zeigeFehler(e.getMessage());
+				return;
+			}
+
+			this.gui.setzeStatusNachricht("Es wurde "
+					+ ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+			this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
+
+			if (ergebnis.isKannZugAusfuehren() == false) {
+				this.logWarnung("Es kann kein Zug ausgefuehrt werden!");
+
+				if (ergebnis.isKannNochmalWuerfeln()) {
+					this.logWarnung("Bitte nochmal wuerfeln.");
+				} else {
+					this.logWarnung("Naechster Spieler ist dran.");
+					this.gui.setzeSpielerAmZug(this.spiel
+							.getSpielerAmZugFarbe().name());
+
+					// Hier ist im Spiel schon der naechste Spieler gesetzt
+					if (this.spiel.isSpielerAmZugKI()) {
+						this.neachsterSpielerAnDerReihe();
+					}
+				}
+			}
+
+		}
+		
 	}
 
 	private void verarbeiteKIZug(Object source) {
@@ -273,6 +319,7 @@ public class EventHandler implements ActionListener {
 		JButton kiZug = this.gui.getButtonKI();
 
 		wuerfel.setEnabled(!this.spiel.isSpielerAmZugKI());
+		this.gui.jbDebWuerf.setEnabled(!this.spiel.isSpielerAmZugKI());
 		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
 		this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
 	}
@@ -389,9 +436,11 @@ public class EventHandler implements ActionListener {
 					this.gui.getButtonKI().setVisible(true);
 					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(false);
+					this.gui.jbDebWuerf.setEnabled(false);
 				} else {
 					JButton b = (JButton) this.gui.getButtonWuerfeln();
 					b.setEnabled(true);
+					this.gui.jbDebWuerf.setEnabled(true);
 				}
 			}
 		}
