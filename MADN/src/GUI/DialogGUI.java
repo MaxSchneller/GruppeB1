@@ -236,6 +236,9 @@ public class DialogGUI {
 		bgFarbe = new ButtonGroup();
 		
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.ROT)){
+			keineAuswahl = new JRadioButton("ROT");
+			keineAuswahl.setIcon(keine1);
+			keineAuswahl.setEnabled(false);
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {			
@@ -244,6 +247,9 @@ public class DialogGUI {
 			rotAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.BLAU)){
+			keineAuswahl = new JRadioButton("BLAU");
+			keineAuswahl.setIcon(keine1);
+			keineAuswahl.setEnabled(false);
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
@@ -252,6 +258,9 @@ public class DialogGUI {
 			blauAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GRUEN)){
+			keineAuswahl = new JRadioButton("GRÜN");
+			keineAuswahl.setIcon(keine1);
+			keineAuswahl.setEnabled(false);
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
@@ -260,11 +269,15 @@ public class DialogGUI {
 			gruenAuswahl.setSelected(true);
 		}
 		if (maingui.getEventHandler().isFarbeVergeben(FarbEnum.GELB)){
+			keineAuswahl = new JRadioButton("GELB");
+			keineAuswahl.setIcon(keine1);
+			keineAuswahl.setEnabled(false);
 			farbe.add(keineAuswahl);
 			bgFarbe.add(keineAuswahl);
 		}else {
 			farbe.add(gelbAuswahl);
 			bgFarbe.add(gelbAuswahl);
+			keineAuswahl.setEnabled(false);
 			gelbAuswahl.setSelected(true);
 		}
 		return farbe;
