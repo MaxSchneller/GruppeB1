@@ -27,7 +27,7 @@ public class FileChooserGUI {
 	public static Spiel dateiOeffnen(madnGUI gui)
 			throws ClassNotFoundException, IOException,
 			SpielerFarbeVorhandenException, SpielerNichtGefundenException {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser("./Dateien_Gespeichert");
 
 		// Erzeugung eines neuen Frames mit dem Titel "Dateiauswahl"
 		// JFrame jf = new JFrame("Dateiauswahl");
@@ -72,7 +72,7 @@ public class FileChooserGUI {
 	}
 
 	public static boolean dateiSpeicher(madnGUI gui, Spiel spiel) {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser("./Dateien_Gespeichert");
 //		// Erzeugung eines neuen Frames mit dem Titel "Dateiauswahl"
 //		JFrame jf = new JFrame("Dateiauswahl");
 //		// Wir setzen die Breite auf 450 und die Höhe 300 pixel

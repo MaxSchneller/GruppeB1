@@ -113,7 +113,7 @@ public class MailGUI {
 	
 	public String dateiFileChooser (){
 		
-		welcheDateiSenden = new JFileChooser();
+		welcheDateiSenden = new JFileChooser("./Dateien_Gespeichert");
 		welcheDateiSenden.setDialogType(JFileChooser.OPEN_DIALOG);
 		welcheDateiSenden.setFileFilter(new FileNameExtensionFilter("PDF","pdf"));
 		welcheDateiSenden.setFileFilter(new FileNameExtensionFilter("SER", "ser"));
