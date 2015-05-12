@@ -419,7 +419,7 @@ public class Spielbrett implements Serializable {
 				&& (figurAufRausZiehFeld.getFarbe() == figur.getFarbe())) {
 			// Eine seiner eigenen Figuren steht noch auf dem Feld
 			// Zug ist nicht beendet, da garantiert eine 6 gewuerfelt wurde
-			return new ZugErgebnis(false, false, null, false, null, null,
+			return new ZugErgebnis(false, true, null, false, null, null,
 					"Eine Figur der selben Farbe steht bereits auf dem Rausziehfeld");
 
 		} else {

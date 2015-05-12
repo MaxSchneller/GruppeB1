@@ -942,6 +942,7 @@ public class madnGUI {
 	 * Ruft ein neues Dialogfenster zur Abfrage der Spieleranzahl
 	 */
 	public void frageGewuenschteSpielerAnzahl() {
+		this.resetSpielfiguren();
 		this.spielerAnzahlGui = new SpielerAnzahlGUI(this.getEventHandler());
 	}
 
@@ -999,5 +1000,32 @@ public class madnGUI {
 
 	public void madnBeenden() {
 		this.jf.dispose();
+	}
+	
+	public void resetSpielfiguren() {
+		
+		for (int i = 0; i < this.normaleFelder.length; ++i) {
+			if (this.normaleFelder[i].getComponentCount() > 0) {
+				this.normaleFelder[i].remove(0);
+			}
+		}
+		
+		for (int i = 0; i < this.startfelder.length; ++i) {
+			for (int j = 0; j < this.startfelder[i].length; ++j) {
+				if (this.startfelder[i][j].getComponentCount() > 0) {
+					this.startfelder[i][j].remove(0);
+				}
+			}
+		}
+		
+		for (int i = 0; i < this.endfelder.length; ++i) {
+			for (int j = 0; j < this.endfelder[i].length; ++j) {
+				if (this.endfelder[i][j].getComponentCount() > 0) {
+					this.endfelder[i][j].remove(0);
+				}
+			}
+		}
+		
+		
 	}
 }

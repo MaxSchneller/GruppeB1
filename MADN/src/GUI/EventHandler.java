@@ -107,6 +107,7 @@ public class EventHandler implements ActionListener {
 				Spiel s = FileChooserGUI.dateiOeffnen(this.gui);
 				if (s != null) {
 					this.spiel = s;
+					this.gui.resetSpielfiguren();
 					this.neachsterSpielerAnDerReihe();
 
 					for (String[] fig : s.getAlleFigurenPositionen()) {
