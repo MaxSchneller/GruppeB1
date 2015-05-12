@@ -36,6 +36,7 @@ public class EventHandler implements ActionListener, WindowListener {
 	private int neuerSpielerNummer;
 	/** Anzahl der zu erstellenden Spieler */
 	private int spielerAnzahl = -1;
+	/** Die GUI die zum Versenden von Mails verwendet wird */
 	private MailGUI mailGUI;
 
 	private void setGui(madnGUI gui) {

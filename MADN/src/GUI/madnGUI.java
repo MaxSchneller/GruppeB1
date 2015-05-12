@@ -600,6 +600,9 @@ public class madnGUI {
 
 	}
 
+	/**
+	 * Erstellt den Dialog fuer einen KI Zug
+	 */
 	private void erstelleKIZugGui() {
 		this.kiZugDialog = new JDialog();
 		
@@ -784,6 +787,7 @@ public class madnGUI {
 	}
 
 	/**
+	 * @param farbe Die Farbe der Spielfigur
 	 * @return Gibt den Button der ersten Spelfigur zurrueck
 	 */
 	public Object getButtonFigur1(FarbEnum farbe) {
@@ -792,6 +796,7 @@ public class madnGUI {
 	}
 
 	/**
+	 * @param farbe Die Farbe der Spielfigur
 	 * @return Gibt den Button der zweiten Spelfigur zurrueck
 	 */
 	public Object getButtonFigur2(FarbEnum farbe) {
@@ -800,6 +805,7 @@ public class madnGUI {
 	}
 
 	/**
+	 * @param farbe Die Farbe der Spielfigur
 	 * @return Gibt den Button der dritten Spelfigur zurrueck
 	 */
 	public Object getButtonFigur3(FarbEnum farbe) {
@@ -808,6 +814,7 @@ public class madnGUI {
 	}
 
 	/**
+	 * @param farbe Die Farbe der Spielfigur
 	 * @return Gibt den Button der vierten Spelfigur zurrueck
 	 */
 	public Object getButtonFigur4(FarbEnum farbe) {
@@ -938,7 +945,7 @@ public class madnGUI {
 	/**
 	 * Setzt den Spieler der am Zug ist
 	 * 
-	 * @param name
+	 * @param farbe
 	 *            Die Farbe des Spielers
 	 */
 	public void setzeSpielerAmZug(String farbe) {
@@ -1008,7 +1015,10 @@ public class madnGUI {
 	public Object getNaechsterZugButton() {
 		return this.jbKIZug;
 	}
-
+	
+	/**
+	 * Schliess den Dialog zur Spielerdaten Abfrage
+	 */
 	public void schliesseSpielerDaten() {
 		if (this.diaGui != null) {
 			diaGui.schliessen();
@@ -1019,14 +1029,23 @@ public class madnGUI {
 		return this.jbKIZug;
 	}
 
+	/**
+	 * Schliesst den gewonnen Dialog
+	 */
 	public void schliesseGewonnenDialog() {
 		jd.dispose();
 	}
 
+	/**
+	 * Beendet das Spiel
+	 */
 	public void madnBeenden() {
 		this.jf.dispose();
 	}
 	
+	/**
+	 * Setzt alle Spielfiguren zurueck
+	 */
 	public void resetSpielfiguren() {
 		
 		for (int i = 0; i < this.normaleFelder.length; ++i) {
@@ -1054,10 +1073,16 @@ public class madnGUI {
 		
 	}
 
+	/**
+	 * Ziegt den Dialog fuer einen KI Zug
+	 */
 	public void zeigeKIZugDialog() {
 		this.kiZugDialog.setVisible(true);
 	}
 
+	/**
+	 * Versteckt den Dialog fuer einen KI Zug
+	 */
 	public void versteckeKIZugDialog() {
 		this.kiZugDialog.setVisible(false);
 	}

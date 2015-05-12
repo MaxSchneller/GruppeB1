@@ -14,6 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Eine GUI zum Versenden von Spielstaenden per Mail
+ */
 public class MailGUI {
 
 	private JDialog jd;
@@ -35,7 +38,11 @@ public class MailGUI {
 	public static void main(String[] args) throws IOException {
 		new MailGUI();
 	}
-
+	
+	/**
+	 * Erstellt eine neue MailGUI und zeigt diese an
+	 * @throws IOException
+	 */
 	public MailGUI() throws IOException {
 		try {
 			fensterFuerMailVersenden();
@@ -46,6 +53,9 @@ public class MailGUI {
 		}
 	}
 
+	/**
+	 * Setzt die verschiedenen Teile zusammen
+	 */
 	public void fensterFuerMailVersenden() {
 
 		jd = new JDialog();
@@ -111,6 +121,10 @@ public class MailGUI {
 		jd.setVisible(true);
 	}
 	
+	/**
+	 * Oeffnet einen FileChooserDialog
+	 * @return Die gewaehlte Datei als String oder null fall User abbricht
+	 */
 	public String dateiFileChooser (){
 		
 		welcheDateiSenden = new JFileChooser("./Dateien_Gespeichert");
