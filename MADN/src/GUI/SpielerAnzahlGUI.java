@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Dialog.ModalityType;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -89,9 +91,10 @@ public class SpielerAnzahlGUI {
 
 		jd.setContentPane(box);
 		jd.pack();
-		jd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		jd.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		jd.setResizable(false);
 		jd.setVisible(true);
+		
 		jd.setLocationRelativeTo(null);
 	}
 	

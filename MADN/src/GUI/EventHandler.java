@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import Spiel.iBediener;
 /**
  * Verarbeitet alle Events, welche von der GUI kommen
  */
-public class EventHandler implements ActionListener {
+public class EventHandler implements ActionListener, WindowListener {
 
 	/** Die GUI mit der gearbeitet wird */
 	private madnGUI gui;
@@ -69,7 +71,8 @@ public class EventHandler implements ActionListener {
 		this.verarbeiteFiguren(source);
 		this.verarbeiteSpielerAnzahl(source);
 
-		if (source == this.gui.getButtonKI()) {
+		if (source == this.gui.getButtonKI() || 
+				source == this.gui.kiZugButton) {
 			this.verarbeiteKIZug(source);
 		}
 
@@ -87,6 +90,7 @@ public class EventHandler implements ActionListener {
 		if (source == this.gui.getSpielneustartenNein()) {
 			this.neuerSpielerNummer = 0;
 			this.gui.schliesseGewonnenDialog();
+			this.gui.resetSpielfiguren();
 		}
 
 		if (source == this.gui.getSpeichern()) {
@@ -108,15 +112,17 @@ public class EventHandler implements ActionListener {
 				if (s != null) {
 					this.spiel = s;
 					this.gui.resetSpielfiguren();
-					this.neachsterSpielerAnDerReihe();
+					
 
 					for (String[] fig : s.getAlleFigurenPositionen()) {
 						this.gui.setzeSpielfigur(fig[0],
 								Integer.parseInt(fig[1]), fig[2]);
 					}
 
+					this.spielerAnzahl = s.getAlleFigurenPositionen().length / 4;
 					this.neuerSpielerNummer = s.getAlleFigurenPositionen().length / 4;
 					this.gui.setzeStatusNachricht("Spiel erfolgreich geladen");
+					this.neachsterSpielerAnDerReihe();
 				} else {
 					this.gui.zeigeFehler("Konnte Spiel nicht laden");
 				}
@@ -328,12 +334,17 @@ public class EventHandler implements ActionListener {
 
 		wuerfel.setEnabled(!this.spiel.isSpielerAmZugKI());
 		this.gui.jbDebWuerf.setEnabled(!this.spiel.isSpielerAmZugKI());
-		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
+//		kiZug.setVisible(this.spiel.isSpielerAmZugKI());
 		this.gui.setzeSpielerAmZug(this.spiel.getSpielerAmZugFarbe().name());
+		this.gui.jsDebWuerf.setEnabled(!this.spiel.isSpielerAmZugKI());
 		
 		if (this.spiel.isSpielerAmZugKI()) {
 			this.gui.jsDebWuerf.setValue(0);
+			this.gui.zeigeKIZugDialog();
+		} else {
+			this.gui.versteckeKIZugDialog();
 		}
+		kiZug.setVisible(false);
 	}
 
 	/**
@@ -348,7 +359,7 @@ public class EventHandler implements ActionListener {
 
 		WuerfelErgebnis ergebnis;
 		try {
-			int cheatWuerfel = (int) this.gui.jsDebWuerf.getValue();
+			int cheatWuerfel = (int) this.gui.kiSpinner.getValue();
 			if (cheatWuerfel == 0) {
 				ergebnis = this.spiel.sWuerfeln();
 			} else  {
@@ -466,6 +477,8 @@ public class EventHandler implements ActionListener {
 					b.setEnabled(true);
 					this.gui.jbDebWuerf.setEnabled(true);
 				}
+				
+				this.neachsterSpielerAnDerReihe();
 			}
 		}
 	}
@@ -619,6 +632,47 @@ public class EventHandler implements ActionListener {
 	 */
 	private void logKI(String s) {
 		this.logInfo(s);
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		this.gui.madnBeenden();
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

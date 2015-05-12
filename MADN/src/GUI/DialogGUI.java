@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -142,7 +143,7 @@ public class DialogGUI {
 		jd2.setContentPane(box1);
 		jd2.pack();
 		jd2.setLocationRelativeTo(null);
-		jd2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		jd2.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		jd2.setResizable(false);
 		jd2.setVisible(true);
 		

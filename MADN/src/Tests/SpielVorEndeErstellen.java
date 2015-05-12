@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
+import Kuenstliche_Intelligenz.KiTypEnum;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;

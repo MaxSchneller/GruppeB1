@@ -46,6 +46,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SpringLayout;
+import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 
 import Kuenstliche_Intelligenz.KiTypEnum;
@@ -95,6 +96,9 @@ public class madnGUI {
 	public final JButton jbDebWuerf = new JButton("Deb Wuerf");
 	public final JSpinner jsDebWuerf = new JSpinner(new SpinnerNumberModel(1, 0, 6,
 			1));
+	public final JButton kiZugButton = new JButton("KI Zug");
+	public final JSpinner kiSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 6, 1));
+	private JDialog kiZugDialog;
 
 	public static void main(String[] args) throws IOException {
 		// madnGUI GUI = new madnGUI();
@@ -591,7 +595,29 @@ public class madnGUI {
 		jMenu.add(jmi2);
 
 		jf.setVisible(true);
+		
+		this.erstelleKIZugGui();
 
+	}
+
+	private void erstelleKIZugGui() {
+		this.kiZugDialog = new JDialog();
+		
+		JPanel jp = new JPanel();
+		JLabel label = new JLabel("KI ist am Zug");
+		
+	
+		this.kiZugButton.addActionListener(getEventHandler());
+		jp.add(label);
+		jp.add(this.kiSpinner);
+		jp.add(this.kiZugButton);
+		
+		this.kiZugDialog.add(jp);
+		this.kiZugDialog.pack();
+		this.kiZugDialog.setLocationRelativeTo(null);;
+		this.kiZugDialog.setModalityType(ModalityType.APPLICATION_MODAL);
+		this.kiZugDialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		this.kiZugDialog.addWindowListener(this.getEventHandler());
 	}
 
 	/**
@@ -656,12 +682,11 @@ public class madnGUI {
 		jp1.add(jbnein);
 		jp.add(jp1);
 		jd.pack();
-		jd.setModalityType(ModalityType.APPLICATION_MODAL);
-
+	
 		jd.setTitle("Gewinner: " + gewinnerName);
 		jd.setResizable(false);
 		jd.setVisible(true);
-
+		jd.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		jd.setLocationRelativeTo(null);
 
 		buttonWuerfel.setEnabled(false);
@@ -1027,5 +1052,13 @@ public class madnGUI {
 		}
 		
 		
+	}
+
+	public void zeigeKIZugDialog() {
+		this.kiZugDialog.setVisible(true);
+	}
+
+	public void versteckeKIZugDialog() {
+		this.kiZugDialog.setVisible(false);
 	}
 }
