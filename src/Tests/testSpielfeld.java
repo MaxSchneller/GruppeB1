@@ -5,7 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.Spielbrett;
 import Spiel.Spielfeld;
 
@@ -13,7 +13,7 @@ import Spiel.Spielfeld;
 public class testSpielfeld {
 	
 	protected static Spielbrett s;
-	protected static Spiel sp = new Spiel("YOLO", FarbEnum.BLAU, null);
+	protected static SpielBean sp = new SpielBean("YOLO", FarbEnum.BLAU, null);
 	
 	@BeforeClass
 	public static void ganzVorher() {

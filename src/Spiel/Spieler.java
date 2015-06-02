@@ -19,7 +19,7 @@ public class Spieler implements Serializable {
 	/** Jeder Spieler hat seinen eigenen Wuerfel */
 	private Wuerfel wuerfel;
 	/** Das Spiel an dem dieser Spieler teilnimmt */
-	private Spiel spiel;
+	private SpielBean spiel;
 	/** Die Spielfiguren dieses Spielers */
 	private Spielfigur[] figuren=new Spielfigur[4];
 	/** Die KI dieses Spielers, falls eine vorhanden */
@@ -32,7 +32,7 @@ public class Spieler implements Serializable {
 	 * @param kiTyp Welche Art von KI diesen Spieler steuern soll (oder keine)
 	 * @param spiel Das Objekt Spiel
 	 */
-	public Spieler(Spiel spiel, String name, FarbEnum farbe, KiTypEnum kiTyp){
+	public Spieler(SpielBean spiel, String name, FarbEnum farbe, KiTypEnum kiTyp){
 		this.setSpiel(spiel);
 		this.setName(name);
 		this.setFarbe(farbe);
@@ -70,7 +70,7 @@ public class Spieler implements Serializable {
 	 * @param farbe Die Farbe der Spielers, aus dem Farbenum
 	 * @param spiel das Objekt Spiel
 	 */
-	public Spieler(Spiel spiel, String name, FarbEnum farbe){
+	public Spieler(SpielBean spiel, String name, FarbEnum farbe){
 		this(spiel, name, farbe, null);
 	}
 	
@@ -78,7 +78,7 @@ public class Spieler implements Serializable {
 	 * Setter fuer Spiel
 	 * @param spiel
 	 */
-	private void setSpiel(Spiel spiel) {
+	private void setSpiel(SpielBean spiel) {
 		if (spiel != null) {
 			this.spiel = spiel;
 		} else {

@@ -9,16 +9,16 @@ import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.ZugErgebnis;
 
 public class KI_AggressivTest {
 
-	private Spiel spiel;
+	private SpielBean spiel;
 
 	@Before
 	public void setUp() throws Exception {
-		this.spiel = new Spiel("KI_Aggro", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
+		this.spiel = new SpielBean("KI_Aggro", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
 	}
 
 	@Test

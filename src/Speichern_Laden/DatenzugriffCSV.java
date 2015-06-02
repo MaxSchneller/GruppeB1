@@ -12,7 +12,7 @@ import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 
 /**
  * Die Klasse DatenzugriffCSV, welches das Interface iDatenzugriff und Serializable implementiert.
@@ -29,10 +29,10 @@ public class DatenzugriffCSV implements iDatenzugriff {
 	
 		String dateiPfad = dateipfad;
 		
-		if (spiel instanceof Spiel) {
+		if (spiel instanceof SpielBean) {
 			
 			BufferedWriter bw = null;
-			Spiel s = (Spiel)spiel;
+			SpielBean s = (SpielBean)spiel;
 		
 			try {
 				bw = new BufferedWriter(new FileWriter(dateiPfad));
@@ -62,7 +62,7 @@ public class DatenzugriffCSV implements iDatenzugriff {
 		
 		BufferedReader br = new BufferedReader(new FileReader(dateiPfad));
 		boolean wurdeSpielErstellt = false;
-		Spiel var = null;
+		SpielBean var = null;
 		
 		while(br.ready()){
 			String zeile = br.readLine();
@@ -73,7 +73,7 @@ public class DatenzugriffCSV implements iDatenzugriff {
 				FarbEnum farbe = FarbEnum.vonString(teile[1].trim());
 				KiTypEnum typ = KiTypEnum.vonString(teile[2].trim());
 				if(wurdeSpielErstellt == false){
-					var = new Spiel(name, farbe, typ);
+					var = new SpielBean(name, farbe, typ);
 					wurdeSpielErstellt = true;
 				} else {
 					var.spielerHinzufuegen(name, farbe, typ);

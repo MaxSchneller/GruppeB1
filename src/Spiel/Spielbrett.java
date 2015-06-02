@@ -12,7 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class Spielbrett implements Serializable {
 
-	private Spiel spiel;
+	private SpielBean spiel;
 
 	private Spielfeld[] regulaereFelder = new Spielfeld[40];
 
@@ -23,7 +23,7 @@ public class Spielbrett implements Serializable {
 	 * Konstruktor des Spielbretts
 	 * @param spiel Das Objekt Speil
 	 */
-	public Spielbrett(Spiel spiel) {
+	public Spielbrett(SpielBean spiel) {
 		setSpiel(spiel);
 		setStartfelderID();
 		setEndfelderID();
@@ -37,7 +37,7 @@ public class Spielbrett implements Serializable {
 	 * Setter fuer Spiel
 	 * @param spiel
 	 */
-	private void setSpiel(Spiel spiel) {
+	private void setSpiel(SpielBean spiel) {
 		if (spiel == null) {
 			throw new IllegalArgumentException();
 		}

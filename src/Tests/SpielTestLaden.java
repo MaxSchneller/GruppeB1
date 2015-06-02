@@ -10,7 +10,7 @@ import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.iBediener;
 
 
@@ -23,7 +23,7 @@ public class SpielTestLaden {
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
 		// Den Speicherstand (Selialisiert) laden
-		iBediener s1 = (Spiel)id.spielLaden("Dateien_Gespeichert/test.ser");
+		iBediener s1 = (SpielBean)id.spielLaden("Dateien_Gespeichert/test.ser");
 
 		String[] ausgabe = s1.getSpieler();
 		System.out.println("Serialisiert:\n===================");
@@ -46,7 +46,7 @@ public class SpielTestLaden {
 		}
 
 		// Den Speicherstand (CVS) laden
-		iBediener var = (Spiel)id1.spielLaden("Dateien_Gespeichert/test.csv");
+		iBediener var = (SpielBean)id1.spielLaden("Dateien_Gespeichert/test.csv");
 
 		String[] ausgabe1 = var.getSpieler();
 		System.out.println("CSV:\n====================");

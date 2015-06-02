@@ -8,7 +8,7 @@ import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.WuerfelErgebnis;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
@@ -24,7 +24,7 @@ public class SpielTest {
 	public static void main(String[] args)
 			throws SpielerFarbeVorhandenException, IOException,
 			SpielerNichtGefundenException, KannNichtWuerfelnException {
-		iBediener s1 = new Spiel("Martin", FarbEnum.ROT, KiTypEnum.AGGRESIV);
+		iBediener s1 = new SpielBean("Martin", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 		s1.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.DEFENSIV
 				);
 

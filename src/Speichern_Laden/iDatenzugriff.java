@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 
 /**
  * Ueber dieses Interface wird der Zugriff auf die Daten, die zu speichern oder laden sind bedient.

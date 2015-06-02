@@ -5,18 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.Spieler;
 import Spiel.Spielfeld;
 import Spiel.Spielfigur;
 
 
 public class testSpieler {
-	protected Spiel spiel;
+	protected SpielBean spiel;
 	
 	@Before
 	public void vorher() {
-		this.spiel = new Spiel("Heinz", FarbEnum.BLAU,null);
+		this.spiel = new SpielBean("Heinz", FarbEnum.BLAU,null);
 	}
 	
 	@Test

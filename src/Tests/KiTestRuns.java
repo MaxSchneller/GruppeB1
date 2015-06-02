@@ -5,7 +5,7 @@ import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Spiel.FarbEnum;
 import Kuenstliche_Intelligenz.KiTypEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.WuerfelErgebnis;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
@@ -23,7 +23,7 @@ public class KiTestRuns {
 	@Test
 	public void test() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		for (int i = 0; i < 100; i++) {
-			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
+			iBediener s = new SpielBean("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.AGGRESIV);

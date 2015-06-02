@@ -9,7 +9,7 @@ import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
 
@@ -20,7 +20,7 @@ public class iBedienerTest {
 	
 	@Before
 	public void vorher() {
-		s = new Spiel("Heinz", FarbEnum.BLAU, null);
+		s = new SpielBean("Heinz", FarbEnum.BLAU, null);
 	}
 	
 	

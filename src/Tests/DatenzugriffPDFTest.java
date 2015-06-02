@@ -14,16 +14,16 @@ import Fehler_Exceptions.SpielerNichtGefundenException;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 
 public class DatenzugriffPDFTest {
 
-	protected Spiel spiel;
+	protected SpielBean spiel;
 
 	@Before
 	public void before() throws SpielerFarbeVorhandenException,
 			SpielerNichtGefundenException {
-		this.spiel = new Spiel("Foxtrott", FarbEnum.BLAU, null);
+		this.spiel = new SpielBean("Foxtrott", FarbEnum.BLAU, null);
 		spiel.spielerHinzufuegen("Uniform", FarbEnum.GELB, null);
 		spiel.spielerHinzufuegen("Charlie", FarbEnum.ROT, null);
 		spiel.spielerHinzufuegen("Kilo", FarbEnum.GRUEN, null);
@@ -48,7 +48,7 @@ public class DatenzugriffPDFTest {
 		d.spielSpeichern(spiel, "Dateien_Gespeichert/test.pdf");
 		String[][] alleFigurenPositionen = spiel.getAlleFigurenPositionen();
 
-		Spiel geladen = (Spiel) d.spielLaden("Dateien_Gespeichert/test.pdf");
+		SpielBean geladen = (SpielBean) d.spielLaden("Dateien_Gespeichert/test.pdf");
 
 		String[][] alleFigurenPositionen2 = geladen.getAlleFigurenPositionen();
 

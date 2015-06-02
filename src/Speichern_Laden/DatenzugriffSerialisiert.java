@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import Spiel.Spiel;
+import Spiel.SpielBean;
 
 /**
  * Die Klasse DatenzugriffSerialisiert, welches das Interface iDatenzugriff und
@@ -54,7 +54,7 @@ public class DatenzugriffSerialisiert implements iDatenzugriff {
 		try {
 			ois = new ObjectInputStream(new FileInputStream(dateipfad));
 			Object o = ois.readObject();
-			if (o instanceof Spiel) {
+			if (o instanceof SpielBean) {
 				return o;
 			} else {
 				throw new RuntimeException("Fehler!");

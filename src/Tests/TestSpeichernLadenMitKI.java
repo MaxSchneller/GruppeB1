@@ -15,7 +15,7 @@ import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.WuerfelErgebnis;
 import Spiel.ZugErgebnis;
 import Spiel.iBediener;
@@ -29,7 +29,7 @@ public class TestSpeichernLadenMitKI {
 	@Test
 	public void test() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException {
 		for (int i = 0; i < 100; i++) {
-			iBediener s = new Spiel("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
+			iBediener s = new SpielBean("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.DEFENSIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.AGGRESIV);
@@ -49,9 +49,9 @@ public class TestSpeichernLadenMitKI {
 						
 						FarbEnum spielerAmZugFarbe = s.getSpielerAmZugFarbe();
 						String[][] figurenVorLaden = s.getAlleFigurenPositionen();
-						dzg.spielSpeichern((Spiel)s, "Dateien_Gespeichert/kiTest.ser");
+						dzg.spielSpeichern((SpielBean)s, "Dateien_Gespeichert/kiTest.ser");
 						
-						s = (Spiel)dzg.spielLaden("Dateien_Gespeichert/kiTest.ser");
+						s = (SpielBean)dzg.spielLaden("Dateien_Gespeichert/kiTest.ser");
 						String[][] figurenNachLaden = s.getAlleFigurenPositionen();
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());

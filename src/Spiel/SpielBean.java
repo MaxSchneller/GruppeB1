@@ -18,9 +18,45 @@ import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 /**
  * Die zentrale Managerklasse des Spiels
  */
-public class Spiel implements iBediener, Serializable {
+public class SpielBean implements iBediener, Serializable {
 
 	// Attribute
+
+	public ArrayList<Spieler> getTeilnehmendeSpieler() {
+		return teilnehmendeSpieler;
+	}
+
+	public void setTeilnehmendeSpieler(ArrayList<Spieler> teilnehmendeSpieler) {
+		this.teilnehmendeSpieler = teilnehmendeSpieler;
+	}
+
+	public boolean isKannWuerfeln() {
+		return kannWuerfeln;
+	}
+
+	public void setKannWuerfeln(boolean kannWuerfeln) {
+		this.kannWuerfeln = kannWuerfeln;
+	}
+
+	public boolean isKanZiehen() {
+		return kanZiehen;
+	}
+
+	public void setKanZiehen(boolean kanZiehen) {
+		this.kanZiehen = kanZiehen;
+	}
+
+	public int getWuerfelVersuche() {
+		return wuerfelVersuche;
+	}
+
+	public void setWuerfelVersuche(int wuerfelVersuche) {
+		this.wuerfelVersuche = wuerfelVersuche;
+	}
+
+	public Spieler getSpielerAmZug() {
+		return spielerAmZug;
+	}
 
 	/** Alle Spieler, die zur Zeit teilnehmen */
 	private ArrayList<Spieler> teilnehmendeSpieler = new ArrayList<Spieler>();
@@ -63,7 +99,7 @@ public class Spiel implements iBediener, Serializable {
 	}
 
 	/**
-	 * Setzt die Zahl die zuletzt gewürfelt wurde (muss zwischen eins und sechs
+	 * Setzt die Zahl die zuletzt gewuerfelt wurde (muss zwischen eins und sechs
 	 * sein)
 	 * 
 	 * @param zuleztGewuerfelt
@@ -131,7 +167,7 @@ public class Spiel implements iBediener, Serializable {
 	 * @param kiTyp
 	 *            KITyp des ersten Spielers
 	 */
-	public Spiel(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
+	public SpielBean(String spielerName, FarbEnum spielerFarbe, KiTypEnum kiTyp) {
 
 		Spieler ersterSpieler = new Spieler(this, spielerName, spielerFarbe,
 				kiTyp);
@@ -139,6 +175,13 @@ public class Spiel implements iBediener, Serializable {
 		this.setSpielerAmZug(ersterSpieler);
 		this.setSpielerAmZugIndex(0);
 		this.teilnehmendeSpieler.add(ersterSpieler);
+	}
+	
+	/**
+	 * Default Konstruktor fuer die Bean
+	 */
+	public SpielBean() {
+		// Macht nix
 	}
 
 	// iBediener overrides

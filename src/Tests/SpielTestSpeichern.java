@@ -10,7 +10,7 @@ import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.iBediener;
 
 public class SpielTestSpeichern {
@@ -18,7 +18,7 @@ public class SpielTestSpeichern {
 	public static void main (String [] args) throws ClassNotFoundException, SpielerNichtGefundenException, IOException, SpielerFarbeVorhandenException, KannNichtWuerfelnException{
 		
 		//Vorbedingungen
-		iBediener s = new Spiel("MADN", FarbEnum.BLAU, null);
+		iBediener s = new SpielBean("MADN", FarbEnum.BLAU, null);
 		s.spielerHinzufuegen("Maggus", FarbEnum.GELB, KiTypEnum.AGGRESIV);
 		s.spielerHinzufuegen("Peter", FarbEnum.ROT, null);
 		s.spielerHinzufuegen("Olga", FarbEnum.GRUEN, KiTypEnum.DEFENSIV);
@@ -45,10 +45,10 @@ public class SpielTestSpeichern {
 		iDatenzugriff id1 = new DatenzugriffCSV();
 		
 		//Als .ser speichern
-		id.spielSpeichern((Spiel)s, "Dateien_Gespeichert/test.ser");
+		id.spielSpeichern((SpielBean)s, "Dateien_Gespeichert/test.ser");
 		
 		//Als .csv speichern
-		id1.spielSpeichern((Spiel)s, "Dateien_Gespeichert/test.csv");
+		id1.spielSpeichern((SpielBean)s, "Dateien_Gespeichert/test.csv");
 		
 		}
 }

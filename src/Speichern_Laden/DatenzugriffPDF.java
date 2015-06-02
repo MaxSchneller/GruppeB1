@@ -23,7 +23,7 @@ import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 
 /**
  * Ermoeglicht das Speichern von Spielen via PDF
@@ -68,8 +68,8 @@ public class DatenzugriffPDF implements iDatenzugriff {
 
 	@Override
 	public void spielSpeichern(Object spiel, String dateipfad) throws IOException {
-		if (spiel instanceof Spiel) {
-			Spiel zuSpeicherndesSpiel = (Spiel) spiel;
+		if (spiel instanceof SpielBean) {
+			SpielBean zuSpeicherndesSpiel = (SpielBean) spiel;
 			Document document = new Document(new Rectangle(650f, 650f), 0,0,0,0);
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -125,7 +125,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 			 
 			 int spielerZahl = Integer.parseInt(info.get("spielerAnzahl"));
 			 
-			 Spiel s = null;
+			 SpielBean s = null;
 			 for (int i = 0; i < spielerZahl; ++i) {
 				 String spieler = info.get("Spieler" + i);
 				 String[] teile = spieler.split(" ; ");
@@ -135,7 +135,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				 KiTypEnum kiTyp = KiTypEnum.vonString(teile[2]);
 				 
 				 if (s == null) {
-					 s = new Spiel(name, farbe, kiTyp);
+					 s = new SpielBean(name, farbe, kiTyp);
 				 } else {
 					 s.spielerHinzufuegen(name, farbe, kiTyp);
 				 }
@@ -166,7 +166,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 	 * @param info Die info HashMap des documents
 	 * @param spiel Das zu speichernde Spiel
 	 */
-	private void speichereMeta(HashMap<String, String> info, Spiel spiel) {
+	private void speichereMeta(HashMap<String, String> info, SpielBean spiel) {
 		String[] spieler = spiel.getSpieler();
 		
 		info.put("spielerAnzahl", String.format("%d", spieler.length));
@@ -186,7 +186,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 	 * @throws DocumentException Etwas lief schief
 	 * @throws IOException Etwas lief schief
 	 */
-	private void speichereNamen(Spiel zuSpeicherndesSpiel, PdfWriter writer) throws DocumentException, IOException {
+	private void speichereNamen(SpielBean zuSpeicherndesSpiel, PdfWriter writer) throws DocumentException, IOException {
 		String[] spieler = zuSpeicherndesSpiel.getSpieler();
 		
 		for (String s : spieler) {
@@ -214,7 +214,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 	 * @throws IOException Etwas lief schief
 	 * @throws DocumentException Etwas lief schief
 	 */
-	private void speichereFiguren(Spiel zuSpeicherndesSpiel, Document doc) throws MalformedURLException, IOException, DocumentException {
+	private void speichereFiguren(SpielBean zuSpeicherndesSpiel, Document doc) throws MalformedURLException, IOException, DocumentException {
 		String[] spieler = zuSpeicherndesSpiel.getSpieler();
 		
 		for (String s : spieler) {

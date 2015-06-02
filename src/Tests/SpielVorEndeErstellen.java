@@ -12,14 +12,14 @@ import Kuenstliche_Intelligenz.KiTypEnum;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.FarbEnum;
-import Spiel.Spiel;
+import Spiel.SpielBean;
 import Spiel.iBediener;
 
 public class SpielVorEndeErstellen {
 
 	@Test
 	public void test() throws SpielerFarbeVorhandenException, SpielerNichtGefundenException, IOException {
-		iBediener b = new Spiel("Spieler1", FarbEnum.ROT, null);
+		iBediener b = new SpielBean("Spieler1", FarbEnum.ROT, null);
 			b.spielerHinzufuegen("Spieler2", FarbEnum.BLAU, null);
 			b.spielerHinzufuegen("Spieler3", FarbEnum.GELB, null);
 			b.spielerHinzufuegen("Spieler4", FarbEnum.GRUEN, null);
