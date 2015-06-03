@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Willkommen bei Mensch ärgere dich nicht</title>
 </head>
 <body>
 <%
@@ -18,7 +18,7 @@
 		Integer maximaleSpieler = (Integer) ctx.getAttribute("maximaleSpieleranzahl");
 		
 		if (erstellteSpieler >= maximaleSpieler) {
-			session.setAttribute("fehlerArg", "Es können keine weiteren Spieler beitreten");
+			session.setAttribute("fehlerArg", "Es kÃ¶nnen keine weiteren Spieler beitreten");
 			response.sendRedirect("fehler.jsp");
 		}
 	}

@@ -4,10 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Oh shoot</title>
 </head>
 <body>
-<h1>Etwas lief schief ;) Nachricht:</h1>
-<p><% out.println(session.getAttribute("fehlerArg")); %></p>
+<h1>Etwas lief schief ;)</h1>
+<p>
+<%
+String nachricht = (String) session.getAttribute("fehelerArg");
+if (nachricht != null)
+	out.println("Nachricht: " + nachricht);
+%></p>
 </body>
 </html>
