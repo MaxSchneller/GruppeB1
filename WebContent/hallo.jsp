@@ -18,7 +18,7 @@
 		Integer maximaleSpieler = (Integer) ctx.getAttribute("maximaleSpieleranzahl");
 		
 		if (erstellteSpieler >= maximaleSpieler) {
-			session.setAttribute("fehlerArg", "Es kÃ¶nnen keine weiteren Spieler beitreten");
+			session.setAttribute("fehlerArg", "Es können keine weiteren Spieler beitreten");
 			response.sendRedirect("fehler.jsp");
 		}
 	}
