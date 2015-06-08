@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Neues Spiel erstellen</title>
+		<style type="text/css">
+			body {
+				background-color: #F5F5F5;
+				font-family: Arial;
+				position: absolute;	
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>Neues Spiel erstellen</h1>
+		<p>Da noch kein Spiel existiert, wechlem Sie beitreten können, müssen Sie eins erstellen.</p>
+		
+		<form action="TypAuswahl_Anzahl" method="post">
+			
+			<p>
+				<label for="spieleranzahl"><b>Spieleranzahl</b></label>
+				<select name="spieleranzahl">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</p>
+			
+			<p>
+				<label for="eigenerName"><b>Eigener Name</b></label>
+				<input name="eigenerName" value="Spieler 1" />
+				<br/>
+			</p>
+
+			<p>
+				<label for="eigeneFarbe"><b>Eigene Farbe</b></label>
+				<input type="radio" name="eigeneFarbe" value="rot" style="background:#FF0000" checked>Rot</input>
+				<input type="radio" name="eigeneFarbe" value="blau" style="background:#0000FF">Blau</input>
+				<input type="radio" name="eigeneFarbe" value="gruen" style="background:#00FF00">Grün</input>
+				<input type="radio" name="eigeneFarbe" value="gelb" style="background:#FFFF00">Gelb</input>	
+			</p>
+			
+			<p>
+				<label for="spieler1"><b>Eigener Typ</b></label>
+				<input type="radio" name="spieler1" value="keineKI" checked>Keine KI</input>
+				<input type="radio" name="spieler1" value="aggressiveKI">Aggressive KI</input>
+				<input type="radio" name="spieler1" value="defensiveKI">Defensive KI</input>
+			</p>
+			
+			<br/>
+			<input type="submit" value="weiter..." />
+		</form>
+
+</body>
+
+</html>
