@@ -8,6 +8,7 @@
 </head>
 <body>
 <img style="position: absolute; top: 0px; left: 0px;"src="images/madn.jpg" />
+
 <%@ include file="startfeldPositionen.jsp" %>
 <%@ include file="endfeldPositionen.jsp" %>
 <%@ include file="feldPositionen.jsp" %>
@@ -60,8 +61,11 @@
 %>
 
 </div>
-<div style="position: absolute; top:700px;">
+<div style="position: absolute; top:650px; left:0px;">
 <%@ include file="spielfeld-footer.jsp" %>
+</div>
+<div style="position: absolute; top:0px; left:650px;">
+<%@ include file="menu.jsp" %>
 </div>
 </body>
 </html>

@@ -33,8 +33,8 @@ public class NeuesSpielServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[][] posis = { {"ROT", "0", "S0 ROT" },
-							{"BLAU", "1", "20"}};
+		String[][] posis = { {"ROT", "0", "S1 ROT" },{"BLAU", "1", "S1 BLAU"},{"GRUEN", "3", "E2 BLAU"},{"BLAU", "1", "E3 BLAU"}};
+		
 		request.getServletContext().setAttribute("positionen", posis);
 		response.sendRedirect("spielfeld.jsp");
 	}

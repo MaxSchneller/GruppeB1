@@ -1,2 +1,11 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Footer</title>
+  </head>
+  <body>
 
-<h1>Hallo!</h1>
+
+    <textarea readonly cols="79" rows="5"></textarea>
+  </body>
+</html>
