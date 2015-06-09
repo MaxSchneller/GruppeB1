@@ -1,11 +1,13 @@
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Footer</title>
-  </head>
-  <body>
+
+  <div>
 
 
-    <textarea readonly cols="79" rows="5"></textarea>
-  </body>
-</html>
+    <textarea readonly cols="79" rows="5">
+    <%
+    String status = (String)request.getAttribute("status");
+    if (status != null) {
+    	out.println(status);
+    }
+    %>
+    </textarea>
+  </div>
