@@ -42,12 +42,14 @@ public class TypAuswahl_Anzahl extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer anzahlSpieler = (Integer) request.getAttribute("spieleranzahl");
+		String anzahlSpielerString = request.getParameter("spieleranzahl");
 		String nameSpieler1 = request.getParameter("eigenerName");
 		String farbe = request.getParameter("eigeneFarbe");
 		String typ = request.getParameter("spieler1");
 		response.setContentType("text/html;charset=ISO-8859-1");
 		PrintWriter out = response.getWriter();
+		
+		int anzahlSpieler = Integer.parseInt(anzahlSpielerString);
 		
 		if (anzahlSpieler > 1){
 			//Head

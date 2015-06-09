@@ -51,7 +51,7 @@ public class SpeilPruefen extends HttpServlet {
 		if (spielExistiert == false){
 			//Fenster um ein Spiel zu erstellen
 		}else{
-			if () {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
+			if (true) {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
 			//Fenster um Spiel beitreten
 		}
 		
@@ -59,4 +59,5 @@ public class SpeilPruefen extends HttpServlet {
 		
 	}
 
+}
 }
