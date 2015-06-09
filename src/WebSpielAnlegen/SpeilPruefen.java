@@ -49,7 +49,7 @@ public class SpeilPruefen extends HttpServlet {
 		boolean spielExistiert = false;
 		
 		if (spielExistiert == false){
-			//Fenster um ein Spiel zu erstellen
+			response.sendRedirect("Login_HTML/neuesSpiel.html");
 		}else{
 			if (true) {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
 			//Fenster um Spiel beitreten
