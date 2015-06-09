@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gruppe B1
  *
  */
-@WebServlet("/ErsterSpieler")
+@WebServlet("/SpeilPruefen")
 public class SpeilPruefen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
@@ -51,7 +51,7 @@ public class SpeilPruefen extends HttpServlet {
 		if (spielExistiert == false){
 			//Fenster um ein Spiel zu erstellen
 		}else{
-			if () // Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
+			if () {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
 			//Fenster um Spiel beitreten
 		}
 		

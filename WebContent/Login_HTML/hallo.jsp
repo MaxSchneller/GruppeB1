@@ -7,10 +7,11 @@
 <title>Willkommen bei Mensch ärgere dich nicht</title>
 </head>
 <body>
+<h1 style="color:red">Achtung: Seite leitet noch direkt an Servlet weiter</h1>
 <%
 	if (request.getServletContext().getAttribute("spielExistiert") == null) {
 		out.println("<h1>Es existiert noch kein Spiel</h1>");
-		out.println("<a href=\"neuesSpiel.jsp\">Neues Spiel</a>");
+		out.println("<a href=\"../NeuesSpielServlet\">Neues Spiel</a>");
 	} else {
 		ServletContext ctx = request.getServletContext();
 		
