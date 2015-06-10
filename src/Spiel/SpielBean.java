@@ -543,4 +543,16 @@ public class SpielBean implements iBediener, Serializable {
 		return this.zuleztGewuerfelt;
 	}
 
+	@Override
+	public String getSpielerName(FarbEnum farbe)
+			throws SpielerNichtGefundenException {
+		for (Spieler s : this.teilnehmendeSpieler) {
+			if (s.getFarbe() == farbe) {
+				return s.getName();
+			}
+		}
+		
+		throw new SpielerNichtGefundenException(farbe);
+	}
+
 }
