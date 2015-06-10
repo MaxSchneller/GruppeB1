@@ -26,215 +26,33 @@
 <%@ include file="feldPositionen.jsp" %>
 
 <div style="position: absolute; top: 0px; left: 0px; width: 650px; height: 650px;">
-<%
-	ServletContext ctx = request.getServletContext();
-	//farbe, id, feld
-	String[][] positionen = (String[][])ctx.getAttribute("positionen");
-	
-	if (positionen != null) {
-		
-		for (int i = 0; i < positionen.length; ++i) {
-			String farbeLC = positionen[i][0].toLowerCase();
-			String feldID = positionen[i][2];
-			
-			FarbEnum en = FarbEnum.vonString(farbeLC.toUpperCase());
-			
-			int xpos = 0;
-			int ypos = 0;
-			
-			try {
-				
-				int feldNummer = Integer.parseInt(feldID);
-				--feldNummer;
-				xpos = felder[feldNummer][0];
-				ypos = felder[feldNummer][1];
-			} catch (NumberFormatException e) {
-				String[] split = feldID.split(" ");
-				
-				if (split[0].startsWith("S")) {
-					
-					int feldNummer = Integer.parseInt(split[0].substring(1));
-					--feldNummer;
-					xpos = startFelder[en.ordinal()][feldNummer][0];
-					ypos = startFelder[en.ordinal()][feldNummer][1];
-					
-				} else {
-					int feldNummer = Integer.parseInt(split[0].substring(1));
-					--feldNummer;
-					xpos = endFelder[en.ordinal()][feldNummer][0];
-					ypos = endFelder[en.ordinal()][feldNummer][1];
-				}
-			}
-			
-			out.println("<a href='zug.jsp?"
-					+ "farbe=" + positionen[i][0]
-					+ "&id="+ positionen[i][1] + "'>" 
-					+ "<img src='images/" + farbeLC + ".png'"
-					+" style='position: absolute; top: " + ypos + "px;"
-					+ " left: " + xpos + "px;'/></a>");
-		}
-	} else {
-		out.println("<p>Keine posis!</p>");
-	}
-	
-%>
 	
 	<table style="position: absolute; top: 38px; left: 38px; border-collapse: collapse;">
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
-	<tr>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-		<td><img src="images/rot.png"></td>
-	</tr>
-	
+<%
+	String[][] feld = (String[][])request.getServletContext().getAttribute("positionen");
+
+	for(int i = 0; i < 11; i++){
+		out.println("<tr>");
+		for(int j = 0; j < 11; j++){
+			boolean istGesetzt = false;
+			for(int h = 0; h < feld.length; h++){
+				int feldX = Integer.parseInt(feld[h][2]);
+				int feldY = Integer.parseInt(feld[h][3]);
+				feldY = Math.abs(feldY-10);
+					if(feldX == j && feldY == i){
+						out.println("<td><a href=\"zug.jsp?farbe=" + feld[h][0].toUpperCase() +
+								"&id=" + feld[h][1] + "\"><img src=\"images/" + feld[h][0].toLowerCase()+ ".png\"/></a></td>");
+						istGesetzt = true;
+						break;
+					} 	
+			}
+			if(istGesetzt == false){
+				out.println("<td><img src=\"images/leer.png\"></td>");
+			}
+		}
+		out.println("</tr>");
+	}
+%>
 	</table>
 </div>
 <div style="position: absolute; top:650px; left:0px;">

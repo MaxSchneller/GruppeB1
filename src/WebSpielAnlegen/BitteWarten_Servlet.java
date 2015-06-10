@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Servlets.HilfsMethoden;
 import Spiel.iBediener;
 
 /**
@@ -41,12 +42,23 @@ public class BitteWarten_Servlet extends HttpServlet {
 		
 		ServletContext ctx = request.getServletContext();
 		
+		iBediener spiel = (iBediener)ctx.getAttribute("spiel");
+		String[][]felder = new String [spiel.getAlleFigurenPositionen().length][4];
+		
+		String[][]fields = spiel.getAlleFigurenPositionen();
+		
+		for(int i = 0; i < fields.length; i ++){
+			felder[i][0] = fields[i][0];
+			felder[i][1] = fields[i][1];
+			felder[i][2] = String.format("%d",HilfsMethoden.getSpalteFeld(fields[i][2]));
+			felder[i][3] = String.format("%d",HilfsMethoden.getReiheFeld(fields[i][2]));
+		}
+		
 		Integer anzahlBeigetreten = (Integer)ctx.getAttribute("anzahlBeitreten");
 		Integer spielerAnzahl = (Integer)ctx.getAttribute("spielerAnzahl");
 		
 		if (anzahlBeigetreten >= spielerAnzahl) {
-			iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
-			request.getServletContext().setAttribute("positionen", spiel.getAlleFigurenPositionen());
+			ctx.setAttribute("positionen", felder);
 			response.sendRedirect("spielfeld.jsp");
 		} else {
 			response.sendRedirect("Login_HTML/bitteWarten.html");
