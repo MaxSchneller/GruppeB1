@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Spiel.*" %>
-    <%
+    <%--
+    
     	Object farbe = session.getAttribute("farbe");
     
     	if (farbe == null) {
     		session.setAttribute("fehlerArg", "Sie können das Spielfeld nicht einsehen, da Sie nicht mitspielen");
     		response.sendRedirect("fehler.jsp");
     	}
-    %>
+    --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>td,table{border-collapse: collapse; padding: 0px;}</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -74,8 +76,166 @@
 	} else {
 		out.println("<p>Keine posis!</p>");
 	}
+	
 %>
-
+	
+	<table style="position: absolute; top: 38px; left: 38px; border-collapse: collapse;">
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	<tr>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+		<td><img src="images/rot.png"></td>
+	</tr>
+	
+	</table>
 </div>
 <div style="position: absolute; top:650px; left:0px;">
 <%@ include file="spielfeld-footer.jsp" %>
