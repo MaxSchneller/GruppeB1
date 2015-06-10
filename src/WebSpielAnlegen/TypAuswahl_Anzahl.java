@@ -42,35 +42,28 @@ public class TypAuswahl_Anzahl extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer anzahlSpieler = (Integer) request.getAttribute("spieleranzahl");
+		String anzahlSpielerString = request.getParameter("spieleranzahl");
 		String nameSpieler1 = request.getParameter("eigenerName");
 		String farbe = request.getParameter("eigeneFarbe");
 		String typ = request.getParameter("spieler1");
 		response.setContentType("text/html;charset=ISO-8859-1");
 		PrintWriter out = response.getWriter();
 		
-		if (anzahlSpieler > 1){
-			//Head
-			out.println("<html><head><title>Gegner erstellen</title><style type='text/css'>body {background-color: #F5F5F5;font-family: Arial;position: absolute;}</style></head><body>");
+		int anzahlSpieler = Integer.parseInt(anzahlSpielerString);
 		
-			//Ueberschrift
-			out.println("<h1>Hallo " + nameSpieler1 +"!</h1><h2>Gegnertypen</h1><p>Entscheiden Sie welche Typer Ihre Gegner sein sollten.</p>");
+		if (anzahlSpieler > 1){
 			
 			//2 Spieler
 			if (anzahlSpieler == 2){
-				out.println("<p><label for='spieler2'>Spieler 2</label><input type='radio' name='spieler2' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler2' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler2' value='defensiveKI'>Defensive KI</input></p>");
+				response.sendRedirect("Login_HTML/TypAuswahl_2Spieler.html");
 			}
 			//3 Spieler
-			if (anzahlSpieler == 2){
-				out.println("<p><label for='spieler2'>Spieler 2</label><input type='radio' name='spieler2' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler2' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler2' value='defensiveKI'>Defensive KI</input></p>");
-				out.println("<p><label for='spieler3'>Spieler 3</label><input type='radio' name='spieler3' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler3' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler3' value='defensiveKI'>Defensive KI</input></p>");
+			else if (anzahlSpieler == 3){
+				response.sendRedirect("Login_HTML/TypAuswahl_3Spieler.html");
 			}
 			//4 Spieler
-			if (anzahlSpieler == 3){
-				out.println("<p><label for='spieler2'>Spieler 2</label><input type='radio' name='spieler2' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler2' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler2' value='defensiveKI'>Defensive KI</input></p>");
-				out.println("<p><label for='spieler3'>Spieler 3</label><input type='radio' name='spieler3' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler3' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler3' value='defensiveKI'>Defensive KI</input></p>");
-				out.println("<p><label for='spieler4'>Spieler 4</label><input type='radio' name='spieler4' value='keineKI' checked>Keine KI</input><input type='radio' name='spieler4' value='aggressiveKI'>Aggressive KI</input><input type='radio' name='spieler4' value='defensiveKI'>Defensive KI</input></p>");
-
+			else if (anzahlSpieler == 4){
+				response.sendRedirect("Login_HTML/TypAuswahl_4Spieler.html");
 			}
 			
 			
