@@ -90,5 +90,13 @@ public interface iBediener {
 	 * @return True falls die Farbe vergeben ist, sonst false
 	 */
 	public boolean isFarbeVergeben(FarbEnum farbe);
+	
+	/**
+	 * @param farbe Die Farbe des Spielers, dessen Name gesucht wird
+	 * @return Den Namen des Spielers mit der angegebenen Farbe
+	 * @throws SpielerNichtGefundenException Der Spieler mit der angegebenen Farbe existiert nicht
+	 */
+	public String getSpielerName(FarbEnum farbe) throws SpielerNichtGefundenException;
+	
 
 }

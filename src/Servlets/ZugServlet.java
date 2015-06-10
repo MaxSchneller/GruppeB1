@@ -63,7 +63,7 @@ public class ZugServlet extends HttpServlet {
 		} else {
 			
 			if (sessionFarbe != spiel.getSpielerAmZugFarbe()) {
-				fuegeStatusHinzu(request, "Spieler " + sessionFarbe + "kann nicht ziehen, da er nicht dran ist");
+				HilfsMethoden.fuegeStatusHinzu(request, "Spieler " + sessionFarbe + "kann nicht ziehen, da er nicht dran ist");
 				response.sendRedirect("spielfeld.jsp");
 				return;
 			}
@@ -81,23 +81,11 @@ public class ZugServlet extends HttpServlet {
 			
 			ctx.setAttribute("posis", spiel.getAlleFigurenPositionen());
 			
-			fuegeStatusHinzu(request, ergebnis.getNachricht());
+			HilfsMethoden.fuegeStatusHinzu(request, ergebnis.getNachricht());
 			response.sendRedirect("spielfeld.jsp");
 		}
 	}
 	
-	private void fuegeStatusHinzu(HttpServletRequest request, String nachricht) {
-		ServletContext ctx = request.getServletContext();
-		String status = (String)ctx.getAttribute("status");
-		
-		if (status == null) {
-			status = "";
-		}
-		
-		String neuerStatus = nachricht + "<br/>" + status;
-		
-		ctx.setAttribute("status", neuerStatus);
-		
-	}
+	
 
 }
