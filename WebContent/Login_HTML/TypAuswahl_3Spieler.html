@@ -9,9 +9,10 @@
 	</head>
 	<body>
 		<h1>Hallo Spieler1!</h1>
-		<h2>Gegnertypen</h1>
+		<h2>Gegnertypen</h2>
 		<p>Entscheiden Sie welche Spielertypen Ihre Gegner sein sollten.</p>
 		
+		<form action="GegnertypVerwaltung_Servlet" method="post">
 		<p><label for="spieler2">Spieler 2</label>
 		<input type="radio" name="spieler2" value="keineKI" checked>Keine KI</input>
 		<input type="radio" name="spieler2" value="aggressiveKI">Aggressive KI</input>
@@ -22,5 +23,7 @@
 		<input type="radio" name="spieler3" value="aggressiveKI">Aggressive KI</input>
 		<input type="radio" name="spieler3" value="defensiveKI">Defensive KI</input></p>
 
+		<input type="submit" name="weiter" value="weiter..."/>
+		</form>
 	</body>
 </html>

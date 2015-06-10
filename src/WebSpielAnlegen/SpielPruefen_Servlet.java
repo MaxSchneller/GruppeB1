@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletResponse;
  * @author Gruppe B1
  *
  */
-@WebServlet("/SpeilPruefen")
-public class SpeilPruefen extends HttpServlet {
+@WebServlet("/SpielPruefen_Servlet")
+public class SpielPruefen_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
 	/**
 	 * Der Konstruktor. Er ruft die Oberklasse auf.
 	 */
-    public SpeilPruefen() {
+    public SpielPruefen_Servlet() {
         super();
     }
 
     /**
-     * Nimmt die Resorcen der Wilkommen.html und gibt sie der doPost Methode
+     * Nimmt die Resorcen der Willkommen.html und gibt sie der doPost Methode
      */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,11 +53,12 @@ public class SpeilPruefen extends HttpServlet {
 		}else{
 			if (true) {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
 			//Fenster um Spiel beitreten
+			}
 		}
 		
 		out.close();
 		
 	}
 
-}
+
 }

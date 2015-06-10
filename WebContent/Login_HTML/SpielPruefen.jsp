@@ -1,3 +1,3 @@
 <%
-response.sendRedirect("../SpeilPruefen");
+response.sendRedirect("../SpielPruefen_Servlet");
 %>

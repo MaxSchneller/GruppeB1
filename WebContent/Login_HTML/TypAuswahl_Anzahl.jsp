@@ -9,7 +9,7 @@ if (anzahl == null || nameSpieler1 == null
 	session.setAttribute("fehlerArg", "TypAuswahl_Anzahl.jsp hat nicht alle notwendigen Parameter erhalten");
 	response.sendRedirect("../fehler.jsp");
 } else {	
-	response.sendRedirect("../TypAuswahl_Anzahl?spieleranzahl="+ anzahl + "&eigenerName="
+	response.sendRedirect("../TypAuswahl_Anzahl_Servlet?spieleranzahl="+ anzahl + "&eigenerName="
 						+ nameSpieler1 + "&eigeneFarbe=" + farbe + "&spieler1=" + typ);
 }
 %>
