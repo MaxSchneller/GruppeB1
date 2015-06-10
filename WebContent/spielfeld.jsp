@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<img style="position: absolute; top: 0px; left: 0px;"src="images/madn.jpg" />
+<img style="position: absolute; top: 0px; left: 0px;"src="images/MADNrahmen.jpg" />
+<img style="position: absolute; top: 37px; left: 37px;"src="images/MADNweb.jpg" />
 
 <%@ include file="startfeldPositionen.jsp" %>
 <%@ include file="endfeldPositionen.jsp" %>
@@ -67,5 +68,6 @@
 <div style="position: absolute; top:0px; left:650px;">
 <%@ include file="menu.jsp" %>
 </div>
+
 </body>
 </html>
