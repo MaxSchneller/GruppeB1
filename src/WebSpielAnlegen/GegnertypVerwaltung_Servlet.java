@@ -45,23 +45,29 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 		
 		if(spielerAnzahl == 2 && gegnerTyp2==null){
 			response.sendRedirect("Login_HTML/Error.html");
+			return;
 		}else if(spielerAnzahl==3 && (gegnerTyp3==null || gegnerTyp2==null)){
 			response.sendRedirect("Login_HTML/Error.html");
+			return;
 		}else if (spielerAnzahl ==4 && ( gegnerTyp2 == null|| gegnerTyp3==null || gegnerTyp4==null)){
 			response.sendRedirect("Login_HTML/Error.html");
+			return;
 		}
-		if(!gegnerTyp2.equals("keineKI")){
+		
+		if(gegnerTyp2 != null && !gegnerTyp2.equals("keineKI")){
 			KiTypEnum kiTyp = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
 			request.getServletContext().setAttribute("gegnerTyp2", kiTyp);
 		}
-		if(!gegnerTyp3.equals("keineKI")){
+		if(gegnerTyp3 != null && !gegnerTyp3.equals("keineKI")){
 			KiTypEnum kiTyp = KiTypEnum.vonString(gegnerTyp3.toUpperCase());
 			request.getServletContext().setAttribute("gegnerTyp3", kiTyp);
 		}
-		if(!gegnerTyp4.equals("keineKI")){
+		if(gegnerTyp4 != null && !gegnerTyp4.equals("keineKI")){
 			KiTypEnum kiTyp = KiTypEnum.vonString(gegnerTyp4.toUpperCase());
 			request.getServletContext().setAttribute("gegnerTyp4", kiTyp);
 		}
+		
+		response.sendRedirect("Login_HTML/bitteWarten.html");
 	}
 
 }

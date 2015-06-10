@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import="Spiel.*" %>
+    <%
+    	Object farbe = session.getAttribute("farbe");
+    
+    	if (farbe == null) {
+    		session.setAttribute("fehlerArg", "Sie können das Spielfeld nicht einsehen, da Sie nicht mitspielen");
+    		response.sendRedirect("fehler.jsp");
+    	}
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,11 +23,6 @@
 <%@ include file="endfeldPositionen.jsp" %>
 <%@ include file="feldPositionen.jsp" %>
 
-<%
-	String[][] posis = {{"ROT", "1", "10"} , {"BLAU", "1", "E1 BLAU"},
-		{"GELB", "1", "E3 GELB"}, {"GRUEN", "1", "E2 GRUEN"}, {"ROT", "1", "S1 ROT"}};
-	request.getServletContext().setAttribute("positionen", posis);
-%>
 <div style="position: absolute; top: 0px; left: 0px; width: 650px; height: 650px;">
 <%
 	ServletContext ctx = request.getServletContext();

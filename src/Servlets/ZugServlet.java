@@ -47,7 +47,7 @@ public class ZugServlet extends HttpServlet {
 		iBediener spiel = (iBediener)request.getServletContext().getAttribute("spiel");
 		HttpSession session = request.getSession();
 		
-		FarbEnum sessionFarbe = (FarbEnum) session.getAttribute("sessionFarbe");
+		FarbEnum sessionFarbe = (FarbEnum) session.getAttribute("farbe");
 		
 		
 		
@@ -61,9 +61,13 @@ public class ZugServlet extends HttpServlet {
 			session.setAttribute("fehlerArg", "Session hat keine Farbe also ist dieser Client kein Spieler");
 			response.sendRedirect("fehler.jsp");
 		} else {
+			FarbEnum figurFarbe = FarbEnum.vonString(farbe.toUpperCase());
 			
 			if (sessionFarbe != spiel.getSpielerAmZugFarbe()) {
 				HilfsMethoden.fuegeStatusHinzu(request, "Spieler " + sessionFarbe + "kann nicht ziehen, da er nicht dran ist");
+				response.sendRedirect("spielfeld.jsp");
+				return;
+			} else if (sessionFarbe != figurFarbe) {
 				response.sendRedirect("spielfeld.jsp");
 				return;
 			}
@@ -79,7 +83,7 @@ public class ZugServlet extends HttpServlet {
 			
 			ServletContext ctx = request.getServletContext();
 			
-			ctx.setAttribute("posis", spiel.getAlleFigurenPositionen());
+			ctx.setAttribute("positionen", spiel.getAlleFigurenPositionen());
 			
 			HilfsMethoden.fuegeStatusHinzu(request, ergebnis.getNachricht());
 			response.sendRedirect("spielfeld.jsp");

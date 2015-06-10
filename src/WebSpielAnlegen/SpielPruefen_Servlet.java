@@ -46,13 +46,19 @@ public class SpielPruefen_Servlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		//Prüfung für dass noch kein Spiel existiert
-		boolean spielExistiert = false;
+		Object spiel = request.getServletContext().getAttribute("spiel");
+		Integer spielerAnzahl = (Integer)request.getServletContext().getAttribute("spielerAnzahl");
+		Integer anzahlBeitreten = (Integer)request.getServletContext().getAttribute("anzahlBeitreten");
+		boolean spielExistiert = spiel == null ? false : true;
 		
 		if (spielExistiert == false){
 			response.sendRedirect("Login_HTML/neuesSpiel.html");
 		}else{
-			if (true) {// Anzahl ueberschritten, Fehler dass man nicht spielen kann darf
-			//Fenster um Spiel beitreten
+			if (spielerAnzahl != null && anzahlBeitreten != null && (anzahlBeitreten >= spielerAnzahl)) {
+				request.getSession().setAttribute("fehlerArg", "Sie können nicht beitreten, Spiel ist voll");
+				response.sendRedirect("fehler.jsp");
+			} else {
+				response.sendRedirect("Login_HTML/Spieler.jsp");
 			}
 		}
 		

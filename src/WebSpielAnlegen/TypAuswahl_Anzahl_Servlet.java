@@ -3,6 +3,7 @@ package WebSpielAnlegen;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,6 +65,15 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 			
 			iBediener spiel = new SpielBean (nameSpieler1 , FarbEnum.vonString(farbe.toUpperCase()) , KiTypEnum.vonString(typ.toUpperCase()));
 			request.getServletContext().setAttribute("spiel", spiel);
+			ServletContext ctx = request.getServletContext();
+			ctx.setAttribute("spielerAnzahl", anzahlSpieler);
+			ctx.setAttribute("anzahlBeitreten", new Integer(1));
+			
+			//ctx.setAttribute("positionen", spiel.getAlleFigurenPositionen());
+			ctx.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+			ctx.setAttribute("spieler1Farbe", FarbEnum.vonString(farbe.toUpperCase()));
+			request.getSession().setAttribute("farbe", FarbEnum.vonString(farbe.toUpperCase()));
+			request.getSession().setAttribute("name", nameSpieler1);
 			
 			if (anzahlSpieler > 1) {
 
@@ -81,7 +91,8 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 				}
 
 			} else {
-				// Spiel beginnen !!!Alleine
+				
+				response.sendRedirect("spielfeld.jsp");
 			}
 			out.close();
 		}

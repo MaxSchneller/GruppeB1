@@ -21,7 +21,7 @@ public class HilfsMethoden {
 			status = "";
 		}
 		
-		String neuerStatus = nachricht + "<br/>" + status;
+		String neuerStatus = nachricht + "\n" + status;
 		
 		ctx.setAttribute("status", neuerStatus);
 		

@@ -18,20 +18,20 @@
 		<h1>Spiel beitreten</h1>
 		<p>Es existiert ein Spiel, wechlem Sie beitreten können. Sie sind Spieler 2</p>
 		
-		<form action="jhvbajkvnfdvnjksfdnvkjnsfdjlkfvkafdvjknasjknvjk" method="post">
+		<form action="../ErstelleSpieler_Servlet" method="post">
 					
 			<p>
-				<label for="nameSpieler2"><b>Eigener Name</b></label>
+				<label for="eigenerName"><b>Eigener Name</b></label>
 				<input name="eigenerName" value="Spieler 2" />
 				<br/>
 			</p>
 
 			<p>
-				<label for="farbeSpieler2"><b>Eigene Farbe</b></label>
-				<input type="radio" name="farbeSpieler2" value="rot" style="background:#FF0000" checked>Rot</input>
-				<input type="radio" name="farbeSpieler2" value="blau" style="background:#0000FF">Blau</input>
-				<input type="radio" name="farbeSpieler2" value="gruen" style="background:#00FF00">Grün</input>
-				<input type="radio" name="farbeSpieler2" value="gelb" style="background:#FFFF00">Gelb</input>	
+				<label for="eigeneFarbe"><b>Eigene Farbe</b></label>
+				<input type="radio" name="eigeneFarbe" value="rot" style="background:#FF0000" checked>Rot</input>
+				<input type="radio" name="eigeneFarbe" value="blau" style="background:#0000FF">Blau</input>
+				<input type="radio" name="eigeneFarbe" value="gruen" style="background:#00FF00">Grün</input>
+				<input type="radio" name="eigeneFarbe" value="gelb" style="background:#FFFF00">Gelb</input>	
 			</p>
 			
 			<br/>
