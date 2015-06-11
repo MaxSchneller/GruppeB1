@@ -16,8 +16,18 @@
 <style>td,table{border-collapse: collapse; padding: 0px;}</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+</script>
 </head>
-<body>
+<body 
+<%
+	FarbEnum amZug = (FarbEnum)request.getServletContext().getAttribute("spielerAmZugFarbe");
+	FarbEnum sessionFarbe = (FarbEnum) session.getAttribute("farbe");
+	
+	if (amZug != sessionFarbe) {
+		out.println("onload=\"onLoad()\"");
+	}
+%>>
 <img style="position: absolute; top: 0px; left: 0px;"src="images/MADNrahmen.jpg" />
 <img style="position: absolute; top: 37px; left: 37px;"src="images/MADNweb.jpg" />
 
@@ -68,4 +78,39 @@
 </div>
 
 </body>
+<script type="text/javascript">
+
+var interval = null;
+
+<%
+	if (request.getParameter("autoUpdate") != null) {
+		out.println("checkChanged();");
+	}
+%>
+
+function onLoad () {
+	
+	// Untere Zeile einkommentieren um autoupdates einzuschalten
+	// Autoupdates werden nur bei Spielern ausgefuehrt, die nicht am Zug sind
+	//interval = window.setInterval(function() {clickTheButton()}, 1000);
+}
+
+function clickTheButton() {
+	
+	var button = document.getElementById("reload");
+	
+	//alert(button);
+	button.click();
+}
+
+function checkChanged() {
+	var checkbox = document.getElementById("autoupdate");
+	
+	if (checkbox.checked == true) {
+		interval = window.setInterval(function() {clickTheButton()}, 1000);
+	} else {
+		window.clearInterval(interval);
+	}
+}
+</script>
 </html>

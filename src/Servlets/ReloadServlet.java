@@ -43,7 +43,14 @@ public class ReloadServlet extends HttpServlet {
 			session.setAttribute("fehlerArg", "Sie sind nicht berechtigt dieses Servlet aufzurufen");
 			response.sendRedirect("fehler.jsp");
 		} else {
-			response.sendRedirect("spielfeld.jsp");
+			String autoUpdate = request.getParameter("autoUpdate");
+			
+			String redirectString = "spielfeld.jsp";
+			
+			if (autoUpdate != null) {
+				redirectString += "?autoUpdate=" + autoUpdate;
+			}
+			response.sendRedirect(redirectString);
 		}
 	}
 }

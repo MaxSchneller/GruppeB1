@@ -13,7 +13,14 @@ ist am Zug
 	type="submit" id="wuerfeln" value="Würfeln" />
 </form>
 <form action="ReloadServlet" method="post">
+<!--  <input name="autoUpdate" id="autoupdate" type="checkbox" value="shouldUpdate" 
+		style="position: absolute; left:0px; top: 490px;" 
+		onchange="checkChanged()"
+		 <%-- if (request.getParameter("autoUpdate") != null) 
+			 out.print("checked");
+			--%>> Auto update -->
 <input style="position: absolute; left:0px; top: 502px; height: 100px; width: 200px;" 
+
 	type="submit" id="reload" value="Reload" /> 
 </form>
 <img style="position: absolute; height: 100px; width: 100px;top: 350px; left: 50px;" src="images/wuerfel_1.png" />
