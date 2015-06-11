@@ -57,6 +57,8 @@ public class BitteWarten_Servlet extends HttpServlet {
 		Integer anzahlBeigetreten = (Integer)ctx.getAttribute("anzahlBeitreten");
 		Integer spielerAnzahl = (Integer)ctx.getAttribute("spielerAnzahl");
 		
+		ctx.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+		
 		if (anzahlBeigetreten >= spielerAnzahl) {
 			ctx.setAttribute("positionen", felder);
 			response.sendRedirect("spielfeld.jsp");

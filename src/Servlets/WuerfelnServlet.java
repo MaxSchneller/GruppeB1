@@ -54,7 +54,7 @@ public class WuerfelnServlet extends HttpServlet {
 			response.sendRedirect("fehler.jsp");
 		} else {
 			if (spielerFarbe != spiel.getSpielerAmZugFarbe()) {
-				HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerName + " hat versucht zu wuerfeln,"
+				HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerFarbe + " hat versucht zu wuerfeln,"
 						+ " obwohl er nicht am Zug ist");
 				response.sendRedirect("spielfeld.jsp");
 			} else {
@@ -63,7 +63,7 @@ public class WuerfelnServlet extends HttpServlet {
 				try {
 					ergebnis = spiel.sWuerfeln();
 				} catch (KannNichtWuerfelnException e) {
-					HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerName + " muss zuerst ziehen,"
+					HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerFarbe + " muss zuerst ziehen,"
 							+ " bevor gewürfelt werden kann");
 					response.sendRedirect("spielfeld.jsp");
 				}
@@ -72,6 +72,16 @@ public class WuerfelnServlet extends HttpServlet {
 					session.setAttribute("zuletztGewuerfelt", ergebnis.getGewuerfelteZahl());
 					session.setAttribute("kannNochmalWuerfeln", ergebnis.isKannNochmalWuerfeln());
 					session.setAttribute("kannZugAusfuehren", ergebnis.isKannZugAusfuehren());
+					
+					String wuerfelnNachricht = "Spieler: " + spielerFarbe + " hat " + ergebnis.getGewuerfelteZahl() + " gewuerfelt";
+					
+					if (ergebnis.isKannNochmalWuerfeln()) {
+						wuerfelnNachricht = "Spieler : " + spielerFarbe + " darf nocheinmal wuerfeln! \n" + wuerfelnNachricht;
+					}
+					
+					HilfsMethoden.fuegeStatusHinzu(request, wuerfelnNachricht);
+					ctx.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+					
 					response.sendRedirect("spielfeld.jsp");
 				}
 			}

@@ -47,7 +47,7 @@
 					} 	
 			}
 			if(istGesetzt == false){
-				out.println("<td><img src=\"images/leer.png\"></td>");
+				out.println("<td><a href=\"leererZug.jsp\"><img src=\"images/leer.png\"/></a></td>");
 			}
 		}
 		out.println("</tr>");

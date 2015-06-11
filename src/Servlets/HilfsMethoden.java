@@ -55,6 +55,26 @@ public class HilfsMethoden {
 			return HilfsMethoden.getReiheSonderfeld(feldID);
 		}
 	}
+	
+	/**
+	 * Konvertiert die gegebenen Figuren im Format Farbe, ID, FeldID in
+	 * das Format Farbe, ID, Spalte, Zeile
+	 * @param figuren Die zu konvertierenden Figuren aus spiel.getAlleFigurenPositionen
+	 * @return Die Konvertierten Positionen
+	 */
+	public static String[][] konvertiereFigurenInZeileUndSpalte(String[][] figuren) {
+		
+		String[][]felder = new String [figuren.length][4];
+		
+		for(int i = 0; i < figuren.length; i ++){
+			felder[i][0] = figuren[i][0];
+			felder[i][1] = figuren[i][1];
+			felder[i][2] = String.format("%d",HilfsMethoden.getSpalteFeld(figuren[i][2]));
+			felder[i][3] = String.format("%d",HilfsMethoden.getReiheFeld(figuren[i][2]));
+		}
+		
+		return felder;
+	}
 	/**
 	 * Gibt die passende Spalte fuer ein normales Feld zurueck
 	 * @param feldID Die ID des Feldes

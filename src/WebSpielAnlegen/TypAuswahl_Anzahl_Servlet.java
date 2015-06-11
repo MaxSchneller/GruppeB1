@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Kuenstliche_Intelligenz.KiTypEnum;
+import Servlets.HilfsMethoden;
 import Spiel.FarbEnum;
 import Spiel.SpielBean;
 import Spiel.iBediener;
@@ -69,7 +70,9 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 			ctx.setAttribute("spielerAnzahl", anzahlSpieler);
 			ctx.setAttribute("anzahlBeitreten", new Integer(1));
 			
-			//ctx.setAttribute("positionen", spiel.getAlleFigurenPositionen());
+			String[][] figuren = HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen());
+			
+			ctx.setAttribute("positionen", figuren);
 			ctx.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 			ctx.setAttribute("spieler1Farbe", FarbEnum.vonString(farbe.toUpperCase()));
 			request.getSession().setAttribute("farbe", FarbEnum.vonString(farbe.toUpperCase()));

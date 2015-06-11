@@ -48,6 +48,7 @@ public class ZugServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		FarbEnum sessionFarbe = (FarbEnum) session.getAttribute("farbe");
+		String sessionName = (String) session.getAttribute("name");
 		
 		
 		
@@ -57,14 +58,14 @@ public class ZugServlet extends HttpServlet {
 		} else if (spiel == null) {
 			request.getSession().setAttribute("fehlerArg", "ZugServlet wurde ohne existierendes Spiel aufgerufen");
 			response.sendRedirect("fehler.jsp");
-		} else if (sessionFarbe == null) {
+		} else if (sessionFarbe == null || sessionName == null) {
 			session.setAttribute("fehlerArg", "Session hat keine Farbe also ist dieser Client kein Spieler");
 			response.sendRedirect("fehler.jsp");
 		} else {
 			FarbEnum figurFarbe = FarbEnum.vonString(farbe.toUpperCase());
 			
 			if (sessionFarbe != spiel.getSpielerAmZugFarbe()) {
-				HilfsMethoden.fuegeStatusHinzu(request, "Spieler " + sessionFarbe + "kann nicht ziehen, da er nicht dran ist");
+				HilfsMethoden.fuegeStatusHinzu(request, "Spieler " + sessionFarbe + " kann nicht ziehen, da er nicht dran ist");
 				response.sendRedirect("spielfeld.jsp");
 				return;
 			} else if (sessionFarbe != figurFarbe) {
@@ -83,9 +84,22 @@ public class ZugServlet extends HttpServlet {
 			
 			ServletContext ctx = request.getServletContext();
 			
-			ctx.setAttribute("positionen", spiel.getAlleFigurenPositionen());
+			String[][] figuren = HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen());
 			
-			HilfsMethoden.fuegeStatusHinzu(request, ergebnis.getNachricht());
+			ctx.setAttribute("positionen", figuren);
+			ctx.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+			
+			String zugNachricht = "Spieler " + sessionFarbe;
+			
+			if (ergebnis.isGueltig() && ergebnis.getGeaenderteFiguren() != null) {
+				for (String[] figur : ergebnis.getGeaenderteFiguren()) {
+					zugNachricht += "  " + figur[0] + " " + figur[1]
+							+ " ist auf Feld " + figur[2] + ",";
+				}
+			} else {
+				zugNachricht += " " + ergebnis.getNachricht();
+			}
+			HilfsMethoden.fuegeStatusHinzu(request, zugNachricht);
 			response.sendRedirect("spielfeld.jsp");
 		}
 	}
