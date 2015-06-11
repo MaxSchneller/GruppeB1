@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="Spiel.*" %>
+    <%@ page import="Spiel.FarbEnum" import = "Servlets.JSPHilfsmethoden" %>
     <%--
     
     	Object farbe = session.getAttribute("farbe");
@@ -35,6 +35,7 @@
 		out.println("<tr>");
 		for(int j = 0; j < 11; j++){
 			boolean istGesetzt = false;
+			
 			for(int h = 0; h < feld.length; h++){
 				int feldX = Integer.parseInt(feld[h][2]);
 				int feldY = Integer.parseInt(feld[h][3]);
@@ -47,7 +48,11 @@
 					} 	
 			}
 			if(istGesetzt == false){
+				if (JSPHilfsmethoden.isZelleSpielfeld(j, i)) {
 				out.println("<td><a href=\"leererZug.jsp\"><img src=\"images/leer.png\"/></a></td>");
+				} else {
+					out.println("<td><img src=\"images/leer.png\"/></td>");
+				}
 			}
 		}
 		out.println("</tr>");

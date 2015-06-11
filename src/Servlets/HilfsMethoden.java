@@ -336,7 +336,7 @@ public class HilfsMethoden {
 	 * @param a Der Wert
 	 * @return True falls innerhalb, sonst false
 	 */
-	private static boolean inIntervall(int min, int max, int a) {
+	public static boolean inIntervall(int min, int max, int a) {
 		if (a >= min && a <= max) {
 			return true;
 		}
