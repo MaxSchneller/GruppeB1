@@ -3,6 +3,8 @@ package Speichern_Laden;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.xml.bind.JAXBException;
+
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Spiel.SpielBean;
@@ -18,8 +20,9 @@ public interface iDatenzugriff {
 	 * @param spiel Ein Spielstand der gespeichert werden soll (Lauft alles im Spiel ab)
 	 * @param dateipfad Gewuenschter Speicherpfad
 	 * @throws IOException Fehlermeldung bei falscher Ein- und Ausgabe
+	 * @throws JAXBException Fehler fuer XML speichern
 	 */
-	public void spielSpeichern (Object spiel, String dateipfad) throws IOException;
+	public void spielSpeichern (Object spiel, String dateipfad) throws IOException, JAXBException;
 	
 	/**
 	 * @param dateipfad Pfad zur Datei, die geladen werden soll
@@ -29,6 +32,7 @@ public interface iDatenzugriff {
 	 * @throws IOException Fehlermeldung bei falscher Ein- und Ausgabe
 	 * @throws SpielerFarbeVorhandenException Hat ein Spieler schon eine Farbe gewählt, kann ein anderer diese nicht nutzen.
 	 * @throws SpielerNichtGefundenException Fehlermeldung, wenn es keinen Spieler mit dieser Farbe gibt.
+	 * @throws JAXBException Fehler fuer XML laden
 	 */
-	public Object spielLaden(String dateipfad) throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException;
+	public Object spielLaden(String dateipfad) throws ClassNotFoundException, FileNotFoundException, IOException, SpielerFarbeVorhandenException, SpielerNichtGefundenException, JAXBException;
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.JAXBException;
 
 import Fehler_Exceptions.KannNichtWuerfelnException;
 import Spiel.FarbEnum;
@@ -54,7 +55,9 @@ public class ReloadServlet extends HttpServlet {
 			
 			if (spiel.isSpielerAmZugKI()) {
 				HilfsMethoden.fuegeStatusHinzu(request, "KI Zieht..");
-				this.lassKIZiehen(spiel, request);
+				if(this.lassKIZiehen(spiel, request, response)){
+					return;
+				}
 				
 			}
 			
@@ -69,7 +72,7 @@ public class ReloadServlet extends HttpServlet {
 		}
 	}
 
-	private void lassKIZiehen(iBediener spiel, HttpServletRequest request) {
+	private boolean lassKIZiehen(iBediener spiel, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		FarbEnum kiFarbe = spiel.getSpielerAmZugFarbe();
 		String spielerString = "Spieler " + kiFarbe;
@@ -83,7 +86,7 @@ public class ReloadServlet extends HttpServlet {
 			
 		} catch (KannNichtWuerfelnException e1) {
 			
-			return;
+			return false;
 		}
 
 		HilfsMethoden.fuegeStatusHinzu(request, "KI hat " 
@@ -109,20 +112,31 @@ public class ReloadServlet extends HttpServlet {
 			} else {
 				HilfsMethoden.fuegeStatusHinzu(request, spielerString + " Kann nicht nochmal wuerfeln, naechster ist dran.");
 				request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
-				return;
+				return false;
 			}
 		}
 
 		HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI zieht...");
-		ZugErgebnis e = spiel.ziehen(0);
+		ZugErgebnis e = null;
+		try {
+			e = spiel.ziehen(0);
+		} catch (JAXBException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		if (e.isGueltig()) {
 				request.getServletContext().setAttribute("positionen", 
 						HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen()));
 
 			if (e.isSpielGewonnen()) {
-				//TODO: this.gui.spielGewonnen(e.getGewinnerName(),
-				//		e.getGewinnerFarbe());
+				
+					request.getServletContext().setAttribute("spielGewonnen", "ja");
+					request.getServletContext().setAttribute("gewinnerName", e.getGewinnerName());
+					request.getServletContext().setAttribute("gewinnerFarbe", e.getGewinnerFarbe());
+					response.sendRedirect("Gewinner.jsp");
+					return true;
+				
 			}
 		} else {
 			//TODO: HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI hat ungueltigen Zug errechnet...och noeeee");
@@ -132,5 +146,6 @@ public class ReloadServlet extends HttpServlet {
 		if (e.isZugBeendet()) {
 			request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 		}
+		return false;
 	}
 }

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
 
 import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffPDF;
@@ -57,22 +58,42 @@ public class SpeichernServlet extends HttpServlet {
 				if(dateiformat.equals("pdf")){
 					id = new DatenzugriffPDFServer(request); 
 					dateiname += ".pdf";
-					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					try {
+						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					} catch (JAXBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					request.getSession().setAttribute("dateiname",  request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname));
 					response.sendRedirect("SpeichernLaden_HTML/pdf.jsp");
 					return;
 				} else if(dateiformat.equals("csv")){
 					id = new DatenzugriffCSV(); 
 					dateiname += ".csv";
-					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					try {
+						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					} catch (JAXBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else if(dateiformat.equals("ser")){
 					id = new DatenzugriffSerialisiert(); 
 					dateiname += ".ser";
-					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					try {
+						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					} catch (JAXBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else if(dateiformat.equals("xml")){
 					//id = new DatenzugriffXML(); 
 					dateiname += ".xml";
-					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					try {
+						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+					} catch (JAXBException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}

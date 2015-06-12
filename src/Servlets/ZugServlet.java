@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
+import javax.xml.bind.JAXBException;
 
 import Spiel.FarbEnum;
 import Spiel.ZugErgebnis;
@@ -82,7 +83,13 @@ public class ZugServlet extends HttpServlet {
 			} catch(NumberFormatException e) {
 				response.sendRedirect("fehler.jsp?fehler=" + "Konnte%20ID%20nicht%20in%20Integer%20konvertieren");
 			}
-			ZugErgebnis ergebnis = spiel.ziehen(figurID);
+			ZugErgebnis ergebnis = null;
+			try {
+				ergebnis = spiel.ziehen(figurID);
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			ServletContext ctx = request.getServletContext();
 			
@@ -108,7 +115,14 @@ public class ZugServlet extends HttpServlet {
 			}
 			else  {
 				zugNachricht += " " + ergebnis.getNachricht();
+			}if(ergebnis.isSpielGewonnen()){
+				ctx.setAttribute("spielGewonnen", "ja");
+				ctx.setAttribute("gewinnerName", ergebnis.getGewinnerName());
+				ctx.setAttribute("gewinnerFarbe", ergebnis.getGewinnerFarbe());
+				response.sendRedirect("Gewinner.jsp");
+				return;
 			}
+			
 			HilfsMethoden.fuegeStatusHinzu(request, zugNachricht);
 			response.sendRedirect("spielfeld.jsp");
 		}
