@@ -1,7 +1,10 @@
 package Servlets;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import Spiel.FarbEnum;
 
@@ -74,6 +77,12 @@ public class HilfsMethoden {
 		}
 		
 		return felder;
+	}
+	
+	public static void zeigeFehlerJSP(String nachricht, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		request.getSession().setAttribute("fehlerArg", nachricht);
+		response.sendRedirect("fehler.jsp");
 	}
 	/**
 	 * Gibt die passende Spalte fuer ein normales Feld zurueck

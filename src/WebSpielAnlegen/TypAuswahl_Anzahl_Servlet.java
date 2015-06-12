@@ -64,7 +64,9 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 			response.sendRedirect("Login_HTML/Error.html");
 		} else {
 			
-			iBediener spiel = new SpielBean (nameSpieler1 , FarbEnum.vonString(farbe.toUpperCase()) , KiTypEnum.vonString(typ.toUpperCase()));
+			KiTypEnum kiTyp = KiTypEnum.vonString(typ.toUpperCase());
+			
+			iBediener spiel = new SpielBean (nameSpieler1 , FarbEnum.vonString(farbe.toUpperCase()) , kiTyp);
 			request.getServletContext().setAttribute("spiel", spiel);
 			ServletContext ctx = request.getServletContext();
 			ctx.setAttribute("spielerAnzahl", anzahlSpieler);
