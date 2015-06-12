@@ -1,5 +1,7 @@
 package Spiel;
 
+import javax.xml.bind.JAXBException;
+
 import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
@@ -37,8 +39,9 @@ public interface iBediener {
 	 * Lässt den Spieler, der am Zug ist, die gewünschte Figur auf das gewünschte Feld ziehen, falls dies möglich ist
 	 * @param figurID Die ID der Figur, welche versetzt werden soll
 	 * @return Das Ergebnis dieses Zuges
+	 * @throws JAXBException 
 	 */
-	public ZugErgebnis ziehen(int figurID);
+	public ZugErgebnis ziehen(int figurID) throws JAXBException;
 	
 	/**
 	 * Verhält sich wie ein gezinkter Würfel (setzt Spiel.zuletztGewuerfelt)
