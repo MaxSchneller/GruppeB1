@@ -15,7 +15,7 @@
 <head>
 <style>td,table{border-collapse: collapse; padding: 0px;}</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>MADN Web</title>
 
 </script>
 </head>
@@ -70,7 +70,7 @@
 %>
 	</table>
 </div>
-<div style="position: absolute; top:650px; left:0px;">
+<div style="position: absolute; top:602px; left:0px;">
 <%@ include file="spielfeld-footer.jsp" %>
 </div>
 <div style="position: absolute; top:0px; left:650px;">
