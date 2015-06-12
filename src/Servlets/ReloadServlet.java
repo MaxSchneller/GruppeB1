@@ -108,7 +108,7 @@ public class ReloadServlet extends HttpServlet {
 						+ " gewuerfelt");
 			} else {
 				HilfsMethoden.fuegeStatusHinzu(request, spielerString + " Kann nicht nochmal wuerfeln, naechster ist dran.");
-				//TODO: this.neachsterSpielerAnDerReihe();
+				request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 				return;
 			}
 		}
@@ -125,11 +125,12 @@ public class ReloadServlet extends HttpServlet {
 				//		e.getGewinnerFarbe());
 			}
 		} else {
-			HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI hat ungueltigen Zug errechnet...och noeeee");
+			//TODO: HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI hat ungueltigen Zug errechnet...och noeeee");
+			
 		}
 
 		if (e.isZugBeendet()) {
-			//TODO: this.neachsterSpielerAnDerReihe();
+			request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 		}
 	}
 }

@@ -65,9 +65,7 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 		} else {
 			
 			KiTypEnum kiTyp = KiTypEnum.vonString(typ.toUpperCase());
-			if (kiTyp == null) {
-				throw new RuntimeException(typ.toUpperCase());
-			}
+			
 			iBediener spiel = new SpielBean (nameSpieler1 , FarbEnum.vonString(farbe.toUpperCase()) , kiTyp);
 			request.getServletContext().setAttribute("spiel", spiel);
 			ServletContext ctx = request.getServletContext();

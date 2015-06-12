@@ -57,7 +57,11 @@ public class WuerfelnServlet extends HttpServlet {
 				HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerFarbe + " hat versucht zu wuerfeln,"
 						+ " obwohl er nicht am Zug ist");
 				response.sendRedirect("spielfeld.jsp");
-			} else {
+			} else if (spiel.isSpielerAmZugKI()) {
+				HilfsMethoden.fuegeStatusHinzu(request, "Spieler: " + spielerFarbe + " kann nicht wuerfeln,"
+						+ " da er eine KI ist");
+				response.sendRedirect("spielfeld.jsp");
+			}else {
 				WuerfelErgebnis ergebnis = null;
 				
 				try {
