@@ -1,8 +1,5 @@
 package Servlets;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -11,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Fehler_Exceptions.SpielerFarbeVorhandenException;
-import Fehler_Exceptions.SpielerNichtGefundenException;
 import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.DatenzugriffSerialisiert;
@@ -61,25 +56,24 @@ public class SpeichernServlet extends HttpServlet {
 				if(dateiformat.equals("pdf")){
 					id = new DatenzugriffPDF(); 
 					dateiname += ".pdf";
-					id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname) );
+					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
 					request.getSession().setAttribute("dateiname", dateiname);
 					response.sendRedirect("pdf.jsp");
 					return;
 				} else if(dateiformat.equals("csv")){
 					id = new DatenzugriffCSV(); 
 					dateiname += ".csv";
-					id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname) );
+					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
 				} else if(dateiformat.equals("ser")){
 					id = new DatenzugriffSerialisiert(); 
 					dateiname += ".ser";
-					id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname));
+					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
 				} else if(dateiformat.equals("xml")){
 					//id = new DatenzugriffXML(); 
 					dateiname += ".xml";
-					id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname));
+					id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
 				}
 			}
 		}
 	}
-
 }

@@ -108,7 +108,14 @@ public class ZugServlet extends HttpServlet {
 			}
 			else  {
 				zugNachricht += " " + ergebnis.getNachricht();
+			}if(ergebnis.isSpielGewonnen()){
+				ctx.setAttribute("spielGewonnen", "ja");
+				ctx.setAttribute("gewinnerName", ergebnis.getGewinnerName());
+				ctx.setAttribute("gewinnerFarbe", ergebnis.getGewinnerFarbe());
+				response.sendRedirect("Gewinner.jsp");
+				return;
 			}
+			
 			HilfsMethoden.fuegeStatusHinzu(request, zugNachricht);
 			response.sendRedirect("spielfeld.jsp");
 		}
