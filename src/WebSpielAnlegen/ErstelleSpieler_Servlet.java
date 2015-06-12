@@ -60,6 +60,7 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 			request.getSession().setAttribute("name", name);
 			request.getSession().setAttribute("farbe", farbe1);
 			response.sendRedirect("Login_HTML/bitteWarten.html");
+			
 		}
 	}
 

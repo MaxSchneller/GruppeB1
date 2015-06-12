@@ -33,7 +33,7 @@ ist am Zug
 Integer gewuerfeltInt = (Integer)session.getAttribute("zuletztGewuerfelt");
 
 if (gewuerfeltInt != null) {
-	out.println("<img style=\"position: absolute; height: 100px; width: 100px;top: 350px; left: 50px;\"" +
+	out.println("<img style=\"position: absolute; height: 100px; width: 100px;top: 280px; left: 50px;\"" +
 	" src=\"images/wuerfel_" + gewuerfeltInt + ".png\" />");
 }
 %>
