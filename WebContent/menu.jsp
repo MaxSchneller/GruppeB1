@@ -20,8 +20,13 @@ ist am Zug
 			 out.print("checked");
 			--%>> Auto update -->
 <input style="position: absolute; left:0px; top: 502px; height: 100px; width: 200px;" 
-
 	type="submit" id="reload" value="Reload" /> 
+	
+<input style="position: absolute; left:0px; top: 632px; height: 30px; width: 200px;"
+	type="submit" id="speichern" value="Speichern" />
+	
+<input style="position: absolute; left:0px; top: 672px; height: 30px; width: 200px;"
+	type="submit" id="laden" value="Laden" />
 </form>
 <img style="position: absolute; height: 100px; width: 100px;top: 350px; left: 50px;" src="images/wuerfel_1.png" />
 <%
