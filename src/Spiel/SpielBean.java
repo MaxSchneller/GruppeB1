@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.PrimitiveIterator.OfDouble;
 import java.util.concurrent.CountDownLatch;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
@@ -18,6 +21,7 @@ import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 /**
  * Die zentrale Managerklasse des Spiels
  */
+@XmlRootElement
 public class SpielBean implements iBediener, Serializable {
 
 	// Attribute
@@ -266,9 +270,10 @@ public class SpielBean implements iBediener, Serializable {
 	/**
 	 * Überschreiben der Methode ziehen, welche versucht den gewünschten Zug
 	 * auszuführen, sofern er mit den Spielregeln vereinbar ist
+	 * @throws JAXBException 
 	 */
 	@Override
-	public ZugErgebnis ziehen(int figurID) {
+	public ZugErgebnis ziehen(int figurID) throws JAXBException {
 
 		ZugErgebnis ergebnis;
 		if (this.kanZiehen == false) {
