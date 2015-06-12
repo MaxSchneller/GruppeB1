@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Fehler_Exceptions.KannNichtWuerfelnException;
+import Spiel.FarbEnum;
+import Spiel.WuerfelErgebnis;
+import Spiel.ZugErgebnis;
+import Spiel.iBediener;
+
 /**
  * Servlet implementation class ReloadServlet
  */
@@ -43,6 +49,15 @@ public class ReloadServlet extends HttpServlet {
 			session.setAttribute("fehlerArg", "Sie sind nicht berechtigt dieses Servlet aufzurufen");
 			response.sendRedirect("fehler.jsp");
 		} else {
+			
+			iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+			
+			if (spiel.isSpielerAmZugKI()) {
+				HilfsMethoden.fuegeStatusHinzu(request, "KI Zieht..");
+				this.lassKIZiehen(spiel, request);
+				
+			}
+			
 			String autoUpdate = request.getParameter("autoUpdate");
 			
 			String redirectString = "spielfeld.jsp";
@@ -51,6 +66,71 @@ public class ReloadServlet extends HttpServlet {
 				redirectString += "?autoUpdate=" + autoUpdate;
 			}
 			response.sendRedirect(redirectString);
+		}
+	}
+
+	private void lassKIZiehen(iBediener spiel, HttpServletRequest request) {
+		
+		FarbEnum kiFarbe = spiel.getSpielerAmZugFarbe();
+		String spielerString = "Spieler " + kiFarbe;
+		
+		HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI wuerfelt...");
+
+		WuerfelErgebnis ergebnis;
+		try {
+			
+				ergebnis = spiel.sWuerfeln();
+			
+		} catch (KannNichtWuerfelnException e1) {
+			
+			return;
+		}
+
+		HilfsMethoden.fuegeStatusHinzu(request, "KI hat " 
+		+ ergebnis.getGewuerfelteZahl() + " gewuerfelt");
+		
+		
+		
+		//TODO: this.gui.zeigeWuerfel(ergebnis.getGewuerfelteZahl());
+
+		while (!ergebnis.isKannZugAusfuehren()) {
+			HilfsMethoden.fuegeStatusHinzu(request, spielerString + " Kein Zug moeglich");
+
+			if (ergebnis.isKannNochmalWuerfeln()) {
+				HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI wuerfelt nochmal...");
+				try {
+						ergebnis = spiel.sWuerfeln();						
+				
+				} catch (KannNichtWuerfelnException e1) {
+					//TODO: this.gui.zeigeFehler(e1.getMessage());
+				}
+				HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI hat " + ergebnis.getGewuerfelteZahl()
+						+ " gewuerfelt");
+			} else {
+				HilfsMethoden.fuegeStatusHinzu(request, spielerString + " Kann nicht nochmal wuerfeln, naechster ist dran.");
+				request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+				return;
+			}
+		}
+
+		HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI zieht...");
+		ZugErgebnis e = spiel.ziehen(0);
+
+		if (e.isGueltig()) {
+				request.getServletContext().setAttribute("positionen", 
+						HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen()));
+
+			if (e.isSpielGewonnen()) {
+				//TODO: this.gui.spielGewonnen(e.getGewinnerName(),
+				//		e.getGewinnerFarbe());
+			}
+		} else {
+			//TODO: HilfsMethoden.fuegeStatusHinzu(request, spielerString + " KI hat ungueltigen Zug errechnet...och noeeee");
+			
+		}
+
+		if (e.isZugBeendet()) {
+			request.getServletContext().setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 		}
 	}
 }
