@@ -102,15 +102,18 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				return;
 			}
 		} else if (spielerAnzahl == 3 && 
-				spieler2IstKI &&
-				spieler3IstKI) {
+				spieler2IstKI) {
 			
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
 				
-				KiTypEnum[] gegner = new KiTypEnum[2];
+				int numKI = spieler3IstKI ? 2 : 1;
+				KiTypEnum[] gegner = new KiTypEnum[numKI];
 				gegner[0] = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
-				gegner[1] = KiTypEnum.vonString(gegnerTyp3.toUpperCase());
+				
+				if (numKI == 2)
+					gegner[1] = KiTypEnum.vonString(gegnerTyp3.toUpperCase());
+				
 				fuegeKIHinzu(gegner, spiel);
 				
 				request.getServletContext().setAttribute("positionen",

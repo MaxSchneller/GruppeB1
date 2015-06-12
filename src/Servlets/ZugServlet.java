@@ -42,6 +42,8 @@ public class ZugServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String gewinnerFarbe = (String)request.getParameter("gewinnerFarbe");
+		String gewinnerName = (String)request.getParameter("gewinnerName");
 		String farbe = (String)request.getParameter("farbe");
 		String id = (String)request.getParameter("id");
 		iBediener spiel = (iBediener)request.getServletContext().getAttribute("spiel");
@@ -95,8 +97,16 @@ public class ZugServlet extends HttpServlet {
 				for (String[] figur : ergebnis.getGeaenderteFiguren()) {
 					zugNachricht += "  " + figur[0] + " " + figur[1]
 							+ " ist auf Feld " + figur[2] + ",";
+				}if(ergebnis.isSpielGewonnen()){
+					ctx.setAttribute("spielGewonnen", "ja");
+					ctx.setAttribute("gewinnerName", ergebnis.getGewinnerName());
+					ctx.setAttribute("gewinnerFarbe", ergebnis.getGewinnerFarbe());
+					response.sendRedirect("Gewinner.jsp");
 				}
-			} else {
+				
+				
+			}
+			else  {
 				zugNachricht += " " + ergebnis.getNachricht();
 			}
 			HilfsMethoden.fuegeStatusHinzu(request, zugNachricht);
