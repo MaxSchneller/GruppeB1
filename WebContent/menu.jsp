@@ -21,10 +21,13 @@ ist am Zug
 			--%>> Auto update -->
 <input style="position: absolute; left:0px; top: 412px; height: 100px; width: 200px;" 
 	type="submit" id="reload" value="Reload" /> 
-	
+</form>
+
+<form action="SpeichernLaden_HTML/SpeichernFormular.html" method="post">
 <input style="position: absolute; left:0px; top: 532px; height: 30px; width: 200px;"
 	type="submit" id="speichern" value="Speichern" />
-	
+</form>
+<form action="SpeichernLaden_HTML/LadenFormular.html" method="post">
 <input style="position: absolute; left:0px; top: 572px; height: 30px; width: 200px;"
 	type="submit" id="laden" value="Laden" />
 </form>
