@@ -9,7 +9,7 @@ out.print(farbe.name().toLowerCase());
 .png">
 ist am Zug
 <form action="WuerfelnServlet" method="get">
-<input style="position: absolute; left:0px; top: 250px; height: 100px; width: 200px;" 
+<input style="position: absolute; left:0px; top: 170px; height: 100px; width: 200px;" 
 	type="submit" id="wuerfeln" value="Würfeln" />
 </form>
 <form action="ReloadServlet" method="post">
@@ -19,16 +19,16 @@ ist am Zug
 		 <%-- if (request.getParameter("autoUpdate") != null) 
 			 out.print("checked");
 			--%>> Auto update -->
-<input style="position: absolute; left:0px; top: 502px; height: 100px; width: 200px;" 
+<input style="position: absolute; left:0px; top: 412px; height: 100px; width: 200px;" 
 	type="submit" id="reload" value="Reload" /> 
 	
-<input style="position: absolute; left:0px; top: 632px; height: 30px; width: 200px;"
+<input style="position: absolute; left:0px; top: 532px; height: 30px; width: 200px;"
 	type="submit" id="speichern" value="Speichern" />
 	
-<input style="position: absolute; left:0px; top: 672px; height: 30px; width: 200px;"
+<input style="position: absolute; left:0px; top: 572px; height: 30px; width: 200px;"
 	type="submit" id="laden" value="Laden" />
 </form>
-<img style="position: absolute; height: 100px; width: 100px;top: 350px; left: 50px;" src="images/wuerfel_1.png" />
+<img style="position: absolute; height: 100px; width: 100px;top: 280px; left: 50px;" src="images/wuerfel_1.png" />
 <%
 Integer gewuerfeltInt = (Integer)session.getAttribute("zuletztGewuerfelt");
 
