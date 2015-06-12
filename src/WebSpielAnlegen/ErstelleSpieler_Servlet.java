@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
+import Servlets.HilfsMethoden;
 import Spiel.FarbEnum;
 import Spiel.iBediener;
 
@@ -59,6 +60,42 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 			request.getServletContext().setAttribute("anzahlBeitreten", anzahlBeitreten);
 			request.getSession().setAttribute("name", name);
 			request.getSession().setAttribute("farbe", farbe1);
+			
+			Integer spielerAnzahl = (Integer)request.getServletContext().getAttribute("spielerAnzahl");
+			
+			
+			while (anzahlBeitreten < spielerAnzahl) {
+				
+				int naechsterSpieler = anzahlBeitreten + 1;
+				KiTypEnum kiTypNaechsterSpieler = 
+						(KiTypEnum)request.getServletContext().getAttribute("gegnerTyp" + naechsterSpieler);
+				
+				if (kiTypNaechsterSpieler != null) {
+					
+					iBediener spiel = (iBediener)request.getServletContext().getAttribute("spiel");
+					
+					try {
+						int i = 0;
+						
+						while (spiel.isFarbeVergeben(FarbEnum.vonInt(i))) {
+							++i;
+						}
+						
+						spiel.spielerHinzufuegen("KI", FarbEnum.vonInt(i), kiTypNaechsterSpieler);
+						
+					} catch (SpielerFarbeVorhandenException e) {
+						HilfsMethoden.zeigeFehlerJSP("Konnte KI nicht erstellen (mit menschlichen Gegnern", request, response);
+						return;
+					}
+					
+					++anzahlBeitreten;
+					request.getServletContext().setAttribute("anzahlBeitreten", anzahlBeitreten);
+					
+				} else {
+					break;
+				}
+			}
+			
 			response.sendRedirect("Login_HTML/bitteWarten.html");
 			
 		}

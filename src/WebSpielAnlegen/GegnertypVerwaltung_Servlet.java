@@ -102,7 +102,7 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				return;
 			}
 		} else if (spielerAnzahl == 3 && 
-				spieler2IstKI) {
+				spieler2IstKI && spieler3IstKI) {
 			
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
@@ -116,13 +116,15 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				
 				fuegeKIHinzu(gegner, spiel);
 				
+			
 				request.getServletContext().setAttribute("positionen",
 						HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen()));
 				
 				request.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
-				
+				if (spieler3IstKI) {
 				response.sendRedirect("spielfeld.jsp");
 				return;
+				}
 			} catch (SpielerFarbeVorhandenException e) {
 				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
@@ -148,6 +150,29 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				
 				response.sendRedirect("spielfeld.jsp");
 				return;
+			} catch (SpielerFarbeVorhandenException e) {
+				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
+				return;
+			}
+		} else if (spielerAnzahl > 2 && 
+				spieler2IstKI) {
+			
+			try {
+				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+				
+				KiTypEnum[] gegner = new KiTypEnum[1];
+				gegner[0] = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
+				
+				fuegeKIHinzu(gegner, spiel);
+				
+				Integer anzahlBeitreten = (Integer) request.getServletContext().getAttribute("anzahlBeitreten");
+				request.getServletContext().setAttribute("anzahlBeitreten", anzahlBeitreten + 1);  
+				
+				request.getServletContext().setAttribute("positionen",
+						HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen()));
+				
+				request.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
+				
 			} catch (SpielerFarbeVorhandenException e) {
 				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
