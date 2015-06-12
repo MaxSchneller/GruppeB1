@@ -11,17 +11,17 @@ body {
    if(farbe!=null){
 	if(farbe.ordinal()==0){
     	out.print("RED");
+	}
     	if(farbe.ordinal()==1){
         	out.print("BLUE");
+    	}
         	if(farbe.ordinal()==3){
             	out.print("YELLOW");
+        	}
             	if(farbe.ordinal()==2){
                 	out.print("GREEN");
             	}
         	}
-    	}
-	}
-   }
     %>;
 }
 </style>

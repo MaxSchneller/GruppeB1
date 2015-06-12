@@ -13,6 +13,7 @@ import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffPDF;
 import Speichern_Laden.DatenzugriffPDFServer;
 import Speichern_Laden.DatenzugriffSerialisiert;
+import Speichern_Laden.DatenzugriffXML;
 import Speichern_Laden.iDatenzugriff;
 import Spiel.iBediener;
 
@@ -86,10 +87,10 @@ public class SpeichernServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				} else if(dateiformat.equals("xml")){
-					//id = new DatenzugriffXML(); 
+					id = new DatenzugriffXML(); 
 					dateiname += ".xml";
 					try {
-						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+						id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname) );
 					} catch (JAXBException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
