@@ -70,7 +70,7 @@
 %>
 	</table>
 </div>
-<div style="position: absolute; top:650px; left:0px;">
+<div style="position: absolute; top:602px; left:0px;">
 <%@ include file="spielfeld-footer.jsp" %>
 </div>
 <div style="position: absolute; top:0px; left:650px;">
