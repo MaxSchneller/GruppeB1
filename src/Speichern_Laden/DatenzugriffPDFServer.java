@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,16 +22,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
-import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 import Spiel.SpielBean;
 
-/**
- * Ermoeglicht das Speichern von Spielen via PDF
- */
-public class DatenzugriffPDF implements iDatenzugriff {
+public class DatenzugriffPDFServer implements iDatenzugriff {
 	
-	
+	private HttpServletRequest request;
 	/** Luecke zwischen zwei Feldern X */
 	private int standardLueckeX = 50;
 	/** Luecke zwischen zwei Feldern Y*/
@@ -48,10 +45,9 @@ public class DatenzugriffPDF implements iDatenzugriff {
 			{ 50, 175}
 	};
 	
-	/**
-	 * Erstellt ein neues Objekt zum Speichern von PDF Dateien
-	 */
-	public DatenzugriffPDF() {
+	public DatenzugriffPDFServer(HttpServletRequest request) {
+		// TODO Auto-generated constructor stub
+		this.request = request;
 		
 		for (int i = 0; i < 11; ++i) {
 			if (i == 0) {
@@ -63,11 +59,11 @@ public class DatenzugriffPDF implements iDatenzugriff {
 			}
 		}
 		
-		
 	}
 
 	@Override
-	public void spielSpeichern(Object spiel, String dateipfad) throws IOException {
+	public void spielSpeichern(Object spiel, String dateipfad)
+			throws IOException {
 		if (spiel instanceof SpielBean) {
 			SpielBean zuSpeicherndesSpiel = (SpielBean) spiel;
 			Document document = new Document(new Rectangle(650f, 650f), 0,0,0,0);
@@ -80,12 +76,12 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				document.open();
 				
 			
-				Image image = Image.getInstance("WebContent/images/madn-neu.png");
-				//image.setAbsolutePosition(0, 0);
+				Image image = Image.getInstance(this.request.getServletContext().getRealPath("images/madn-neu.png"));
+				image.setAbsolutePosition(0, 0);
 
-				//document.add(image);
+				document.add(image);
 				
-				//this.speichereFiguren(zuSpeicherndesSpiel, document);
+				this.speichereFiguren(zuSpeicherndesSpiel, document);
 				this.speichereNamen(zuSpeicherndesSpiel, pdfWriter);
 
 				document.close();
@@ -111,56 +107,15 @@ public class DatenzugriffPDF implements iDatenzugriff {
 
 	}
 
-	
-
 	@Override
 	public Object spielLaden(String dateipfad) throws ClassNotFoundException,
 			FileNotFoundException, IOException, SpielerFarbeVorhandenException,
 			SpielerNichtGefundenException {
-		
-		 PdfReader pdfReader = null;
-		 try {
-			 pdfReader = new PdfReader(dateipfad);
-			 HashMap<String, String> info = pdfReader.getInfo();
-			 
-			 int spielerZahl = Integer.parseInt(info.get("spielerAnzahl"));
-			 
-			 SpielBean s = null;
-			 for (int i = 0; i < spielerZahl; ++i) {
-				 String spieler = info.get("Spieler" + i);
-				 String[] teile = spieler.split(" ; ");
-				 
-				 String name = teile[0];
-				 FarbEnum farbe = FarbEnum.vonString(teile[1]);
-				 KiTypEnum kiTyp = KiTypEnum.vonString(teile[2]);
-				 
-				 if (s == null) {
-					 s = new SpielBean(name, farbe, kiTyp);
-				 } else {
-					 s.spielerHinzufuegen(name, farbe, kiTyp);
-				 }
-				 
-				 for (int j = 3; j < 7; ++j) {
-					 s.debugSetzeFigur(farbe, j - 3, teile[j]);
-				 }
-			 }
-			 
-			 if (s != null) {
-				 s.setSpielerAmZug(FarbEnum.vonString(info.get("amZug")));
-			 }
-			 
-			 return s;
-			 
-		 } catch (IOException e) {
-			 e.printStackTrace();
-		 } finally {
-			 if (pdfReader != null) {
-				 pdfReader.close();
-			 }
-		 }
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
+
 	/**
 	 * Speichert den Spielstand als Metadaten, um das Laden zu erleichtern
 	 * @param info Die info HashMap des documents
@@ -227,7 +182,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				
 				String farbe = teile[1].toLowerCase();
 				
-				Image img = Image.getInstance("Bilder/" + farbe + ".png");
+				Image img = Image.getInstance(this.request.getServletContext().getRealPath("images/" + farbe + ".png"));
 				img.setAbsolutePosition(this.xSpalten[spalte], this.ySpalten[reihe]);
 				
 				doc.add(img);

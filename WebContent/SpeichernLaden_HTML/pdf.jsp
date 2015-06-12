@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hier ist deine <a href="gespeicherteDateien/<% session.getAttribute("dateiname"); %>">PDF</a></h1>
+	<h1>Hier ist deine <a href="
+	<% 
+		out.print((String)session.getAttribute("dateiname")); 
+	%>">PDF</a></h1>
 </body>
 </html>
