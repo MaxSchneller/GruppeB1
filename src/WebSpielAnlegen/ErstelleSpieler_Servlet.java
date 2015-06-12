@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Servlets.HilfsMethoden;
+import Servlets.JSPHilfsmethoden;
 import Spiel.FarbEnum;
 import Spiel.iBediener;
 
@@ -47,6 +48,11 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 			response.sendRedirect("Login_HTML/Error.html");
 		}else{
 			iBediener ib= (iBediener) request.getServletContext().getAttribute("spiel");
+			
+			if (ib == null) {
+				response.sendRedirect("Login_HTML/Willkommen.html");
+				return;
+			}
 			FarbEnum farbe1 = FarbEnum.vonString(farbe.toUpperCase());
 			Integer anzahlBeitreten = (Integer) request.getServletContext().getAttribute("anzahlBeitreten");
 			anzahlBeitreten=anzahlBeitreten+1;
@@ -73,7 +79,10 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 				if (kiTypNaechsterSpieler != null) {
 					
 					iBediener spiel = (iBediener)request.getServletContext().getAttribute("spiel");
-					
+					if (spiel == null) {
+						response.sendRedirect("Login_HTML/Willkommen.html");
+						return;
+					}
 					try {
 						int i = 0;
 						
@@ -84,7 +93,7 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 						spiel.spielerHinzufuegen("KI", FarbEnum.vonInt(i), kiTypNaechsterSpieler);
 						
 					} catch (SpielerFarbeVorhandenException e) {
-						HilfsMethoden.zeigeFehlerJSP("Konnte KI nicht erstellen (mit menschlichen Gegnern", request, response);
+						JSPHilfsmethoden.zeigeFehlerJSP("Konnte KI nicht erstellen (mit menschlichen Gegnern", request, response);
 						return;
 					}
 					

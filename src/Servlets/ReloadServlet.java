@@ -52,10 +52,15 @@ public class ReloadServlet extends HttpServlet {
 		} else {
 			
 			iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+			if (spiel == null) {
+				response.sendRedirect("Login_HTML/Willkommen.html");
+				return;
+			}
 			
 			if (spiel.isSpielerAmZugKI()) {
 				HilfsMethoden.fuegeStatusHinzu(request, "KI Zieht..");
 				if(this.lassKIZiehen(spiel, request, response)){
+					response.sendRedirect("Gewinner.jsp");
 					return;
 				}
 				
@@ -134,7 +139,10 @@ public class ReloadServlet extends HttpServlet {
 					request.getServletContext().setAttribute("spielGewonnen", "ja");
 					request.getServletContext().setAttribute("gewinnerName", e.getGewinnerName());
 					request.getServletContext().setAttribute("gewinnerFarbe", e.getGewinnerFarbe());
-					response.sendRedirect("Gewinner.jsp");
+					
+					
+					request.getServletContext().setAttribute("spiel", null);
+					request.getServletContext().setAttribute("anzahlBeitreten", new Integer(0));
 					return true;
 				
 			}

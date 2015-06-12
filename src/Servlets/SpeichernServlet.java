@@ -56,46 +56,39 @@ public class SpeichernServlet extends HttpServlet {
 			iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
 			if(spiel != null){
 				iDatenzugriff id = null;
+				String pfad =  request.getServletContext().getRealPath("gespeicherteDateien/");
 				if(dateiformat.equals("pdf")){
 					id = new DatenzugriffPDFServer(request); 
 					dateiname += ".pdf";
 					try {
-						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
+						id.spielSpeichern(spiel, pfad + dateiname);
 					} catch (JAXBException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					request.getSession().setAttribute("dateiname",  request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname));
+					request.getSession().setAttribute("dateiname",  pfad + dateiname);
 					response.sendRedirect("SpeichernLaden_HTML/pdf.jsp");
 					return;
 				} else if(dateiformat.equals("csv")){
 					id = new DatenzugriffCSV(); 
 					dateiname += ".csv";
-					try {
-						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
-					} catch (JAXBException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 				} else if(dateiformat.equals("ser")){
 					id = new DatenzugriffSerialisiert(); 
 					dateiname += ".ser";
-					try {
-						id.spielSpeichern(spiel, "gespeicherteDateien/" + dateiname);
-					} catch (JAXBException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				} else if(dateiformat.equals("xml")){
 					id = new DatenzugriffXML(); 
 					dateiname += ".xml";
-					try {
-						id.spielSpeichern(spiel, request.getServletContext().getRealPath("gespeicherteDateien/" + dateiname) );
-					} catch (JAXBException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				}
+				
+				try {
+					id.spielSpeichern(spiel, pfad + dateiname);
+				} catch (JAXBException e) {
+					JSPHilfsmethoden.zeigeFehlerJSP(e.getMessage(), request, response);
+					return;
+				}
+				request.getSession().setAttribute("dateiname",  pfad + dateiname);
+				response.sendRedirect("SpeichernLaden_HTML/spielGespeichert.jsp");
 			}
 		}
 	}

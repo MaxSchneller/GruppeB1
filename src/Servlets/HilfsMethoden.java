@@ -79,11 +79,7 @@ public class HilfsMethoden {
 		return felder;
 	}
 	
-	public static void zeigeFehlerJSP(String nachricht, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		request.getSession().setAttribute("fehlerArg", nachricht);
-		response.sendRedirect("fehler.jsp");
-	}
+	
 	/**
 	 * Gibt die passende Spalte fuer ein normales Feld zurueck
 	 * @param feldID Die ID des Feldes

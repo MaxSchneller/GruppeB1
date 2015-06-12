@@ -1,5 +1,10 @@
 package Servlets;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Enthaelt Hilfsmethode fuer JSPs 
  * Die hier enthaltenen Methoden duerfen auf keinen Fall mit dem Backend arbeiten
@@ -47,5 +52,31 @@ public class JSPHilfsmethoden {
 		}
 		}
 		
+	}
+	
+	/**
+	 * Zeigt die fehler.jsp Seite an
+	 * @param nachricht Nachricht, die angezeigt werden soll
+	 * @param request Servlet request
+	 * @param response Servlet response
+	 * @throws IOException 
+	 */
+	public static void zeigeFehlerJSP(String nachricht,
+		HttpServletRequest request, HttpServletResponse response) throws IOException {
+		JSPHilfsmethoden.zeigeFehlerJSP(nachricht, "", request, response);
+	}
+
+	/**
+	 *  Zeigt die fehler.jsp Seite an
+	 * @param nachricht Nachricht, die angezeigt werden soll
+	 * @param relativerPfad Relativer Pfad zu fehler.jsp ohne Dateiname (z.B. "../")
+	 * @param request Servlet request
+	 * @param response Servlet response
+	 * @throws IOException
+	 */
+	public static void zeigeFehlerJSP(String nachricht, String relativerPfad, 
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.getSession().setAttribute("fehlerArg", nachricht);
+		response.sendRedirect(relativerPfad + "fehler.jsp");
 	}
 }

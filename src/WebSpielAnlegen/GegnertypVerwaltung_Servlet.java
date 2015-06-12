@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
 import Servlets.HilfsMethoden;
+import Servlets.JSPHilfsmethoden;
 import Spiel.FarbEnum;
 import Spiel.iBediener;
 
@@ -86,6 +87,11 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
 				
+				if (spiel == null) {
+					response.sendRedirect("Login_HTML/Willkommen.html");
+					return;
+				}
+				
 				KiTypEnum[] gegner = new KiTypEnum[1];
 				gegner[0] = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
 				fuegeKIHinzu(gegner, spiel);
@@ -98,7 +104,7 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				response.sendRedirect("spielfeld.jsp");
 				return;
 			} catch (SpielerFarbeVorhandenException e) {
-				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
+				JSPHilfsmethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
 			}
 		} else if (spielerAnzahl == 3 && 
@@ -106,6 +112,12 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 			
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+				
+				if (spiel == null) {
+					response.sendRedirect("Login_HTML/Willkommen.html");
+					return;
+				}
+				
 				
 				int numKI = spieler3IstKI ? 2 : 1;
 				KiTypEnum[] gegner = new KiTypEnum[numKI];
@@ -126,7 +138,7 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				return;
 				}
 			} catch (SpielerFarbeVorhandenException e) {
-				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
+				JSPHilfsmethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
 			}
 		} else if (spielerAnzahl == 4 && 
@@ -136,6 +148,12 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 			
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+				
+				if (spiel == null) {
+					response.sendRedirect("Login_HTML/Willkommen.html");
+					return;
+				}
+				
 				
 				KiTypEnum[] gegner = new KiTypEnum[3];
 				gegner[0] = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
@@ -151,7 +169,7 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				response.sendRedirect("spielfeld.jsp");
 				return;
 			} catch (SpielerFarbeVorhandenException e) {
-				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
+				JSPHilfsmethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
 			}
 		} else if (spielerAnzahl > 2 && 
@@ -159,6 +177,12 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 			
 			try {
 				iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
+				
+				if (spiel == null) {
+					response.sendRedirect("Login_HTML/Willkommen.html");
+					return;
+				}
+				
 				
 				KiTypEnum[] gegner = new KiTypEnum[1];
 				gegner[0] = KiTypEnum.vonString(gegnerTyp2.toUpperCase());
@@ -174,7 +198,7 @@ public class GegnertypVerwaltung_Servlet extends HttpServlet {
 				request.setAttribute("spielerAmZugFarbe", spiel.getSpielerAmZugFarbe());
 				
 			} catch (SpielerFarbeVorhandenException e) {
-				HilfsMethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
+				JSPHilfsmethoden.zeigeFehlerJSP("Konnte keine KI erstellen", request, response);
 				return;
 			}
 		}

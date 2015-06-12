@@ -39,5 +39,6 @@ if(name!=null){
 }
 %> hat gewonnen!!</h2>
 <img style="broder" src="images/feuerwerk1.gif" >
+<a href="Login_HTML/Willkommen.html">Neues Spiel</a>
 </body>
 </html>
