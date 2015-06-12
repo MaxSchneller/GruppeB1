@@ -2,7 +2,7 @@
   <div>
 
 
-    <textarea readonly cols="79" rows="5">
+    <textarea readonly cols="73" rows="5">
     <%
     String status = (String)request.getServletContext().getAttribute("status");
     if (status != null) {
