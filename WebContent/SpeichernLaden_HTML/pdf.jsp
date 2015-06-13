@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hier ist deine <a href="../PdfServlet">PDF</a></h1>
+	<h1>Hier ist deine <a href="PdfAnzeigen.jsp">PDF</a></h1>
 </body>
 </html>

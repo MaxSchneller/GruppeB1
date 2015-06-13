@@ -56,7 +56,7 @@ public class SpeichernServlet extends HttpServlet {
 			iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
 			if(spiel != null){
 				iDatenzugriff id = null;
-				String pfad =  request.getServletContext().getRealPath("gespeicherteDateien/");
+				String pfad =  request.getServletContext().getRealPath("gespeicherteDateien/") + "/";
 				if(dateiformat.equals("pdf")){
 					id = new DatenzugriffPDFServer(request); 
 					dateiname += ".pdf";

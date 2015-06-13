@@ -22,6 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
+import Kuenstliche_Intelligenz.KiTypEnum;
 import Spiel.FarbEnum;
 import Spiel.SpielBean;
 
@@ -111,7 +112,46 @@ public class DatenzugriffPDFServer implements iDatenzugriff {
 	public Object spielLaden(String dateipfad) throws ClassNotFoundException,
 			FileNotFoundException, IOException, SpielerFarbeVorhandenException,
 			SpielerNichtGefundenException {
-		// TODO Auto-generated method stub
+		PdfReader pdfReader = null;
+		 try {
+			 pdfReader = new PdfReader(dateipfad);
+			 HashMap<String, String> info = pdfReader.getInfo();
+			 
+			 int spielerZahl = Integer.parseInt(info.get("spielerAnzahl"));
+			 
+			 SpielBean s = null;
+			 for (int i = 0; i < spielerZahl; ++i) {
+				 String spieler = info.get("Spieler" + i);
+				 String[] teile = spieler.split(" ; ");
+				 
+				 String name = teile[0];
+				 FarbEnum farbe = FarbEnum.vonString(teile[1]);
+				 KiTypEnum kiTyp = KiTypEnum.vonString(teile[2]);
+				 
+				 if (s == null) {
+					 s = new SpielBean(name, farbe, kiTyp);
+				 } else {
+					 s.spielerHinzufuegen(name, farbe, kiTyp);
+				 }
+				 
+				 for (int j = 3; j < 7; ++j) {
+					 s.debugSetzeFigur(farbe, j - 3, teile[j]);
+				 }
+			 }
+			 
+			 if (s != null) {
+				 s.setSpielerAmZug(FarbEnum.vonString(info.get("amZug")));
+			 }
+			 
+			 return s;
+			 
+		 } catch (IOException e) {
+			 e.printStackTrace();
+		 } finally {
+			 if (pdfReader != null) {
+				 pdfReader.close();
+			 }
+		 }
 		return null;
 	}
 	
@@ -182,7 +222,7 @@ public class DatenzugriffPDFServer implements iDatenzugriff {
 				
 				String farbe = teile[1].toLowerCase();
 				
-				Image img = Image.getInstance(this.request.getServletContext().getRealPath("images/" + farbe + ".png"));
+				Image img = Image.getInstance(this.request.getServletContext().getRealPath("images/" + farbe + "figur.png"));
 				img.setAbsolutePosition(this.xSpalten[spalte], this.ySpalten[reihe]);
 				
 				doc.add(img);
