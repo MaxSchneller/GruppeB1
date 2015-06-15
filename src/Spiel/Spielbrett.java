@@ -1,6 +1,11 @@
 package Spiel;
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
@@ -12,11 +17,23 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class Spielbrett implements Serializable {
 
+	@XmlIDREF
+	@XmlElement(name="spiel")
 	private SpielBean spiel;
+	
+	@XmlID
+	private final String id ="spielbrett";
 
+	@XmlElementWrapper(name="regulaereFelder")
+	@XmlElement(name="spielfeld")
 	private Spielfeld[] regulaereFelder = new Spielfeld[40];
 
 	private Spielfeld[][] startfelder = new Spielfeld[4][4];
+
+	public void setEndfelder(Spielfeld[][] endfelder) {
+		this.endfelder = endfelder;
+	}
+
 	private Spielfeld[][] endfelder = new Spielfeld[4][4];
 
 	/**
@@ -31,6 +48,10 @@ public class Spielbrett implements Serializable {
 		for (int i = 1; i <= 40; i++) {
 			regulaereFelder[i - 1] = new Spielfeld(String.format("%d", i), this);
 		}
+	}
+	
+	public Spielbrett() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -451,7 +472,7 @@ public class Spielbrett implements Serializable {
 	 */
 	private void figurSchlagen(Spielfigur figur, Spielfigur gegnerFigur) {
 
-		String idGegnerStart = "S" + (gegnerFigur.getID() + 1) + " "
+		String idGegnerStart = "S" + (gegnerFigur.getId() + 1) + " "
 				+ gegnerFigur.getFarbe();
 		Spielfeld startFeldDesGegners = findeFeldDurchID(idGegnerStart);
 
@@ -482,9 +503,14 @@ public class Spielbrett implements Serializable {
 	 */
 	private void figurBewegen(Spielfigur figur, Spielfeld zielFeld) {
 
-		figur.getSpielfeld().setFigurAufFeld(null);
-		figur.setSpielfeld(zielFeld);
-		zielFeld.setFigurAufFeld(figur);
+		try {
+			figur.getSpielfeld().setFigurAufFeld(null);
+			figur.setSpielfeld(zielFeld);
+			zielFeld.setFigurAufFeld(figur);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

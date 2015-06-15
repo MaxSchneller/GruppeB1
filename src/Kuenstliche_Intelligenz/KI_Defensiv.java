@@ -2,6 +2,9 @@ package Kuenstliche_Intelligenz;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import Spiel.Spieler;
 import Spiel.Spielfeld;
 import Spiel.Spielfigur;
@@ -9,6 +12,7 @@ import Spiel.Spielfigur;
 /**
  * Die defensive KI, die versucht das Spiel moeglichst schnell zu beenden
  */
+@XmlRootElement
 public class KI_Defensiv extends KI implements Serializable{
 	
 	/**
@@ -17,6 +21,10 @@ public class KI_Defensiv extends KI implements Serializable{
 	 */
 	public KI_Defensiv(Spieler spieler) {
 		this.setSpieler(spieler);
+	}
+	
+	public KI_Defensiv() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -93,7 +101,7 @@ public class KI_Defensiv extends KI implements Serializable{
 				
 			}
 		}
-		return zuZiehendeFigur == null ? -1 : zuZiehendeFigur.getID();
+		return zuZiehendeFigur == null ? -1 : zuZiehendeFigur.getId();
 	}
 	
 	@Override

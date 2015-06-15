@@ -58,7 +58,7 @@ public class DatenzugriffXML implements iDatenzugriff {
 		
 		//Alle SPieler ordnen
 		
-		return null;
+		return s;
 	}
 
 

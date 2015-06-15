@@ -3,6 +3,8 @@ package Kuenstliche_Intelligenz;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import Spiel.Spieler;
 import Spiel.Spielfigur;
 
@@ -11,6 +13,7 @@ import com.sun.security.auth.NTDomainPrincipal;
 /**
  * Die aggressive KI, die immer zuerst eine Gegnerfigur schlagen will
  */
+@XmlRootElement
 public class KI_Aggressiv extends KI implements Serializable {
 	/**
 	 * Erstellt eine neue aggressive KI
@@ -20,6 +23,10 @@ public class KI_Aggressiv extends KI implements Serializable {
 	 */
 	public KI_Aggressiv(Spieler spieler) {
 		this.setSpieler(spieler);
+	}
+	
+	public KI_Aggressiv() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -93,7 +100,7 @@ public class KI_Aggressiv extends KI implements Serializable {
 				continue;
 			}
 
-			return eigeneSpielfigur.getID();
+			return eigeneSpielfigur.getId();
 		}
 
 		return -1;

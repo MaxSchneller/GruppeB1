@@ -3,6 +3,13 @@ package Kuenstliche_Intelligenz;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import Spiel.Spieler;
 import Spiel.Spielfeld;
 import Spiel.Spielfigur;
@@ -10,11 +17,39 @@ import Spiel.Spielfigur;
 /**
  * Die Basisklasse der beiden KIs
  */
+@XmlSeeAlso({KI_Aggressiv.class, KI_Defensiv.class})
+@XmlType(propOrder={"eigeneFiguren", "gegnerFiguren", "spieler"})
 public abstract class KI implements Serializable {
 
+	@XmlTransient
+	public Spielfigur[][] getGegnerFiguren() {
+		return gegnerFiguren;
+	}
+
+	public void setGegnerFiguren(Spielfigur[][] gegnerFiguren) {
+		this.gegnerFiguren = gegnerFiguren;
+	}
+
+	@XmlElementWrapper(name="eigeneFiguren")
+	@XmlElement(name="spielfigur")
+	public Spielfigur[] getEigeneFiguren() {
+		return eigeneFiguren;
+	}
+
+	public void setEigeneFiguren(Spielfigur[] eigeneFiguren) {
+		this.eigeneFiguren = eigeneFiguren;
+	}
+
+	public Spieler getSpieler() {
+		return spieler;
+	}
+
 	/** Der Spieler, dem diese KI gehoert */
+	@XmlIDREF
+	@XmlElement(name="spieler")
 	protected Spieler spieler;
 	/** Alle gegnerischen Figuren */
+	@XmlElementWrapper(name="gegnerFiguren")
 	protected Spielfigur[][] gegnerFiguren;
 	/** Die eigenen Figuren der Ki */
 	protected Spielfigur[] eigeneFiguren = new Spielfigur[4];
@@ -133,7 +168,7 @@ public abstract class KI implements Serializable {
 
 		}
 
-		return finaleFigur == null ? -1 : finaleFigur.getID();
+		return finaleFigur == null ? -1 : finaleFigur.getId();
 	}
 
 	/**
@@ -187,7 +222,7 @@ public abstract class KI implements Serializable {
 					}
 				}
 				if (kannZiehen) {
-					return spielfigur.getID();
+					return spielfigur.getId();
 				}
 			}
 		}
@@ -221,7 +256,7 @@ public abstract class KI implements Serializable {
 						}
 
 						if (kannZiehen) {
-							return spielfigur.getID();
+							return spielfigur.getId();
 						}
 					}
 				}
@@ -271,7 +306,7 @@ public abstract class KI implements Serializable {
 
 				if (feldDerFigur.isStartfeld()) {
 					// Diese Figur steht noch im Startfeld also diese rausziehen
-					return this.eigeneFiguren[i].getID();
+					return this.eigeneFiguren[i].getId();
 				}
 			}
 
@@ -394,7 +429,7 @@ public abstract class KI implements Serializable {
 			int zielFeldInt = startFeldInt + gewuerfelteZahl;
 			String zielFeldID = String.format("%d", zielFeldInt);
 			if (this.kannAufFeldZiehen(figur, gegner, zielFeldID)) {
-				return figur.getID();
+				return figur.getId();
 			}
 		}
 		

@@ -74,7 +74,7 @@ public class ZugErgebnis implements Serializable {
 			this.geaenderteFiguren[i][0] = geanderteFiguren[i].getFarbe()
 					.toString();
 			this.geaenderteFiguren[i][1] = String.format("%d",
-					geanderteFiguren[i].getID());
+					geanderteFiguren[i].getId());
 			this.geaenderteFiguren[i][2] = geanderteFiguren[i].getSpielfeld()
 					.getID();
 		}

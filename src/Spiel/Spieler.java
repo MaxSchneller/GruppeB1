@@ -2,6 +2,12 @@ package Spiel;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlTransient;
+
 import Kuenstliche_Intelligenz.KI;
 import Kuenstliche_Intelligenz.KI_Aggressiv;
 import Kuenstliche_Intelligenz.KI_Defensiv;
@@ -18,13 +24,51 @@ public class Spieler implements Serializable {
 	private FarbEnum farbe;
 	/** Jeder Spieler hat seinen eigenen Wuerfel */
 	private Wuerfel wuerfel;
+	
+	public Wuerfel getWuerfel() {
+		return wuerfel;
+	}
+
+	public void setWuerfel(Wuerfel wuerfel) {
+		this.wuerfel = wuerfel;
+	}
+
 	/** Das Spiel an dem dieser Spieler teilnimmt */
+	@XmlIDREF
+	@XmlElement(name="spiel")
 	private SpielBean spiel;
 	/** Die Spielfiguren dieses Spielers */
+	@XmlElementWrapper(name="figuren")
+	@XmlElement(name="spielfigur")
 	private Spielfigur[] figuren=new Spielfigur[4];
 	/** Die KI dieses Spielers, falls eine vorhanden */
 	private KI spielerKI;
 	
+	public KI getSpielerKI() {
+		return spielerKI;
+	}
+
+	public void setSpielerKI(KI spielerKI) {
+		this.spielerKI = spielerKI;
+	}
+
+	@XmlID
+	private String id;
+	
+	@XmlTransient
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@XmlTransient
+	public SpielBean getSpiel() {
+		return this.spiel;
+	}
+
 	/**
 	 * Der Konstruktor der Klasse Spieler
 	 * @param name Der Name der Spielers
@@ -62,6 +106,12 @@ public class Spieler implements Serializable {
 				break;
 			}
 		}
+		
+		this.setId(name + " " + farbe);
+	}
+	
+	public Spieler() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -78,7 +128,7 @@ public class Spieler implements Serializable {
 	 * Setter fuer Spiel
 	 * @param spiel
 	 */
-	private void setSpiel(SpielBean spiel) {
+	public void setSpiel(SpielBean spiel) {
 		if (spiel != null) {
 			this.spiel = spiel;
 		} else {
@@ -90,7 +140,7 @@ public class Spieler implements Serializable {
 	 * Setter fuer Farbe
 	 * @param farbe
 	 */
-	private void setFarbe(FarbEnum farbe) {
+	public void setFarbe(FarbEnum farbe) {
 		if (farbe != null) {
 			this.farbe = farbe;
 		} else {
@@ -103,7 +153,7 @@ public class Spieler implements Serializable {
 	 * Setter fuer Name
 	 * @param name
 	 */
-	private void setName(String name) {
+	public void setName(String name) {
 		if (name != null && !name.isEmpty()) {
 			this.name = name;
 		} else {
