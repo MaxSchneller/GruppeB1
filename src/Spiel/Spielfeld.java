@@ -2,15 +2,31 @@ package Spiel;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Klasse Spielfeld
  * 
  * @author Gruppe B1
  *
  */
+@XmlType(propOrder={"ID", "figurAufFeld", "spielbrett"})
 public class Spielfeld implements Serializable {
-	private Spielbrett brett;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@XmlIDREF
+	@XmlElement(name="spielbrett")
+	private Spielbrett spielbrett;
+	@XmlID
 	private String ID;
+	@XmlIDREF
+	@XmlElement(name="figurAufFeld")
 	private Spielfigur figurAufFeld;
 
 	/**
@@ -26,6 +42,9 @@ public class Spielfeld implements Serializable {
 		setSpielbrett(brett);
 	}
 
+	public Spielfeld() {
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * Ist die ID des Felds gueltig? Ueberpruefung.
 	 * @param ID FeldId
@@ -80,13 +99,15 @@ public class Spielfeld implements Serializable {
 	 * @param brett
 	 *            Das Spielbrett
 	 */
-	private void setSpielbrett(Spielbrett brett) {
+	public void setSpielbrett(Spielbrett brett) {
 		if (brett == null) {
 			throw new RuntimeException("Spielbrett darf nicht leer sein");
 		} else {
-			this.brett = brett;
+			this.spielbrett = brett;
 		}
 	}
+	
+	
 
 	/**
 	 * Setter-methode fuer ID
@@ -120,6 +141,7 @@ public class Spielfeld implements Serializable {
 	 * Getter fuer Figur auf einem Feld
 	 * @return gibt die Figur zurueck, die auf dem Feld ist
 	 */
+	@XmlTransient
 	public Spielfigur getFigurAufFeld() {
 		return this.figurAufFeld;
 	}

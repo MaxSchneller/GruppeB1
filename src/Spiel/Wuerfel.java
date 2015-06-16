@@ -8,6 +8,10 @@ import java.io.Serializable;
  *
  */
 public class Wuerfel implements Serializable {
+	
+	public Wuerfel() {
+		// TODO Auto-generated constructor stub
+	}
 	/** 
 	 * @return Der Returnwert ist die gewuerfelte Zahl, zwieschen 1 und 6.
 	 */

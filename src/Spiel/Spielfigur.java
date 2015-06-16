@@ -2,17 +2,35 @@ package Spiel;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Die Klasse Spielfigur
  * @author Gruppe B1
  *
  */
+@XmlType(propOrder={"id", "spieler", "farbe", "eindeutigeID", "spielfeld"})
 public class Spielfigur implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private FarbEnum farbe;
-	private Spielfeld feld;
+	@XmlIDREF
+	@XmlElement(name="spielfeld")
+	private Spielfeld spielfeld;
 	private int id;
+	@XmlIDREF
+	@XmlElement(name="spieler")
 	private Spieler spieler;
+	
+	@XmlID
+	private String eindeutigeID;
 	
 	
 	/**
@@ -25,17 +43,23 @@ public class Spielfigur implements Serializable {
 	public Spielfigur(FarbEnum farbe, Spielfeld feld, int id, Spieler spieler){
 		setFarbe(farbe);
 		setSpielfeld(feld);
-		setID(id);
+		setId(id);
 		setSpieler(spieler);
 		
 		feld.setFigurAufFeld(this);
+		
+		this.eindeutigeID = "" + farbe + " " + id;
+	}
+	
+	public Spielfigur() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * Getter der ID
 	 * @return ID
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -43,7 +67,7 @@ public class Spielfigur implements Serializable {
 	 * Setter der ID soll eine zweistellige Zahl sien
 	 * @param id 
 	 */
-	private void setID(int id) {
+	public void setId(int id) {
 		if(id < 0 || id > 3){
 			throw new RuntimeException("Ungueltige ID");
 		}
@@ -52,14 +76,14 @@ public class Spielfigur implements Serializable {
 	
 	@Override
 	public String toString() {
-		return this.getFarbe() + " " + this.getID();
+		return this.getFarbe() + " " + this.getId();
 	}
 
 	/**
 	 * Setter-Methode der Farbe
 	 * @param farbe Jede Spielfigur besitzt eine Farbe
 	 */
-	private void setFarbe(FarbEnum farbe){
+	public void setFarbe(FarbEnum farbe){
 		this.farbe = farbe;
 	}
 	
@@ -77,7 +101,7 @@ public class Spielfigur implements Serializable {
 	 */
 	public void setSpielfeld(Spielfeld feld){
 		if(feld != null){
-			this.feld = feld;
+			this.spielfeld = feld;
 		}
 	}
 
@@ -85,15 +109,17 @@ public class Spielfigur implements Serializable {
 	 * Getter des Spielfelds
 	 * @return feld
 	 */
+	@XmlTransient
 	public Spielfeld getSpielfeld() {
 		
-		return feld;
+		return spielfeld;
 	}
 	
 	/**
 	 * Getter des Spielers
 	 * @return spieler
 	 */
+	@XmlTransient
 	public Spieler getSpieler(){
 		return spieler;
 	}
@@ -102,7 +128,7 @@ public class Spielfigur implements Serializable {
 	 * Setter des Spielers, darf nicht null sein
 	 * @param spieler
 	 */
-	private void setSpieler(Spieler spieler){
+	public void setSpieler(Spieler spieler){
 		if(spieler == null){
 			throw new RuntimeException("Spieler darf nicht null sein");
 		}
