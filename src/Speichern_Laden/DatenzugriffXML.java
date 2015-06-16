@@ -31,7 +31,7 @@ public class DatenzugriffXML implements iDatenzugriff {
 				Marshaller m = context.createMarshaller();
 				m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, true );
 				//m.marshal( s, System.out );
-				fw=new FileWriter(dateipfad + ".xml");
+				fw=new FileWriter(dateipfad);
 				m.marshal(s, fw);
 			}
 			finally {
