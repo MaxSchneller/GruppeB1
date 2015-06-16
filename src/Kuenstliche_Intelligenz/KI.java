@@ -18,7 +18,7 @@ import Spiel.Spielfigur;
  * Die Basisklasse der beiden KIs
  */
 @XmlSeeAlso({KI_Aggressiv.class, KI_Defensiv.class})
-@XmlType(propOrder={"eigeneFiguren", "gegnerFiguren", "spieler"})
+@XmlType
 public abstract class KI implements Serializable {
 
 	@XmlTransient

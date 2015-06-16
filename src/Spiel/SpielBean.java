@@ -64,6 +64,7 @@ public class SpielBean implements iBediener, Serializable {
 		this.wuerfelVersuche = wuerfelVersuche;
 	}
 
+	@XmlTransient
 	public Spieler getSpielerAmZug() {
 		return spielerAmZug;
 	}
@@ -73,6 +74,7 @@ public class SpielBean implements iBediener, Serializable {
 	@XmlElement(name="spieler")
 	private ArrayList<Spieler> teilnehmendeSpieler = new ArrayList<Spieler>();
 	/** Der Spieler, der gerade am Zug ist */
+	@XmlElement(name="spielerAmZug")
 	private Spieler spielerAmZug = null;
 	/** Die zuletzt geürfelte Zahl */
 	private int zuleztGewuerfelt = 1;
@@ -120,7 +122,7 @@ public class SpielBean implements iBediener, Serializable {
 	 * @param zuleztGewuerfelt
 	 * @throws KannNichtWuerfelnException 
 	 */
-	public void setZuleztGewuerfelt(int zuleztGewuerfelt) throws KannNichtWuerfelnException {
+	public void setZuleztGewuerfeltIntern(int zuleztGewuerfelt) throws KannNichtWuerfelnException {
 
 		if (zuleztGewuerfelt < 1 || zuleztGewuerfelt > 6) {
 			throw new IllegalArgumentException(
@@ -130,6 +132,10 @@ public class SpielBean implements iBediener, Serializable {
 		}
 		this.zuleztGewuerfelt = zuleztGewuerfelt;
 		this.kanZiehen = true;
+	}
+	
+	public void setZuleztGewuerfelt(int zuleztGewuerfelt) {
+		this.zuleztGewuerfelt = zuleztGewuerfelt;
 	}
 
 	/**
@@ -255,7 +261,7 @@ public class SpielBean implements iBediener, Serializable {
 	public WuerfelErgebnis sWuerfeln() throws KannNichtWuerfelnException {
 
 		if (this.spielerAmZug != null) {
-			this.setZuleztGewuerfelt(this.spielerAmZug.wuerfeln());
+			this.setZuleztGewuerfeltIntern(this.spielerAmZug.wuerfeln());
 
 			return konstruiereWuerfelErgebnis();
 		} else {
@@ -386,7 +392,7 @@ public class SpielBean implements iBediener, Serializable {
 	 */
 	@Override
 	public WuerfelErgebnis debugWuerfeln(int gewuenschteZahl) throws KannNichtWuerfelnException {
-		setZuleztGewuerfelt(gewuenschteZahl);
+		setZuleztGewuerfeltIntern(gewuenschteZahl);
 
 		return konstruiereWuerfelErgebnis();
 	}
@@ -438,7 +444,7 @@ public class SpielBean implements iBediener, Serializable {
 		throw new SpielerNichtGefundenException(spielerFarbe);
 	}
 
-	private boolean kannZiehen() {
+	private boolean testeKannZiehen() {
 
 		for (int i = 0; i < 4; ++i) {
 			Spielfigur figur = this.spielerAmZug.getFigurDurchID(i);
@@ -459,7 +465,7 @@ public class SpielBean implements iBediener, Serializable {
 	 * @return Gibt das Ergebnis zurueck.
 	 */
 	private WuerfelErgebnis konstruiereWuerfelErgebnis() {
-		if (!kannZiehen()) {
+		if (!testeKannZiehen()) {
 			if (!this.spielerAmZug.hatFigurAufSpielfeld()) {
 				++this.wuerfelVersuche;
 				if (this.wuerfelVersuche < 3) {
@@ -570,6 +576,20 @@ public class SpielBean implements iBediener, Serializable {
 		}
 		
 		throw new SpielerNichtGefundenException(farbe);
+	}
+	
+	public void checkSpielerFiguren() {
+		
+		for (Spieler s : this.teilnehmendeSpieler) {
+			for (int i = 0; i < 4; ++i) {
+				Spielfigur sp = s.getFigurDurchID(i);
+				
+				if (sp.getSpielfeld() == null) {
+					throw new RuntimeException();
+				}
+			}
+		}
+		
 	}
 
 }

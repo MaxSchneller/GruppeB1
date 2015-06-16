@@ -30,7 +30,7 @@ public class DatenzugriffXML implements iDatenzugriff {
 				JAXBContext context = JAXBContext.newInstance( SpielBean.class );
 				Marshaller m = context.createMarshaller();
 				m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, true );
-				m.marshal( s, System.out );
+				//m.marshal( s, System.out );
 				fw=new FileWriter(dateipfad + ".xml");
 				m.marshal(s, fw);
 			}

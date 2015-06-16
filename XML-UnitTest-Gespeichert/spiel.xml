@@ -9,7 +9,7 @@
                     <spieler>Karl ROT</spieler>
                     <farbe>ROT</farbe>
                     <eindeutigeID>ROT 0</eindeutigeID>
-                    <spielfeld>S1 ROT</spielfeld>
+                    <spielfeld>4</spielfeld>
                 </spielfigur>
                 <spielfigur>
                     <id>1</id>
@@ -37,13 +37,14 @@
             <farbe>ROT</farbe>
             <name>Karl</name>
             <spielerKI xsi:type="kiAggressiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <spieler>Karl ROT</spieler>
                 <eigeneFiguren>
                     <spielfigur>
                         <id>0</id>
                         <spieler>Karl ROT</spieler>
                         <farbe>ROT</farbe>
                         <eindeutigeID>ROT 0</eindeutigeID>
-                        <spielfeld>S1 ROT</spielfeld>
+                        <spielfeld>4</spielfeld>
                     </spielfigur>
                     <spielfigur>
                         <id>1</id>
@@ -67,7 +68,6 @@
                         <spielfeld>S4 ROT</spielfeld>
                     </spielfigur>
                 </eigeneFiguren>
-                <spieler>Karl ROT</spieler>
             </spielerKI>
             <wuerfel/>
         </spieler>
@@ -79,14 +79,14 @@
                     <spieler>Heinz BLAU</spieler>
                     <farbe>BLAU</farbe>
                     <eindeutigeID>BLAU 0</eindeutigeID>
-                    <spielfeld>25</spielfeld>
+                    <spielfeld>24</spielfeld>
                 </spielfigur>
                 <spielfigur>
                     <id>1</id>
                     <spieler>Heinz BLAU</spieler>
                     <farbe>BLAU</farbe>
                     <eindeutigeID>BLAU 1</eindeutigeID>
-                    <spielfeld>17</spielfeld>
+                    <spielfeld>S2 BLAU</spielfeld>
                 </spielfigur>
                 <spielfigur>
                     <id>2</id>
@@ -107,20 +107,21 @@
             <farbe>BLAU</farbe>
             <name>Heinz</name>
             <spielerKI xsi:type="kiAggressiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <spieler>Heinz BLAU</spieler>
                 <eigeneFiguren>
                     <spielfigur>
                         <id>0</id>
                         <spieler>Heinz BLAU</spieler>
                         <farbe>BLAU</farbe>
                         <eindeutigeID>BLAU 0</eindeutigeID>
-                        <spielfeld>25</spielfeld>
+                        <spielfeld>24</spielfeld>
                     </spielfigur>
                     <spielfigur>
                         <id>1</id>
                         <spieler>Heinz BLAU</spieler>
                         <farbe>BLAU</farbe>
                         <eindeutigeID>BLAU 1</eindeutigeID>
-                        <spielfeld>17</spielfeld>
+                        <spielfeld>S2 BLAU</spielfeld>
                     </spielfigur>
                     <spielfigur>
                         <id>2</id>
@@ -137,7 +138,6 @@
                         <spielfeld>S4 BLAU</spielfeld>
                     </spielfigur>
                 </eigeneFiguren>
-                <spieler>Heinz BLAU</spieler>
             </spielerKI>
             <wuerfel/>
         </spieler>
@@ -149,7 +149,7 @@
                     <spieler>Heinz GELB</spieler>
                     <farbe>GELB</farbe>
                     <eindeutigeID>GELB 0</eindeutigeID>
-                    <spielfeld>37</spielfeld>
+                    <spielfeld>S1 GELB</spielfeld>
                 </spielfigur>
                 <spielfigur>
                     <id>1</id>
@@ -177,13 +177,14 @@
             <farbe>GELB</farbe>
             <name>Heinz</name>
             <spielerKI xsi:type="kiDefensiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <spieler>Heinz GELB</spieler>
                 <eigeneFiguren>
                     <spielfigur>
                         <id>0</id>
                         <spieler>Heinz GELB</spieler>
                         <farbe>GELB</farbe>
                         <eindeutigeID>GELB 0</eindeutigeID>
-                        <spielfeld>37</spielfeld>
+                        <spielfeld>S1 GELB</spielfeld>
                     </spielfigur>
                     <spielfigur>
                         <id>1</id>
@@ -207,7 +208,6 @@
                         <spielfeld>S4 GELB</spielfeld>
                     </spielfigur>
                 </eigeneFiguren>
-                <spieler>Heinz GELB</spieler>
             </spielerKI>
             <wuerfel/>
         </spieler>
@@ -219,7 +219,7 @@
                     <spieler>Heinz GRUEN</spieler>
                     <farbe>GRUEN</farbe>
                     <eindeutigeID>GRUEN 0</eindeutigeID>
-                    <spielfeld>34</spielfeld>
+                    <spielfeld>29</spielfeld>
                 </spielfigur>
                 <spielfigur>
                     <id>1</id>
@@ -247,13 +247,14 @@
             <farbe>GRUEN</farbe>
             <name>Heinz</name>
             <spielerKI xsi:type="kiAggressiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <spieler>Heinz GRUEN</spieler>
                 <eigeneFiguren>
                     <spielfigur>
                         <id>0</id>
                         <spieler>Heinz GRUEN</spieler>
                         <farbe>GRUEN</farbe>
                         <eindeutigeID>GRUEN 0</eindeutigeID>
-                        <spielfeld>34</spielfeld>
+                        <spielfeld>29</spielfeld>
                     </spielfigur>
                     <spielfigur>
                         <id>1</id>
@@ -277,13 +278,82 @@
                         <spielfeld>S4 GRUEN</spielfeld>
                     </spielfigur>
                 </eigeneFiguren>
-                <spieler>Heinz GRUEN</spieler>
             </spielerKI>
             <wuerfel/>
         </spieler>
     </teilnehmendeSpieler>
+    <spielerAmZug>
+        <spiel>Spiel</spiel>
+        <figuren>
+            <spielfigur>
+                <id>0</id>
+                <spieler>Heinz GRUEN</spieler>
+                <farbe>GRUEN</farbe>
+                <eindeutigeID>GRUEN 0</eindeutigeID>
+                <spielfeld>29</spielfeld>
+            </spielfigur>
+            <spielfigur>
+                <id>1</id>
+                <spieler>Heinz GRUEN</spieler>
+                <farbe>GRUEN</farbe>
+                <eindeutigeID>GRUEN 1</eindeutigeID>
+                <spielfeld>S2 GRUEN</spielfeld>
+            </spielfigur>
+            <spielfigur>
+                <id>2</id>
+                <spieler>Heinz GRUEN</spieler>
+                <farbe>GRUEN</farbe>
+                <eindeutigeID>GRUEN 2</eindeutigeID>
+                <spielfeld>S3 GRUEN</spielfeld>
+            </spielfigur>
+            <spielfigur>
+                <id>3</id>
+                <spieler>Heinz GRUEN</spieler>
+                <farbe>GRUEN</farbe>
+                <eindeutigeID>GRUEN 3</eindeutigeID>
+                <spielfeld>S4 GRUEN</spielfeld>
+            </spielfigur>
+        </figuren>
+        <id>Heinz GRUEN</id>
+        <farbe>GRUEN</farbe>
+        <name>Heinz</name>
+        <spielerKI xsi:type="kiAggressiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <spieler>Heinz GRUEN</spieler>
+            <eigeneFiguren>
+                <spielfigur>
+                    <id>0</id>
+                    <spieler>Heinz GRUEN</spieler>
+                    <farbe>GRUEN</farbe>
+                    <eindeutigeID>GRUEN 0</eindeutigeID>
+                    <spielfeld>29</spielfeld>
+                </spielfigur>
+                <spielfigur>
+                    <id>1</id>
+                    <spieler>Heinz GRUEN</spieler>
+                    <farbe>GRUEN</farbe>
+                    <eindeutigeID>GRUEN 1</eindeutigeID>
+                    <spielfeld>S2 GRUEN</spielfeld>
+                </spielfigur>
+                <spielfigur>
+                    <id>2</id>
+                    <spieler>Heinz GRUEN</spieler>
+                    <farbe>GRUEN</farbe>
+                    <eindeutigeID>GRUEN 2</eindeutigeID>
+                    <spielfeld>S3 GRUEN</spielfeld>
+                </spielfigur>
+                <spielfigur>
+                    <id>3</id>
+                    <spieler>Heinz GRUEN</spieler>
+                    <farbe>GRUEN</farbe>
+                    <eindeutigeID>GRUEN 3</eindeutigeID>
+                    <spielfeld>S4 GRUEN</spielfeld>
+                </spielfigur>
+            </eigeneFiguren>
+        </spielerKI>
+        <wuerfel/>
+    </spielerAmZug>
     <id>Spiel</id>
-    <kanZiehen>false</kanZiehen>
+    <kanZiehen>true</kanZiehen>
     <kannWuerfeln>true</kannWuerfeln>
     <spielbrett>
         <spiel>Spiel</spiel>
@@ -303,6 +373,7 @@
             </spielfeld>
             <spielfeld>
                 <ID>4</ID>
+                <figurAufFeld>ROT 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -355,7 +426,6 @@
             </spielfeld>
             <spielfeld>
                 <ID>17</ID>
-                <figurAufFeld>BLAU 1</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -384,11 +454,11 @@
             </spielfeld>
             <spielfeld>
                 <ID>24</ID>
+                <figurAufFeld>BLAU 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
                 <ID>25</ID>
-                <figurAufFeld>BLAU 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -405,6 +475,7 @@
             </spielfeld>
             <spielfeld>
                 <ID>29</ID>
+                <figurAufFeld>GRUEN 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -425,7 +496,6 @@
             </spielfeld>
             <spielfeld>
                 <ID>34</ID>
-                <figurAufFeld>GRUEN 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -438,7 +508,6 @@
             </spielfeld>
             <spielfeld>
                 <ID>37</ID>
-                <figurAufFeld>GELB 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </spielfeld>
             <spielfeld>
@@ -529,7 +598,6 @@
         <startfelder>
             <item>
                 <ID>S1 ROT</ID>
-                <figurAufFeld>ROT 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </item>
             <item>
@@ -555,6 +623,7 @@
             </item>
             <item>
                 <ID>S2 BLAU</ID>
+                <figurAufFeld>BLAU 1</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </item>
             <item>
@@ -592,6 +661,7 @@
         <startfelder>
             <item>
                 <ID>S1 GELB</ID>
+                <figurAufFeld>GELB 0</figurAufFeld>
                 <spielbrett>spielbrett</spielbrett>
             </item>
             <item>
@@ -611,77 +681,7 @@
             </item>
         </startfelder>
     </spielbrett>
-    <spielerAmZug>
-        <spiel>Spiel</spiel>
-        <figuren>
-            <spielfigur>
-                <id>0</id>
-                <spieler>Heinz GELB</spieler>
-                <farbe>GELB</farbe>
-                <eindeutigeID>GELB 0</eindeutigeID>
-                <spielfeld>37</spielfeld>
-            </spielfigur>
-            <spielfigur>
-                <id>1</id>
-                <spieler>Heinz GELB</spieler>
-                <farbe>GELB</farbe>
-                <eindeutigeID>GELB 1</eindeutigeID>
-                <spielfeld>S2 GELB</spielfeld>
-            </spielfigur>
-            <spielfigur>
-                <id>2</id>
-                <spieler>Heinz GELB</spieler>
-                <farbe>GELB</farbe>
-                <eindeutigeID>GELB 2</eindeutigeID>
-                <spielfeld>S3 GELB</spielfeld>
-            </spielfigur>
-            <spielfigur>
-                <id>3</id>
-                <spieler>Heinz GELB</spieler>
-                <farbe>GELB</farbe>
-                <eindeutigeID>GELB 3</eindeutigeID>
-                <spielfeld>S4 GELB</spielfeld>
-            </spielfigur>
-        </figuren>
-        <id>Heinz GELB</id>
-        <farbe>GELB</farbe>
-        <name>Heinz</name>
-        <spielerKI xsi:type="kiDefensiv" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <eigeneFiguren>
-                <spielfigur>
-                    <id>0</id>
-                    <spieler>Heinz GELB</spieler>
-                    <farbe>GELB</farbe>
-                    <eindeutigeID>GELB 0</eindeutigeID>
-                    <spielfeld>37</spielfeld>
-                </spielfigur>
-                <spielfigur>
-                    <id>1</id>
-                    <spieler>Heinz GELB</spieler>
-                    <farbe>GELB</farbe>
-                    <eindeutigeID>GELB 1</eindeutigeID>
-                    <spielfeld>S2 GELB</spielfeld>
-                </spielfigur>
-                <spielfigur>
-                    <id>2</id>
-                    <spieler>Heinz GELB</spieler>
-                    <farbe>GELB</farbe>
-                    <eindeutigeID>GELB 2</eindeutigeID>
-                    <spielfeld>S3 GELB</spielfeld>
-                </spielfigur>
-                <spielfigur>
-                    <id>3</id>
-                    <spieler>Heinz GELB</spieler>
-                    <farbe>GELB</farbe>
-                    <eindeutigeID>GELB 3</eindeutigeID>
-                    <spielfeld>S4 GELB</spielfeld>
-                </spielfigur>
-            </eigeneFiguren>
-            <spieler>Heinz GELB</spieler>
-        </spielerKI>
-        <wuerfel/>
-    </spielerAmZug>
-    <spielerAmZugIndex>2</spielerAmZugIndex>
+    <spielerAmZugIndex>3</spielerAmZugIndex>
     <wuerfelVersuche>0</wuerfelVersuche>
-    <zuleztGewuerfelt>2</zuleztGewuerfelt>
+    <zuleztGewuerfelt>4</zuleztGewuerfelt>
 </spielBean>

@@ -2,6 +2,7 @@ package Tests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
@@ -13,6 +14,7 @@ import Fehler_Exceptions.KannNichtWuerfelnException;
 import Fehler_Exceptions.SpielerFarbeVorhandenException;
 import Fehler_Exceptions.SpielerNichtGefundenException;
 import Kuenstliche_Intelligenz.KiTypEnum;
+import Speichern_Laden.DatenzugriffCSV;
 import Speichern_Laden.DatenzugriffSerialisiert;
 import Speichern_Laden.DatenzugriffXML;
 import Speichern_Laden.iDatenzugriff;
@@ -56,9 +58,8 @@ public class DatenzugriffXMLTest {
 		vergleichePositionen(this.spiel.getAlleFigurenPositionen(),
 				anderes.getAlleFigurenPositionen());
 	}
-
 	@Test
-	public void test2() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException, JAXBException {
+	public void test2() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException, JAXBException, ClassNotFoundException, FileNotFoundException, IOException, SpielerNichtGefundenException {
 		for (int i = 0; i < 1; i++) {
 			iBediener s = new SpielBean("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
 			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
@@ -67,9 +68,12 @@ public class DatenzugriffXMLTest {
 			
 			int durchgaenge = 0;
 			
+			iDatenzugriff blah = new DatenzugriffXML();
+			s = (iBediener) blah.spielLaden("./XML-UnitTest-Gespeichert/spiel.xml");
+			
 			while (true) {
 				
-				durchgaenge++;
+				//durchgaenge++;
 				
 				if (durchgaenge == 20) {
 					iDatenzugriff dzg = new DatenzugriffXML();
@@ -82,14 +86,18 @@ public class DatenzugriffXMLTest {
 						String[][] figurenVorLaden = s.getAlleFigurenPositionen();
 						dzg.spielSpeichern((SpielBean)s, "./XML-UnitTest-Gespeichert/spiel");
 						
-					
+						dzg = new DatenzugriffCSV();
+						dzg.spielSpeichern((SpielBean)s, "./XML-UnitTest-Gespeichert/spiel.csv");
 						
+					
+						dzg = new DatenzugriffXML();
 						SpielBean s1 = (SpielBean)dzg.spielLaden("./XML-UnitTest-Gespeichert/spiel.xml");
 						String[][] figurenNachLaden = s1.getAlleFigurenPositionen();
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());
 						
 						s = s1;
+						s1.checkSpielerFiguren();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
