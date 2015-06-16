@@ -21,7 +21,6 @@ public class Spielfigur implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private FarbEnum farbe;
-	@XmlIDREF
 	@XmlElement(name="spielfeld")
 	private Spielfeld spielfeld;
 	private int id;
@@ -102,6 +101,7 @@ public class Spielfigur implements Serializable {
 	public void setSpielfeld(Spielfeld feld){
 		if(feld != null){
 			this.spielfeld = feld;
+			feld.setFigurAufFeld(this);
 		}
 	}
 

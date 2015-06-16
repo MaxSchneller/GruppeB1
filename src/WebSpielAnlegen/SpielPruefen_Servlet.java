@@ -58,7 +58,14 @@ public class SpielPruefen_Servlet extends HttpServlet {
 				request.getSession().setAttribute("fehlerArg", "Sie können nicht beitreten, Spiel ist voll");
 				response.sendRedirect("fehler.jsp");
 			} else {
-				response.sendRedirect("Login_HTML/Spieler.jsp");
+				
+				Boolean spielGeladen = (Boolean)request.getServletContext().getAttribute("spielWurdeGeladen");
+				
+				if (spielGeladen == null || !spielGeladen) {
+					response.sendRedirect("Login_HTML/Spieler.jsp");
+				} else {
+					response.sendRedirect("Login_HTML/GeladenemSpielJoinen.jsp");
+				}
 			}
 		}
 		

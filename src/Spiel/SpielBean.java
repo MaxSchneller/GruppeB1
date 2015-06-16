@@ -74,6 +74,7 @@ public class SpielBean implements iBediener, Serializable {
 	@XmlElement(name="spieler")
 	private ArrayList<Spieler> teilnehmendeSpieler = new ArrayList<Spieler>();
 	/** Der Spieler, der gerade am Zug ist */
+	@XmlIDREF
 	@XmlElement(name="spielerAmZug")
 	private Spieler spielerAmZug = null;
 	/** Die zuletzt geürfelte Zahl */

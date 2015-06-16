@@ -55,6 +55,7 @@ public class DatenzugriffXML implements iDatenzugriff {
 		JAXBContext context=JAXBContext.newInstance(SpielBean.class);
 		Unmarshaller um = context.createUnmarshaller();
 		SpielBean s = (SpielBean)um.unmarshal(new FileReader(dateipfad));
+		s.setSpielerAmZug(s.getTeilnehmendeSpieler().get(s.getSpielerAmZugIndex()));
 		
 		//Alle SPieler ordnen
 		

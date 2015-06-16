@@ -80,12 +80,12 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				document.open();
 				
 			
-				Image image = Image.getInstance("WebContent/images/madn-neu.png");
-				//image.setAbsolutePosition(0, 0);
+				Image image = Image.getInstance("./WebContent/images/madn-neu.png");
+				image.setAbsolutePosition(0, 0);
 
-				//document.add(image);
+				document.add(image);
 				
-				//this.speichereFiguren(zuSpeicherndesSpiel, document);
+				this.speichereFiguren(zuSpeicherndesSpiel, document);
 				this.speichereNamen(zuSpeicherndesSpiel, pdfWriter);
 
 				document.close();
@@ -227,7 +227,7 @@ public class DatenzugriffPDF implements iDatenzugriff {
 				
 				String farbe = teile[1].toLowerCase();
 				
-				Image img = Image.getInstance("Bilder/" + farbe + ".png");
+				Image img = Image.getInstance("./WebContent/images/" + farbe + "figur.png");
 				img.setAbsolutePosition(this.xSpalten[spalte], this.ySpalten[reihe]);
 				
 				doc.add(img);

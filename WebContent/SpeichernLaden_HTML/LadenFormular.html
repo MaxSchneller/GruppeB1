@@ -6,14 +6,16 @@
 </head>
 <body>
 	<h2>Bitte laden Sie die gewünschte Datei</h1>
+	<form action="../LadenServlet" method="post">
 <p>
 	Dateiname: <input name="Dateiname" type="text" size="30" maxlength="30">
-	<select>
+	<select name="format">
 		<option value="csv">.csv</option>
 		<option value="ser">.ser</option>
 		<option value="pdf">.pdf</option>
 	</select>
 </p>
-	<button type="submit">Laden!</button>
+	<input type="submit">Laden!
+	</form>
 </body>
 </html>

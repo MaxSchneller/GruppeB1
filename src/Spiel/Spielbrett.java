@@ -29,6 +29,8 @@ public class Spielbrett implements Serializable {
 	private Spielfeld[] regulaereFelder = new Spielfeld[40];
 
 	private Spielfeld[][] startfelder = new Spielfeld[4][4];
+	
+	int zugCounter = 0;
 
 	public void setEndfelder(Spielfeld[][] endfelder) {
 		this.endfelder = endfelder;
@@ -125,6 +127,7 @@ public class Spielbrett implements Serializable {
 	 * 
 	 * @return startfeld
 	 */
+	@XmlElementWrapper(name="startfelder")
 	public Spielfeld[][] getStartfelder() {
 		return this.startfelder;
 	}
@@ -144,6 +147,7 @@ public class Spielbrett implements Serializable {
 	 * 
 	 * @return endfeld
 	 */
+	@XmlElementWrapper(name="endfelder")
 	public Spielfeld[][] getEndfelder() {
 		return this.endfelder;
 	}
@@ -160,8 +164,13 @@ public class Spielbrett implements Serializable {
 	 */
 	public ZugErgebnis zug(int gewuerfelteZahl, Spielfigur figur,
 			boolean ausfuehren) {
-
+		zugCounter++;
 		Spielfeld feldDerFigur = figur.getSpielfeld();
+		
+		if (zugCounter == 2) {
+			//throw new RuntimeException();
+			System.out.println();
+		}
 
 		if (feldDerFigur.isStartfeld()) {
 			if (gewuerfelteZahl == 6) {
@@ -371,6 +380,10 @@ public class Spielbrett implements Serializable {
 
 		Spielfigur gegnerFigur = zielFeld.getFigurAufFeld();
 		Spielfigur eigeneFigur = feldDerFigur.getFigurAufFeld();
+		
+		if (eigeneFigur == null) {
+			throw new RuntimeException();
+		}
 
 		boolean zugBeendet = gewuerfelteZahl == 6 ? false : true;
 
@@ -507,6 +520,10 @@ public class Spielbrett implements Serializable {
 			figur.getSpielfeld().setFigurAufFeld(null);
 			figur.setSpielfeld(zielFeld);
 			zielFeld.setFigurAufFeld(figur);
+			
+			if (figur.getSpielfeld().getFigurAufFeld() == null) {
+				throw new RuntimeException();
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

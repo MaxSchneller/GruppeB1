@@ -30,17 +30,17 @@ public class DatenzugriffXMLTest {
 
 	@Before
 	public void before() throws SpielerFarbeVorhandenException {
-		this.spiel = new SpielBean("Hans", FarbEnum.ROT, KiTypEnum.DEFENSIV);
-		this.spiel.spielerHinzufuegen("Hallo", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
-
-		try {
-			spiel.debugSetzeFigur(FarbEnum.ROT, 0, "E1 ROT");
-			spiel.debugSetzeFigur(FarbEnum.ROT, 3, "20");
-			spiel.debugSetzeFigur(FarbEnum.ROT, 0, "24");
-		} catch (SpielerNichtGefundenException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		this.spiel = new SpielBean("Hans", FarbEnum.ROT, KiTypEnum.DEFENSIV);
+//		this.spiel.spielerHinzufuegen("Hallo", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
+//
+//		try {
+//			spiel.debugSetzeFigur(FarbEnum.ROT, 0, "E1 ROT");
+//			spiel.debugSetzeFigur(FarbEnum.ROT, 3, "20");
+//			spiel.debugSetzeFigur(FarbEnum.ROT, 0, "24");
+//		} catch (SpielerNichtGefundenException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 
@@ -62,9 +62,8 @@ public class DatenzugriffXMLTest {
 	public void test2() throws SpielerFarbeVorhandenException, KannNichtWuerfelnException, JAXBException, ClassNotFoundException, FileNotFoundException, IOException, SpielerNichtGefundenException {
 		for (int i = 0; i < 1; i++) {
 			iBediener s = new SpielBean("Karl", FarbEnum.ROT, KiTypEnum.AGGRESIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.GELB, KiTypEnum.DEFENSIV);
-			s.spielerHinzufuegen("Heinz", FarbEnum.GRUEN, KiTypEnum.AGGRESIV);
+			//s.spielerHinzufuegen("Heinz", FarbEnum.BLAU, KiTypEnum.AGGRESIV);
+			
 			
 			int durchgaenge = 0;
 			
@@ -96,6 +95,7 @@ public class DatenzugriffXMLTest {
  						vergleichePositionen(figurenVorLaden, figurenNachLaden);
 						assertEquals(spielerAmZugFarbe, s.getSpielerAmZugFarbe());
 						
+						dzg.spielSpeichern(s1, "XML-UnitTest-Gespeichert/neuesSpiel");
 						s = s1;
 						s1.checkSpielerFiguren();
 					} catch (Exception e) {

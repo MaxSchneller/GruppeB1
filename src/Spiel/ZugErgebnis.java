@@ -68,15 +68,19 @@ public class ZugErgebnis implements Serializable {
 			// Nichts tun
 			return;
 		}
-		
 		this.geaenderteFiguren = new String[geanderteFiguren.length][3];
-		for (int i = 0; i < geanderteFiguren.length; i++) {
-			this.geaenderteFiguren[i][0] = geanderteFiguren[i].getFarbe()
-					.toString();
-			this.geaenderteFiguren[i][1] = String.format("%d",
-					geanderteFiguren[i].getId());
-			this.geaenderteFiguren[i][2] = geanderteFiguren[i].getSpielfeld()
-					.getID();
+		try {
+			for (int i = 0; i < geanderteFiguren.length; i++) {
+				this.geaenderteFiguren[i][0] = geanderteFiguren[i].getFarbe()
+						.toString();
+				this.geaenderteFiguren[i][1] = String.format("%d",
+						geanderteFiguren[i].getId());
+				this.geaenderteFiguren[i][2] = geanderteFiguren[i].getSpielfeld()
+						.getID();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

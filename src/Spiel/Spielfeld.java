@@ -26,7 +26,7 @@ public class Spielfeld implements Serializable {
 	@XmlID
 	private String ID;
 	@XmlIDREF
-	@XmlElement(name="figurAufFeld")
+	@XmlElement(name="spielfigur")
 	private Spielfigur figurAufFeld;
 
 	/**
@@ -151,6 +151,14 @@ public class Spielfeld implements Serializable {
 	 * @param figur die Spielfigur
 	 */
 	public void setFigurAufFeld(Spielfigur figur) {
+		
+		if (figur == null) {
+			System.out.println("Hallo");
+		} else {
+		
+		System.out.println("Spielfeld setze Figur: " + figur);
+		System.out.println("	Figur hat Spielfeld: " + figur.getSpielfeld());
+		}
 		this.figurAufFeld = figur;
 	}
 
