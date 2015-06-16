@@ -43,14 +43,14 @@ public class GeladenJoinenServlet extends HttpServlet {
 		Integer anzahlSpieler = (Integer) request.getServletContext().getAttribute("spielerAnzahl");
 		Integer anzahlBeitreten = (Integer) request.getServletContext().getAttribute("anzahlBeitreten");
 		Integer eigeneSpielerNummer = new Integer(anzahlBeitreten);
-		++anzahlBeitreten; // Das ist der Spieler der joinen will
+		++anzahlBeitreten; // Das ist der Spieler der nach diesem joinen will
 		FarbEnum[] vorhandeneFarbe = (FarbEnum[]) request.getServletContext().getAttribute("vorhandeneFarben");
 		
 		HttpSession session = request.getSession();
 		
 		iBediener spiel = (iBediener) request.getServletContext().getAttribute("spiel");
 		
-		String[] naechsterSpieler = spiel.getSpieler()[anzahlBeitreten].split(" ; ");
+		String[] naechsterSpieler = spiel.getSpieler()[eigeneSpielerNummer].split(" ; ");
 		
 		
 			for (int i = anzahlBeitreten; i < spiel.getSpieler().length; ++i) {

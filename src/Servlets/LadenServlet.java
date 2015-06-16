@@ -117,8 +117,8 @@ public class LadenServlet extends HttpServlet {
 			session.setAttribute("name", ersterSpieler[0]);
 			session.setAttribute("farbe", FarbEnum.vonString(ersterSpieler[1].toUpperCase()));
 			
-			
-			if (spiel.getSpieler().length == 1) {
+			Integer spielerAnzahl = spiel.getSpieler().length;
+			if (anzahlBeitreten >= spielerAnzahl) {
 				response.sendRedirect("spielfeld.jsp");
 			} else {
 				response.sendRedirect("Login_HTML/bitteWarten.html");
