@@ -15,23 +15,53 @@
 		</style>	
 	</head>
 	<body>
+	<%
+		Integer anzahlBeitreten = (Integer)request.getServletContext().getAttribute("anzahlBeitreten");
+	%>
 		<h1>Spiel beitreten</h1>
-		<p>Es existiert ein Spiel, wechlem Sie beitreten können. Sie sind Spieler 2</p>
+		<p>Es existiert ein Spiel, wechlem Sie beitreten können. Sie sind Spieler
+		 <% 
+		 out.print(anzahlBeitreten + 1);
+		%>
+		 </p>
 		
 		<form action="../ErstelleSpieler_Servlet" method="post">
 					
 			<p>
 				<label for="eigenerName"><b>Eigener Name</b></label>
-				<input name="eigenerName" value="Spieler 2" />
+				<input name="eigenerName" value="Spieler <% 
+		 out.print(anzahlBeitreten + 1);
+		%>" />
 				<br/>
 			</p>
 
 			<p>
 				<label for="eigeneFarbe"><b>Eigene Farbe</b></label>
-				<input type="radio" name="eigeneFarbe" value="rot" style="background:#FF0000" checked>Rot</input>
-				<input type="radio" name="eigeneFarbe" value="blau" style="background:#0000FF">Blau</input>
-				<input type="radio" name="eigeneFarbe" value="gruen" style="background:#00FF00">Grün</input>
-				<input type="radio" name="eigeneFarbe" value="gelb" style="background:#FFFF00">Gelb</input>	
+				<% 
+					Boolean[] freieFarben = (Boolean[]) request.getServletContext().getAttribute("freieFarben");
+					
+					if (freieFarben[0] ) {
+						out.println("<input type=\"radio\" name=\"eigeneFarbe\" value=\"rot\" style=\"background:#FF0000\" checked>Rot</input>");
+					}
+					
+					if (freieFarben[1] ) {
+						out.println("<input type=\"radio\" name=\"eigeneFarbe\" value=\"blau\" style=\"background:#FF0000\" checked>Blau</input>");
+					}
+					if (freieFarben[2] ) {
+						out.println("<input type=\"radio\" name=\"eigeneFarbe\" value=\"gruen\" style=\"background:#FF0000\" checked>Gruen</input>");
+					}
+					if (freieFarben[3] ) {
+						out.println("<input type=\"radio\" name=\"eigeneFarbe\" value=\"gelb\" style=\"background:#FF0000\" checked>Gelb</input>");
+					}
+				%>
+				
+				
+				
+				
+<!-- 				<input type="radio" name="eigeneFarbe" value="rot" style="background:#FF0000" checked>Rot</input> -->
+<!-- 				<input type="radio" name="eigeneFarbe" value="blau" style="background:#0000FF">Blau</input> -->
+<!-- 				<input type="radio" name="eigeneFarbe" value="gruen" style="background:#00FF00">Grün</input> -->
+<!-- 				<input type="radio" name="eigeneFarbe" value="gelb" style="background:#FFFF00">Gelb</input>	 -->
 			</p>
 			
 			<br/>

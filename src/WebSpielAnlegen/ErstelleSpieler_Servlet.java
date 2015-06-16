@@ -67,6 +67,11 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 			request.getSession().setAttribute("name", name);
 			request.getSession().setAttribute("farbe", farbe1);
 			
+			
+			
+			
+			
+			
 			Integer spielerAnzahl = (Integer)request.getServletContext().getAttribute("spielerAnzahl");
 			
 			
@@ -105,6 +110,17 @@ public class ErstelleSpieler_Servlet extends HttpServlet {
 				}
 			}
 			
+			Boolean[] freieFarben = new Boolean[4];
+			
+			for (int i = 0; i < 4; ++i) {
+				
+				if (ib.isFarbeVergeben(FarbEnum.vonInt(i))) {
+					freieFarben[i] = false;
+				} else {
+					freieFarben[i] = true;
+				}
+			}
+			request.getServletContext().setAttribute("freieFarben", freieFarben);
 			response.sendRedirect("Login_HTML/bitteWarten.html");
 			
 		}

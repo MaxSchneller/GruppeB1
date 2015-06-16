@@ -72,6 +72,20 @@ public class TypAuswahl_Anzahl_Servlet extends HttpServlet {
 			ctx.setAttribute("spielerAnzahl", anzahlSpieler);
 			ctx.setAttribute("anzahlBeitreten", new Integer(1));
 			
+			Boolean[] freieFarben = new Boolean[4];
+			
+			for (int i = 0; i < 4; ++i) {
+				
+				if (spiel.isFarbeVergeben(FarbEnum.vonInt(i))) {
+					freieFarben[i] = false;
+				} else {
+					freieFarben[i] = true;
+				}
+			}
+			
+			request.getServletContext().setAttribute("freieFarben", freieFarben);
+			
+			
 			String[][] figuren = HilfsMethoden.konvertiereFigurenInZeileUndSpalte(spiel.getAlleFigurenPositionen());
 			
 			ctx.setAttribute("positionen", figuren);
